@@ -1,0 +1,136 @@
+<ion-view view-title="我的主页" hide-back-button="false">
+  <ion-nav-buttons side="left">
+    <img ng-if="ctrl.storeLogo==1" class="titleImg" src="img/LOGO-WHITE.png">
+    <img ng-if="ctrl.storeLogo==2" class="titleImg" src="img/chipLOGO-WHITE.png">
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right" ng-show="ctrl.user.role.roleId==2||ctrl.user.role.roleId==6 || ctrl.user.role.roleId==8">
+    <button class="fcf button button-icon ion-ios-search-strong" ng-click="modal.show()"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="refreshHome()"></ion-refresher>
+    <div class="list">
+      <!-- 工作待办 -->
+      <div class="bip-item-divider" style="margin-top: 10px;">
+        <div class="title">工作待办</div>
+      </div>
+      <div class="row bipPsize">
+        <div class="col col-33">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('trackCustomerList',{userId:ctrl.userId,userName:ctrl.userName})">
+              <h2>{{ctrl.homeCount.shouldTraceNum}}</h2>
+              <p>应跟踪</p>
+            </a>
+          </div>
+        </div>
+        <div class="col col-33">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('receivedCustomerList',{userId:ctrl.userId,userName:ctrl.userName})">
+              <h2>{{ctrl.homeCount.accpetNum}}</h2>
+              <p>未接收</p>
+            </a>
+          </div>
+        </div>
+        <div class="col col-33">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('customerListJtb',{userId:ctrl.userId,userName:ctrl.userName,cusLostInsurStatu:1})">
+              <h2>{{ctrl.homeCount.willOutNum}}</h2>
+              <p>将脱保</p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="row bipPsize"  ng-if="ctrl.user.role.roleId==2">
+        <div class="col col-33">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('defeatList',{userId:ctrl.userId,userName:ctrl.userName})">
+              <h2>{{ctrl.homeCount.defeatNum}}</h2>
+              <p>销售战败线索</p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- 特别关注 -->
+      <div class="bip-item-divider">
+        <div class="title">特别关注</div>
+      </div>
+      <div class="row bipPsize">
+        <div class="col col-33" ng-if="ctrl.user.role.roleId==2">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('inviteXbzyList',{userId:ctrl.userId,userName:ctrl.userName})">
+              <h2>{{ctrl.homeCount.inviteNum}}</h2>
+              <p>邀约</p>
+            </a>
+          </div>
+        </div>
+        <div class="col col-33">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('trackedCustomerList',{userId:ctrl.userId,userName:ctrl.userName})">
+              <h2>{{ctrl.homeCount.tracedNum}}</h2>
+              <p>已跟踪</p>
+            </a>
+          </div>
+        </div>
+        <div class="col col-33">
+          <div class="list text-center">
+            <a class="item bg-eee"  ng-click="ctrl.stateChange('lossInsuranceList',{userId:ctrl.userId,userName:ctrl.userName,cusLostInsurStatu:2})">
+              <h2>{{ctrl.homeCount.outedNum}}</h2>
+              <p>已脱保</p>
+            </a>
+          </div>
+        </div>
+        <div class="col col-33" ng-if="ctrl.user.role.roleId==6 || ctrl.user.role.roleId==8">
+          <div class="list text-center">
+            <a class="item bg-eee"  ng-click="ctrl.stateChange('trackCompletionList',{userId:ctrl.userId,userName:ctrl.userName})">
+              <h2>{{ctrl.homeCount.tracedFinishedNum}}</h2>
+              <p>跟踪完成</p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="row bipPsize">
+        <div class="col col-33" ng-if="ctrl.user.role.roleId==2">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('activationList',{userId:ctrl.userId,userName:ctrl.userName})">
+              <h2>{{ctrl.homeCount.jiHuoNum}}</h2>
+              <p>已激活</p>
+            </a>
+          </div>
+        </div>
+        <div class="col col-33" ng-if="ctrl.user.role.roleId==6 || ctrl.user.role.roleId==8">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('beenBackList',{userId:ctrl.userId,userName:ctrl.userName})">
+              <h2>{{ctrl.homeCount.yiHuiTuiNum}}</h2>
+              <p>已回退</p>
+            </a>
+          </div>
+        </div>
+        <div class="col col-33">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('approvalList',{userId:ctrl.userId,userName:ctrl.userName})">
+              <h2>{{ctrl.homeCount.approveNum}}</h2>
+              <p>待审批</p>
+            </a>
+          </div>
+        </div>
+        <div class="col col-33">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('customerListDdwcd',{userId:ctrl.userId,userName:ctrl.userName})">
+              <h2>{{ctrl.homeCount.comeStoreNoBillNum}}</h2>
+              <p>到店未出单</p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="row bipPsize" ng-if="ctrl.user.role.roleId==2">
+        <div class="col col-33">
+          <div class="list text-center">
+            <a class="item bg-eee" style="padding: 16px 5px;" ng-click="ctrl.stateChange('billList')">
+              <h2>{{ctrl.homeCount.billCreatedTodayNum}}</h2>
+              <p>今日创建保单</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

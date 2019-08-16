@@ -1,0 +1,869 @@
+@charset "utf-8";
+body {
+	margin:0;
+	background-color:#2A2A2A;
+	font-family:"微软雅黑";
+	font-size:12px;
+	min-width: 1100px;
+}
+i{
+	font-style:normal;
+}
+ul,li {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+table,td,tr{
+	font-family: 'Microsoft Yahei',"YaHei","微软雅黑";
+    font-size: 12px;
+}
+input:disabled,select:disabled,textarea:disabled{
+	opacity:0.5;
+}
+#scmHeader{
+	min-width: 1100px;
+	position:fixed;
+	left:10px;
+	right:10px;
+	top:10px;
+	background-color:#1db6b0;
+	height:76px;
+	box-shadow:0 5px 5px rgba(0,0,0,.1);
+	border-radius:10px 10px 0 0;
+}
+#scmFooter{
+	min-width: 1100px;
+	position:fixed;
+	left:10px;
+	right:10px;
+	bottom:10px;
+	background-color:#1db6b0;
+	height:36px;
+	border-radius:0 0 10px 10px;
+	padding:12px 12px 12px 20px;
+}
+#scmContent{
+	min-width: 1100px;
+	position:absolute;
+	top:86px;
+	background-color:#F7F7F7;
+	margin-bottom:auto;
+	left:10px;
+	right:10px;
+	bottom:46px;
+	padding:12px 12px 12px 20px;
+}
+.sideNavSwitch{
+	position:absolute;
+	left:0;
+	width:12px;
+	height:200px;
+	background-color:#1db6b0;
+	margin-top:-100px;
+	top:50%;
+	background-image:url(../images/sideBarArrow3.png);
+	background-repeat:no-repeat;
+	background-position:center center;
+}
+.scmContentTitle{
+	height:40px;
+	border-radius:8px 8px 0 0;
+	background-color:#aaa;
+	background-image:url(../images/scmtitleBG.png);
+}
+.scmPlate{
+	height:100%;
+	border-radius:8px;
+	background-color:#fff;
+	border:1px solid #cecece;
+	overflow: hidden;
+}
+.scmTitleText{
+	color:#555;
+	text-shadow:0 1px 2px rgba(0,0,0,.4);
+	position:absolute;
+	left:50%;
+	//right:25px;
+	line-height:40px;
+	font-size:16px;
+}
+
+.scmTitleTools{
+	color:#555;
+	text-shadow:0 1px 0px rgba(0,0,0,.4);
+	position:absolute;
+	right:10px;
+	line-height:40px;
+	font-size:13px;
+}
+.scmSwitch{
+	position:absolute;
+	top:17px;
+	left:35px;
+	height:28px;
+	width:220px;
+	border:1px solid #cfcdce;
+	border-radius:5px;
+	box-shadow:1px 1px 0 rgba(255,255,255,.7),inset 1px 1px 0 rgba(255,255,255,.7);
+}
+
+.scmSwitch .scmSwitchBG{
+	position:absolute;
+	background-color:#86CCF4;
+	width:110px;
+	height:28px;
+	top:0;
+	left:0;
+	border-radius:5px 0 0 5px;
+	
+	box-shadow:inset 0px 1px 0 rgba(255,255,255,.5);
+}
+.scmSwitch .scmSwitchContent{
+	position:absolute;
+	width:auto;
+}
+.scmSwitch .scmSwitchContent li{
+	display:inline-block;
+	line-height:28px;
+	font-size:14px;
+	margin:0 20px;
+	cursor:pointer;
+}
+
+.scmSwitch .scmSwitchContent li.selected{
+	color:#fff;
+	text-shadow:0 1px 2px rgba(0,0,0,.3);
+}
+.scmGridContainer{
+	padding: 5px;
+	position: relative;
+	box-sizing: border-box;
+}
+#scmSidebar{
+	position:fixed;
+	top:86px;
+	left:-300px;
+	width:300px;
+	background-color:rgba(47,90,92,.9);
+	border-radius:0 0 0 10px;
+	bottom:10px;
+	z-index:800;
+}
+.scmSBReturn{
+	position:absolute;
+	right:0;
+	width:15px;
+	height:60px;
+	background-color:rgba(0,0,0,.2);
+	top:50%;
+	margin-top:-30px;
+	border-radius:5px 0 0 5px;
+	border:1px solid rgba(0,0,0,.3);
+	box-shadow:inset 0 2px 3px rgba(0,0,0,.2);
+	transition:background-color 0.2s;
+	background-image:url(../images/sideBarArrow.png);
+	background-position:center center;
+	background-repeat:no-repeat;
+}
+.scmSBReturn:hover{
+	background-color:rgba(0,0,0,.4);
+	border:1px solid rgba(0,0,0,.6);
+	background-image:url(../images/sideBarArrow2.png);
+}
+.scmLogo{
+	position:absolute;
+	background-image:url(../images/scmLogo.png);
+	background-repeat:no-repeat;
+	background-size: auto 56px;
+	width:320px;
+	height:56px;
+	top:15px;
+	left:20px;
+	cursor:pointer;
+}
+.CHLogo{
+	position: absolute;
+	background-image: url(../images/chheadlogo.png);
+	background-repeat: no-repeat;
+	background-size: auto 70px;
+	width: 240px;
+	height: 70px;
+	top: 0px;
+	left: 20px;
+	cursor: pointer;
+}
+.scmNav{
+	position:absolute;
+	right:140px;
+	width:auto;
+	top:5px;
+}
+.scmNavBtn{
+	background-position:center 7px;
+	background-repeat:no-repeat;
+	width:72px;
+	height:66px;
+	position:relative;
+	display:inline-block;
+	transition:background-color 0.2s,box-shadow 0.2s;
+	cursor:pointer;
+}
+
+.scmNavBtn i{
+	position:absolute;
+	bottom:9px;
+	color:#fff;
+	font-size:12px;
+	text-align:center;
+	width:72px;
+}
+
+.scmNavBtn:hover{
+	background-color: rgba(11, 129, 137, 0.3);
+	border-radius:5px;
+	box-shadow:inset -1px -1px 0 rgba(255,255,255,.6);
+}
+.scmWarning{
+	position:absolute;
+	border-radius:100%;
+	width:16px;
+	height:16px;
+	background-color:#F60;
+	color:#fff;
+	text-align:center;
+	line-height:16px;
+	right:15px;
+	top:5px;
+	font-size:9px;
+}
+.scmUser{
+	position:absolute;
+	right:10px;
+	width:auto;
+	top:5px;
+	height:66px;
+	cursor: pointer;
+}
+.scmUserImage{
+	width:46px;
+	height:46px;
+	border-radius:100%;
+	border:2px solid #cfebfb;
+	position:relative;
+	right:40px;
+}
+
+.scmUser:hover .scmUserImage{
+	border:2px solid #fff;
+	cursor:pointer;
+}
+.scmUser i{
+	color:#fff;
+	position:absolute;
+	bottom:2px;
+	text-align:center;
+	width:120px;
+	right:0px;
+	white-space: nowrap;
+	-ms-text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.scmSideNav{
+	position:absolute;
+	width:260px;
+	left:20px;
+	top:20px;
+	color:#fff;
+}
+
+.scmSideNav .scmsideNavTitle{
+	font-size:16px;
+	position:relative;
+	height:32px;
+	line-height:32px;
+	background-color:rgba(0,0,0,.2);
+	border-radius:4px;
+	padding-left:20px;
+	text-shadow:0 1px 2px rgba(0,0,0,.3);
+	background-image:url(../images/sideNavTitleBg.png);
+	background-repeat:no-repeat;
+	background-position:230px center;	
+}
+.scmsideNavBtn{
+	margin-top:20px;
+}
+.scmsideNavBtn li{
+	position:relative;
+	height:26px;
+	line-height:26px;
+	margin-bottom:5px;
+	right:0;
+	color:#ccc;
+	width:210px;
+	padding-left:30px;
+	transition:color 0.2s,background-color 0.2s;
+	cursor:pointer;
+	background-image:url(../images/dot2.png);
+	background-repeat:no-repeat;
+	background-position:5px center;
+}
+.scmsideNavBtn li:hover{
+	background-color:#1db6b0;
+	color:#fff;
+	background-image:url(../images/dot.png);
+}
+.scmMaskWindow{
+	background-color:rgba(0,0,0,.5);
+	position:fixed;
+	width:100%;
+	height:100%;
+	z-index:999;
+	display: none;
+	top: 0px;
+	left: 0px;
+}
+.scmLoadWindow{
+	background-color:rgba(0,0,0,0);
+	position:fixed;
+	width:100%;
+	height:100%;
+	z-index:999;
+}
+
+.scmWindow{
+	background-color:rgba(255,255,255,.9);
+	position:absolute;
+	top:50%;
+	left:50%;
+	border-radius:15px;
+	box-shadow:0 4px 8px rgba(0,0,0,.2);
+}
+.scmWindow .scmWindowIcon{
+	background-image:url(../images/windowIcon.png);
+	width:13px;
+	height:18px;
+	position:absolute;
+	top:7px;
+	left:18px;
+}
+.scmWindow .scmWindowTitle{
+	background-color:#1DB6B0;
+	border-radius:15px 15px 0 0;
+	height:33px;
+}
+.scmWindow .scmWindowTitle i{
+	color:#fff;
+	font-size:14px;
+	position:absolute;
+	left:36px;
+	line-height:32px;
+}
+.scmWindowContent{
+	padding:10px 15px;
+	overflow-y:auto;
+}
+.scmWindow label{
+	color:#555;
+	font-size:14px;
+	white-space:nowrap;
+}
+.scmWindowContent input[type="text"], .scmWindowContent  textarea,.scmWindowContent input[type="number"],.scmWindowContent input[type="password"]{
+	color:#555;
+	font-size:12px;
+	border-radius:3px;
+	border:1px solid #ccc;
+	box-shadow:inset 0 1px 3px rgba(0,0,0,.2),1px 1px 0 rgba(255,255,255,.5);
+	padding:2px;
+	height:22px;
+	outline:none;
+	transition:border 0.3s,box-shadow 0.3s,background-color 0.3s;
+	background-color:rgba(255,255,255,.8);
+}
+
+.scmWindowContent  select {
+	color:#555;
+	font-size:12px;
+	border-radius:3px;
+	border:1px solid #ccc;
+	box-shadow:inset 0 1px 3px rgba(0,0,0,.2),1px 1px 0 rgba(255,255,255,.5);
+	padding: 0px;
+	height:23px;
+	outline:none;
+	transition:border 0.3s,box-shadow 0.3s,background-color 0.3s;
+	background-color:rgba(255,255,255,.8);
+}
+.scmWindowContent input[type="text"]:hover,.scmWindowContent  textarea:hover,.scmWindowContent input[type="number"]:hover{
+	border:1px solid #1db6b0;
+	background-color:#fff;
+}
+.scmWindowContent input[type="text"]:focus,.scmWindowContent  textarea:focus,.scmWindowContent input[type="number"]:focus{
+	border:1px solid #1db6b0;
+	background-color:#fff;
+	box-shadow:inset 0 1px 3px rgba(0,0,0,.2),0px 0px 10px rgb(110, 216, 244);
+}
+
+.scmWindow input[type="button"] , .scmChildPlateBtn input[type="button"]{
+	color:#fff;
+	font-size:14px;
+	border-radius:3px;
+	border:1px solid #1db6b0;
+	margin:0 8px;
+	box-shadow:inset 0 0px 0 rgba(255,255,255,.8),1px 1px 0 rgba(255,255,255,.5);
+	padding:2px 10px;
+	line-height:20px;
+	outline:none;
+	transition:border 0.3s,box-shadow 0.3s,background-color 0.3s;
+	background-color:#1db6b0;
+	font-family:"微软雅黑";
+}
+
+.scmWindow input[type="button"]:hover , .scmChildPlateBtn input[type="button"]:hover{	
+	border:1px solid #0b8e89;
+	box-shadow:inset 0 0px 0 rgba(255,255,255,.8),0px 0px 10px rgb(11, 142, 137);
+	background-color:#0b8e89;
+}
+.scmWindow input[type="button"]:active , .scmChildPlateBtn input[type="button"]:active{
+	background-color:#0b8e89;
+	box-shadow:inset 0 1px 3px rgba(0,0,0,.3),0px 0px 10px rgb(11, 142, 137);
+}
+.scmWindowButton{
+	width:100%;
+	padding:10px 7px;
+	border-top:1px solid #ccc;
+	position:absolute;
+	bottom:5px;
+}
+
+.scmWindowButton input[type="button"]{
+	padding:2px 15px;
+	margin: 0 7px;
+}
+.scmChildPlateContainer{
+	position:absolute;
+	width:800px;
+	right:4px;
+	background-color:#e1ecf2;
+	border:1px solid #ced0cf;
+	top:5px;
+	border-radius:0 8px 8px 0;
+	z-index:1;
+}
+.scmChildPlateTop{
+	text-align:center;
+	font-size:12px;
+	height:36px;
+	line-height:25px;
+}
+.scmChildPlateTop span{
+	text-align:center;
+	font-size:14px;
+	line-height:36px;
+	font-weight:bold;
+}
+.scmChildPlateBack{
+	color:#8d8f8e;
+	position:absolute;
+	top:0;
+	left:15px;
+	font-size:12px;
+	background-image:url(../images/back_btn_01.png);
+	background-repeat:no-repeat;
+	background-position:0px 6px;
+	padding-left:26px;
+	cursor:pointer;
+	line-height:36px;
+}
+.scmChildPlateBack:hover{
+	background-image:url(../images/back_btn_02.png);
+	color:#333;
+}
+.scmChildPlateBtn{
+	padding:10px;
+}
+.scmChildPlateGrid{
+	border-top:1px solid #ced0cf;
+	border-bottom:1px solid #ced0cf;
+	padding:6px 6px 0px 6px;
+}
+.scmFieldSet{
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,.2);
+    background-color: rgba(255,255,255,.6);
+    box-shadow: 0 1px 0 #fff;
+    color: #555;
+    font-size: 16px;
+}
+.scmFieldSet table{
+	font-family:"微软雅黑";
+	font-size: 12px;
+}
+.unhappyMessage{
+	color:red;
+}
+.moreButton{
+	height:15px;
+	width:15px;
+	background-image:url(../images/misc_more.png);
+	position:absolute;
+	right:3px;
+	cursor:pointer;
+}
+.scmUserTip{
+	position:absolute;
+	right:0px;
+	top:50px;
+	display: none;
+}
+.scmUserTip s{
+	position:absolute;
+	width:0px;
+	left:65px;
+	top:0;
+	height:10px;
+	border-top:none;
+	border-bottom:10px solid #86CCF4;
+	border-left:10px solid transparent;
+	border-right:10px solid transparent;
+}
+.scmUserTip i{
+	position:absolute;
+	left:50px;
+	width:0px;
+	top:1px;
+	height:10px;
+	border-top:none;
+	border-bottom:10px solid #fff;
+	border-left:10px solid transparent;
+	border-right:10px solid transparent;
+}
+
+.scmUserTip ul{
+	position:relative;
+	top:10px;
+	left:0;
+	width:120px;
+	background:#fff;
+	border:1px solid #1db6b0;
+	border-radius:8px;
+	box-shadow:0 2px 8px rgba(0,0,0,.1);
+	padding:3px;
+}
+.scmUserTip ul li{
+	height:25px;
+	line-height:25px;
+	text-align:center;
+	border:1px solid #1db6b0;
+	border-bottom:none;
+	color:#58a;
+	transition:color 0.1s,background-color 0.1s;
+	cursor:pointer;
+}
+.scmUserTip ul li:first-child{
+	border-radius:6px 6px 0 0;
+}
+.scmUserTip ul li:last-child{
+	border-radius:0 0 6px 6px;
+	border-bottom:1px solid #1db6b0;
+}
+.scmUserTip ul li:hover{
+	color:#fff;
+	background:#1db6b0;
+}
+
+h1,h2,h3,h4,h5,h6{
+	font-family:"微软雅黑","Microsoft Yahei";
+	font-size:14px;
+	margin:0;
+	
+}
+.scmUpdateContent{
+	position:relative;
+	padding:0;
+	overflow: hidden;
+	overflow-y: auto;
+}
+.scmSystemUpdateTitle{
+	color:#444;
+	background:#ddd;
+	border-top:1px solid #aaa;
+	box-shadow:inset 0 3px 5px rgba(0,0,0,.1);
+}
+.scmSystemUpdateTitle h1{
+	font-size:24px;
+	position:relative;
+	padding:10px 0 10px 60px;
+	text-shadow:0 1px 0 #fff;
+}
+.scmTimeLineContent{
+	border-top:1px solid #bbb;
+	overflow-y:auto;
+}
+.scmTimeLineContent ul{
+	position:relative;
+	margin-top:12px;
+	margin-left:30px;
+}
+.scmTimeLineTime:before{
+	content:"";
+	position:absolute;
+	width:2px;
+	height:12px;
+	background:#fff;
+	top:-12px;
+	left:40px;
+	border-left:1px solid #aaa;
+	border-right:1px solid #aaa;
+}
+.scmTimeLineTime{
+	border:1px solid #aaa;
+	position:absolute;
+	width:auto;
+	border-radius:20px;
+	height:25px;
+	padding:0 10px;
+	line-height:25px;
+	background:#fff;
+	box-shadow:inset 0 2px 3px rgba(0,0,0,.2),0 1px 0 #fff;
+}
+.scmTimeLineContant{
+	position:relative;
+	left:0;
+	padding-left:100px;
+	line-height:25px;
+	font-size:14px;
+}
+
+
+.progressBar {
+    background-image: linear-gradient(#cee4f2,#d7eaf5);
+    position: absolute;
+    width: 800px;
+    height:13px;
+    border:1px solid #adb9c1;
+    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.2),0 2px 0 rgba(255,255,255,.6);
+    border-radius: 6px;
+}
+.progressNow {
+    position: relative;
+    height:13px;
+    border-radius: 6px;
+    border: 1px solid #71a6c6;
+    background-image: linear-gradient(#7ec4ed,#71b8e3);
+    box-shadow: inset 0 1px 1px rgba(0,255,234,.6);
+    top: -1px;
+    left: -1px;
+}
+.progressContainer {
+    position: relative;
+	width: 400px;
+	height: 40px;
+	margin: 0 auto;
+	margin-top: 30px;
+}
+.progressDot {
+    position: absolute;
+    line-height: 34px;
+    width: 33px;
+    height: 33px;
+    color: #fff;
+    background-image: url(images/progressDot1.png);
+    top:-11px;
+    text-align: center;
+    font-family: 'bofide';
+    font-size: 12px;
+    margin-left: -15px;
+}
+.dotnow {
+    background: url(images/progressDot2.png);
+}
+.progressStart {
+	background: url(images/progressDot0.png);
+}
+.emptyDot {
+    background: url(images/progressDot3.png);
+    color: #9ab2bf;
+}
+.emptyStart {
+	background: url(images/progressDot5.png);
+	color: #9ab2bf;
+}
+.emptyDotEnd {
+	color: #9ab2bf;
+    background: url(images/progressDot4.png);
+}
+.progressDot div {
+    position: absolute;
+    color: #365c70;
+    width: 300px;
+    margin-left: -135px;
+    text-align: center;
+    font-size: 14px;
+    text-shadow: 0 1px 0 rgba(255,255,255,.6);
+    margin-top: -2px;
+}
+.progressContainer ul,li{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/*项目选择CSS*/
+
+.scmAddWindowLeft {
+    width: 550px; 
+    height: 415px; 
+    position: absolute;
+}
+
+.scmAddWindowSearch {
+    width: 100%;
+    height: 40px;
+    position: relative;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+.scmAddWindowSearchInput {
+    position: absolute; 
+    top: 8px; 
+    right: 20px;
+}
+.scmAddWindowSearchInput input[type="text"] {
+    height: 22px;
+    border:1px solid rgba(0,0,0,.3);
+    border-radius: 15px;
+    padding: 1px 20px;
+    outline: none;
+    transition: box-shadow 0.2s,background-color 0.2s,color 0.5s 0.2s;
+    background: rgba(255,255,255,.5);
+    color:#888;
+    box-shadow:inset 0 1px 0 rgba(0,0,0,.1),0 1px 0 rgba(255,255,255,1);
+}
+.scmAddWindowSearchInput input[type="text"]:focus{
+	border:1px solid #86CCF4;
+	box-shadow:inset 0 2px 3px rgba(0,0,0,.2),0px 0px 10px rgba(134,204,244,1);
+    background: #fff;
+    color:#000;
+}
+
+.scmAddWindowLeftGrid {
+    width: 98%; 
+    height: 370px; 
+    position: absolute; 
+    bottom: 0px; 
+    overflow: hidden; 
+    outline: 0px; 
+    left:1%;
+    
+}
+
+.scmAddWindowRight {
+    width: 250px; 
+    height: 415px; 
+    position: absolute; 
+    right: 0px;
+    box-sizing: border-box;
+    background: #ccc;
+    box-shadow: inset 3px 0 3px rgba(0,0,0,.1);
+}
+.scmAddWindowRight::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    top:50%;
+    width: 0;
+    height: 0;
+    margin-top: -6px;
+    border-top: 12px solid transparent;
+    border-left: 12px solid rgb(242,242,242);
+    border-bottom: 12px solid transparent;
+}
+
+.scmAddWindowRightLabel {
+    position: relative;
+    width: 100%; 
+    height: 40px;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    box-shadow: inset 3px 0 3px rgba(0,0,0,.5);
+    background: #555;
+    color:#fff;
+    font-size: 14px;
+    line-height: 40px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+
+.scmAddWindowRightContent {
+    width: 100%; 
+    height: 375px; 
+    position: absolute; 
+    top: 40px; 
+}
+.scmAddWindowRightContent .scmAddWindowBtn{
+    position: absolute;
+    color: #A20;
+    top:0px;
+    right: 0;
+    font-weight: bold;
+    width: 26px;
+    text-align: center;
+    height: 25px;
+    line-height: 26px;
+    text-shadow: 0 1px 0 #fff;
+    cursor: pointer;
+    
+    
+}
+.scmAddWindowRightContent ul{
+    box-shadow:inset 0 3px 3px rgba(0,0,0,.3);
+}
+.scmAddWindowRightContent li{
+    transition:background-color 0.2s;
+    color: #333;
+    font-size: 14px;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    padding: 3px 3px 3px 15px;
+    position: relative;
+    height: 26px;
+}
+.scmAddWindowRightContent li:nth-child(even){
+    background-color: rgba(255,255,255,.3);
+}
+.scmAddWindowRightContent li:hover{
+    background-color: rgba(134,204,244,.2)
+}
+.timeSerch{
+	right: 45px;
+}
+@media screen and (max-width: 1024px) {
+	.scmNavBtn{
+		width: 60px;
+		background-size: 30px 30px;
+	}
+	.scmNavBtn i{
+		width: 60px;
+	}
+	#scmContent{
+		min-width:800px;
+	}
+	.scmLogo{
+		top:21px;
+		background-size: 200px 41px;
+	}
+	#scmHeader{
+		min-width: 1000px;
+	}
+	#scmFooter{
+		min-width: 1000px;
+	}
+	.scmTitleTools{
+		font-size: 12px;
+	}
+	.timeSerch{
+		right: 10px;
+	}
+}

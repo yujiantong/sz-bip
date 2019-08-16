@@ -1,0 +1,20 @@
+<ion-view view-title="日报-分工作人员">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('homePage.report',{ReportTabNO:1})"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="padding" style="padding-bottom: 0px;">
+      <span>日期：</span>
+      <div class="inputDateTime" ion-datetime-picker ng-change="ctrl.countXbzyKPI()" ng-model="ctrl.report.searchDate" title="ctrl.dateTrackOption.title" button-ok="ctrl.dateTrackOption.buttonOk"  button-cancel="ctrl.dateTrackOption.buttonCancel" only-Valid="ctrl.dateTrackOption.onlyValid" date="'false'">
+        <span ng-bind="(ctrl.report.searchDate | date: 'yyyy-MM-dd') || '请选择'"></span>
+      </div>
+    </div>
+    <div class="barGroup">
+      <div class="barmenu"><span class="barBox barBg1"></span>跟踪人数 {{ctrl.xbzyReport[0].traceCount}}</div>
+      <div class="barmenu"><span class="barBox barBg2"></span>邀约人数 {{ctrl.xbzyReport[0].inviteCount}}</div>
+      <div class="barmenu"><span class="barBox barBg3"></span>邀约到店人数 {{ctrl.xbzyReport[0].comeStoreCount}}</div>
+      <div class="barmenu"><span class="barBox barBg4"></span>续保车数 {{ctrl.xbzyReport[0].xbcs}}</div>
+    </div>
+   <div id="chart"></div>
+  </ion-content>
+</ion-view>

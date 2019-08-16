@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bofide.bip.mapper.SentBihuInfoMapper">
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.SentBihuInfo" >
+    	<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="storeId" property="storeId" jdbcType="INTEGER" />
+    	<result column="userId" property="userId" jdbcType="INTEGER" />
+    	<result column="transferType" property="transferType" jdbcType="INTEGER" />
+    	<result column="source" property="Source" jdbcType="INTEGER" />
+    	<result column="agent" property="agent" jdbcType="VARCHAR" />
+ 		<result column="licenseNo" property="licenseNo" jdbcType="VARCHAR" />
+ 		<result column="engineNo" property="engineNo" jdbcType="VARCHAR" />
+ 		<result column="carVin" property="carVin" jdbcType="VARCHAR" />
+ 		<result column="custKey" property="custKey" jdbcType="VARCHAR" />
+ 		<result column="transferTime" property="transferTime" jdbcType="TIMESTAMP" />
+  	</resultMap>
+  	
+  	<insert id="insertSentBihuInfo" parameterType="java.util.Map">
+  		insert into bf_bip_sent_bihu_info (storeId,userId,transferType,source,agent,licenseNo,
+  		engineNo,carVin,custKey,transferTime)
+  			values (#{storeId},#{userId},#{transferType},#{source},#{agent},#{licenseNo},
+  			#{engineNo},#{carVin},#{custKey},NOW())
+  	</insert>
+  	
+</mapper>

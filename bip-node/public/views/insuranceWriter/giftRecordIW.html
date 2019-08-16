@@ -1,0 +1,64 @@
+<div class="scmContentTitle" ng-mouseleave="exportGiftHide()">
+    <ul id="myTab" class="cartype nav nav-tabs" style="border-bottom: none;">
+        <li class="active" href="#zsjl" ng-init="findGivingCont()" data-toggle="tab">
+            赠送记录
+        </li>
+    </ul>
+    <div class="amountPre">赠送总金额：{{TotalAmount | number:2}}</div>
+    <div id="scmTitleTool" class="scmTitleTools">
+        <div class="control-group">
+            <label class="control-label">日期：</label>
+            <input type="text" style="width: 100px;" ng-change="findGivingCont()" ng-model="createTimeStart" class="starttime">--
+            <input type="text" style="width: 100px;" ng-change="findGivingCont()" ng-model="createTimeEnd" class="endtime">
+        </div>
+    </div>
+    <!--导出赠品记录 取消此功能-->
+   <!-- <div class="exportGifts" >
+        <span class="glyphicon glyphicon-th-list" id="exportButt" ng-click="exportGiftShow()"></span>
+        <ul id="exportGift">
+            <li ng-click="exportGiftRecord()">
+                <span class="glyphicon glyphicon-share"></span> 导出赠送记录
+            </li>
+        </ul>
+    </div>-->
+</div>
+<div id="myTabContent" class="tab-content" style="padding: 10px 14px;">
+    <div class="tab-pane fade in active" id="zsjl" style="height:97%;padding-bottom: 3%;">
+        <div class="condition-search">
+            <span style="display: inline-block">
+                <label>车牌号：</label><input  ng-model="hxSearch.carLicenseNumber" style="width: 100px;">
+            </span>
+            <span style="display: inline-block">
+                    <label>车架号：</label><input  ng-model="hxSearch.chassisNumber" style="width: 120px;">
+                </span>
+           <span style="display: inline-block">
+                <label>联系人：</label><input  ng-model="hxSearch.contact" style="width: 70px;">
+            </span>
+            <span style="display: inline-block">
+                <label>联系方式：</label><input  ng-model="hxSearch.contactWay" style="width: 100px;">
+            </span>
+            <span style="display: inline-block">
+                <label>保单号：</label><input  ng-model="hxSearch.binsuranceNumber" style="width: 100px;">
+            </span>
+             <span class="ml10 cursor" ng-click="chooseCycle(1)">
+                    近一周
+                </span>
+                <span class="ml10 cursor" ng-click="chooseCycle(2)">
+                    近一月
+                </span>
+                <span class="ml10 cursor" ng-click="chooseCycle(3)">
+                    近三月
+                </span>
+            <button class="ml10" type="button" ng-click="findGivingCont()">查询</button>
+            <button type="button" ng-click="clearhxSearch()">清空</button>
+        </div>
+        <div ui-grid="giftRecordPage" ng-style="gridbox" class="gridbox" ui-grid-pinning  ui-grid-resize-columns ui-grid-selection ui-grid-infinite-scroll>
+        </div>
+        <div class="gridbox-footer" ng-if="loadStatus==0" ng-click="searchMore()">加载更多(<span>{{policyCount}}</span>)</div>
+        <div class="gridbox-footernone"  ng-if="loadStatus==1" >正在加载中...</div>
+        <div class="gridbox-footernone" ng-if="loadStatus==2" >全部加载完成(<span>{{policyCount}}</span>)</div>
+    </div>
+</div>
+<div ng-include="'./views/insuranceWriter/giftRecordInfoIW.html'"></div>
+<div ng-include="'./views/msgExportgift.html'"></div>
+<div ng-include="'./views/exportSet.html'"></div>

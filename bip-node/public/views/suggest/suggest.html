@@ -1,0 +1,54 @@
+<div class="scmContentTitle">
+    <ul id="myTab" class="cartype nav nav-tabs" style="border-bottom: none;">
+        <li class="active" href="#jy"  ng-click="findAllSuggestByUserId()" data-toggle="tab">
+            建议
+        </li>
+    </ul>
+</div>
+<div id="myTabContent" class="tab-content" style="padding: 10px 14px;">
+    <div class="tab-pane fade in active" id="jy" style="height:97%;padding-bottom: 3%;">
+        <div>
+                <span class="holder" >
+                    <label>建议标题：</label><input  ng-model="suggestSearch.title" type="text" style="width: 80px;">
+                </span>
+                <span style="display: inline-block">
+                    <label>处理情况：</label>
+                    <select ng-model="suggestSearch.status">
+                        <option value="">请选择</option>
+                        <option value="0">未处理</option>
+                        <option value="1">已处理</option>
+                    </select>
+                </span>
+                <span class="holder">
+                    <label>反馈日期：</label>
+                    <input type="text" style="width:80px;"  ng-model="suggestSearch.proposeTimeStartTime" class="starttime">
+                    <label> ~ </label>
+                    <input type="text" style="width:80px;"  ng-model="suggestSearch.proposeTimeEndTime" class="endtime">
+                </span>
+                <span class="holder">
+                    <label>处理日期：</label>
+                    <input type="text" style="width:80px;"  ng-model="suggestSearch.solveTimeStartTime" class="starttime">
+                    <label> ~ </label>
+                    <input type="text" style="width:80px;"  ng-model="suggestSearch.solveTimeEndTime" class="endtime">
+                </span>
+            <button type="button" ng-click="findAllSuggestByUserId()">查询</button>
+            <button type="button" ng-click="clearQksearch()">清空</button>
+        </div>
+        <div ui-grid="suggestAllPage" ng-style="gridbox" class="gridbox"
+             ui-grid-pinning  ui-grid-resize-columns ui-grid-selection ui-grid-infinite-scroll>
+        </div>
+        <div style="display:none;">
+        壁虎<input type="text" ng-model="ceshi.date1" class="starttime" readonly />
+        我们<input type="text" ng-model="ceshi.date2" class="starttime" readonly />
+        <select ng-model="ceshi.num">
+            <option value="1">分配</option>
+            <option value="2">未分配</option>
+        </select>
+        <input type="text" ng-model="ceshi.date3" />
+        <button type="button" ng-click="ceshi22()">确定</button>
+        </div>
+        <div class="gridbox-footer" ng-if="loadStatus==0"  ng-click="searchMore()">加载更多</div>
+        <div class="gridbox-footernone" ng-if="loadStatus==1" >正在加载中...</div>
+        <div class="gridbox-footernone" ng-if="loadStatus==2" >全部加载完成</div>
+    </div>
+</div>

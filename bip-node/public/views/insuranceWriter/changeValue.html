@@ -1,0 +1,23 @@
+<div id="changevalue" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 150px; width: 250px; margin-left: -125px; margin-top: -70px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <span class="closeBtn glyphicon glyphicon-remove" id="qkxgBtn"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            潜客信息被修改是否保存
+            <p ng-if="crlMessage" class="red">*提示：{{crlMessage}}</p>
+        </div>
+        <div class="scmWindowButton">
+            <input ng-click="saveChange()" type="button" value="是">
+            <input class="fr" ng-click="cancelChange()" type="button" value="否">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $("#qkxgBtn").click(function(){
+        $("#changevalue").hide();
+    });
+</script>

@@ -1,0 +1,156 @@
+<div class="modal searchBox">
+  <ion-modal-view style="background: #eee;margin-top: 0px">
+    <ion-content class="padding" style="padding-bottom: 44px;">
+      <table class="searchTable">
+        <tr>
+          <td class="text-right" width="110">投保类型：</td>
+          <td>
+            <select ng-model="ctrl.searchData.renewalType" ng-show="ctrl.user.role.roleId==2||ctrl.user.role.roleId==3||ctrl.user.role.roleId==7||ctrl.user.role.roleId==9||ctrl.user.role.roleId==10||ctrl.user.role.roleId==11">
+              <option value="">请选择</option>
+              <option value="2">新转续</option>
+              <option value="3">续转续</option>
+              <option value="4">间转续</option>
+              <option value="5">潜转续</option>
+              <option value="6">首次</option>
+            </select>
+            <select ng-model="ctrl.searchData.renewalType" ng-show="ctrl.user.role.roleId==6">
+              <option value="">请选择</option>
+              <option value="2">新转续</option>
+            </select>
+            <select ng-model="ctrl.searchData.renewalType" ng-show="ctrl.user.role.roleId==8">
+              <option value="">请选择</option>
+              <option value="5">潜转续</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right">保险公司：</td>
+          <td>
+            <select ng-model="ctrl.searchData.insuranceCompLY" ng-options="x for x in ctrl.insuranceCompNames">
+              <option value="">请选择</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right">客户级别：</td>
+          <td>
+            <select ng-model="ctrl.searchData.customerLevel">
+              <option value="">请选择</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+            </select>
+          </td>
+        </tr>
+        <tr ng-hide="ctrl.user.role.roleId==3||ctrl.user.role.roleId==10||ctrl.user.role.roleId==11">
+          <td class="text-right">潜客状态：</td>
+          <td>
+            <select ng-model="ctrl.searchData.statusId" ng-show="ctrl.user.role.roleId==2">
+              <option value="">请选择</option>
+              <option value="1">应跟踪</option>
+              <option value="2">已跟踪</option>
+              <option value="3">将脱保</option>
+              <option value="4">已脱保</option>
+              <option value="5">邀约</option>
+              <!--<option value="6">已回退</option>-->
+              <option value="7">已失销</option>
+              <option value="8">待审批</option>
+              <option value="9">未接收</option>
+              <option value="11">到店未出单</option>
+            </select>
+            <select ng-model="ctrl.searchData.statusId" ng-show="ctrl.user.role.roleId==6||ctrl.user.role.roleId==8||ctrl.user.role.roleId==7||ctrl.user.role.roleId==9">
+              <option value="">请选择</option>
+              <option value="1">应跟踪</option>
+              <option value="2">已跟踪</option>
+              <option value="12">跟踪完成</option>
+              <option value="3">将脱保</option>
+              <option value="4">已脱保</option>
+              <option value="8">待审批</option>
+              <option value="9">未接收</option>
+              <option value="11">到店未出单</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right">保险到期日始：</td>
+          <td>
+            <div class="inputDateTime" ion-datetime-picker ng-model="ctrl.searchData.insuranceEndDateStart" title="ctrl.dateTrackOption.title" button-ok="ctrl.dateTrackOption.buttonOk"  button-cancel="ctrl.dateTrackOption.buttonCancel" date="'false'">
+              <span ng-bind="(ctrl.searchData.insuranceEndDateStart | date: 'yyyy-MM-dd') || '请选择'"></span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right">保险到期日止：</td>
+          <td>
+            <div class="inputDateTime" ion-datetime-picker ng-model="ctrl.searchData.insuranceEndDateEnd" title="ctrl.dateTrackOption.title" button-ok="ctrl.dateTrackOption.buttonOk"  button-cancel="ctrl.dateTrackOption.buttonCancel" date="'false'">
+              <span ng-bind="(ctrl.searchData.insuranceEndDateEnd | date: 'yyyy-MM-dd') || '请选择'"></span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right">联系人：</td>
+          <td><input type="text" ng-model="ctrl.searchData.contact"></td>
+        </tr>
+        <tr>
+          <td class="text-right">联系方式：</td>
+          <td><input type="text" ng-model="ctrl.searchData.contactWay"></td>
+        </tr>
+        <tr>
+          <td class="text-right">品牌：</td>
+          <td><select required="" ng-model="ctrl.searchData.carBrand"
+                      ng-options="x for x in carBrands"
+                      ng-change="ctrl.xzVehicleModel()">
+            <option value="">请选择品牌</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td class="text-right">型号：</td>
+          <td><select ng-hide="ctrl.carModelshow" ng-model="ctrl.searchData.vehicleModel"
+                      ng-options="x for x in carModelList">
+            <option value="">请选择型号</option>
+          </select>
+            <input type="text" ng-hide="!ctrl.carModelshow" ng-model="ctrl.searchData.vehicleModel" maxlength="50">
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right">车架号：</td>
+          <td><input type="text" ng-model="ctrl.searchData.chassisNumber"></td>
+        </tr>
+        <tr>
+          <td class="text-right">车牌号：</td>
+          <td><input type="text" ng-model="ctrl.searchData.carLicenseNumber"></td>
+        </tr>
+        <tr>
+          <td class="text-right">被保险人：</td>
+          <td><input type="text" ng-model="ctrl.searchData.insured"></td>
+        </tr>
+        <tr>
+          <td class="text-right">车主：</td>
+          <td><input type="text" ng-model="ctrl.searchData.carOwner"></td>
+        </tr>
+        <tr ng-show="ctrl.user.role.roleId==3||ctrl.user.role.roleId==10||ctrl.user.role.roleId==11">
+          <td class="text-right">持有人：</td>
+          <td>
+            <select ng-hide="ctrl.carModelshow" ng-model="ctrl.searchData.holderId" ng-options="vlaue.id as vlaue.userName for (key,vlaue) in ctrl.holders">
+              <option value="">请选择持有人</option>
+            </select>
+          </td>
+        </tr>
+        <tr ng-show="ctrl.user.role.roleId==3||ctrl.user.role.roleId==10||ctrl.user.role.roleId==11">
+          <td class="text-right">负责人：</td>
+          <td>
+            <select ng-hide="ctrl.carModelshow" ng-model="ctrl.searchData.principalId" ng-options="vlaue.id as vlaue.userName for (key,vlaue) in ctrl.principals">
+              <option value="">请选择负责人</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <div style="padding:5px 0 50px 0;text-align: right;">
+        <button class="button-search button button-small" ng-click="ctrl.searchCustomer()">
+          查询
+        </button>
+      </div>
+    </ion-content>
+  </ion-modal-view>
+</div>

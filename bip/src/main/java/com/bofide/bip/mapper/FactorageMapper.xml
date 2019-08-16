@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.FactorageMapper" >
+ <resultMap type="com.bofide.bip.po.Factorage" id="FactorageSetMap">
+  <id column="factorageId" property="factorageId" jdbcType="INTEGER" />
+    <result column="storeId" property="storeId" jdbcType="INTEGER" />
+    <result column="compPreId" property="compPreId" jdbcType="INTEGER" />
+    <result column="insuName" property="insuName" jdbcType="VARCHAR" />
+    <result column="insuPercent" property="insuPercent" jdbcType="FLOAT" />
+  </resultMap>
+  <insert id="insert" parameterType="com.bofide.bip.po.Factorage" >
+    insert into bf_bip_factorage_setting 
+    	(storeId,compPreId, insuName, insuPercent)
+    values 
+    	(#{storeId,jdbcType=INTEGER},#{compPreId,jdbcType=INTEGER}, #{insuName,jdbcType=VARCHAR}, #{insuPercent,jdbcType=INTEGER})
+  </insert>
+  <!-- 根据关联保险公司主id查询记录 -->
+  <select id="selectByCompPreId" resultMap="FactorageSetMap">
+    select 
+    	*
+	from 
+  		bf_bip_factorage_setting
+	where
+  		compPreId = #{compPreId,jdbcType=INTEGER}
+  		and storeId = #{storeId,jdbcType=INTEGER}
+  </select>
+  <!-- 查询手续费根据险种手续费 -->
+  <select id="selectFactorage" resultMap="FactorageSetMap">
+    select 
+    	*
+	from 
+  		bf_bip_factorage_setting
+	where
+  		compPreId = #{compPreId,jdbcType=INTEGER}
+  		and storeId = #{storeId,jdbcType=INTEGER}
+  		and insuName = #{factorageInsuName,jdbcType=VARCHAR}
+  </select>
+    <update id="updateFactorage" parameterType="com.bofide.bip.po.Factorage" >
+    update bf_bip_factorage_setting
+   	 set
+        insuPercent = #{insuPercent,jdbcType=FLOAT}
+    where 
+		compPreId = #{compPreId,jdbcType=INTEGER}
+  		and storeId = #{storeId,jdbcType=INTEGER}
+  		and insuName = #{insuName,jdbcType=VARCHAR}
+  </update>
+</mapper>

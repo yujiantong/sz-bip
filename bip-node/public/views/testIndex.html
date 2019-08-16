@@ -1,0 +1,410 @@
+
+
+<div ng-include="'./views/sidebar.html'"></div>
+<div id="scmContent">
+    <div class="sideNavSwitch">
+
+    </div>
+    <div ui-view="" class="tableContent"></div>
+</div>
+<div ng-include="'./views/top.html'"></div>
+<div ng-include="'./views/footer.html'"></div>
+
+<!--
+<div id="scmContent">
+    <div class="sideNavSwitch"></div>
+    <div class="tableContent">
+        <div class="scmContentTitle">
+            <ul id="myTab" class="cartype nav nav-tabs" style="border-bottom: none;">
+                <li class="active"  href="#xinzx" data-toggle="tab">
+                    新转续
+                </li>
+                <li href="#xuzx" data-toggle="tab">
+                    续转续
+                </li>
+                <li href="#jianzx" data-toggle="tab">
+                    间转续
+                </li>
+                <li href="#qianzx" data-toggle="tab">
+                    潜转续
+                </li>
+                <li  href="#chaxun" data-toggle="tab">
+                    保单查询
+                </li>
+            </ul>
+            <div id="scmTitleTool" class="scmTitleTools">
+                <div id="starttime_main" class="control-group">
+                    <label class="control-label" for="starttime">开始时间：</label>
+                    <div class="date form_datetime controls" data-date="2016.05.10"  id="starttimeDiv">
+                        <input type="text" class="span9" value="" id="starttime" readonly>
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    </div>
+                </div>
+                <div id="endtime_main" class="control-group">
+                    <label class="control-label" for="endtime">结束时间：</label>
+                    <div class=" controls date form_datetime"
+                         data-date="2016.05.10"  id="endtimeDiv">
+                        <input type="text" class="span9" value="" id="endtime" readonly>
+                        <span class="add-on"><i class="icon-calendar"></i> </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="myTabContent" class="tab-content" style="padding: 10px 14px;">
+            <div class="tab-pane fade in active" id="xinzx">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>序号（10）</th>
+                        <th>承保日期</th>
+                        <th>负责人</th>
+                        <th>被保险人</th>
+                        <th>联系人</th>
+                        <th>联系电话</th>
+                        <th>保险公司</th>
+                        <th>车牌号</th>
+                        <th>车架号</th>
+                        <th>承保类型</th>
+                        <th>本店承保次数</th>
+                        <th>保险开始日期</th>
+                        <th>保险结束日期</th>
+                        <th>应收保费</th>
+                        <th>实收保费</th>
+                        <th>出单员</th>
+                    </tr>
+                    </thead>
+                    <tbody style="text-align: center;">
+                    <tr>
+                        <td>1</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="lasttd">
+                            <div class="rowButtons">
+                                <button type="button" class="btn btn-default btn-sm">保单明细</button>
+                                <button type="button" class="btn btn-default btn-sm">跟踪记录</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="lasttd">
+                            <div class="rowButtons">
+                                <button type="button" class="btn btn-default btn-sm">保单明细</button>
+                                <button type="button" class="btn btn-default btn-sm">跟踪记录</button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="xuzx">
+                2
+            </div>
+            <div class="tab-pane fade" id="jianzx">
+                3
+            </div>
+            <div class="tab-pane fade" id="qianzx">
+                4
+            </div>
+            <div class="tab-pane fade" id="chaxun">
+                <div id="searchDiv" style="height: 20px;margin-left: 20px">
+                    <div id="searchDivTr">
+                        <label>店名：</label>
+                        <select>
+                            <option >全部</option>
+                            <option>listitem1</option>
+                            <option>listitem2</option>
+                            <option>listitem3</option>
+                        </select>
+                        <label>品牌：</label>
+                        <select>
+                            <option >全部</option>
+                            <option>listitem1</option>
+                            <option>listitem2</option>
+                            <option>listitem3</option>
+                        </select>
+                        <label>车型:</label>
+                        <select>
+                            <option >全部</option>
+                            <option>listitem1</option>
+                            <option>listitem2</option>
+                            <option>listitem3</option>
+                        </select>
+                        <label>被保险人：</label><input  style="width: 65px;">
+                        <label>联系人：</label><input  style="width: 65px;">
+                        <label>联系电话：</label><input  style="width: 85px;">
+                        <label>保险公司:</label>
+                        <select>
+                            <option >全部</option>
+                            <option>listitem1</option>
+                            <option>listitem2</option>
+                            <option>listitem3</option>
+                        </select>
+                        <label>车牌号：</label><input  style="width: 65px;">
+                        <label>车架号：</label><input  style="width: 65px;">
+                        <label>承保类型:</label>
+                        <select>
+                            <option >全部</option>
+                            <option>listitem1</option>
+                            <option>listitem2</option>
+                            <option>listitem3</option>
+                        </select>
+                        <label>本店承保次数：</label><input  style="width: 65px;">
+                        <label>负责人:</label>
+                        <select>
+                            <option >全部</option>
+                            <option>listitem1</option>
+                            <option>listitem2</option>
+                            <option>listitem3</option>
+                        </select>
+                        <label>出单员:</label>
+                        <select>
+                            <option >全部</option>
+                            <option>listitem1</option>
+                            <option>listitem2</option>
+                            <option>listitem3</option>
+                        </select>
+                        <button type="button" id="morebtn">更多</button>
+                        <input id="submitBtn" type="button" value="查询">
+                        <input id="emptyBtn" type="button" value="清空">
+                    </div>
+                    <div id="searchDivTr2" style="display: none;">
+                        <label>承保日期开始：</label>
+                        <select>
+                            <option >全部</option>
+                            <option>listitem1</option>
+                            <option>listitem2</option>
+                            <option>listitem3</option>
+                        </select>
+                        <label>承保日期结束：</label>
+                        <select>
+                            <option >全部</option>
+                            <option>listitem1</option>
+                            <option>listitem2</option>
+                            <option>listitem3</option>
+                        </select>
+                        <label>保单号查询：</label><input  style="width: 85px;">
+                        <label>商业险日期开始：</label>
+                        <select>
+                            <option >全部</option>
+                            <option>listitem1</option>
+                            <option>listitem2</option>
+                            <option>listitem3</option>
+                        </select>
+                        <label>商业险日期结束：</label>
+                        <select>
+                            <option >全部</option>
+                            <option>listitem1</option>
+                            <option>listitem2</option>
+                            <option>listitem3</option>
+                        </select>
+                        <label>交强险日期开始：</label>
+                        <select>
+                            <option >全部</option>
+                            <option>listitem1</option>
+                            <option>listitem2</option>
+                            <option>listitem3</option>
+                        </select>
+                        <label>交强险日期结束：</label>
+                        <select>
+                            <option >全部</option>
+                            <option>listitem1</option>
+                            <option>listitem2</option>
+                            <option>listitem3</option>
+                        </select>
+                        <label>险种查询：</label>
+                        <select>
+                            <option >全部</option>
+                            <option>listitem1</option>
+                            <option>listitem2</option>
+                            <option>listitem3</option>
+                        </select>
+                        <label>商业险金额查询：</label><input  style="width: 65px;">
+                    </div>
+                    <table style="margin-top: 10px;" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>序号（10）</th>
+                            <th>承保日期</th>
+                            <th>负责人</th>
+                            <th>被保险人</th>
+                            <th>联系人</th>
+                            <th>联系电话</th>
+                            <th>保险公司</th>
+                            <th>车牌号</th>
+                            <th>车架号</th>
+                            <th>承保类型</th>
+                            <th>本店承保次数</th>
+                            <th>保险开始日期</th>
+                            <th>保险结束日期</th>
+                            <th>应收保费</th>
+                            <th>实收保费</th>
+                            <th>出单员</th>
+                        </tr>
+                        </thead>
+                        <tbody style="text-align: center;">
+                        <tr>
+                            <td>1</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="scmSidebar">
+    <div class="scmSideNav">
+        <div class="scmsideNavTitle">功能导航</div>
+        <ul class="scmsideNavBtn" style="height: 441px; overflow: auto;">
+            <li>保单管理</li>
+            <li>潜客管理</li>
+            <li>绩效管理</li>
+        </ul>
+    </div>
+    <div class="scmSBReturn"></div>
+</div>
+<div id="scmHeader">
+    <div class="scmLogo"> </div>
+    <div class="scmUser">
+        <div style="background-image:url(../images/userImg.png)" class="scmUserImage"> </div><i>大力神-销售顾问</i>
+    </div>
+    <div class="scmNav">
+        <div class="scmNavBtn" style="background-image: url(../images/headNavtree/approveing_icon.png);"><i>应跟踪</i>
+            <div id="approvingOrderWarning" class="scmWarning" style="">429</div>
+        </div>
+        <div class="scmNavBtn" style="background-image: url(../images/headNavtree/backing_icon.png);"><i>未接收</i>
+            <div id="backingPCWarning" class="scmWarning" style="">6</div>
+        </div>
+        <div  id="daisp" class="scmNavBtn" style="background-image: url(../images/headNavtree/receiveing_icon.png);"><i>待审批</i>
+            <div class="scmWarning" style="">12</div>
+        </div>
+        <div class="scmNavBtn" style="background-image: url(../images/headNavtree/refused_icon.png);"><i>将超期</i>
+            <div id="refuseingOrderWarning" class="scmWarning" style="">3</div>
+        </div>
+        <div class="scmNavBtn" style="background-image: url(../images/headNavtree/backing_icon.png);"><i>已超期</i>
+            <div id="overduetabWarning" class="scmWarning" style="">31</div>
+        </div>
+    </div>
+    <div id="scmTissueName" style="background:rgba(0,0,0,.1);box-shadow: inset 0 1px 0 rgba(0,0,0,.1);display:none" class="scmTissueName">北京博福易商科技有限公司</div>
+    <div id="scmTissueNames" style="top:75px;display:none" class="scmTissueNames">
+        <div id="scmTissueNameClose" class="scmTissueNameClose">
+            <div class="closeLine1"></div>
+            <div class="closeLine2"></div>
+        </div>
+        <ul id="scmTissueNamesUl"><li class="scmTissueType"></li></ul>
+    </div>
+</div>
+<div class="scmUserTip"><ul><li id="updatePassword">修改密码</li><li id="exitSecurity">安全退出</li></ul><s><i></i></s></div>
+<div id="scmMaskWindow" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 400px; width: 710px; margin-left: -355px; margin-top: -200px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                回退待审批的潜客
+            </i>
+        </div>
+        <div class="scmWindowContent slickgrid_698681 ui-widget" style="height: 300px; overflow: hidden; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <h3>车辆信息</h3>
+                <span>车牌号 <input type="text"></span>
+                <span>车牌号 <input type="text"></span>
+                <span>车牌号 <input type="text"></span>
+                <span>车牌号 <input type="text"></span>
+                <span>车牌号 <input type="text"></span>
+                <span>车牌号 <input type="text"></span>
+                <span>车牌号 <input type="text"></span>
+            </div>
+            <div class="carmsg">
+                <h3>保险信息</h3>
+                <span>车牌号
+                    <select>
+                        <option >全部</option>
+                        <option>listitem1</option>
+                        <option>listitem2</option>
+                        <option>listitem3</option>
+                    </select></span>
+                <span>车牌号 <input type="text"></span>
+                <span>车牌号 <input type="text"></span>
+                <span>车牌号 <input type="text"></span>
+                <span>车牌号 <input type="text"></span>
+                <span>车牌号 <input type="text"></span>
+                <span>车牌号 <input type="text"></span>
+            </div>
+            <div class="carmsg">
+                <h3>客户信息</h3>
+                <span>车牌号 <input type="text"></span>
+                <span>车牌号 <input type="text"></span>
+                <span>车牌号 <input type="text"></span>
+                <span>车牌号 <input type="text"></span>
+                <span>车牌号 <input type="text"></span>
+                <span>车牌号 <input type="text"></span>
+                <span>车牌号 <input type="text"></span>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input id="backPCCancel" type="button" value="撤销">
+            <input id="closeBtn" type="button" value="关闭">
+        </div>
+    </div>
+</div>-->

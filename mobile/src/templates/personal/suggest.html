@@ -1,0 +1,21 @@
+<ion-view view-title="建议反馈" >
+  <ion-nav-buttons side="left">
+    <button  ng-if="ctrl.user.role.roleId==3||ctrl.user.role.roleId==10||ctrl.user.role.roleId==11||ctrl.user.role.roleId==16||ctrl.user.role.roleId==23" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('homePage.personalCenter')"></button>
+    <button  ng-if="ctrl.user.role.roleId==2||ctrl.user.role.roleId==6||ctrl.user.role.roleId==8" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('xbzyHomePage.personalCenter')"></button>
+    <button ng-if="ctrl.user.role.roleId==7||ctrl.user.role.roleId==9" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('mgrHomePage.personalCenter')"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="padding">
+      <h5>标题</h5>
+      <input type="text" class="input-border" ng-model="ctrl.newSuggest.title" maxlength="100">
+      <h5>内容</h5>
+      <textarea rows="3" cols="30" class="input-border" ng-model="ctrl.newSuggest.content" maxlength="500"></textarea>
+    </div>
+    <div class="loginErrMsg" ng-show="ctrl.errMsg" ng-bind="ctrl.errMsg"></div>
+    <div class="padding" style="padding-top:30px;">
+      <button class="button button-block button-bip" ng-click="ctrl.addSuggest()">
+        提交
+      </button>
+    </div>
+  </ion-content>
+</ion-view>

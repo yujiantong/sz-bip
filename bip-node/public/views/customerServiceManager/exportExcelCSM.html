@@ -1,0 +1,100 @@
+<div id="export" xmlns:x="http://www.w3.org/1999/xhtml">
+    <table id="targetTable" border="1">
+        <thead>
+        <!--<tr><th  colspan="10">北京博福易商科技有限公司</th></tr>-->
+        <tr align="center">
+            <th>序号</th>
+            <th>负责人</th>
+            <th>业务员</th>
+            <th>当前持有人</th>
+            <th>联系人</th>
+            <th>联系电话</th>
+            <th>是否到店</th>
+            <th>是否报价</th>
+            <th>车牌号</th>
+            <th>车架号</th>
+            <th>发动机号</th>
+            <th>上牌日期</th>
+            <th>品牌</th>
+            <th>车辆型号</th>
+            <th>交强险到期日</th>
+            <th>商业险到期日</th>
+            <th>将脱保(天)</th>
+            <th>投保类型</th>
+            <th>续保渠道</th>
+            <th>去年招揽员</th>
+            <th>本店投保次数</th>
+            <th>去年投保日期</th>
+            <th>去年投保公司</th>
+            <th>去年保费</th>
+            <th>去年优惠项目</th>
+            <th>去年投保险种</th>
+            <th>备注</th>
+            <th>车主</th>
+            <th>被保险人</th>
+            <th>被保险人证件号</th>
+            <th>潜客级别</th>
+            <th>现住址</th>
+            <th>是否本店再修客户</th>
+            <th>去年本店维修次数</th>
+            <th>去年出险次数</th>
+            <th>去年事故车产值</th>
+            <th>服务顾问</th>
+            <th>客户来源</th>
+            <th>客户性质</th>
+            <th>是否高意向</th>
+            <th>客户描述</th>
+            <th>失销原因</th>
+            <th>末次跟踪日期</th>
+            <th>末次跟踪结果</th>
+            <th>持有天数</th>
+        </tr> </thead><tbody>
+        <tr align="center" ng-repeat="exportCus in exportData">
+            <td>{{$index+1}}</td>
+            <td>{{exportCus.principal}}</td>
+            <td>{{exportCus.clerk}}</td>
+            <td>{{exportCus.holder}}</td>
+            <td>{{exportCus.contact}}</td>
+            <td x:str="'{{exportCus.contactWay}}">{{exportCus.contactWay}}</td>
+            <td>{{exportCus.isComeStore|mapSF}}</td>
+            <td>{{exportCus.isQuote|mapSF}}</td>
+            <td>{{exportCus.carLicenseNumber}}</td>
+            <td x:str="'{{exportCus.chassisNumber}}">{{exportCus.chassisNumber}}</td>
+            <td>{{exportCus.engineNumber}}</td>
+            <td>{{exportCus.registrationDate|date:'yyyy-MM-dd'}}</td>
+            <td>{{exportCus.carBrand}}</td>
+            <td>{{exportCus.vehicleModel}}</td>
+            <td>{{exportCus.jqxrqEnd|date:'yyyy-MM-dd'}}</td>
+            <td>{{exportCus.syxrqEnd|date:'yyyy-MM-dd'}}</td>
+            <td>{{exportCus.remainLostInsurDay}}</td>
+            <td>{{exportCus.coverType.coverTypeName}}</td>
+            <td>{{exportCus.renewalWay}}</td>
+            <td>{{exportCus.solicitMemberLY}}</td>
+            <td>{{exportCus.insurNumber}}</td>
+            <td>{{exportCus.insurDateLY|date:'yyyy-MM-dd'}}</td>
+            <td>{{exportCus.insuranceCompLY}}</td>
+            <td>{{exportCus.insuranceCoverageLY}}</td>
+            <td>{{exportCus.privilegeProLY}}</td>
+            <td>{{exportCus.insuranceTypeLY}}</td>
+            <td>{{exportCus.remark}}</td>
+            <td>{{exportCus.carOwner}}</td>
+            <td>{{exportCus.insured}}</td>
+            <td x:str="'{{exportCus.certificateNumber}}">{{exportCus.certificateNumber}}</td>
+            <td>{{exportCus.customerLevel}}</td>
+            <td>{{exportCus.address}}</td>
+            <td>{{exportCus.isMaintainAgain|mapSF}}</td>
+            <td>{{exportCus.maintainNumberLY}}</td>
+            <td>{{exportCus.accidentNumberLY}}</td>
+            <td>{{exportCus.accidentOutputValueLY}}</td>
+            <td>{{exportCus.serviceConsultant}}</td>
+            <td>{{exportCus.customerSource}}</td>
+            <td>{{exportCus.customerCharacter}}</td>
+            <td>{{exportCus.sfgyx|mapSF}}</td>
+            <td>{{exportCus.customerDescription}}</td>
+            <td>{{exportCus.sxyy}}</td>
+            <td>{{exportCus.lastTraceDate|date:'yyyy-MM-dd'}}</td>
+            <td>{{exportCus.lastTraceResult}}</td>
+            <td>{{exportCus.cyts}}</td>
+        </tr></tbody>
+    </table>
+</div>

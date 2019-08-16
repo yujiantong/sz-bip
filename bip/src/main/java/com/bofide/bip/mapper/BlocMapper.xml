@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bofide.bip.mapper.BlocMapper">
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.Bloc" >
+		<id column="jtId" property="jtId" jdbcType="INTEGER" />
+		<result column="jtName" property="jtName" jdbcType="VARCHAR" />
+		<result column="jtShortName" property="jtShortName" jdbcType="VARCHAR" />
+		<result column="jtRegistName" property="jtRegistName" jdbcType="VARCHAR" />
+		<result column="jtCode" property="jtCode" jdbcType="VARCHAR" />
+		<result column="jtTaxNum" property="jtTaxNum" jdbcType="VARCHAR" />
+		<result column="jtFzr" property="jtFzr" jdbcType="VARCHAR" />
+		<result column="jtLxr" property="jtLxr" jdbcType="VARCHAR" />
+		<result column="jtPhone" property="jtPhone" jdbcType="VARCHAR" />
+		<result column="jtEmail" property="jtEmail" jdbcType="VARCHAR" />
+		<result column="jtAddress" property="jtAddress" jdbcType="VARCHAR" />
+		<result column="jtAdminAccount" property="jtAdminAccount" jdbcType="VARCHAR" />
+		<result column="jtAdminPassword" property="jtAdminPassword" jdbcType="VARCHAR" />
+		<result column="jtYxqStart" property="jtYxqStart" jdbcType="DATE" />
+		<result column="jtYxqEnd" property="jtYxqEnd" jdbcType="DATE" />
+		<result column="jtDeleted" property="jtDeleted" jdbcType="INTEGER" />
+		<result column="jtDeleteDate" property="jtDeleteDate" jdbcType="TIMESTAMP" />
+		<result column="jtRemark" property="jtRemark" jdbcType="VARCHAR" />
+		<result column="jtCreateDate" property="jtCreateDate" jdbcType="TIMESTAMP" />
+		<result column="jtUpdateDate" property="jtUpdateDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select * from bf_bip_bloc 
+		<where>
+			<if test="jtId != null and jtId != ''">and jtId = #{jtId}</if>
+			<if test="jtName != null and jtName != ''">and jtName like '%${jtName}%'</if>
+			<if test="jtShortName != null and jtShortName != ''">and jtShortName = #{jtShortName}</if>
+			<if test="jtRegistName != null and jtRegistName != ''">and jtRegistName = #{jtRegistName}</if>
+			<if test="jtCode != null and jtCode != ''">and jtCode = #{jtCode}</if>
+			<if test="jtTaxNum != null and jtTaxNum != ''">and jtTaxNum = #{jtTaxNum}</if>
+			<if test="jtFzr != null and jtFzr != ''">and jtFzr = #{jtFzr}</if>
+			<if test="jtLxr != null and jtLxr != ''">and jtLxr = #{jtLxr}</if>
+			<if test="jtPhone != null and jtPhone != ''">and jtPhone = #{jtPhone}</if>
+			<if test="jtEmail != null and jtEmail != ''">and jtEmail = #{jtEmail}</if>
+			<if test="jtAddress != null and jtAddress != ''">and jtAddress = #{jtAddress}</if>
+			<if test="jtDeleted != null ">and jtDeleted = #{jtDeleted}</if>
+		</where> 
+	</select>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="jtId" parameterType="com.bofide.bip.po.Bloc" >
+		insert into bf_bip_bloc(
+			jtName, jtShortName, jtRegistName, jtCode, jtTaxNum, jtFzr, 
+			jtLxr, jtPhone, jtEmail, jtAddress, jtAdminAccount, jtAdminPassword, 
+			jtYxqStart,jtYxqEnd,jtRemark,jtCreateDate
+		)values(
+			#{jtName}, #{jtShortName},#{jtRegistName},#{jtCode}, #{jtTaxNum},#{jtFzr},
+			#{jtLxr}, #{jtPhone},#{jtEmail},#{jtAddress}, #{jtAdminAccount},#{jtAdminPassword},
+			#{jtYxqStart}, #{jtYxqEnd},#{jtRemark}, now()
+		)
+	</insert>
+
+	<update id="updateSelectiveById" parameterType="java.util.Map" >
+		update bf_bip_bloc
+		<trim prefix="SET" suffixOverrides=",">  
+			<if test="jtName != null">jtName = #{jtName},</if>
+			<if test="jtShortName != null">jtShortName = #{jtShortName},</if>
+			<if test="jtRegistName != null">jtRegistName = #{jtRegistName},</if>
+			<if test="jtCode != null">jtCode = #{jtCode},</if>
+			<if test="jtTaxNum != null">jtTaxNum = #{jtTaxNum},</if>
+			<if test="jtFzr != null">jtFzr = #{jtFzr},</if>
+			<if test="jtLxr != null">jtLxr = #{jtLxr},</if>
+			<if test="jtPhone != null">jtPhone = #{jtPhone},</if>
+			<if test="jtEmail != null">jtEmail = #{jtEmail},</if>
+			<if test="jtAddress != null">jtAddress = #{jtAddress},</if>
+			<if test="jtAdminAccount != null">jtAdminAccount = #{jtAdminAccount},</if>
+			<if test="jtAdminPassword != null">jtAdminPassword = #{jtAdminPassword},</if>
+			<if test="jtYxqStart != null">jtYxqStart = #{jtYxqStart},</if>
+			<if test="jtYxqEnd != null">jtYxqEnd = #{jtYxqEnd},</if>
+			<if test="jtDeleted != null">jtDeleted = #{jtDeleted},</if>
+			<if test="jtDeleteDate != null">jtDeleteDate = #{jtDeleteDate},</if>
+			<if test="jtRemark != null">jtRemark = #{jtRemark},</if>
+			<if test="jtCreateDate != null">jtCreateDate = #{jtCreateDate},</if>
+			<if test="jtUpdateDate != null">jtUpdateDate = #{jtUpdateDate},</if>
+		</trim>  
+		where jtId = #{jtId}
+	</update>
+	
+	<select id="findExistByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select * from bf_bip_bloc 
+		<where>
+			<if test="jtId != null and jtId != ''">and jtId = #{jtId}</if>
+			<if test="jtName != null and jtName != ''">and jtName = #{jtName}</if>
+			<if test="jtShortName != null and jtShortName != ''">and jtShortName = #{jtShortName}</if>
+			<if test="jtRegistName != null and jtRegistName != ''">and jtRegistName = #{jtRegistName}</if>
+			<if test="jtCode != null and jtCode != ''">and jtCode = #{jtCode}</if>
+			<if test="jtTaxNum != null and jtTaxNum != ''">and jtTaxNum = #{jtTaxNum}</if>
+			<if test="jtFzr != null and jtFzr != ''">and jtFzr = #{jtFzr}</if>
+			<if test="jtLxr != null and jtLxr != ''">and jtLxr = #{jtLxr}</if>
+			<if test="jtPhone != null and jtPhone != ''">and jtPhone = #{jtPhone}</if>
+			<if test="jtEmail != null and jtEmail != ''">and jtEmail = #{jtEmail}</if>
+			<if test="jtAddress != null and jtAddress != ''">and jtAddress = #{jtAddress}</if>
+			<if test="jtDeleted != null ">and jtDeleted = #{jtDeleted}</if>
+		</where> 
+	</select>
+</mapper>

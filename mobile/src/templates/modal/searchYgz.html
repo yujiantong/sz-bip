@@ -1,0 +1,42 @@
+<div class="modal searchBox">
+  <ion-modal-view style="background: #eee;margin-top: 0px">
+    <ion-content class="padding">
+      <table class="searchTable">
+        <tr>
+          <td class="text-right" width="110">投保类型：</td>
+          <td>
+            <select ng-model="ctrl.searchGz.renewalType">
+              <option value="">请选择</option>
+              <option value="2">新转续</option>
+              <option value="3">续转续</option>
+              <option value="4">间转续</option>
+              <option value="5">潜转续</option>
+              <option value="6">首次</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right">车架号：</td>
+          <td><input type="text" ng-model="ctrl.searchGz.chassisNumber"></td>
+        </tr>
+        <tr>
+          <td class="text-right">车牌号：</td>
+          <td><input type="text" ng-model="ctrl.searchGz.carLicenseNumber"></td>
+        </tr>
+        <tr>
+          <td class="text-right">联系人：</td>
+          <td><input type="text" ng-model="ctrl.searchGz.contact"></td>
+        </tr>
+        <tr>
+          <td class="text-right">联系方式：</td>
+          <td><input type="text" ng-model="ctrl.searchGz.contactWay"></td>
+        </tr>
+      </table>
+      <div style="padding:5px 0 50px 0;text-align: right;">
+        <button class="button-search button button-small" ng-click="doRefreshYgz(2)">
+          查询
+        </button>
+      </div>
+    </ion-content>
+  </ion-modal-view>
+</div>

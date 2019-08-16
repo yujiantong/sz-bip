@@ -1,0 +1,20 @@
+<ion-view view-title="可删除邀约" ng-init="ctrl.selectKSCYY()">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios-arrow-left fcf" ui-sref="inviteXbzyDetails({userId:ctrl.userId,userName:ctrl.userName,customerId:ctrl.customerId})"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefreshKSCYY()"></ion-refresher>
+    <div class="list">
+      <a class="item item-icon-right"
+         ng-repeat="customer in items" ui-sref="inviteDetailsYy({userId:ctrl.userId,userName:ctrl.userName,customerId:ctrl.customerId,customerTraceId:customer.customerTraceId})">
+        <h2 class="fcgreen">{{customer.lxr}}</h2>
+        <p>
+          <span class="fs12">{{customer.lxfs}}</span>
+          <span class="ml10 fs12">保险到期日:{{customer.bxdqr | date:'yy/MM/dd'}}</span>
+        </p>
+        <span class="badge bip-customerLv">{{customer.customerLevel}}</span>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </a>
+    </div>
+  </ion-content>
+</ion-view>

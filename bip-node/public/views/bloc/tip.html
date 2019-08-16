@@ -1,0 +1,20 @@
+<div id="tip" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 150px; width: 250px; margin-left: -125px; margin-top: -70px;">
+        <div class="scmWindowTitle">
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            是否确认删除？
+        </div>
+        <div class="scmWindowButton">
+            <input ng-click="makesure()" type="button" value="确认">
+            <input class="fr closeBtn" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#tip").hide();
+    });
+</script>

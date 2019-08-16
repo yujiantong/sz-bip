@@ -1,0 +1,89 @@
+<div id="ghfzr" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 160px; width: 250px; margin-left: -125px; margin-top: -80px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">更换持有人原因</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            <textarea rows="3" cols="30" style="width: 220px;height: 50px;float: right;" ng-model="confirmData.ghfzryy" maxlength="150"></textarea>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="makesure()" type="button" value="确认">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="jjht" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 160px; width: 250px; margin-left: -125px; margin-top: -80px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">拒绝回退原因</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            <textarea rows="3" cols="30" style="width: 220px;height: 50px;float: right;" ng-model="confirmData.jjhtyy" maxlength="150"></textarea>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="makesure()" type="button" value="确认">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+
+<div id="tyht" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 160px; width: 250px; margin-left: -125px; margin-top: -80px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">同意回退</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            <textarea rows="3" cols="30" style="width: 220px;height: 50px;float: right;" ng-model="confirmData.tyhtyj" maxlength="150"></textarea>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="makesure()" type="button" value="确认">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="plghfzr" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 130px; width: 250px; margin-left: -125px; margin-top: -65px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">批量更换持有人</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt text-center">
+            <select style="width: 200px" required="" ng-model="newPri.User"
+                    ng-options="x as x.userName for (key,x) in PriUser">
+                <option value="">请选择持有人</option>
+            </select>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="replacePri()" type="button" value="确认">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="zdht" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 160px; width: 250px; margin-left: -125px; margin-top: -80px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">回退原因</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            <textarea rows="3" cols="30" style="width: 220px;height: 50px;float: right;" ng-model="confirmData.zdhtyj" maxlength="150"></textarea>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="makesure()" type="button" value="确认">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".close_confirmPage").click(function(){
+        $("#jjht").hide();
+        $("#tyht").hide();
+        $("#ghfzr").hide();
+        $("#plghfzr").hide();
+        $("#zdht").hide();
+    });
+</script>

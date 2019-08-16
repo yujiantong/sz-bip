@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bofide.bip.mapper.RoleMapper">
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.Role" >
+    	<id column="roleId" property="roleId" jdbcType="INTEGER" />
+		<result column="roleName" property="roleName" jdbcType="VARCHAR" />
+  	</resultMap>
+	<select id="selectRole" resultMap="BaseResultMap">
+		select 
+			*
+		from bf_bip_role 
+		where roleId in (1,2,3,4,5,6,7,8,9,10,11,19,21,22)
+	</select>
+	<select id="selectRole_xtyh" resultMap="BaseResultMap">
+		select 
+			*
+		from bf_bip_role 
+		where
+		roleId in (16,17,18)
+	
+	</select>
+	<!-- 查询行政建店人员能新建的系统人员 -->
+	<select id="selectRole_xzjd" resultMap="BaseResultMap">
+		select 
+			*
+		from bf_bip_role 
+		where
+		roleId in (16,18,23)
+	
+	</select>
+	
+	<select id="findRoleNameByRoleId" resultMap="BaseResultMap">
+		select * from bf_bip_role where roleId = #{roleId}
+	</select>
+	
+	<!-- 查询集团管理人员能新建的角色 -->
+ 	 <select id="findRoleByBloc" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+		SELECT
+			a.*
+		FROM
+			bf_bip_role a
+		LEFT JOIN bf_bip_user b ON a.roleId = b.roleId
+		AND deleted = 0
+		AND b.roleId IN (${ids})
+		<if test="jtId != null and jtId != ''">
+			AND b.jtId = #{jtId}
+		</if>
+		<if test="unitId != null and unitId != ''">
+			AND b.unitId = #{unitId}
+		</if>
+		<where>
+			a.roleId IN (${idsAll})
+		AND b.id is null
+		</where>
+	</select>
+</mapper>

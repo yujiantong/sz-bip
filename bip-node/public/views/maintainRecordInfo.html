@@ -1,0 +1,34 @@
+<div id="maintainDetailAll" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 530px; width: 1100px; margin-left: -550px; margin-top: -270px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                维修清单
+            </i>
+            <span class="closeBtn closewexiuBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget" style="height:500px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div>
+                <h3 style="margin-bottom: 10px;">维修金额合计：{{totalCost | number:2}}</h3>
+                <div class="weixiutItems">
+                    <div ui-grid="itemInfoPage" style="width: 450px;height: 400px;"  ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+                    </div>
+                </div>
+                <div class="accessories">
+                    <div ui-grid="partInfoPage" style="width: 600px;height: 400px;"  ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="closewexiuBtn" type="button" value="关闭">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closewexiuBtn").click(function(){
+        $("#maintainDetailAll").hide();
+    });
+</script>

@@ -1,0 +1,40 @@
+<div id="sjdr" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 240px; width: 400px; margin-left: -200px; margin-top: -200px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                数据导入
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget" style="height:330px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <div>
+                    <label class="control-label">请添加要导入的文件&nbsp;</label>
+                    <button class="btn btn-default" ngf-select="importDefeat()" ngf-multiple="false"
+                            ngf-max-size="5MB" ng-model="file.defeatData"  accept=".xlsx,.xls" style="line-height: 14px" >浏览</button>
+                </div>
+            </div>
+            <div>
+                <span style="font-size:14px">销售战败模版下载请<a href="../../file/defeatImport.xls">点击这里</a>.</span>
+            </div>
+            <div ng-show="show" style="z-index: 3"><img src="../../styles/images/uploading.gif"></div>
+            <div style="height: 70px; overflow-y: auto;">
+                <span style="font-size:16px;color:red">{{message}}</span>
+                <span ng-if="showLink" style="font-size:16px;color:red">
+                    详情请<a target="_blank" href="../../file/importDefeatMessage.txt">点击查看</a>
+                </span>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="closeBtn" ng-click="" type="button" value="关闭">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#sjdr").hide();
+    });
+</script>

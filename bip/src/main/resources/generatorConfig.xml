@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+	<classPathEntry location="D:\Desktop\springmvc\jar\spring_mybatis_lib\driver\mysql-connector-java-5.1.7-bin.jar" />
+	<context id="store" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+			<!-- 是否去除所有自动生成的文件的时间戳，默认为false -->
+			<!-- <property name="suppressDate" value="false"/> -->
+		</commentGenerator>
+		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+		          connectionURL="jdbc:mysql://localhost:3306/jiuluo00001"
+		          userId="root"
+		          password="root">
+		</jdbcConnection>
+		 <!-- 生成模型的包名和位置     其实就是生成po-->  
+		<javaModelGenerator targetPackage="com.scm.pcManager.po" targetProject="bofide\src">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+		    <property name="enableSubPackages" value="false" />
+		    <!-- 从数据库返回的值被清理前后的空格  -->
+		    <property name="trimStrings" value="true" />
+	    </javaModelGenerator>
+	    <!-- 配置生成相应的实体Mapper.xml，对于Mapper3.X我们需要把type="XMLMAPPER" -->
+	    <sqlMapGenerator targetPackage="com.scm.pcManager.mapper" targetProject="bofide\src">
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+		<!-- 配置生成相应的接口类(就是**mapper.java)，对应与Mapper.xml中的一系列CRUD方法SQL语句 -->
+	    <javaClientGenerator targetPackage="com.scm.pcManager.daoMapper" targetProject="bofide\src" type="XMLMAPPER">
+	    	<property name="enableSubPackages" value="false" />
+	  	</javaClientGenerator>
+		<!-- 用户表 -->
+		<table schema="stone" tableName="post" domainObjectName="Post"
+		    enableCountByExample="false"
+			enableUpdateByExample="false"
+			enableDeleteByExample="false"
+			enableSelectByExample="false"
+			selectByExampleQueryId="false"
+		    >  
+	    </table>
+    </context>
+</generatorConfiguration>

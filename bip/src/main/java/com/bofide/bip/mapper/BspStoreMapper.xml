@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.BspStoreMapper" >
+	<resultMap type="com.bofide.bip.po.BspStore" id="BaseResultMap">
+		<id property="bspStoreId" column="bsp_storeId" jdbcType="INTEGER"/>
+		<result property="bspStoreName" column="bsp_storeName" jdbcType="VARCHAR"/>
+		
+	</resultMap>
+
+  	<select id="findBspStore" resultMap="BaseResultMap">
+  		select * from bf_bip_bspstore where bsp_storeId not in 
+  		(SELECT bspStoreId FROM bf_bip_store where bangStatu=1)
+  	</select>
+  	
+</mapper>

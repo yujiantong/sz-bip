@@ -1,0 +1,53 @@
+<ion-view>
+  <ion-nav-title ng-init="ctrl.selectKSCYYXQ()">
+    可删除邀约
+  </ion-nav-title>
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios-arrow-left fcf" ui-sref="deleteInvite({userId:ctrl.userId,userName:ctrl.userName,customerId:ctrl.customerDetails.customerId,gzcxdata:ctrl.gzcxdata})"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="row fs12">
+      <div class="col">跟踪时间：{{ctrl.customerDetails.currentTraceDate | date:'yy/MM/dd'}}</div>
+    </div>
+    <div class="row fs12">
+      <div class="col">跟踪记录：{{ctrl.customerDetails.traceContext}}</div>
+    </div>
+    <div class="row fs12">
+      <div class="col col-50">联系人：{{ctrl.customerDetails.lxr}}</div>
+      <div class="col col-50">联系方式：{{ctrl.customerDetails.lxfs}}</div>
+    </div>
+    <div class="row fs12">
+      <div class="col col-50">投保类型：{{ctrl.customerDetails.renewalType | mapTBLX}}</div>
+      <div class="col col-50">负责人：{{ctrl.customerDetails.principal}}</div>
+    </div>
+    <div class="row fs12">
+      <div class="col col-50">车型：{{ctrl.customerDetails.cx}}</div>
+      <div class="col col-50">报价金额：{{ctrl.customerDetails.syxbj + ctrl.customerDetails.jqxbj + ctrl.customerDetails.ccsbj | number:2}}</div>
+    </div>
+    <div class="row fs12">
+      <div class="col col-50">商业险报价：{{ctrl.customerDetails.syxbj | number:2}}</div>
+      <div class="col col-50">交强险报价：{{ctrl.customerDetails.jqxbj | number:2}}</div>
+    </div>
+    <div class="row fs12">
+      <div class="col col-50">车船税报价：{{ctrl.customerDetails.ccsbj | number:2}}</div>
+      <div class="col col-50">预计到店日期：{{ctrl.customerDetails.inviteDate | date:'yy/MM/dd'}}</div>
+    </div>
+    <div class="row fs12">
+      <div class="col col-50">客户级别：{{ctrl.customerDetails.customerLevel}}</div>
+      <div class="col col-50">进店时间：{{ctrl.customerDetails.comeStoreDate | date:'yy/MM/dd'}}</div>
+    </div>
+    <div class="row fs12">
+      <div class="col col-50">保险到期日：{{ctrl.customerDetails.bxdqr | date:'yy/MM/dd'}}</div>
+      <div class="col col-50">下次跟踪日期：{{ctrl.customerDetails.nextTraceDate | date:'yy/MM/dd'}}</div>
+    </div>
+    <div class="row fs12">
+      <div class="col">持有天数：{{ctrl.customerDetails.cyts}}</div>
+    </div>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="dark-border">
+    <div class="button-bar">
+      <button class="button button-bip" ui-sref="deleteInvite({userId:ctrl.userId,userName:ctrl.userName,customerId:ctrl.customerDetails.customerId,gzcxdata:ctrl.gzcxdata})">取消</button>
+      <button class="button button-bip" ng-click="modalYY.show()">删除</button>
+    </div>
+  </ion-footer-bar>
+</ion-view>

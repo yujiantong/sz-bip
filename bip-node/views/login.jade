@@ -1,0 +1,84 @@
+extends layout
+
+block content
+  script.
+    $(function () {
+      $('#loginForm').submit(function() {
+        $("#login").attr('disabled',true);
+        $(this).ajaxSubmit({
+          data:{ nowDate: new Date() },
+          success: function (rs) {
+            $("#login").attr('disabled',false);
+            if (!rs.success) {//请求失败
+              alert(rs.message);
+              return;
+            }else if(navigator.userAgent.indexOf("Chrome") > -1||(navigator.userAgent.indexOf("iPad") > -1 && navigator.userAgent.indexOf("AppleWebKit") > -1)||
+                    navigator.userAgent.indexOf("Safari") > -1){
+              var roleId = rs.content.result.role.roleId;
+              if (rs.content.result.role.roleId == 1) {//跳转到相关页面
+                window.location.href = "/#/insuranceWriter";
+              } else if (rs.content.result.role.roleId == 2) {
+                window.location.href = "/#/renewalCommissioner";
+              } else if (rs.content.result.role.roleId == 3) {
+                window.location.href = "/#/renewalDirector";
+              } else if (rs.content.result.role.roleId == 4) {
+                window.location.href = "/#/customerServiceManager";
+              } else if (rs.content.result.role.roleId == 5) {
+                window.location.href = "/#/customerServiceCommissioner";
+              } else if (rs.content.result.role.roleId == 6) {
+                window.location.href = "/#/salesConsultant";
+              } else if (rs.content.result.role.roleId == 7) {
+                window.location.href = "/#/salesManager";
+              } else if (rs.content.result.role.roleId == 8) {
+                window.location.href = "/#/serviceAdvisor";
+              } else if (rs.content.result.role.roleId == 9) {
+                window.location.href = "/#/serviceManager";
+              } else if (rs.content.result.role.roleId == 19) {
+                window.location.href = "/#/receptionManager";
+              } else if (rs.content.result.role.roleId == 10) {
+                window.location.href = "/#/insuranceManager";
+              } else if (rs.content.result.role.roleId == 11||rs.content.result.role.roleId == 22) {
+                window.location.href = "/#/generalManager";
+              } else if (rs.content.result.role.roleName == '集团') {
+                //window.location.href = "/#/renewalDirector";
+              } else if (rs.content.result.role.roleName == '厂家') {
+                //window.location.href = "/#/renewalDirector";
+              } else if (rs.content.result.role.roleId == 14) {
+                window.location.href = "/#/admin";
+              } else if (rs.content.result.role.roleId == 15) {
+                window.location.href = "/#/superAdmin";
+              } else if (roleId == 16 || roleId == 23 || roleId == 41 || roleId == 42 || roleId == 43 || roleId == 44 || roleId == 45 || roleId == 46
+                      || roleId == 47 || roleId == 48 || roleId == 49 || roleId == 50 || roleId == 51 || roleId == 52 || roleId == 53
+                      || roleId == 54 || roleId == 55 || roleId == 56 || roleId == 57 || roleId == 58 || roleId == 59) {
+                window.location.href = "/#/dataAnalyst";
+              } else if (rs.content.result.role.roleId == 17) {
+                window.location.href = "/#/superAdmin";
+              } else if (rs.content.result.role.roleId == 18) {
+                window.location.href = "/#/superAdmin";
+              } else if (rs.content.result.role.roleId == 21) {
+                window.location.href = "/#/informationOfficer";
+              }else if (rs.content.result.role.roleId == 20) {
+                alert("短信帐号不能在PC端登录!");
+              } else if (rs.content.result.role.roleId == 40) {
+                window.location.href = "/#/bloc";
+              }
+            }else {
+              alert("请使用谷歌浏览器登录！")
+            }
+          },
+          timeout: 10000
+        });
+        return false;
+      });
+    })
+  #bofideLogo
+  a(id='bofideHome',target="_blank",href='http://www.bofide.com')
+  a(id='bipApp',target="_blank",href='/downloadApp/downloadApp.html')
+  .BIPLogo
+  .loginContainer
+    form(id='loginForm', action='login', method='post')
+      input(name='loginName', type='text',placeholder="用户名")
+      input(name='password', type='password',placeholder="密码")
+      input(id='login' type='submit', value='' )
+  #bofideEwm
+  .login_footer 博福公司版权所有V20180629

@@ -1,0 +1,30 @@
+{
+  "name": "HelloIonic",
+  "private": "true",
+  "devDependencies": {},
+  "dependencies": {
+    "ionic": "1.3.1",
+    "angular": "1.5.3",
+    "moment": "^2.15.0",
+    "ngstorage": "^0.3.11",
+    "angular-messages": "1.5.3",
+    "echarts": "^3.2.3",
+    "angular-animate":"1.5.3",
+    "angular-sanitize": "1.5.3",
+    "angular-ui-router":"0.2.13",
+    "ngCordova": "^0.1.27-alpha",
+    "socket.io-client": "^1.5.1"
+  },
+  "overrides": {
+    "echarts": {
+      "main": [
+        "./dist/echarts.js"
+      ]
+    },
+    "socket.io-client": {
+      "main": [
+        "./dist/socket.io.js"
+      ]
+    }
+  }
+}

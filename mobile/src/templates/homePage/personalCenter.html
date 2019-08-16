@@ -1,0 +1,35 @@
+<ion-view view-title="个人中心" hide-back-button="false">
+  <ion-nav-buttons side="left">
+    <img ng-if="ctrl.storeLogo==1||ctrl.storeLogo==null" class="titleImg" src="img/LOGO-WHITE.png">
+    <img ng-if="ctrl.storeLogo==2" class="titleImg" src="img/chipLOGO-WHITE.png">
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="bip-item-divider text-center">
+      <img src="img/presonal.png" width="100" height="100" alt="">
+      <p>{{ctrl.user.role.roleName}}——{{ctrl.user.userName}}</p>
+    </div>
+    <div class="list">
+      <a ng-show="ctrl.user.role.roleId==3||ctrl.user.role.roleId==7||ctrl.user.role.roleId==9||ctrl.user.role.roleId==10||ctrl.user.role.roleId==11||ctrl.user.role.roleId==16||ctrl.user.role.roleId==22||ctrl.user.role.roleId==23" class="item item-icon-right" ng-click="ctrl.stateChange('management')">
+        暂停管理
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </a>
+      <a class="item item-icon-right" ng-click="ctrl.stateChange('suggest',{userInfo:ctrl.userInfo})">
+        建议反馈
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </a>
+      <a class="item item-icon-right" ng-click="ctrl.stateChange('changePassword',{userId:ctrl.user.userId,userName:ctrl.user.userName})">
+        修改密码
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </a>
+      <a class="item item-icon-right" ng-click="ctrl.stateChange('service')">
+        联系客服
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </a>
+      <div class="padding" style="padding-top:30px;">
+        <button class="button button-block button-bip" ng-click="ctrl.logout()">
+          退出登录
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

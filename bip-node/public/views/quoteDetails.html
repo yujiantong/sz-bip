@@ -1,0 +1,67 @@
+<div id="bjDetails" class="scmMaskWindow">
+    <div  class="scmWindow" style="height: 500px; width: 960px; margin-left: -480px; margin-top: -250px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                报价详情
+            </i>
+            <span class="trackcloseBtn glyphicon glyphicon-remove" ng-click="bjDetailsClose()"></span>
+        </div>
+        <div class="scmWindowContent ui-widget" style="height:410px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <div>
+                    <span><label>车牌号</label> <input type="text" ng-model="bhQuoteDetails.carLicenseNumber" readonly></span>
+                    <span><label>车架号</label> <input type="text" ng-model="bhQuoteDetails.chassisNumber" readonly></span>
+                    <span><label>报价时间</label> <input type="text" ng-model="bhQuoteDetails.bjsj" readonly></span>
+                    <span><label>出险次数</label> <input type="text" ng-model="bhQuoteDetails.cxcs" readonly></span>
+                    <span><label>理赔金额</label> <input type="text" ng-model="bhQuoteDetails.lpje" readonly></span>
+                    <span><label>报价人</label> <input type="text" ng-model="bhQuoteDetails.bjr" readonly></span>
+                </div>
+                <p class="xzdetailsTitle">{{bhQuoteDetails.bxgs}}{{bhQuoteDetails.shijize | number:2}}元</p>
+                <div class="xzdetails">
+                    <div class="Bjconbox">
+                        <table class="Bjtable">
+                            <tr>
+                                <td class="text-left">无赔款优惠系数： {{bhQuoteDetails.rateFactor1}}</td>
+                                <td class="text-left">自主渠道系数： {{bhQuoteDetails.rateFactor2}}</td>
+                                <td class="text-left">自主核保系数：{{bhQuoteDetails.rateFactor3}}</td>
+                                <td class="text-left">交通违法系数：{{bhQuoteDetails.rateFactor4}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">综合优惠系数： {{bhQuoteDetails.jncdzk}}</td>
+                                <td class="text-left">标准保费：{{bhQuoteDetails.standardPremium}}</td>
+                                <td class="text-left">商业险保费：{{bhQuoteDetails.syxje}}</td>
+                                <td class="text-left">交强险保费：{{bhQuoteDetails.jqxje}}</td>
+                                <td class="text-left">车船税：{{bhQuoteDetails.ccsje}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">保费合计(含车船税)：{{bhQuoteDetails.bfhj}}</td>
+                            </tr>
+                        </table>
+                        <div style="padding: 15px 10px;border-top: 1px solid silver;border-bottom: 1px solid silver">
+                            <span style="font-weight: bold">商业险明细：</span><br>
+                            <span ng-repeat="xz in xzArr" ng-bind="xz" ng-if="xz.indexOf('不计免合计')==-1"></span>
+                            <span style="font-weight: bold" ng-repeat="xz in xzArr" ng-bind="xz" ng-if="xz.indexOf('不计免合计')!=-1"></span>
+                        </div>
+                        <div>
+                            <table class="Bjtable">
+                                <tr><td class="text-left" style="font-weight: bold">店端优惠：</td></tr>
+                                <tr>
+                                    <td class="text-left">商业险折扣：{{bhQuoteDetails.shopZheKou}}</td>
+                                    <td class="text-left">现金优惠：{{bhQuoteDetails.yhje || 0}}</td>
+                                    <td class="text-center">折后商业险：{{bhQuoteDetails.zhehousyx = bhQuoteDetails.syxje*bhQuoteDetails.shopZheKou-bhQuoteDetails.yhje|number:2}}</td>
+                                    <td class="text-center">应交保费：{{bhQuoteDetails.shijize}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="trackcloseBtn" ng-click="bjDetailsClose()" type="button" value="关闭">
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div id="disSuggestPage" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 565px; width: 850px; margin-left: -400px; margin-top: -285px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                跟踪处理
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"  ng-click="suggestPageClose()"></span>
+        </div>
+        <div class="scmWindowContent ui-widget changeValue" style="height:500px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <h3>意见信息</h3>
+                <span><label>公司名称</label> <input type="text" style="color: #999" ng-model="exhibitionSuggest.storeName" maxlength="30" readonly></span>
+                <span><label>角色</label> <input type="text" style="color: #999" ng-model="exhibitionSuggest.userRoleName" readonly></span>
+                <span><label>提出时间</label> <input type="text" style="color: #999" ng-model="exhibitionSuggest.proposeTime" readonly></span>
+                <span><label>姓名</label> <input type="text" style="color: #999"  ng-model="exhibitionSuggest.userName" readonly></span>
+                <span><label>电话</label> <input type="text" style="color: #999"  ng-model="exhibitionSuggest.userPhone" readonly></span>
+                <span><label>解决时间</label> <input type="text" style="color: #999" ng-model="exhibitionSuggest.solveTime" readonly></span>
+                <span><label>标题</label> <input type="text" style="color: #999"style="color: #999"  ng-model="exhibitionSuggest.title" readonly></span>
+                <div>
+                    <span style="width: 506px;">
+                        <label class="fl">内容</label>
+                        <textarea rows="3" cols="30" style="width: 405px;height: 150px;margin-left: 6px;color: #999;" ng-model="exhibitionSuggest.content" maxlength="200" readonly></textarea>
+                    </span>
+                </div>
+                <div>
+                    <span style="width: 506px;">
+                        <label class="fl">回复</label>
+                        <textarea rows="3" cols="30" style="width: 405px;height: 150px;margin-left: 6px;" ng-model="exhibitionSuggest.disContent" maxlength="200"></textarea>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="yincang" ng-click="solve(1)" ng-if="exhibitionSuggest.status==0" type="button" value="解决">
+            <input class="yincang" ng-click="solve(2)" ng-if="exhibitionSuggest.status==1" type="button" value="保存">
+            <input class="closeBtn" ng-click="suggestPageClose()" type="button" value="关闭">
+        </div>
+
+    </div>
+</div>

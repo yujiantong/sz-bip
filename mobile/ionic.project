@@ -1,0 +1,26 @@
+{
+  "name": "bofideApp",
+  "app_id": "",
+  "proxies": [
+    {
+      "path": "/login",
+      "proxyUrl": "http://10.10.1.115:3000/login"
+    },
+    {
+      "path": "/api",
+      "proxyUrl": "http://10.10.1.115:3000/"
+    },
+    {
+      "path": "/logout",
+      "proxyUrl": "http://10.10.1.115:3000/logout"
+    }
+
+  ],
+  "watchPatterns":[
+    "src/templates/**/*.html",
+    "src/css/*.css",
+    "src/js/**/*.js"
+  ],
+  "createDocumentRoot":"src",
+  "documentRoot":"src"
+}

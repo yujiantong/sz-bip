@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bofide.bip.mapper.ReasonMapper">
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.Reason" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="storeId" property="storeId" jdbcType="INTEGER" />
+		<result column="reason" property="reason" jdbcType="VARCHAR" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="disable" property="disable" jdbcType="INTEGER" />
+		<result column="createTime" property="createTime" jdbcType="DATE" />
+	</resultMap>
+	
+	<!-- 新增回退失销原因 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.bofide.bip.po.Reason" >
+		insert into bf_bip_reason (
+			storeId, reason, sort, status,disable,createTime
+		) values (
+			#{storeId},#{reason},#{sort},#{status},#{disable},now()
+		)
+	</insert>
+	
+	<!-- 删除回退失销原因 -->
+	<delete id="deleteById" parameterType="java.util.Map" >
+		delete from bf_bip_reason where id = #{id}
+	</delete>
+	
+	<!-- 修改原因 -->
+	<update id="update" parameterType="java.util.Map" >
+		update bf_bip_reason
+			<trim prefix="SET" suffixOverrides=",">  
+				<if test="reason != null and reason != '' ">  
+					reason = #{reason},  
+				</if>
+				<if test="sort != null and sort != '' ">  
+					sort = #{sort},  
+				</if>
+				<if test="status != null and status != '' ">  
+					status = #{status},  
+				</if>
+			</trim>  
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 按条件查询原因 -->
+	<select id="findReasonByCondition" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT * FROM bf_bip_reason
+		<where>
+			<if test="id != null and id != ''">
+				AND id = #{id}
+			</if>
+			<if test="storeId != null and storeId != ''">
+				AND storeId = #{storeId}
+			</if>
+			<if test="reason != null and reason != ''">
+				AND reason = #{reason}
+			</if>
+			<if test="status != null and status != ''">
+				AND status = #{status}
+			</if>
+			<if test="disable != null and disable != ''">
+				AND disable = #{disable}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 查询回退失销原因的下拉框 -->
+	<select id="findForSelectData" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from bf_bip_reason
+		<where>
+			<if test="storeId != null and storeId != ''">
+				AND storeId = #{storeId}
+			</if>
+			<if test="status != null and status != ''">
+				AND status = #{status}
+			</if>
+		</where>
+		order by sort ASC, createTime ASC
+	</select>
+	
+</mapper>

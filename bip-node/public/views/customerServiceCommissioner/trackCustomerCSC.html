@@ -1,0 +1,40 @@
+<div id="trackCust" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 250px; width: 500px; margin-left: -250px; margin-top: -125px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                跟踪
+            </i>
+        </div>
+        <div class="scmWindowContent ui-widget" style="height:180px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <span><label>下次跟踪日期</label> <input type="text" ng-model="newTrace.nextTraceDate" class="coverDate" readonly></span>
+                <span style="width: 400px"><label>跟踪内容</label> <input style="width: 280px;" ng-model="newTrace.traceContext" type="text" maxlength="150"></span>
+                <span style="width: 400px"><label>客户描述</label> <input style="width: 280px;" ng-model="newTrace.customerDescription" type="text"  maxlength="100"></span>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="surebtn" ng-click="addNewTrace()" type="button" value="确认">
+            <input class="trackcloseBtn" type="button" value="关闭">
+        </div>
+
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".trackcloseBtn").click(function(){
+        $("#trackCust").hide();
+    });
+    $('.coverDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });
+
+</script>

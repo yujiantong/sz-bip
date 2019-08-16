@@ -1,0 +1,20 @@
+<div id="scmSidebar"  ng-mouseenter="sideNavSwitch()"  ng-mouseleave="scmSBReturn()">
+    <div class="scmSideNav">
+        <div class="scmsideNavTitle">功能导航</div>
+        <ul class="scmsideNavBtn" style="height: 441px; overflow: auto;">
+            <li ui-sref="generalManager.policy">保单管理</li>
+            <li ng-click="setPageStatus('qkcx',0,'qk')">潜客管理</li>
+            <li ui-sref="generalManager.performance">绩效管理</li>
+            <li ui-sref="generalManager.param">参数设置</li>
+            <li ui-sref="generalManager.report">报表汇总</li>
+            <li ui-sref="generalManager.message">短信管理</li>
+            <li ui-sref="generalManager.giftRecord">赠送记录</li>
+            <li ui-sref="generalManager.premium">保费查询</li>
+            <li ui-sref="generalManager.pushRepair">推送修查询</li>
+            <li ui-sref="generalManager.suggest">建议管理</li>
+            <li ng-if="logo==1"><a href="http://college.bofide.cn/client/bip" target="_blank" class="bipmv">视频教程</a></li>
+        </ul>
+    </div>
+    <div class="scmSBReturn" ng-click="scmSBReturn()"></div>
+    <div class="scmWindowButton"><input ng-click="suggest()" type="button" value="建议"></div>
+</div>

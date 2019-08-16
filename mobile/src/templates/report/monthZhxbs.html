@@ -1,0 +1,18 @@
+<ion-view view-title="月报-综合续保数" ng-init="ctrl.monthZhxbsCount()">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('homePage.report',{ReportTabNO:2})"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="padding" style="padding-bottom: 0px;">
+       <span>月份：<select ng-model="ctrl.report.mouthDate" ng-options="x for x in ctrl.selectTimes" ng-change="ctrl.monthZhxbsCount()">
+         <option value="">请选择保险到期月</option>
+       </select></span>
+    </div>
+    <div class="barGroup">
+      <div class="barmenu"><span class="barBox barBg1"></span>本月可出续保数{{ctrl.numBykcxbs}}</div>
+      <div class="barmenu"><span class="barBox barBg2"></span>综合续保数{{ctrl.numZhxbs}}</div>
+      <div class="barmenu"><span class="barBox barBg3"></span>本月提前续保数{{ctrl.numBytqxbs}}</div>
+    </div>
+   <div id="zhxbsRoport"></div>
+  </ion-content>
+</ion-view>

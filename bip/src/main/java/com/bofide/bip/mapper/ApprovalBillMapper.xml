@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.ApprovalBillMapper" >
+  <resultMap id="BaseResultMap" type="com.bofide.bip.po.ApprovalBill" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="fourSStoreId" property="fourSStoreId" jdbcType="INTEGER" />
+    <result column="chassisNumber" property="chassisNumber" jdbcType="VARCHAR" />
+    <result column="insurDate" property="insurDate" jdbcType="DATE" />
+    <result column="jqxrqStart" property="jqxrqStart" jdbcType="TIMESTAMP" />
+    <result column="jqxrqEnd" property="jqxrqEnd" jdbcType="TIMESTAMP" />
+    <result column="renewalType" property="renewalType" jdbcType="INTEGER" />
+    <result column="renewalWay" property="renewalWay" jdbcType="VARCHAR" />
+    <result column="solicitMember" property="solicitMember" jdbcType="VARCHAR" />
+    <result column="insured" property="insured" jdbcType="VARCHAR" />
+    <result column="bbxrzjh" property="bbxrzjh" jdbcType="VARCHAR" />
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+    <result column="contactWay" property="contactWay" jdbcType="VARCHAR" />
+    <result column="insurancTypes" property="insurancTypes" jdbcType="VARCHAR" />
+    <result column="kpxx" property="kpxx" jdbcType="VARCHAR" />
+    <result column="syxje" property="syxje" jdbcType="FLOAT" />
+    <result column="jqxje" property="jqxje" jdbcType="FLOAT" />
+    <result column="ccs" property="ccs" jdbcType="FLOAT" />
+    <result column="bfhj" property="bfhj" jdbcType="FLOAT" />
+    <result column="kpje" property="kpje" jdbcType="FLOAT" />
+    <result column="yhje" property="yhje" jdbcType="FLOAT" />
+    <result column="ssje" property="ssje" jdbcType="FLOAT" />
+    <result column="fkfs" property="fkfs" jdbcType="VARCHAR" />
+    <result column="insuranceCompName" property="insuranceCompName" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    
+     <result column="carLicenseNumber" property="carLicenseNumber" jdbcType="VARCHAR" />
+    <result column="engineNumber" property="engineNumber" jdbcType="VARCHAR" />
+    <result column="carBrand" property="carBrand" jdbcType="VARCHAR" />
+    <result column="vehicleModel" property="vehicleModel" jdbcType="VARCHAR" />
+    <result column="factoryLicenseType" property="factoryLicenseType" jdbcType="VARCHAR" />
+     <result column="giftDiscount" property="giftDiscount" jdbcType="DOUBLE" />
+    <result column="comprehensiveDiscount" property="comprehensiveDiscount" jdbcType="DOUBLE" />
+    <result column="xjyhdw" property="xjyhdw" jdbcType="DOUBLE" />
+    <result column="czkje" property="czkje" jdbcType="DOUBLE" />
+    <result column="czkjedw" property="czkjedw" jdbcType="DOUBLE" />
+    <collection property="givingInformations" ofType="com.bofide.bip.po.GivingInformation" column="approvalBillId">
+    	<result column="id1" property="id" jdbcType="INTEGER"/>
+    	<result column="approvalBillId" property="approvalBillId" jdbcType="INTEGER"/>
+    	<result column="zsxx" property="zsxx" jdbcType="VARCHAR"/>
+    	<result column="giftCode" property="giftCode" jdbcType="VARCHAR" />
+		<result column="giftName" property="giftName" jdbcType="VARCHAR" />
+		<result column="giftType" property="giftType" jdbcType="INTEGER" />
+		<result column="validDate" property="validDate" jdbcType="DATE" />
+		<result column="guidePrice" property="guidePrice" jdbcType="DOUBLE" />
+		<result column="salePrice" property="salePrice" jdbcType="DOUBLE" />
+		<result column="actualPrice" property="actualPrice" jdbcType="DOUBLE" />
+		<result column="discount" property="discount" jdbcType="DOUBLE" />
+		<result column="sellingPrice" property="sellingPrice" jdbcType="DOUBLE" />
+		<result column="amount" property="amount" jdbcType="INTEGER" />
+		<result column="amountMoney" property="amountMoney" jdbcType="DOUBLE" />
+		<result column="remark1" property="remark" jdbcType="VARCHAR" />
+		<result column="createTime" property="createTime" jdbcType="DATE" />
+		<result column="surplusNum" property="surplusNum" jdbcType="INTEGER" />
+		<result column="thisUseNum" property="thisUseNum" jdbcType="INTEGER" />
+		<result column="givingInformationId" property="givingInformationId" jdbcType="INTEGER" />
+		<result column="quota" property="quota" jdbcType="INTEGER" />
+		
+    </collection>
+  </resultMap>
+
+	<insert id="insertApprovalBill" parameterType="com.bofide.bip.po.ApprovalBill" useGeneratedKeys="true" keyProperty="id">
+		insert into bf_bip_approval_bill (fourSStoreId,chassisNumber,insurDate,jqxrqStart,jqxrqEnd,renewalType,renewalWay,
+		solicitMember,insured,bbxrzjh,contact,contactWay,insurancTypes,kpxx,syxje,jqxje,ccs,bfhj,kpje,yhje,ssje,fkfs,
+		insuranceCompName,remark,carLicenseNumber,engineNumber,carBrand,vehicleModel,factoryLicenseType,
+		giftDiscount,comprehensiveDiscount,xjyhdw,czkje,czkjedw)
+		values
+		(#{fourSStoreId},#{chassisNumber},#{insurDate},#{jqxrqStart},#{jqxrqEnd},#{renewalType},#{renewalWay},
+		#{solicitMember},#{insured},#{bbxrzjh},#{contact},#{contactWay},#{insurancTypes},
+		#{kpxx},#{syxje},#{jqxje},#{ccs},#{bfhj},#{kpje},#{yhje},#{ssje},#{fkfs},#{insuranceCompName},#{remark},
+		#{carLicenseNumber},#{engineNumber},#{carBrand},#{vehicleModel},#{factoryLicenseType},
+		#{giftDiscount},#{comprehensiveDiscount},#{xjyhdw},#{czkje},#{czkjedw})
+	</insert>
+	
+	<insert id="insertApprovalBill2" parameterType="com.bofide.bip.po.ApprovalBill" useGeneratedKeys="true" keyProperty="id">
+		insert into bf_bip_approval_bill_record (id,fourSStoreId,chassisNumber,insurDate,jqxrqStart,jqxrqEnd,renewalType,renewalWay,
+		solicitMember,insured,bbxrzjh,contact,contactWay,insurancTypes,kpxx,syxje,jqxje,ccs,bfhj,kpje,yhje,ssje,fkfs,
+		insuranceCompName,remark,carLicenseNumber,engineNumber,carBrand,vehicleModel,factoryLicenseType,
+		giftDiscount,comprehensiveDiscount,xjyhdw,czkje,czkjedw)
+		values
+		(#{id},#{fourSStoreId},#{chassisNumber},#{insurDate},#{jqxrqStart},#{jqxrqEnd},#{renewalType},#{renewalWay},
+		#{solicitMember},#{insured},#{bbxrzjh},#{contact},#{contactWay},#{insurancTypes},
+		#{kpxx},#{syxje},#{jqxje},#{ccs},#{bfhj},#{kpje},#{yhje},#{ssje},#{fkfs},#{insuranceCompName},#{remark},
+		#{carLicenseNumber},#{engineNumber},#{carBrand},#{vehicleModel},#{factoryLicenseType},
+		#{giftDiscount},#{comprehensiveDiscount},#{xjyhdw},#{czkje},#{czkjedw})
+	</insert> 
+	<insert id="updateApprovalBill2" parameterType="com.bofide.bip.po.ApprovalBill" useGeneratedKeys="true" keyProperty="id">
+		update bf_bip_approval_bill_record 
+		<set><if test="fourSStoreId != null">fourSStoreId = #{fourSStoreId},</if>
+		<if test="chassisNumber != null">chassisNumber = #{chassisNumber},</if>
+		<if test="insurDate != null">insurDate = #{insurDate},</if>
+		<if test="jqxrqStart != null">jqxrqStart = #{jqxrqStart},</if>
+		<if test="jqxrqEnd != null">jqxrqEnd = #{jqxrqEnd},</if>
+		<if test="renewalType != null">renewalType = #{renewalType},</if>
+		<if test="renewalWay != null">renewalWay = #{renewalWay},</if>
+		<if test="solicitMember != null">solicitMember = #{solicitMember},</if>
+		<if test="insured != null">insured = #{insured},</if>
+		<if test="bbxrzjh != null">bbxrzjh = #{bbxrzjh},</if>
+		<if test="contactWay != null">contactWay = #{contactWay},</if>
+		<if test="kpxx != null">kpxx = #{kpxx},</if>
+		<if test="syxje != null">syxje = #{syxje},</if>
+		<if test="jqxje != null">jqxje = #{jqxje},</if>
+		<if test="syxje != null">syxje = #{syxje},</if>
+		<if test="ccs != null">ccs = #{ccs},</if>
+		<if test="bfhj != null">bfhj = #{bfhj},</if>
+		<if test="kpje != null">kpje = #{kpje},</if>
+		<if test="yhje != null">yhje = #{yhje},</if>
+		<if test="ssje != null">ssje = #{ssje},</if>
+		<if test="fkfs != null">fkfs = #{fkfs},</if>
+		<if test="yhje != null">yhje = #{yhje},</if>
+		<if test="ssje != null">ssje = #{ssje},</if>
+		<if test="fkfs != null">fkfs = #{fkfs},</if>
+		<if test="insuranceCompName != null">insuranceCompName = #{insuranceCompName},</if>
+		<if test="remark != null">remark = #{remark},</if>
+		<if test="carLicenseNumber != null">carLicenseNumber = #{carLicenseNumber},</if>
+		<if test="engineNumber != null">engineNumber = #{engineNumber},</if>
+		<if test="carBrand != null">carBrand = #{carBrand},</if>
+		<if test="vehicleModel != null">vehicleModel = #{vehicleModel},</if>
+		<if test="factoryLicenseType != null">factoryLicenseType = #{factoryLicenseType},</if>
+		<if test="comprehensiveDiscount != null">comprehensiveDiscount = #{comprehensiveDiscount},</if>
+		<if test="xjyhdw != null">xjyhdw = #{xjyhdw},</if>
+		<if test="czkje != null">czkje = #{czkje},</if>
+		<if test="czkjedw != null">czkjedw = #{czkjedw},</if></set>
+		where id = #{id,jdbcType=INTEGER}
+	</insert> 
+	
+	<insert id="insertGivingInformation" parameterType="com.bofide.bip.po.GivingInformation">
+		insert into bf_bip_giving_information (
+			approvalBillId,zsxx,giftCode,giftName,giftType,validDate,guidePrice,salePrice,actualPrice,
+			discount,sellingPrice,amount,amountMoney,remark,createTime,quota
+		)values(
+			#{approvalBillId},#{zsxx},#{giftCode},#{giftName},#{giftType},#{validDate},#{guidePrice},
+			#{salePrice},#{actualPrice},#{discount},#{sellingPrice},#{amount},
+			#{amountMoney},#{remark},now(),#{quota}
+		)
+	</insert>
+	
+	<select id="findInfofromApprovalBill" resultMap="BaseResultMap">
+		SELECT
+			*,b.id as id1,b.remark as remark1
+		FROM
+			bf_bip_approval_bill a
+		
+			left join bf_bip_giving_information b on (a.id = b.approvalBillId)
+		WHERE
+			
+		a.chassisNumber = #{chassisNumber}
+		AND a.fourSStoreId = #{fourSStoreId}
+	</select>
+	
+	<delete id="deleteApprovalBill" >
+		delete from bf_bip_approval_bill where chassisNumber = #{chassisNumber} and fourSStoreId = #{fourSStoreId}
+	</delete>
+	
+	<delete id="deleteByStoreId" parameterType="java.lang.Integer">
+		DELETE
+		FROM
+			bf_bip_giving_information
+		WHERE
+			approvalBillId IN (
+		SELECT
+			id
+		FROM
+			bf_bip_approval_bill
+		WHERE
+			fourSStoreId = #{storeId}
+	)
+	</delete>
+	<delete id="deleteByStoreId2" parameterType="java.lang.Integer">
+		DELETE
+		FROM
+			bf_bip_approval_bill
+		WHERE
+			fourSStoreId = #{storeId}
+	</delete>
+	
+	<delete id="deleteByStoreId3" parameterType="java.lang.Integer">
+		DELETE
+		FROM
+			bf_bip_approval_bill_record
+		WHERE
+			fourSStoreId = #{storeId}
+	</delete>
+	
+	<select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			DISTINCT a.*
+		FROM
+			bf_bip_approval_bill_record a
+			left join bf_bip_giving_information_record  b on(a.id = b.approvalBillId)
+		<where>
+			
+			a.fourSStoreId = #{storeId}
+			<if test="approvalBill.chassisNumber != null and approvalBill.chassisNumber != ''">
+				AND a.chassisNumber LIKE '%${approvalBill.chassisNumber}%'
+			</if>
+			<if test="approvalBill.carLicenseNumber != null and approvalBill.carLicenseNumber != ''">
+				AND a.carLicenseNumber LIKE '%${approvalBill.carLicenseNumber}%'
+			</if>
+			<if test="approvalBill.contact != null and approvalBill.contact != ''">
+				AND a.contact = #{approvalBill.contact}
+			</if>
+			<if test="approvalBill.contactWay != null and approvalBill.contactWay != ''">
+				AND a.contactWay LIKE '%${approvalBill.contactWay}%'
+			</if>
+		</where>
+		<!-- ORDER BY a.id  -->
+		<!-- shortSpd代表按某字段排序，shortmainSpd 1：升序，2：降序 -->
+    	<if test="shortSpd==null and shortmainSpd==null"> ORDER BY a.id </if>
+  	    <if test="shortSpd==4 and shortmainSpd==1"> ORDER BY a.contact ASC</if>
+  	    <if test="shortSpd==4 and shortmainSpd==2"> ORDER BY a.contact DESC</if>
+  	    <if test="shortSpd==5 and shortmainSpd==1"> ORDER BY a.contact ASC</if>
+  	    <if test="shortSpd==5 and shortmainSpd==2"> ORDER BY a.contact DESC</if>
+		<if test="shortSpd==6 and shortmainSpd==1"> ORDER BY a.chassisNumber ASC</if>
+  	    <if test="shortSpd==6 and shortmainSpd==2"> ORDER BY a.chassisNumber DESC</if>
+		<if test="shortSpd==7 and shortmainSpd==1"> ORDER BY a.carLicenseNumber ASC</if>
+  	    <if test="shortSpd==7 and shortmainSpd==2"> ORDER BY a.carLicenseNumber DESC</if>
+		<if test="shortSpd==8 and shortmainSpd==1"> ORDER BY a.renewalType ASC</if>
+  	    <if test="shortSpd==8 and shortmainSpd==2"> ORDER BY a.renewalType DESC</if>
+  	    <if test="shortSpd==9 and shortmainSpd==1"> ORDER BY a.jqxrqEnd ASC</if>
+  	    <if test="shortSpd==9 and shortmainSpd==2"> ORDER BY a.jqxrqEnd DESC</if>
+  	    <if test="shortSpd==24 and shortmainSpd==1"> ORDER BY a.insurDate ASC</if>
+  	    <if test="shortSpd==24 and shortmainSpd==2"> ORDER BY a.insurDate DESC</if>
+  	    <if test="shortSpd==30 and shortmainSpd==1"> ORDER BY a.bfhj ASC</if>
+  	    <if test="shortSpd==30 and shortmainSpd==2"> ORDER BY a.bfhj DESC</if>
+		LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	<select id="findCountByCondition" parameterType="java.util.Map" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			bf_bip_approval_bill_record a
+			
+		<where>
+			
+			a.fourSStoreId = #{storeId}
+			<if test="approvalBill.chassisNumber != null and approvalBill.chassisNumber != ''">
+				AND a.chassisNumber LIKE '%${approvalBill.chassisNumber}%'
+			</if>
+			<if test="approvalBill.carLicenseNumber != null and approvalBill.carLicenseNumber != ''">
+				AND a.carLicenseNumber LIKE '%${approvalBill.carLicenseNumber}%'
+			</if>
+			<if test="approvalBill.contact != null and approvalBill.contact != ''">
+				AND a.contact = #{approvalBill.contact}
+			</if>
+			<if test="approvalBill.contactWay != null and approvalBill.contactWay != ''">
+				AND a.contactWay LIKE '%${approvalBill.contactWay}%'
+			</if>
+		</where>
+	</select>
+	<!-- 查询打印了审批单但是还未出单的临时审批单 -->
+	<select id="findTempApprByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			DISTINCT a.*
+		FROM
+			bf_bip_approval_bill a
+			left join bf_bip_giving_information  b on a.id = b.approvalBillId
+			left join bf_bip_approval_bill_record a1 on a1.id=a.id
+		<where>
+			a.fourSStoreId = #{storeId} and a1.id is null
+			<if test="approvalBill.chassisNumber != null and approvalBill.chassisNumber != ''">
+				AND a.chassisNumber LIKE '%${approvalBill.chassisNumber}%'
+			</if>
+			<if test="approvalBill.carLicenseNumber != null and approvalBill.carLicenseNumber != ''">
+				AND a.carLicenseNumber LIKE '%${approvalBill.carLicenseNumber}%'
+			</if>
+			<if test="approvalBill.contact != null and approvalBill.contact != ''">
+				AND a.contact = #{approvalBill.contact}
+			</if>
+			<if test="approvalBill.contactWay != null and approvalBill.contactWay != ''">
+				AND a.contactWay LIKE '%${approvalBill.contactWay}%'
+			</if>
+		</where>
+		ORDER BY a.id LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	<select id="findTempApprByConditionCount" parameterType="java.util.Map" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			bf_bip_approval_bill a
+			left join bf_bip_approval_bill_record a1 on a1.id=a.id
+		<where>
+			a.fourSStoreId = #{storeId} and a1.id is null
+			<if test="approvalBill.chassisNumber != null and approvalBill.chassisNumber != ''">
+				AND a.chassisNumber LIKE '%${approvalBill.chassisNumber}%'
+			</if>
+			<if test="approvalBill.carLicenseNumber != null and approvalBill.carLicenseNumber != ''">
+				AND a.carLicenseNumber LIKE '%${approvalBill.carLicenseNumber}%'
+			</if>
+			<if test="approvalBill.contact != null and approvalBill.contact != ''">
+				AND a.contact = #{approvalBill.contact}
+			</if>
+			<if test="approvalBill.contactWay != null and approvalBill.contactWay != ''">
+				AND a.contactWay LIKE '%${approvalBill.contactWay}%'
+			</if>
+		</where>
+	</select>
+	<select id="findByApprovalBillId" resultMap="BaseResultMap">
+		SELECT
+			*,b.remark as remark1
+		FROM
+			bf_bip_approval_bill_record a
+			left join bf_bip_giving_information_record b on (a.id = b.approvalBillId)
+		WHERE
+		a.id = #{approvalBillId}
+		AND a.fourSStoreId = #{storeId}
+	</select>
+	<!-- 查询未出单的审批单的明细 -->
+	<select id="findTempApproByApprovalBillId" resultMap="BaseResultMap">
+		SELECT
+			*,b.remark as remark1
+		FROM
+			bf_bip_approval_bill a
+			left join bf_bip_giving_information b on (a.id = b.approvalBillId)
+		WHERE
+		a.id = #{approvalBillId}
+		AND a.fourSStoreId = #{storeId}
+	</select>
+	<delete id="deleteGivingInformation">
+		delete from bf_bip_giving_information where approvalBillId = #{approvalBillId}
+	</delete> 
+	<!-- 删除保单时,删除审批单 -->
+	<delete id="deleteForInsuranceBill" parameterType="java.lang.Integer">
+		delete b.* from bf_bip_insurance_bill a,bf_bip_approval_bill_record b  
+		where a.approvalBillId = b.id and a.insuranceBillId = #{insuranceBillId};
+	</delete>
+	<!--查询所有没有被迁移数据的审批单记录 -->
+	<select id="findApprovalRecordAll" resultType="java.util.HashMap">
+		SELECT
+			id,insurancTypes,fourSStoreId
+		FROM
+			bf_bip_approval_bill_record
+		WHERE
+			updateStatus = 0 and insurancTypes is not null
+		LIMIT 0,500;
+	</select>
+	<!--查询所有没有被迁移数据的审批单临时记录 -->
+	<select id="findApprovalAll" resultType="java.util.HashMap">
+		SELECT
+			id,insurancTypes,fourSStoreId
+		FROM
+			bf_bip_approval_bill
+		WHERE
+			updateStatus = 0 and insurancTypes is not null
+		LIMIT 0,500;
+	</select>
+	<!-- 修改审批单记录迁移状态 -->
+	<update id="updateApprovalRecord" parameterType="java.util.Map" >
+		update bf_bip_approval_bill_record
+		<set>
+			<if test="updateStatus != null">updateStatus = #{updateStatus},</if>	
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- 修改审批单临时记录迁移状态 -->
+	<update id="updateApproval" parameterType="java.util.Map" >
+		update bf_bip_approval_bill
+		<set>
+			<if test="updateStatus != null">updateStatus = #{updateStatus},</if>	
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- 查询该潜客去年的审批单记录  无保单-->
+	<select id="findApprovalRecordList_NoInsurance" resultMap="BaseResultMap">
+	    SELECT DISTINCT COUNT(DISTINCT a.insurDate),a.*, b.remark AS remark1
+		FROM
+			bf_bip_approval_bill a
+		LEFT JOIN bf_bip_giving_information b ON (a.id = b.approvalBillId)
+		WHERE
+			a.chassisNumber = #{chassisNumber}
+		AND a.fourSStoreId = #{fourSStoreId}
+		GROUP BY a.insurDate
+		ORDER BY a.insurDate DESC
+	</select>
+	<!-- 查询该潜客去年的审批单记录   有保单-->
+	<select id="findApprovalRecordList_Insurance" resultMap="BaseResultMap">
+		SELECT DISTINCT COUNT(DISTINCT a.insurDate),a.*, b.remark AS remark1
+		FROM
+			bf_bip_approval_bill_record a
+		LEFT JOIN bf_bip_giving_information b ON (a.id = b.approvalBillId)
+		WHERE
+			a.chassisNumber = #{chassisNumber}
+		AND a.fourSStoreId = #{fourSStoreId}
+		GROUP BY a.insurDate
+		ORDER BY a.insurDate DESC
+	</select>
+</mapper>

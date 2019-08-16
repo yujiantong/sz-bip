@@ -1,0 +1,15 @@
+<div id="scmSidebar"  ng-mouseenter="sideNavSwitch()"  ng-mouseleave="scmSBReturn()">
+    <div class="scmSideNav">
+        <div class="scmsideNavTitle">功能导航</div>
+        <ul class="scmsideNavBtn" style="height: 441px; overflow: auto;">
+            <li ui-sref="serviceAdvisor.policy">保单管理</li>
+            <li ng-click="setPageStatus('qkcx',0,'qk')">潜客管理</li>
+            <li ui-sref="serviceAdvisor.maintainRecord">维修记录</li>
+            <li ui-sref="serviceAdvisor.giftCheck">赠送核销</li>
+            <li ui-sref="serviceAdvisor.suggest">建议管理</li>
+            <li ng-if="logo==1"><a href="http://college.bofide.cn/client/bip" target="_blank" class="bipmv">视频教程</a></li>
+        </ul>
+    </div>
+    <div class="scmSBReturn" ng-click="scmSBReturn()"></div>
+    <div class="scmWindowButton"><input ng-click="suggest()" type="button" value="建议"></div>
+</div>

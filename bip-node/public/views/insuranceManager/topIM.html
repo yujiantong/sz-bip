@@ -1,0 +1,42 @@
+<div id="scmHeader">
+    <div ng-if="logo==1" class="scmLogo"> </div>
+    <div ng-if="logo==2" class="CHLogo"> </div>
+    <div class="scmUser" ng-mouseenter="scmUsershow()" ng-mouseleave="scmUserhide()">
+        <div style="background-image:url(../../images/userImg.png)" class="scmUserImage"> </div><i title="{{user.userName}}-{{user.role.roleName}}">{{user.userName}}-{{user.role.roleName}}</i>
+        <div class="scmUserTip"><ul><li id="updatePassword"  ng-click="changePassBtn()">修改密码</li><li id="exitSecurity" ng-click="logout()">安全退出</li></ul><i></i></div>
+    </div>
+    <div class="scmNav" ng-init="setPageStatus('qkcx',0,'')">
+        <div class="scmNavBtn" ng-click="setPageStatus('gz',1,'qk')" style="background-image: url(../../images/headNavtree/plane.png);"><i>应跟踪</i>
+            <div class="scmWarning"  ng-show="!(topCount.shouldTraceNum==null || topCount.shouldTraceNum==0)">{{topCount.shouldTraceNum}}</div>
+        </div>
+        <div class="scmNavBtn" ng-click="setPageStatus('js',1,'qk')" style="background-image: url(../../images/headNavtree/receiveing_icon.png);"><i>未接收</i>
+            <div class="scmWarning"  ng-show="!(topCount.accpetNum==null || topCount.accpetNum==0)">{{topCount.accpetNum}}</div>
+        </div>
+        <div  id="daisp" ng-click="setPageStatus('dsp',0,'qk')" class="scmNavBtn" style="background-image: url(../../images/headNavtree/approval.png);"><i>待审批</i>
+            <div class="scmWarning"  ng-show="!(topCount.returnNum==null || topCount.returnNum==0)">{{topCount.returnNum}}</div>
+        </div>
+        <div class="scmNavBtn" ng-click="setPageStatus('tb',1,'qk')" style="background-image: url(../../images/headNavtree/will_expire.png);"><i>将脱保</i>
+            <div class="scmWarning"  ng-show="!(topCount.willOutNum==null || topCount.willOutNum==0)">{{topCount.willOutNum}}</div>
+        </div>
+        <div class="scmNavBtn" ng-click="setPageStatus('tb',2,'qk')" style="background-image: url(../../images/headNavtree/expired.png);"><i>已脱保</i>
+            <div class="scmWarning"  ng-show="!(topCount.outedNum==null || topCount.outedNum==0)">{{topCount.outedNum}}</div>
+        </div>
+        <div class="scmNavBtn" ng-click="setPageStatus('jh',10,'qk')" style="background-image: url(../../images/headNavtree/alarm_clock.png);"><i>唤醒未分配</i>
+            <div class="scmWarning"  ng-show="!(topCount.activeNum==null || topCount.activeNum==0)">{{topCount.activeNum|| 0}}</div>
+        </div>
+        <div  class="scmNavBtn" ng-click="notification()" style="background-image: url(../../images/headNavtree/personal_notice.png);"><i>个人通知</i>
+            <div class="scmWarning" ng-show="!(topCount.messageNum==null || topCount.messageNum==0)">{{topCount.messageNum || 0}}</div>
+        </div>
+        <div  class="scmNavBtn" ng-click="systemMsg()" style="background-image: url(../../images/headNavtree/system_notification.png);"><i>系统通知</i>
+            <div class="scmWarning"  ng-show="!(topCount.sysMessageNum==null || topCount.sysMessageNum==0)">{{topCount.sysMessageNum || 0}}</div>
+        </div>
+    </div>
+    <div id="scmTissueName" style="background:rgba(0,0,0,.1);box-shadow: inset 0 1px 0 rgba(0,0,0,.1);display:none" class="scmTissueName">北京博福易商科技有限公司</div>
+    <div id="scmTissueNames" style="top:75px;display:none" class="scmTissueNames">
+        <div id="scmTissueNameClose" class="scmTissueNameClose">
+            <div class="closeLine1"></div>
+            <div class="closeLine2"></div>
+        </div>
+        <ul id="scmTissueNamesUl"><li class="scmTissueType"></li></ul>
+    </div>
+</div>

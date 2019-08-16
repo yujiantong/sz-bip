@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bofide.bip.mapper.CarModelMapper">
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.CarModel" >
+    	<id column="modelId" property="modelId" jdbcType="INTEGER" />
+    	<result column="modelName" property="modelName" jdbcType="VARCHAR" />
+    	<result column="brandId" property="brandId" jdbcType="INTEGER" />
+    	<result column="createDate" property="createDate" jdbcType="DATE" />
+    	<result column="remark" property="remark" jdbcType="VARCHAR" />
+    	
+  	</resultMap>
+	<select id="selectByBrandId" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+		select 
+			a.modelId modelId,a.modelName modelName,
+			b.brandName brandName,a.createDate createDate,
+			a.remark remark
+		from bf_bip_carModel a, bf_bip_carBrand b
+		where a.brandId = b.brandId 
+		<if test="brandId != -1" >
+       and  a.brandId = #{brandId,jdbcType=INTEGER}
+     	</if>
+	</select>
+  
+  	<insert id="insert" useGeneratedKeys="true" keyProperty="modelId" parameterType="com.bofide.bip.po.CarModel" >
+   	 insert into bf_bip_carModel 
+    	(modelName, brandId, createDate, remark)
+   	 values 
+    	(#{modelName,jdbcType=VARCHAR}, #{brandId,jdbcType=INTEGER}, CURDATE(), #{remark,jdbcType=VARCHAR})
+  	</insert>
+  	
+  	<delete id="deleteByBrandId" parameterType="java.lang.Integer" >
+    delete from bf_bip_carModel
+    where brandId = #{brandId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bf_bip_carModel
+    where modelId = #{modelId,jdbcType=INTEGER}
+  </delete>
+  
+  <select id="findByBrandId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select 
+			*
+		from bf_bip_carModel 
+		where brandId = #{brandId,jdbcType=INTEGER}
+  </select>
+</mapper>

@@ -1,0 +1,50 @@
+<div id="tip" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 150px; width: 250px; margin-left: -125px; margin-top: -70px;">
+        <div class="scmWindowTitle">
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            是否确认删除？
+        </div>
+        <div class="scmWindowButton">
+            <input ng-click="makesure()" type="button" value="确认">
+            <input class="fr closeBtn" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="unbind_store" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 150px; width: 300px; margin-left: -125px; margin-top: -70px;">
+        <div class="scmWindowTitle">
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            是否解除“{{thisRowData.storeName}}”与“{{thisRowData.bspStore.bspStoreName}}”的绑定关系？
+        </div>
+        <div class="scmWindowButton">
+            <input ng-click="makesure()" type="button" value="确认">
+            <input class="fr closeBtn" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="suggest_dis" class="scmMaskWindow" style="z-index: 1001;">
+    <div class="scmWindow" style="height: 150px; width: 300px; margin-left: -125px; margin-top: -70px;">
+        <div class="scmWindowTitle">
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            确认操作？
+        </div>
+        <div class="scmWindowButton">
+            <input ng-click="disSuggestTure()" type="button" value="确认">
+            <input class="fr closeBtn" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#tip").hide();
+        $("#unbind_store").hide();
+        $("#suggest_dis").hide();
+    });
+</script>

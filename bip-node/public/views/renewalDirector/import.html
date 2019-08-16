@@ -1,0 +1,102 @@
+<div id="sjdr" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 360px; width: 400px; margin-left: -200px; margin-top: -200px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                数据导入
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget" style="height:330px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <div>
+                    <label class="control-label">请选择导入类别&nbsp;</label>
+                    <select ng-if="bangStatu==1" ng-model="file.importCategory" ng-options="x for x in importCategories">
+                        <option value="">请选择</option>
+                    </select>
+                    <select ng-if="bangStatu!=1" ng-model="file.importCategory" ng-options="x for x in importCategoriesNew">
+                        <option value="">请选择</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 2px;color: red;" ng-if="file.importCategory =='潜客导入'">
+                    <input type="checkbox"   style="vertical-align: middle;margin-top: -2px;" ng-true-value="true" ng-false-value="false" ng-model="file.fugai"><span>是否覆盖原潜客信息</span>
+                </div>
+                <div>
+                    <label class="control-label">请添加要导入的文件&nbsp;</label>
+                    <button class="btn btn-default" ngf-select="changeFile()" ngf-multiple="false"
+                            ngf-max-size="5MB" ng-model="file.fileData"  accept=".xlsx,.xls" style="line-height: 14px" >浏览</button>
+                </div>
+            </div>
+            <div>
+                <span style="font-size:14px;color:red">
+                    注意：保单导入模板和潜客导入模板中必须填入车架号、联系人、联系人手机、投保类型、交强险到期日期.
+                </span>
+            </div>
+            <div>
+                <span style="font-size:14px">保单导入模版下载请<a href="../../file/insuranceImport.xls">点击这里</a>,</span><br/>
+                <span ng-if="bangStatu==1" style="font-size:14px">潜客导入模版下载请<a href="../../file/customerImport.xls">点击这里</a>.</span>
+                <span ng-if="bangStatu!=1" style="font-size:14px">潜客导入模版下载请<a href="../../file/customerImport.xls">点击这里</a>,</span>
+                <br ng-if="bangStatu!=1" />
+                <span ng-if="bangStatu!=1" style="font-size:14px">销售战败模版下载请<a href="../../file/defeatImport.xls">点击这里</a>.</span>
+            </div>
+            <div ng-show="show" style="z-index: 3"><img src="../../styles/images/uploading.gif"></div>
+            <div style="height: 70px; overflow-y: auto;">
+                <span style="font-size:16px;color:red">{{message}}</span>
+                <span ng-if="showLink" style="font-size:16px;color:red">
+                    详情请
+                    <a ng-if="file.importCategory !='销售战败线索'" target="_blank" href="../../file/message.txt">
+                        点击查看
+                    </a>
+                    <a ng-if="file.importCategory =='销售战败线索'" target="_blank" href="../../file/importDefeatMessage.txt">
+                        点击查看
+                    </a>
+                </span>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="closeBtn" ng-click="" type="button" value="关闭">
+        </div>
+    </div>
+</div>
+<div id="plsm" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 240px; width: 400px; margin-left: -200px; margin-top: -200px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                数据导入
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget" style="height:330px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <div>
+                    <label class="control-label">请添加要导入的文件&nbsp;</label>
+                    <button class="btn btn-default" ngf-select="sleepBatch()" ngf-multiple="false"
+                            ngf-max-size="5MB" ng-model="file.sleepData"  accept=".xlsx,.xls" style="line-height: 14px" >浏览</button>
+                </div>
+            </div>
+            <div>
+                <span style="font-size:14px">批量睡眠模版下载请<a href="../../file/sleepBatch.xls">点击这里</a>,</span>
+            </div>
+            <div ng-show="show" style="z-index: 3"><img src="../../styles/images/uploading.gif"></div>
+            <div style="height: 70px; overflow-y: auto;">
+                <span style="font-size:16px;color:red">{{message}}</span>
+                <span ng-if="showLink" style="font-size:16px;color:red">
+                    详情请<a target="_blank" href="../../file/sleepBatchMessage.txt">点击查看</a>
+                </span>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="closeBtn" ng-click="" type="button" value="关闭">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#sjdr").hide();
+        $("#plsm").hide();
+    });
+</script>

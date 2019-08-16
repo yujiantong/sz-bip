@@ -1,0 +1,35 @@
+<div id="scmHeader">
+    <div ng-if="logo==1" class="scmLogo"> </div>
+    <div ng-if="logo==2" class="CHLogo"> </div>
+    <div class="scmUser" ng-mouseenter="scmUsershow()" ng-mouseleave="scmUserhide()">
+        <div style="background-image:url(../../images/userImg.png)" class="scmUserImage"> </div><i title="{{user.userName}}-{{user.role.roleName}}">{{user.userName}}-{{user.role.roleName}}</i>
+        <div class="scmUserTip"><ul><li id="updatePassword"  ng-click="changePassBtn()">修改密码</li><li id="exitSecurity" ng-click="logout()">安全退出</li></ul><i></i></div>
+    </div>
+    <div class="scmNav" ng-init="openWindow()">
+        <div id="dataImport" ng-show="bangStatu!=1" class="scmNavBtn" style="background-image: url(../../images/headNavtree/import.png);"><i>导入销售战败</i>
+        </div>
+        <div class="scmNavBtn" ng-click="setPageStatus('js',1,'qk')" style="background-image: url(../../images/headNavtree/receiveing_icon.png);"><i>未接收</i>
+            <div id="refuseingOrderWarning" class="scmWarning"  ng-show="!(topCount.accpetNum==null || topCount.accpetNum==0)">{{topCount.accpetNum || 0}}</div>
+        </div>
+        <div class="scmNavBtn" ng-click="setPageStatus('ht',4,'qk')" style="background-image: url(../../images/headNavtree/will_lost_sales.png);"><i>待失销</i>
+            <div class="scmWarning"  ng-show="!(topCount.willRunOutNum==null || topCount.willRunOutNum==0)">{{topCount.willRunOutNum||0}}</div>
+        </div>
+        <div class="scmNavBtn" id="defeat7" ng-click="setPageStatus('bspcx',7,'qk')" style="background-image: url(../../images/headNavtree/lose.png);"><i>销售战败线索</i>
+            <div class="scmWarning"  ng-show="!(topCount.defeatNum==null || topCount.defeatNum==0)">{{topCount.defeatNum||0}}</div>
+        </div>
+        <div  class="scmNavBtn" ng-click="notification()" style="background-image: url(../../images/headNavtree/personal_notice.png);"><i>个人通知</i>
+            <div class="scmWarning"  ng-show="!(topCount.messageNum==null || topCount.messageNum==0)">{{topCount.messageNum || 0}}</div>
+        </div>
+        <div  class="scmNavBtn" ng-click="systemMsg()" style="background-image: url(../../images/headNavtree/system_notification.png);"><i>系统通知</i>
+            <div class="scmWarning"  ng-show="!(topCount.sysMessageNum==null || topCount.sysMessageNum==0)">{{topCount.sysMessageNum || 0}}</div>
+        </div>
+    </div>
+    <div id="scmTissueName" style="background:rgba(0,0,0,.1);box-shadow: inset 0 1px 0 rgba(0,0,0,.1);display:none" class="scmTissueName">北京博福易商科技有限公司</div>
+    <div id="scmTissueNames" style="top:75px;display:none" class="scmTissueNames">
+        <div id="scmTissueNameClose" class="scmTissueNameClose">
+            <div class="closeLine1"></div>
+            <div class="closeLine2"></div>
+        </div>
+        <ul id="scmTissueNamesUl"><li class="scmTissueType"></li></ul>
+    </div>
+</div>

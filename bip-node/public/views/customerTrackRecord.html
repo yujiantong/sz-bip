@@ -1,0 +1,135 @@
+<div id="genRentz" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 600px; width: 1100px; margin-left: -550px; margin-top: -300px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                跟踪处理
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget" style="height:500px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <h3>车辆信息</h3>
+                <span><label>车牌号</label> <input type="text" ng-model="custInfo.carLicenseNumber" readonly></span>
+                <span><label>车架号</label> <input type="text" ng-model="custInfo.chassisNumber" readonly></span>
+                <span><label>发动机号</label> <input type="text" ng-model="custInfo.engineNumber" readonly></span>
+                <span><label>上牌日期</label> <input type="text"  ng-model="custInfo.registrationDate" readonly></span>
+                <span><label>品牌</label> <input type="text"  ng-model="custInfo.carBrand" readonly></span>
+                <span><label>车辆型号</label>
+                     <input type="text" id="clxhsr_gzcl" ng-model="custInfo.vehicleModelInput" readonly>
+                </span>
+            </div>
+            <div class="carmsg">
+                <h3>保险信息</h3>
+                <span>
+                    <label>商业险日期结束</label>
+                    <input type="text" ng-model="custInfo.syxrqEnd" readonly>
+                </span>
+                <span>
+                    <label>交强险日期结束</label>
+                    <input type="text" ng-model="custInfo.jqxrqEnd" readonly>
+                </span>
+                <span><label>投保类型</label>
+                    <input type="text" ng-model="custInfo.renewalType" readonly>
+                </span>
+                <span><label>续保渠道</label>
+                    <input type="text" ng-model="custInfo.renewalWay" readonly>
+                </span>
+                <span><label>当前负责人</label> <input type="text" ng-model="custInfo.principal" readonly></span>
+                <span><label>去年招揽员</label> <input type="text" ng-model="custInfo.solicitMemberLY" readonly></span>
+                <span><label>本店投保次数</label> <input type="text" ng-model="custInfo.insurNumber" readonly></span>
+                <span><label>去年投保日期</label> <input type="text" ng-model="custInfo.insurDateLY" readonly></span>
+                <span><label>去年投保公司</label> <input type="text" ng-model="custInfo.insuranceCompLY" readonly></span>
+                <span><label>去年保费</label> <input type="text" ng-model="custInfo.insuranceCoverageLY" readonly></span>
+                <span><label>去年优惠项目</label>
+                    <input type="text" ng-model="custInfo.privilegeProLY" readonly></span>
+                </span>
+                <div>
+                <span style="width: 506px;">
+                    <label class="fl">去年投保险种</label>
+                    <textarea rows="3" cols="30" style="width: 405px;height: 50px;margin-left: 6px" ng-model="custInfo.insuranceTypeLY" readonly></textarea>
+                </span>
+                    <span style="width: 506px;">
+                        <label class="fl">备注</label>
+                        <textarea rows="3" cols="30" style="width: 405px;height: 50px;margin-left: 6px;" ng-model="custInfo.remark" readonly></textarea>
+                    </span>
+                </div>
+            </div>
+            <div class="carmsg">
+                <h3>客户信息</h3>
+                <span><label>车主</label> <input type="text" ng-model="custInfo.carOwner" readonly></span>
+                <span><label>被保险人</label> <input type="text" ng-model="custInfo.insured" readonly></span>
+                <span><label>被保险人证件号</label> <input type="text" ng-model="custInfo.certificateNumber" readonly></span>
+                 <span><label>潜客级别</label>
+                     <input type="text" ng-model="custInfo.customerLevel" readonly></span>
+                </span>
+                <span><label>联系人</label> <input type="text" ng-model="custInfo.contact" readonly></span>
+                <span><label>联系方式</label> <input type="text" ng-model="custInfo.contactWay" readonly></span>
+                <span style="width: 504px"><label>现住址</label> <input style="width: 403px" type="text" ng-model="custInfo.address" readonly></span>
+                 <span><label>是否本店再修客户</label>
+                      <select  ng-model="custInfo.isMaintainAgain" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                          <option value="">请选择</option>
+                      </select>
+                </span>
+                <span><label>去年本店维修次数</label> <input type="number" ng-model="custInfo.maintainNumberLY" readonly></span>
+                <span><label>去年出险次数</label> <input type="number" ng-model="custInfo.accidentNumberLY" readonly></span>
+                <span><label>去年事故车产值</label> <input type="text" ng-model="custInfo.accidentOutputValueLY" readonly></span>
+                <span><label>服务顾问</label>
+                    <input type="text" ng-model="custInfo.serviceConsultant" readonly></span>
+                </span>
+                <span><label>客户来源 </label> <input type="text" ng-model="custInfo.customerSource" readonly></span>
+                <span><label>客户性质</label> <input type="text" ng-model="custInfo.customerCharacter" readonly></span>
+                <span><label>是否高意向</label>
+                     <select  ng-model="custInfo.sfgyx" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                         <option value="">请选择</option>
+                     </select>
+                </span>
+                <span style="width: 506px;">
+                        <label class="fl">客户描述</label>
+                        <textarea rows="3" cols="30" style="width: 405px;height: 50px;margin-left: 6px;" ng-model="custInfo.customerDescription" readonly></textarea>
+                    </span>
+            </div>
+            <div class="progressContainer">
+                <div class="progressBar" style="width: 400px;">
+                    <div class="progressNow" ng-style="progressWidth" style="width: 0%">
+                    </div>
+                    <ul>
+                        <li class="progressDot progressStart" ng-class="{'emptyStart': isQuoteBol}"  style="left:0%;">
+                            报价
+                            <div>
+                            </div>
+                        </li>
+                        <li class="progressDot" ng-class="{'emptyDot': isInviteBol}" style="left:33%;">
+                            邀约
+                            <div>
+                            </div>
+                        </li>
+                        <li class="progressDot" ng-class="{'emptyDot': isComeStoreBol}"  style="left:66%;">
+                            进店
+                            <div>
+                            </div>
+                        </li>
+                        <li class="progressDot" ng-class="{'emptyDotEnd': lastYearIsDealBol}"  style="left:99%;">
+                            出单
+                            <div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div ui-grid="tracelistPage" style="width: 1050px;height: 250px;"  ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="closeBtn" type="button" value="关闭">
+        </div>
+
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#genRentz").hide();
+    });
+</script>

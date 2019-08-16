@@ -1,0 +1,147 @@
+body{	background: #000;
+	padding: 0;
+	margin: 0;
+	zoom:1.25;
+}
+.xmbg{
+	
+	background: #000 no-repeat center center;
+	background-image: url(../images/bg.jpg);
+	background-size: cover;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.xmbottom {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: no-repeat left bottom;
+	background-image: url(../images/bottome.png);
+	background-size: contain;
+}
+.xmtop {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: no-repeat left top;
+	background-image: url(../images/top.png);
+	background-size: contain;
+}
+
+
+.xmLogin {
+	position: absolute;
+	width: 500px;
+	height: 200px;
+	background: rgba(0,0,0,.3);
+	border-radius: 20px;
+	top: 50%;
+	left: 50%;
+	margin-top: -100px;
+	margin-left: -250px;
+	z-index: 00;
+}
+
+.xmlogo {
+	position: absolute;
+	width: 160px;
+	height: 100px;
+	background: no-repeat center center;
+	background-size: contain;
+	background-image: url(../images/logoBIP.png);
+	top: -50px;
+	left: -20px;
+}
+
+.xmbtn {
+	background: no-repeat center center;
+	background-size: contain;
+	background-image: url(../images/btn01.png);
+	position: absolute;
+	width: 120px;
+	height: 160px;
+	right: 20px;
+	cursor: pointer;
+	top: 20px;
+	outline: none;
+	border: none;
+}
+.xmbtn:hover{
+	background-image: url(../images/btn02.png);
+
+}
+.xmbtn:hover .xmbtntext{
+	color: #fff;
+	
+}
+
+.input1 {
+	position: absolute;
+	top: 60px;
+	background-image: url(../images/inputbg.png);
+}
+
+.input2 {
+	position: absolute;
+	top: 120px;
+	background-image: url(../images/inputbg2.png);
+	
+}
+
+.xminput {
+	width: 280px;
+	left: 50px;
+	height: 40px;
+	outline: none;
+	background-color: rgba(255,255,255,.8);
+	border: none;
+	border-radius: 20px;
+	text-indent: 1em;
+	transition: background-position 0.4s,color 0.2s,box-shadow .2s;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 0px 30px;
+}
+.xminput:focus , .xminput:hover{
+	box-shadow: 0 0 20px rgba(100,230,255,.8);
+}
+.xminput:focus{
+	background-position: 0px -60px;
+	color: #fff;
+	
+}
+
+.xmbtntext {
+	position: absolute;
+	color: #5cf;
+	font-family: "Arial Black";
+	bottom: 50px;
+	text-align: center;
+	width: 100%;
+	font-size: 2em;
+	text-shadow: 0 0 10px rgba(0,0,0,.8);
+	transition: color .2s;
+}
+@media screen and (max-width: 1600px) {
+	body {
+		zoom:1.2;
+	}
+}
+@media screen and (max-width: 1400px) {
+	body {
+		zoom:1.1;
+	}
+}
+@media screen and (max-width: 1280px) {
+	body {
+		zoom:1;
+	}
+}
+@media screen and (max-width: 1000px) {
+	body {
+		zoom:.6;
+	}
+}

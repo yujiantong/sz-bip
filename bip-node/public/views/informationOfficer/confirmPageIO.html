@@ -1,0 +1,585 @@
+<div id="xzfw" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 360px; width: 600px; margin-left: -300px; margin-top: -180px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">新增服务</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            <div class="carmsg">
+                <table class="gift-table">
+                    <tr>
+                        <td width="75" class="text-right">赠品名称：</td>
+                        <td><input type="text" ng-model="gift.giftName" maxlength="40"></td>
+                        <td width="75" class="text-right">赠品编码：</td>
+                        <td><input type="text" ng-model="gift.giftCode" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">指导价：</td>
+                        <td><input type="number" style="width: 120px;" num-format min="0" step="0.01" ng-model="gift.guidePrice">元</td>
+                        <td class="text-right">销售成本：</td>
+                        <td><input type="number" style="width: 120px;" num-format min="0" step="0.01" ng-model="gift.salePrice">元</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">实际成本：</td>
+                        <td><input type="number" style="width: 120px;" num-format min="0" step="0.01" ng-model="gift.actualPrice">元</td>
+                        <td class="text-right">生效日期：</td>
+                        <td><input type="text" ng-model="gift.effectiveTime" class="coverDate" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">有效时限：</td>
+                        <td>
+                            <div class="timeLimit">
+                                <span class="minus" ng-click="minusValidLength()">-</span><input type="number" ng-model="gift.validLength" class="duration"><span class="plus" ng-click="plusValidLength()">+</span>
+                            </div> 月
+                        </td>
+                        <td class="text-right">失效日期：</td>
+                        <td><input type="text" ng-model="gift.failureTime" class="coverDate" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right fr">备注：</td>
+                        <td colspan="3" style="padding-top: 5px;"><textarea rows="3" cols="30" style="width: 425px;height: 80px;margin-left: 2px;" ng-model="gift.remark" maxlength="500"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="addGiftSubmit(fwtype)" type="button" value="保存">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="bjfw" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 360px; width: 600px; margin-left: -300px; margin-top: -180px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">编辑服务</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            <div class="carmsg">
+                <table class="gift-table">
+                    <tr>
+                        <td width="75" class="text-right">赠品名称：</td>
+                        <td><input type="text" ng-model="modifyGift.giftName" maxlength="40"></td>
+                        <td width="75" class="text-right">赠品编码：</td>
+                        <td><input type="text" ng-model="modifyGift.giftCode" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">指导价：</td>
+                        <td><input type="number" style="width: 120px;"  num-format min="0" step="0.01" ng-model="modifyGift.guidePrice">元</td>
+                        <td class="text-right">销售成本：</td>
+                        <td><input type="number" style="width: 120px;" num-format min="0" step="0.01" ng-model="modifyGift.salePrice">元</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">实际成本：</td>
+                        <td><input type="number" style="width: 120px;" num-format min="0" step="0.01" ng-model="modifyGift.actualPrice">元</td>
+                        <td class="text-right">生效日期：</td>
+                        <td><input type="text" ng-model="modifyGift.effectiveTime" class="coverDate" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">有效时限：</td>
+                        <td>
+                            <div class="timeLimit">
+                                <span class="minus" ng-click="minusValidLength()">-</span><input type="number" ng-model="modifyGift.validLength" class="duration"><span class="plus" ng-click="plusValidLength()">+</span>
+                            </div> 月
+                        </td>
+                        <td class="text-right">失效日期：</td>
+                        <td><input type="text" ng-model="modifyGift.failureTime" class="coverDate" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right fr">备注：</td>
+                        <td colspan="3" style="padding-top: 5px;"><textarea rows="3" cols="30" style="width: 425px;height: 80px;margin-left: 2px;" ng-model="modifyGift.remark" maxlength="500"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="modityGiftSubmit()" type="button" value="保存">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="czkhy" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 380px; width: 600px; margin-left: -300px; margin-top: -190px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">
+                <span ng-if="fwtype==4">新增储值卡</span>
+                <span ng-if="fwtype==5">新增会员积分</span>
+            </i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            <div class="carmsg">
+                <table class="gift-table">
+                    <tr>
+                        <td width="75" class="text-right">赠品名称：</td>
+                        <td><input type="text" ng-model="gift.giftName" maxlength="40"></td>
+                        <td width="75" class="text-right">赠品编码：</td>
+                        <td><input type="text" ng-model="gift.giftCode" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">额度：</td>
+                        <td><input type="number" style="width: 120px;" num-format min="0" step="0.01" ng-model="gift.quota">元</td>
+                        <td class="text-right">指导价：</td>
+                        <td><input type="number" style="width: 120px;" num-format min="0" step="0.01" ng-model="gift.guidePrice">元</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">销售成本：</td>
+                        <td><input type="number" style="width: 120px;" num-format min="0" step="0.01" ng-model="gift.salePrice">元</td>
+                        <td class="text-right">实际成本：</td>
+                        <td><input type="number" style="width: 120px;" num-format min="0" step="0.01" ng-model="gift.actualPrice">元</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">生效日期：</td>
+                        <td><input type="text" ng-model="gift.effectiveTime" class="coverDate" readonly></td>
+                        <td class="text-right">失效日期：</td>
+                        <td><input type="text" ng-model="gift.failureTime" class="coverDate" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">有效时限：</td>
+                        <td>
+                            <div class="timeLimit">
+                                <span class="minus" ng-click="minusValidLength()">-</span><input type="number" ng-model="gift.validLength" class="duration"><span class="plus" ng-click="plusValidLength()">+</span>
+                            </div> 月
+                        </td>
+                       <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right fr">备注：</td>
+                        <td colspan="3" style="padding-top: 5px;"><textarea rows="3" cols="30" style="width: 425px;height: 80px;margin-left: 2px;" ng-model="gift.remark" maxlength="500"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="addGiftSubmit(fwtype)" type="button" value="保存">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="bjczkhy" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 380px; width: 600px; margin-left: -300px; margin-top: -190px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">
+                <span ng-if="fwtype==4">新增储值卡</span>
+                <span ng-if="fwtype==5">新增会员积分</span>
+            </i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            <div class="carmsg">
+                <table class="gift-table">
+                    <tr>
+                        <td width="75" class="text-right">赠品名称：</td>
+                        <td><input type="text" ng-model="modifyGift.giftName" maxlength="40"></td>
+                        <td width="75" class="text-right">赠品编码：</td>
+                        <td><input type="text" ng-model="modifyGift.giftCode" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">额度：</td>
+                        <td><input type="number" style="width: 120px;" num-format min="0" step="0.01" ng-model="modifyGift.quota">元</td>
+                        <td class="text-right">指导价：</td>
+                        <td><input type="number" style="width: 120px;" num-format min="0" step="0.01" ng-model="modifyGift.guidePrice">元</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">销售成本：</td>
+                        <td><input type="number" style="width: 120px;" num-format min="0" step="0.01" ng-model="modifyGift.salePrice">元</td>
+                        <td class="text-right">实际成本：</td>
+                        <td><input type="number" style="width: 120px;" num-format min="0" step="0.01" ng-model="modifyGift.actualPrice">元</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">生效日期：</td>
+                        <td><input type="text" ng-model="modifyGift.effectiveTime" class="coverDate" readonly></td>
+                        <td class="text-right">失效日期：</td>
+                        <td><input type="text" ng-model="modifyGift.failureTime" class="coverDate" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">有效时限：</td>
+                        <td>
+                            <div class="timeLimit">
+                                <span class="minus" ng-click="minusValidLength()">-</span><input type="number" ng-model="modifyGift.validLength" class="duration"><span class="plus" ng-click="plusValidLength()">+</span>
+                            </div> 月
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right fr">备注：</td>
+                        <td colspan="3" style="padding-top: 5px;"><textarea rows="3" cols="30" style="width: 425px;height: 80px;margin-left: 2px;" ng-model="modifyGift.remark" maxlength="500"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="modityGiftSubmit()" type="button" value="保存">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="xzjp" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 360px; width: 600px; margin-left: -300px; margin-top: -180px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">新增精品</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            <div class="carmsg">
+                <table class="gift-table">
+                    <tr>
+                        <td width="75" class="text-right">赠品名称：</td>
+                        <td><input type="text" ng-model="gift.giftName" maxlength="40"></td>
+                        <td width="75" class="text-right">赠品编码：</td>
+                        <td><input type="text" ng-model="gift.giftCode" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td width="75" class="text-right">赠品型号：</td>
+                        <td><input type="text" ng-model="gift.giftModel" maxlength="40"></td>
+                        <td class="text-right">指导价：</td>
+                        <td><input type="number"  num-format min="0" step="0.01" ng-model="gift.guidePrice" style="width: 120px;">元</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">销售成本：</td>
+                        <td><input type="number" num-format min="0" step="0.01" ng-model="gift.salePrice" style="width: 120px;">元</td>
+                        <td class="text-right">实际成本：</td>
+                        <td><input type="number" num-format min="0" step="0.01" ng-model="gift.actualPrice" style="width: 120px;">元</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">生效日期：</td>
+                        <td><input type="text" ng-model="gift.effectiveTime" class="coverDate" readonly></td>
+                        <td class="text-right">失效日期：</td>
+                        <td><input type="text" ng-model="gift.failureTime" class="coverDate" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right fr">备注：</td>
+                        <td colspan="3" style="padding-top: 5px;"><textarea rows="3" cols="30" style="width: 425px;height: 80px;margin-left: 2px;" ng-model="gift.remark" maxlength="500"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="addGiftSubmit(2)" type="button" value="保存">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="bjjp" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 360px; width: 600px; margin-left: -300px; margin-top: -180px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">编辑精品</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            <div class="carmsg">
+                <table class="gift-table">
+                    <tr>
+                        <td width="75" class="text-right">赠品名称：</td>
+                        <td><input type="text" ng-model="modifyGift.giftName" maxlength="40"></td>
+                        <td width="75" class="text-right">赠品编码：</td>
+                        <td><input type="text" ng-model="modifyGift.giftCode" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td width="75" class="text-right">赠品型号：</td>
+                        <td><input type="text" ng-model="modifyGift.giftModel" maxlength="40"></td>
+                        <td class="text-right">指导价：</td>
+                        <td><input type="number"  num-format min="0" step="0.01" ng-model="modifyGift.guidePrice" style="width: 120px;">元</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">销售成本：</td>
+                        <td><input type="number"  num-format min="0" step="0.01" ng-model="modifyGift.salePrice" style="width: 120px;">元</td>
+                        <td class="text-right">实际成本：</td>
+                        <td><input type="number"  num-format min="0" step="0.01" ng-model="modifyGift.actualPrice" style="width: 120px;">元</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">生效日期：</td>
+                        <td><input type="text" ng-model="modifyGift.effectiveTime" class="coverDate" readonly></td>
+                        <td class="text-right">失效日期：</td>
+                        <td><input type="text" ng-model="modifyGift.failureTime" class="coverDate" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right fr">备注：</td>
+                        <td colspan="3" style="padding-top: 5px;"><textarea rows="3" cols="30" style="width: 425px;height: 80px;margin-left: 2px;" ng-model="modifyGift.remark" maxlength="500"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="modityGiftSubmit()" type="button" value="保存">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="xzlb" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 500px; width: 800px; margin-left: -400px; margin-top: -250px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">新增礼包</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt" style="height:415px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <table class="gift-table">
+                    <tr>
+                        <td width="100" class="text-right">赠品名称：</td>
+                        <td><input type="text" ng-model="gift.giftName" maxlength="40"></td>
+                        <td width="100" class="text-right">赠品编码：</td>
+                        <td><input type="text" ng-model="gift.giftCode" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">指导价：</td>
+                        <td><input type="number" num-format min="0" step="0.01" ng-model="gift.guidePrice" style="width: 120px;" disabled>元</td>
+                        <td class="text-right">礼包指导价：</td>
+                        <td><input type="number" num-format min="0" step="0.01" ng-model="gift.packageGuidePrice" style="width: 120px;">元</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">销售成本：</td>
+                        <td><input type="number" num-format min="0" step="0.01" ng-model="gift.salePrice" style="width: 120px;" disabled>元</td>
+                        <td class="text-right">礼包销售成本：</td>
+                        <td><input type="number" num-format min="0" step="0.01" ng-model="gift.packageSalePrice" style="width: 120px;">元</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">实际成本：</td>
+                        <td><input type="number" num-format min="0" step="0.01" ng-model="gift.actualPrice" style="width: 120px;" disabled>元</td>
+                        <td class="text-right">礼包实际成本：</td>
+                        <td><input type="number" num-format min="0" step="0.01" ng-model="gift.packageActualPrice" style="width: 120px;">元</td>
+
+                    </tr>
+                    <tr>
+                        <td class="text-right">生效日期：</td>
+                        <td><input type="text" ng-model="gift.effectiveTime" class="coverDate" readonly></td>
+                        <td class="text-right">失效日期：</td>
+                        <td><input type="text" ng-model="gift.failureTime" class="coverDate" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">有效时限：</td>
+                        <td>
+                            <div class="timeLimit">
+                                <span class="minus" ng-click="minusValidLength()">-</span><input type="number" ng-model="gift.validLength" class="duration"><span class="plus" ng-click="plusValidLength()">+</span>
+                            </div> 月
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right fr">备注：</td>
+                        <td colspan="3" style="padding-top: 5px;"><textarea rows="3" cols="30" style="width: 525px;height: 60px;margin-left: 2px;" ng-model="gift.remark" maxlength="500"></textarea></td>
+                    </tr>
+                </table>
+                <div class="lbBox">
+                    <div class="lbleft">
+                        <div>
+                            <span class="giftSearch" ng-mouseleave="fwgiftListHide()">
+                                <label style="width: 100px;color:#333">服务赠品：</label><input ng-change="choosefwGift()"  ng-model="gift.fwName" type="text" style="width: 100px;">
+                                <ul class="fwgiftList">
+                                    <li ng-click="fwgiftListSet(fwGift)" ng-repeat="fwGift in fwgiftListData">{{fwGift.giftName}} - {{fwGift.giftCode}}</li>
+                                </ul>
+                            </span>
+                            <div class="timeLimit">
+                                数量：
+                                <span class="minus" ng-click="minusFwnum()">-</span><input type="number" style="width: 30px;" ng-model="gift.fwNum" class="duration"><span class="plus" ng-click="plusFwnum()">+</span>
+                            </div>
+                            <button ng-click="addfwGift()">添加</button>
+                        </div>
+                        <div>
+                            <table class="lbtable">
+                                <tr>
+                                    <td width="70">编码</td>
+                                    <td width="130">赠品名称</td>
+                                    <td width="45">数量</td>
+                                    <td width="70">操作</td>
+                                </tr>
+                                <tr ng-repeat="tc in fwPackageDetails">
+                                    <td>{{tc.giftCode}}</td>
+                                    <td>{{tc.giftName}}</td>
+                                    <td>{{tc.number}}</td>
+                                    <td class="cursor" ng-click="deletefwGift(tc)">删除</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="lbright">
+                        <div>
+                           <span class="giftSearch" ng-mouseleave="jpgiftListHide()">
+                                <label style="width: 100px;color:#333">精品赠品：</label><input ng-change="choosejpGift()"  ng-model="gift.jpName" type="text" style="width: 100px;">
+                                <ul class="jpgiftList">
+                                    <li ng-click="jpgiftListSet(jpGift)" ng-repeat="jpGift in jpgiftListData">{{jpGift.giftName}} - {{jpGift.giftCode}}</li>
+                                </ul>
+                            </span>
+                            <div class="timeLimit">
+                                数量：
+                                <span class="minus" ng-click="minusJpnum()">-</span><input type="number" style="width: 30px;" ng-model="gift.jpNum" class="duration"><span class="plus" ng-click="plusJpnum()">+</span>
+                            </div>
+                            <button ng-click="addjpGift()">添加</button>
+                        </div>
+                        <div>
+                            <table class="lbtable">
+                                <tr>
+                                    <td width="70">编码</td>
+                                    <td width="130">赠品名称</td>
+                                    <td width="45">数量</td>
+                                    <td width="70">操作</td>
+                                </tr>
+                                <tr ng-repeat="tc in jpPackageDetails">
+                                    <td>{{tc.giftCode}}</td>
+                                    <td>{{tc.giftName}}</td>
+                                    <td>{{tc.number}}</td>
+                                    <td class="cursor" ng-click="deletejpGift(tc)">删除</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="addGiftSubmit(3)" type="button" value="保存">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="bjlb" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 500px; width: 800px; margin-left: -400px; margin-top: -250px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">编辑礼包</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt" style="height:415px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <table class="gift-table">
+                    <tr>
+                        <td width="100" class="text-right">赠品名称：</td>
+                        <td><input type="text" ng-model="modifyGift.giftName" maxlength="40"></td>
+                        <td width="100" class="text-right">赠品编码：</td>
+                        <td><input type="text" ng-model="modifyGift.giftCode" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">指导价：</td>
+                        <td><input type="number" ng-model="modifyGift.guidePrice" style="width: 120px;" disabled>元</td>
+                        <td class="text-right">礼包指导价：</td>
+                        <td><input type="number" num-format min="0" step="0.01" ng-model="modifyGift.packageGuidePrice" style="width: 120px;">元</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">销售成本：</td>
+                        <td><input type="number" ng-model="modifyGift.salePrice" style="width: 120px;" disabled>元</td>
+                        <td class="text-right">礼包销售成本：</td>
+                        <td><input type="number" num-format min="0" step="0.01" ng-model="modifyGift.packageSalePrice" style="width: 120px;">元</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">实际成本：</td>
+                        <td><input type="number" ng-model="modifyGift.actualPrice" style="width: 120px;" disabled>元</td>
+                        <td class="text-right">礼包实际成本：</td>
+                        <td><input type="number" num-format min="0" step="0.01" ng-model="modifyGift.packageActualPrice" style="width: 120px;">元</td>
+
+                    </tr>
+                    <tr>
+                        <td class="text-right">生效日期：</td>
+                        <td><input type="text" ng-model="modifyGift.effectiveTime" class="coverDate" readonly></td>
+                        <td class="text-right">失效日期：</td>
+                        <td><input type="text" ng-model="modifyGift.failureTime" class="coverDate" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">有效时限：</td>
+                        <td>
+                            <div class="timeLimit">
+                                <span class="minus" ng-click="minusValidLength()">-</span><input type="number" ng-model="modifyGift.validLength" class="duration"><span class="plus" ng-click="plusValidLength()">+</span>
+                            </div> 月
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right fr">备注：</td>
+                        <td colspan="3" style="padding-top: 5px;"><textarea rows="3" cols="30" style="width: 525px;height: 60px;margin-left: 2px;" ng-model="modifyGift.remark" maxlength="500"></textarea></td>
+                    </tr>
+                </table>
+                <div class="lbBox">
+                    <div class="lbleft">
+                        <div>
+                            <span class="giftSearch" ng-mouseleave="fwgiftListHide()">
+                                <label style="width: 100px;color:#333">服务赠品：</label><input ng-change="choosefwGift()"  ng-model="gift.fwName" type="text" style="width: 100px;">
+                                <ul class="fwgiftList">
+                                    <li ng-click="fwgiftListSet(fwGift)" ng-repeat="fwGift in fwgiftListData">{{fwGift.giftName}} - {{fwGift.giftCode}}</li>
+                                </ul>
+                            </span>
+                            <div class="timeLimit">
+                                数量：
+                                <span class="minus" ng-click="minusFwnum()">-</span><input type="number" style="width: 30px;" ng-model="gift.fwNum" class="duration"><span class="plus" ng-click="plusFwnum()">+</span>
+                            </div>
+                            <button ng-click="addfwGift()">添加</button>
+                        </div>
+                        <div>
+                            <table class="lbtable">
+                                <tr>
+                                    <td width="70">编码</td>
+                                    <td width="130">赠品名称</td>
+                                    <td width="45">数量</td>
+                                    <td width="70">操作</td>
+                                </tr>
+                                <tr ng-repeat="tc in fwPackageDetails">
+                                    <td>{{tc.giftCode}}</td>
+                                    <td>{{tc.giftName}}</td>
+                                    <td>{{tc.number}}</td>
+                                    <td class="cursor" ng-click="deletefwGift(tc)">删除</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="lbright">
+                        <div>
+                           <span class="giftSearch" ng-mouseleave="jpgiftListHide()">
+                                <label style="width: 100px;color:#333">精品赠品：</label><input ng-change="choosejpGift()"  ng-model="gift.jpName" type="text" style="width: 100px;">
+                                <ul class="jpgiftList">
+                                    <li ng-click="jpgiftListSet(jpGift)" ng-repeat="jpGift in jpgiftListData">{{jpGift.giftName}} - {{jpGift.giftCode}}</li>
+                                </ul>
+                            </span>
+                            <div class="timeLimit">
+                                数量：
+                                <span class="minus" ng-click="minusJpnum()">-</span><input type="number" style="width: 30px;" ng-model="gift.jpNum" class="duration"><span class="plus" ng-click="plusJpnum()">+</span>
+                            </div>
+                            <button ng-click="addjpGift()">添加</button>
+                        </div>
+                        <div>
+                            <table class="lbtable">
+                                <tr>
+                                    <td width="70">编码</td>
+                                    <td width="130">赠品名称</td>
+                                    <td width="45">数量</td>
+                                    <td width="70">操作</td>
+                                </tr>
+                                <tr ng-repeat="tc in jpPackageDetails">
+                                    <td>{{tc.giftCode}}</td>
+                                    <td>{{tc.giftName}}</td>
+                                    <td>{{tc.number}}</td>
+                                    <td class="cursor" ng-click="deletejpGift(tc)">删除</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="modityGiftSubmit()" type="button" value="保存">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".close_confirmPage").click(function(){
+        $("#xzfw").hide();
+        $("#xzjp").hide();
+        $("#xzlb").hide();
+        $("#bjfw").hide();
+        $("#bjjp").hide();
+        $("#bjlb").hide();
+        $("#czkhy").hide();
+        $("#bjczkhy").hide();
+    });
+    $('.coverDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });
+</script>

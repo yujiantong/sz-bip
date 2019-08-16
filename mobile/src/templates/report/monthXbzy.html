@@ -1,0 +1,19 @@
+<ion-view view-title="月报-续保专员" ng-init="ctrl.monthKpiXbzy()">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('homePage.report',{ReportTabNO:2})"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="padding" style="padding-bottom: 0px;">
+       <span>月份：<select ng-model="ctrl.report.mouthDate" ng-options="x for x in ctrl.selectTimes" ng-change="ctrl.monthKpiXbzy()">
+         <option value="">请选择保险到期月</option>
+       </select></span>
+    </div>
+    <div class="barGroup">
+      <div class="barmenu"><span class="barBox barBg1"></span>跟踪人数 {{ctrl.xbzyReport[0].traceCount}}</div>
+      <div class="barmenu"><span class="barBox barBg2"></span>邀约人数 {{ctrl.xbzyReport[0].inviteCount}}</div>
+      <div class="barmenu"><span class="barBox barBg3"></span>邀约到店人数 {{ctrl.xbzyReport[0].comeStoreCount}}</div>
+      <div class="barmenu"><span class="barBox barBg4"></span>续保车数 {{ctrl.xbzyReport[0].xbcs}}</div>
+    </div>
+   <div id="chart"></div>
+  </ion-content>
+</ion-view>

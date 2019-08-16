@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bofide.bip.mapper.InsuranceTypeMapper">
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.InsuranceType" >
+    	<id column="typeId" property="typeId" jdbcType="INTEGER" />
+    	<result column="typeName" property="typeName" jdbcType="VARCHAR" />
+    	<result column="createDate" property="createDate" jdbcType="DATE" />
+    	<result column="remark" property="remark" jdbcType="VARCHAR" />
+    	<result column="status" property="status" jdbcType="INTEGER" />
+    	<result column="deleted" property="deleted" jdbcType="INTEGER" />
+  	</resultMap>
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+			*
+		FROM
+			bf_bip_insurance_type
+		<where>
+			<if test="deleted != null">  
+	            and deleted = 0
+	        </if>
+		</where>
+		order by typeId ASC
+	</select>
+  
+  	<insert id="insert" useGeneratedKeys="true" keyProperty="typeId" parameterType="com.bofide.bip.po.InsuranceType" >
+   	 insert into bf_bip_insurance_type 
+    	(typeName, createDate, remark,status)
+   	 values 
+    	(#{typeName,jdbcType=VARCHAR}, CURDATE(), #{remark,jdbcType=VARCHAR},#{status,jdbcType=INTEGER})
+  	</insert>
+  	
+  	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bf_bip_insurance_type
+    where typeId = #{typeId,jdbcType=INTEGER}
+  </delete>
+  
+  <select id="selectByTypeName" resultMap="BaseResultMap">
+		select 
+			*
+		from bf_bip_insurance_type
+		where typeName = #{typeName,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 根据险种ID查询险种 -->
+	<select id="findInsuByTypeId" resultMap="BaseResultMap">
+		select 
+			*
+		from bf_bip_insurance_type
+		where typeId = #{typeId,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 修改险种 -->
+	<update id="updateInsu" parameterType="java.util.Map">
+	    update bf_bip_insurance_type
+	   	  <trim prefix="SET" suffixOverrides=",">  
+	        <if test="typeName != null and typeName != ''">  
+	            typeName = #{typeName,jdbcType=VARCHAR},
+	        </if>
+	        <if test="remark != null and remark != ''">
+	            remark = #{remark,jdbcType=VARCHAR},
+	        </if>
+	        <if test="deleted != null">
+	            deleted = #{deleted,jdbcType=INTEGER},
+	        </if>
+	        <if test="status != null">
+	            status = #{status,jdbcType=INTEGER},
+	        </if>
+	      </trim> 
+	    where
+	     	typeId = #{typeId,jdbcType=INTEGER}
+  	</update>
+</mapper>

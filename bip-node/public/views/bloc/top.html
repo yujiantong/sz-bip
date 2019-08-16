@@ -1,0 +1,15 @@
+<div id="scmHeader">
+    <div ng-if="logo==1" class="scmLogo"> </div>
+    <div ng-if="logo==2" class="CHLogo"> </div>
+    <div class="scmUser" ng-mouseenter="scmUsershow()" ng-mouseleave="scmUserhide()">
+        <div style="background-image:url(../../images/userImg.png)" class="scmUserImage"> </div><i title="{{user.userName}}-{{user.role.roleName}}">{{user.userName}}-{{user.role.roleName}}</i>
+        <div class="scmUserTip"><ul><li id="updatePassword"  ng-click="changePassBtn()">修改密码</li><li id="exitSecurity" ng-click="logout()">安全退出</li></ul><i></i></div>
+    </div>
+    <div id="scmTissueNames" style="top:75px;display:none" class="scmTissueNames">
+        <div id="scmTissueNameClose" class="scmTissueNameClose">
+            <div class="closeLine1"></div>
+            <div class="closeLine2"></div>
+        </div>
+        <ul id="scmTissueNamesUl"><li class="scmTissueType"></li></ul>
+    </div>
+</div>

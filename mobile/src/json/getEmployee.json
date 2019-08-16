@@ -1,0 +1,66 @@
+{
+  "success":true,
+  "content":{
+    "list":[
+      {
+      "uuId":"12348712937489",
+        "userName" : "已接待",
+        "count":7,
+        "detailKey":"reception"
+      },
+    {
+      "uuId":"123487212937489",
+        "userName" : "已建档",
+        "count":11,
+        "detailKey":"addpc_record"
+      },
+      {
+      "uuId":"123487129373489",
+        "userName" : "已跟踪",
+        "count":32,
+        "detailKey":"addpc_track"
+      },
+      {
+      "uuId":"12348712937489",
+        "userName" : "发起邀约",
+        "count":7,
+        "detailKey":"invitation"
+      },
+    {
+      "uuId":"123487212937489",
+        "userName" : "邀约应到店",
+        "count":11,
+        "detailKey":"invitationstore"
+      },
+      {
+      "uuId":"123487129373489",
+        "userName" : "已试驾",
+        "count":32,
+        "detailKey":"drive"
+      }
+      ,
+      {
+      "uuId":"123487129373489",
+        "userName" : "下订单",
+        "count":32,
+        "detailKey":"orders"
+      }
+      ,
+      
+      {
+      "uuId":"123487129373489",
+        "userName" : "已开票",
+        "count":32,
+        "detailKey":"deal"
+      }
+      ,
+      
+      {
+      "uuId":"123487129373489",
+        "userName" : "下订单",
+        "count":32,
+        "detailKey":"orders"
+      }
+    ]
+  }
+}

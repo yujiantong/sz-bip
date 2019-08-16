@@ -1,0 +1,380 @@
+{
+  "results":{
+    "content":{
+      "results":{
+        "xbInfo":{
+          "UserInfo": {
+            "CarUsedType": 1,
+            "LicenseNo": "京N5VV81",
+            "LicenseOwner": "张哲",
+            "InsuredName": "沈静",
+            "PostedName": "沈静",
+            "IdType": 1,
+            "CredentislasNum": "130322198112310039",
+            "CityCode": 1,
+            "EngineNo": "B5204T84670384",
+            "ModleName": "沃尔沃VOLVO V40 2.0T轿车",
+            "CarVin": "YV1MV4255E2099777",
+            "RegisterDate": "2014-01-22",
+            "ForceExpireDate": "2018-01-06",
+            "BusinessExpireDate": "2018-01-06",
+            "NextForceStartDate": "2018-01-07",
+            "NextBusinessStartDate": "2018-01-07",
+            "PurchasePrice": 227900,
+            "SeatCount": 5,
+            "FuelType": 1,
+            "ProofType": 1,
+            "LicenseColor": 1,
+            "ClauseType": 2,
+            "RunRegion": 1,
+            "InsuredIdCard": "51010519780513126X",
+            "InsuredIdType": 1,
+            "InsuredMobile": "138****8128",
+            "HolderIdCard": "51010519780513126X",
+            "HolderIdType": 1,
+            "HolderMobile": "138****8128",
+            "RateFactor1": 1,
+            "RateFactor2": 0.85,
+            "RateFactor3": 0.85,
+            "RateFactor4": 1,
+            "IsPublic": 2
+          },
+          "SaveQuote": {
+            "Source": 2,
+            "CheSun": 180041,
+            "SanZhe": 200000,
+            "DaoQiang": 0,
+            "SiJi": 0,
+            "ChengKe": 0,
+            "BoLi": 0,
+            "HuaHen": 0,
+            "SheShui": 0,
+            "ZiRan": 0,
+            "BuJiMianCheSun": 1,
+            "BuJiMianSanZhe": 1,
+            "BuJiMianDaoQiang": 0,
+            "BuJiMianChengKe": 0,
+            "BuJiMianSiJi": 0,
+            "BuJiMianHuaHen": 0,
+            "BuJiMianSheShui": 0,
+            "BuJiMianZiRan": 0,
+            "BuJiMianJingShenSunShi": 0,
+            "HcSanFangTeYue": 0,
+            "HcJingShenSunShi": 0
+          },
+          "CustKey": "bofideToBiHu788869",
+          "BusinessStatus": 1,
+          "StatusMessage": "续保成功"
+        },
+        "bj":[
+          {
+            "applyBJ":{"BusinessStatus":1,"StatusMessage":"请求发送成功"},
+              "bJinfo":{
+              "UserInfo": {
+                "LicenseNo": "京N5VV81",
+                "ForceExpireDate": "2018-01-06",
+                "BusinessExpireDate": "2018-01-06",
+                "BusinessStartDate": "2016-12-14",
+                "ForceStartDate": "",
+                "InsuredName": "张哲",
+                "InsuredIdCard": "120102196510102000",
+                "InsuredIdType": 1,
+                "InsuredMobile": "13301117645",
+                "HolderName": "张哲",
+                "HolderIdCard": "120102196510102000",
+                "HolderIdType": 1,
+                "HolderMobile": "13301117645"
+              },
+              "Item": {
+                "BizRate": 0,
+                "ForceRate": 0,
+                "BizTotal": 5760.55,
+                "ForceTotal": 0,
+                "TaxTotal": 0,
+                "Source": 4,
+                "QuoteStatus": 1,
+                "QuoteResult": "成功",
+                "CheSun": {
+                  "BaoE": 181408.4,
+                  "BaoFei": 2399.23
+                },
+                "SanZhe": {
+                  "BaoE": 300000,
+                  "BaoFei": 885.79
+                },
+                "DaoQiang": {
+                  "BaoE": 181408.4,
+                  "BaoFei": 781.35
+                },
+                "SiJi": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "ChengKe": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "BoLi": {
+                  "BaoE": 1,
+                  "BaoFei": 312.85
+                },
+                "HuaHen": {
+                  "BaoE": 10000,
+                  "BaoFei": 939.25
+                },
+                "SheShui": {
+                  "BaoE": 1,
+                  "BaoFei": 119.96
+                },
+                "ZiRan": {
+                  "BaoE": 181408.4,
+                  "BaoFei": 262.14
+                },
+                "BuJiMianCheSun": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "BuJiMianSanZhe": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "BuJiMianDaoQiang": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "BuJiMianChengKe": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "BuJiMianSiJi": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "BuJiMianHuaHen": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "BuJiMianSheShui": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "BuJiMianZiRan": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "BuJiMianJingShenSunShi": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "HcSheBeiSunshi": {
+                  "BaoE": 1,
+                  "BaoFei": 0
+                },
+                "HcHuoWuZeRen": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "HcFeiYongBuChang": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "HcJingShenSunShi": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "HcSanFangTeYue": {
+                  "BaoE": 1,
+                  "BaoFei": 59.98
+                },
+                "HcXiuLiChang": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "RateFactor1": 1,
+                "RateFactor2": 0.85,
+                "RateFactor3": 0.85,
+                "RateFactor4": 1
+              },
+              "CustKey": "bofideToBiHu788869",
+              "BusinessStatus": 1,
+              "StatusMessage": "获取报价信息成功"
+            },
+            "hBinfo":{
+              "Item": {
+                "Source": 4,
+                "SubmitStatus": 2,
+                "SubmitResult": "未到期未核保",
+                "BizNo": "",
+                "ForceNo": "",
+                "BizRate": 0,
+                "ForceRate": 0
+              },
+              "CustKey": "bofideToBiHu788869",
+              "BusinessStatus": 1,
+              "StatusMessage": "成功获取核保信息"
+            },
+            "insuranceCompName": "人保",
+            "source":4,
+            "sfbj":1,
+            "sfhb":1
+          },
+          {
+            "applyBJ": {"BusinessStatus":1,"StatusMessage":"请求发送成功"},
+            "bJinfo": {
+              "UserInfo": {
+                "LicenseNo": "京N5VV81",
+                "ForceExpireDate": "2018-01-06",
+                "BusinessExpireDate": "2018-01-06",
+                "BusinessStartDate": "2016-12-14",
+                "ForceStartDate": "",
+                "InsuredName": "张哲",
+                "InsuredIdCard": "120102196510102000",
+                "InsuredIdType": 1,
+                "InsuredMobile": "13811751990",
+                "HolderName": "张哲",
+                "HolderIdCard": "120102196510102000",
+                "HolderIdType": 1,
+                "HolderMobile": "13811751990"
+              },
+              "Item": {
+                "BizRate": 0,
+                "ForceRate": 0,
+                "BizTotal": 5760.56,
+                "ForceTotal": 0,
+                "TaxTotal": 0,
+                "Source": 8,
+                "QuoteStatus": 1,
+                "QuoteResult": "成功",
+                "CheSun": {
+                  "BaoE": 181408.4,
+                  "BaoFei": 2399.24
+                },
+                "SanZhe": {
+                  "BaoE": 300000,
+                  "BaoFei": 885.79
+                },
+                "DaoQiang": {
+                  "BaoE": 181408.4,
+                  "BaoFei": 781.35
+                },
+                "SiJi": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "ChengKe": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "BoLi": {
+                  "BaoE": 1,
+                  "BaoFei": 312.85
+                },
+                "HuaHen": {
+                  "BaoE": 10000,
+                  "BaoFei": 939.25
+                },
+                "SheShui": {
+                  "BaoE": 1,
+                  "BaoFei": 119.96
+                },
+                "ZiRan": {
+                  "BaoE": 181408.4,
+                  "BaoFei": 262.14
+                },
+                "BuJiMianCheSun": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "BuJiMianSanZhe": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "BuJiMianDaoQiang": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "BuJiMianChengKe": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "BuJiMianSiJi": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "BuJiMianHuaHen": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "BuJiMianSheShui": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "BuJiMianZiRan": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "BuJiMianJingShenSunShi": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "HcSheBeiSunshi": {
+                  "BaoE": 1,
+                  "BaoFei": 0
+                },
+                "HcHuoWuZeRen": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "HcFeiYongBuChang": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "HcJingShenSunShi": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "HcSanFangTeYue": {
+                  "BaoE": 1,
+                  "BaoFei": 59.98
+                },
+                "HcXiuLiChang": {
+                  "BaoE": 0,
+                  "BaoFei": 0
+                },
+                "RateFactor1": 1,
+                "RateFactor2": 0.85,
+                "RateFactor3": 0.85,
+                "RateFactor4": 1
+              },
+              "CustKey": "bofideToBiHu788869",
+              "BusinessStatus": 1,
+              "StatusMessage": "获取报价信息成功"
+            },
+            "hBinfo": {
+              "Item": {
+                "Source": 8,
+                "SubmitStatus": 2,
+                "SubmitResult": "未到期未核保",
+                "BizNo": "",
+                "ForceNo": "",
+                "BizRate": 0,
+                "ForceRate": 0
+              },
+              "CustKey": "bofideToBiHu788869",
+              "BusinessStatus": 1,
+              "StatusMessage": "成功获取核保信息"
+            },
+            "insuranceCompName": "人寿",
+            "source": 8,
+            "sfbj":1,
+            "sfhb":1
+          }
+            ]
+        },
+      "status": "OK"
+    },
+    "message": "报价成功！",
+    "success": true
+  },
+  "status": "OK"
+}

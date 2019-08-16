@@ -1,0 +1,213 @@
+<div id="modifyBlocbox" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 435px; width: 800px; margin-left: -400px; margin-top: -210px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                编辑集团
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget">
+            <div class="bloc_box">
+                <table class="bloc-table" style="text-align: left;">
+                    <tr>
+                        <td width="100" class="text-right">集团名称：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="modifyBloc.jtName" maxlength="40" disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">工商注册名称：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="modifyBloc.jtRegistName" maxlength="40" ng-blur="blocEditCheck(2)">
+                            <span ng-show="EditType2==1" class="glyphicon glyphicon-ok-sign green fs14"></span>
+                            <span ng-show="EditType2==0" class="glyphicon glyphicon-remove-sign red fs14"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"><span ng-show="EditType2==0">该工商注册名称已存在，不可重复新增</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">集团名称缩写：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="modifyBloc.jtShortName" maxlength="40" disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">集团代号：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="modifyBloc.jtCode" maxlength="40"  ng-blur="blocEditCheck(4)">
+                            <span ng-show="EditType4==1" class="glyphicon glyphicon-ok-sign green fs14"></span>
+                            <span ng-show="EditType4==0" class="glyphicon glyphicon-remove-sign red fs14"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"><span ng-show="EditType4==0">该集团代号已存在，不可重复新增</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">税号：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="modifyBloc.jtTaxNum" maxlength="40"  ng-blur="blocEditCheck(5)">
+                            <span ng-show="EditType5==1" class="glyphicon glyphicon-ok-sign green fs14"></span>
+                            <span ng-show="EditType5==0" class="glyphicon glyphicon-remove-sign red fs14"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"><span ng-show="EditType5==0">该税号已存在，不可重复新增</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">负责人：</td>
+                        <td><input type="text" style="width: 240px;" ng-model="modifyBloc.jtFzr" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">联系人：</td>
+                        <td><input type="text" style="width: 240px;" ng-model="modifyBloc.jtLxr" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">电话：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="modifyBloc.jtPhone" maxlength="40" ng-blur="blocEditCheck(6)">
+                            <span ng-show="EditType6==1" class="glyphicon glyphicon-ok-sign green fs14"></span>
+                            <span ng-show="EditType6==0" class="glyphicon glyphicon-remove-sign red fs14"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"><span ng-show="EditType6==0">该电话已存在，不可重复新增</span></td>
+                    </tr>
+                </table>
+            </div>
+            <div  class="bloc_box">
+                <table class="bloc-table" style="text-align: left;">
+                    <tr>
+                        <td class="text-right">邮箱：</td>
+                        <td><input type="text" style="width: 240px;" ng-model="modifyBloc.jtEmail" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">地址：</td>
+                        <td><input type="text" style="width: 240px;" ng-model="modifyBloc.jtAddress" maxlength="100"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td width="100" class="text-right">AM账号：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="modifyBloc.jtAdminAccount" disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">AM账号密码：</td>
+                        <td><input type="text" style="width: 240px;" value="******" maxlength="128" disabled></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">有效使用期：</td>
+                        <td>
+                            <input type="text" style="width: 115px;" ng-model="modifyBloc.jtYxqStart" ng-change="nextyear(2)" class="coverDate" readonly>-
+                            <input type="text" style="width: 115px;" ng-model="modifyBloc.jtYxqEnd"  class="coverDate" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right fr">备注：</td>
+                        <td><textarea rows="3" cols="20" style="width: 240px;height: 80px;" ng-model="modifyBloc.jtRemark" maxlength="500"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="fr closeBtn" type="button" value="取消">
+            <input class="fr" ng-click="modifyBlocSubmit()" type="button" value="确认">
+        </div>
+    </div>
+</div>
+<div id="storeCheckBox" class="scmMaskWindow" style="z-index: 1001;">
+    <div class="scmWindow" style="height: 430px; width: 650px; margin-left: -325px; margin-top: -215px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                选店
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget">
+            <div class="brandleft">
+                <p>可选店：</p>
+                <div class="brands_box">
+                    <ul>
+                        <li ng-repeat="addStore in addStoreAll" ng-show="addStore.state==0" ng-click="chooseStore(addStore)">{{addStore.storeName}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="brandcenter">
+                ↔
+            </div>
+            <div class="brandright">
+                <p>已选店：</p>
+                <div class="brands_box">
+                    <ul>
+                        <li ng-repeat="addedStore in checkedStores" ng-click="deleteStore(addedStore)">{{addedStore.storeName}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="fr closeBtn" type="button" value="取消">
+            <input class="fr" ng-click="makesureStore()" type="button" value="确认">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#modifyBlocbox").hide();
+        $("#storeCheckBox").hide();
+    });
+    $('.coverDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });
+</script>

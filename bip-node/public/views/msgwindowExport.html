@@ -1,0 +1,65 @@
+<div id="msgwindowExport" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 180px; width: 300px; margin-left: -150px; margin-top: -75px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                请稍等
+            </i>
+        </div>
+        <div class="scmWindowContent ui-widget ">
+            <div class="progress" style="margin-bottom:10px;">
+                <div class="progress-bar progress-bar-success" role="progressbar"
+                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                     ng-style="progressExport">
+                    <span class="sr-only-focusable" style="color: #434760">{{progressExport.width}}</span>
+                </div>
+            </div>
+            <p>正在获取数据{{showSuccessExport}}/{{policyExportCount}}，已完成{{progressExport.width}}</p>
+            <p ng-show="loadDataFinish==true">正在生成文件，请稍等…….</p>
+        </div>
+        <div class="scmWindowButton">
+            <input class="trackCust" type="button" ng-click="stopExportData()" value="终止导出">
+
+        </div>
+    </div>
+</div>
+
+<div id="msgwindowExportGzjl" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 225px; width: 330px; margin-left: -150px; margin-top: -75px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                请稍等
+            </i>
+        </div>
+        <div class="scmWindowContent ui-widget" ng-if="pageType!='yyjl'">
+            查询潜客数为：{{customerCount||0}}，包含{{customerGzjlCount||0}}条跟踪记录<br/><br/>
+            <div class="progress" style="margin-bottom:10px;">
+                <div class="progress-bar progress-bar-success" role="progressbar"
+                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                     ng-style="progressExport">
+                    <span class="sr-only-focusable" style="color: #434760">{{progressExport.width}}</span>
+                </div>
+            </div>
+            <p>正在获取潜客跟踪记录数据{{showSuccessExport||0}}/{{customerGzjlCount||0}}，已完成{{progressExport.width||'0%'}}</p>
+            <p ng-show="loadDataFinish==true">正在生成文件，请稍等…….</p>
+        </div>
+        <div class="scmWindowContent ui-widget" ng-if="pageType=='yyjl'">
+            邀约记录数为：{{customerCount||0}}<br/><br/>
+            <div class="progress" style="margin-bottom:10px;">
+                <div class="progress-bar progress-bar-success" role="progressbar"
+                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                     ng-style="progressExport">
+                    <span class="sr-only-focusable" style="color: #434760">{{progressExport.width}}</span>
+                </div>
+            </div>
+            <p>正在获取邀约记录数据{{showSuccessExport||0}}/{{customerGzjlCount||0}}，已完成{{progressExport.width||'0%'}}</p>
+            <p ng-show="loadDataFinish==true">正在生成文件，请稍等…….</p>
+        </div>
+        <div class="scmWindowButton">
+            <input class="trackCust" type="button" ng-click="stopExportData()" value="终止导出">
+        </div>
+    </div>
+</div>

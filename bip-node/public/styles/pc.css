@@ -1,0 +1,38 @@
+table,tr,th,td {
+  padding:0px;
+  margin:0px;
+}
+table{
+  text-align: center;
+  border:1px solid grey;
+}
+tr th,td{
+  border:1px solid grey;
+}
+tr th{
+  padding:4px;
+}
+input{
+  margin:5px;
+  padding:3px;
+}
+.leftContent{
+  width:200px;
+  height:500px;
+  border:1px dashed grey;
+  float: left;
+  padding:10px;
+  margin:10px;
+}
+.rightContent{
+  width:600px;
+  height:500px;
+  border:1px dashed grey;
+  float: left;
+  padding:10px;
+  margin:10px;
+}
+.leftA{
+  display:block;
+  margin:10px;
+}

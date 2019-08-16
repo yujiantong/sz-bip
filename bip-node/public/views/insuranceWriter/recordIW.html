@@ -1,0 +1,22 @@
+<div class="scmContentTitle">
+    <ul id="myTab" class="cartype nav nav-tabs" style="border-bottom: none;">
+        <li class="active" href="#pass"   data-toggle="tab">
+            密码更新记录
+        </li>
+    </ul>
+</div>
+<div id="myTabContent" class="tab-content" style="padding: 10px 14px;">
+    <div class="tab-pane fade in active" id="pass" style="height:97%;padding-bottom: 3%;">
+        <div>
+            <span class="holder">
+                <label>操作时间：</label>
+                <input type="text" style="width:80px;" ng-model="record.operateTime" class="coverDate">
+            </span>
+            <button type="button" ng-click="findByStoreAndTime()">查询</button>
+        </div>
+        <div ui-grid="recordPage" ng-style="gridbox" class="gridbox"
+             ui-grid-pinning  ui-grid-resize-columns ui-grid-selection ui-grid-infinite-scroll>
+        </div>
+    </div>
+</div>
+<div ng-include="'./views/insuranceWriter/updatePass.html'"></div>

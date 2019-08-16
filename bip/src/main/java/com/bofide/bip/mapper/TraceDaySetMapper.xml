@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.TraceDaySetMapper" >
+ <resultMap type="com.bofide.bip.po.TraceDaySet" id="BaseResultMap">
+  <id column="traceSetId" property="traceSetId" jdbcType="INTEGER" />
+    <result column="fourSStoreId" property="fourSStoreId" jdbcType="INTEGER" />
+    <result column="customerLevel" property="customerLevel" jdbcType="VARCHAR" />
+    <result column="dayNumber" property="dayNumber" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.bofide.bip.po.TraceDaySet" >
+    insert into bf_bip_traceday_setting 
+    	(fourSStoreId, customerLevel, dayNumber)
+    values 
+    	(#{fourSStoreId,jdbcType=INTEGER}, #{customerLevel,jdbcType=VARCHAR}, #{dayNumber,jdbcType=INTEGER});
+  </insert>
+  <select id="selectByFoursStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    	*
+	from 
+  		bf_bip_traceday_setting
+	where
+  		fourSStoreId = #{fourSStoreId,jdbcType=INTEGER}
+  </select>
+    <update id="updateByFoursIdAndCuLevel" parameterType="com.bofide.bip.po.TraceDaySet" >
+    update bf_bip_traceday_setting
+   	 set
+        dayNumber = #{dayNumber,jdbcType=INTEGER}
+    where fourSStoreId = #{fourSStoreId,jdbcType=INTEGER}
+    and customerLevel = #{customerLevel,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <select id="findTraceDaySet" resultMap="BaseResultMap">
+  	SELECT
+		*
+	FROM
+		bf_bip_traceday_setting a
+	LEFT JOIN bf_bip_store b ON a.fourSStoreId = b.storeId
+	WHERE
+		customerLevel = "Z"
+	AND b.deleted = 0
+  </select>
+  
+  <select id="findTraceTimeByCl" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+  	select * from bf_bip_traceday_setting 
+  	where customerLevel = #{customerLevel} and fourSStoreId = #{storeId}
+  </select>
+  <!-- 查询一个店的首次提醒天数 -->
+  <select id="findTraceDaySetSouCiCount" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select dayNumber from bf_bip_traceday_setting 
+  	where customerLevel = "Z" and fourSStoreId = #{fourSStoreId}
+  </select>
+  
+</mapper>

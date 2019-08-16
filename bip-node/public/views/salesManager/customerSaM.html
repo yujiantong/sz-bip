@@ -1,0 +1,288 @@
+<div class="scmContentTitle">
+        <ul id="myTab" class="cartype nav nav-tabs" style="border-bottom: none;">
+            <li  href="#chaxun" id="qkcx0" data-toggle="tab" ng-click="coutomerSreachClick()">
+                潜客查询
+            </li>
+            <li href="#saleStatistics" id="xstj0" ng-click="findSaleStatistics('xstj')" data-toggle="tab">
+                销售
+            </li>
+            <li id="gz1"  href="#yaoyue" ng-click="findByTraceStatu('gz',1)" data-toggle="tab">
+                应跟踪
+            </li>
+            <li href="#yaoyue" id="gz2" ng-click="findByTraceStatu('gz',2)" data-toggle="tab">
+                已跟踪
+            </li>
+            <li href="#yaoyue" id="ht11" ng-click="findByReturnStatu('ht',11)" data-toggle="tab">
+                跟踪完成
+            </li>
+            <li href="#yaoyue" id="ht2" ng-click="findByReturnStatu('ht',2)" data-toggle="tab">
+                已回退
+            </li>
+            <li href="#yaoyue" id="ht3" ng-click="findByReturnStatu('ht','3,7')" data-toggle="tab">
+                待审批
+            </li>
+            <li href="#yaoyue" id="tb1" ng-click="findByCusLostInsurStatu('tb',1)" data-toggle="tab">
+                将脱保
+            </li>
+            <li href="#yaoyue" id="tb2" ng-click="findByCusLostInsurStatu('tb',2)" data-toggle="tab">
+                已脱保
+            </li>
+            <li href="#yaoyue" id="js1" ng-click="findByAcceptStatu('js',1)" data-toggle="tab">
+                未接收
+            </li>
+            <li  href="#yaoyue" ng-click="findDdwcdCus('ddwcd',0)" data-toggle="tab">
+                到店未出单
+            </li>
+        </ul>
+        <div id="scmTitleTool" class="scmTitleTools">
+            <div id="starttime_main" class="control-group">
+                <label class="control-label" id="yyks">开始时间：</label>
+                <input type="text" style="width: 90px;" ng-change="getSearchByTime()" ng-blur="ResetData()" ng-model="startTime" value="{{startTime}}" class="starttime">
+            </div>
+            <div id="endtime_main" class="control-group">
+                <label class="control-label" id="yyjs">结束时间：</label>
+                <input type="text" style="width: 90px;" ng-change="getSearchByTime()" ng-blur="ResetData()" ng-model="endTime" value="{{endTime}}" class="endtime">
+            </div>
+            <div style="width: 70px">
+                <label class="">全部：</label>
+                <input type="checkbox" ng-click="getShowAll()" ng-model="showAll">
+            </div>
+        </div>
+    </div>
+    <div id="myTabContent" class="tab-content" style="padding: 10px 14px;">
+        <div class="tab-pane fade" id="yaoyue" style="height:97%;padding-bottom: 3%;">
+            <div class="condition-search">
+                <span style="display: inline-block">
+                    <label>投保类型：</label>
+                    <select required="" ng-model="qkSearch.renewalType"
+                            ng-options="coverType.id as coverType.coverType for (key,coverType) in coverTypes">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                 <span class="holder" style="display: inline-block" ng-mouseleave="holderHide()" ng-show="!(pageType=='ht'&& pageStatus==5) && pageType!='jh'">
+                    <label>持有人：</label><input ng-mouseenter="holderShow()"  ng-model="qkSearch.holder" type="text" style="width: 70px;">
+                    <ul class="holder_list">
+                        <li ng-click="holderSet(holder.userName)" title="{{holder.userName}}" ng-repeat="holder in holders | filter:qkSearch.holder as result">{{holder.userName}}</li>
+                    </ul>
+                </span>
+                <span style="display: inline-block" ng-show="pageType=='ht'&& pageStatus==2">
+                    <label>回退人：</label>
+                    <select required="" ng-model="qkSearch.operatorID" style="width: 80px;"
+                            ng-options="vlaue.id as vlaue.userName for (key,vlaue) in backUser">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span style="display: inline-block">
+                    <label>车架号：</label><input  ng-model="qkSearch.chassisNumber" style="width: 100px;">
+                </span>
+                <span style="display: inline-block">
+                    <label>车牌号：</label><input  ng-model="qkSearch.carLicenseNumber" style="width: 70px;">
+                </span>
+                <span style="display: inline-block">
+                    <label>联系人：</label><input ng-model="qkSearch.contact"  style="width: 70px;">
+                </span>
+                <span style="display: inline-block">
+                    <label>联系方式：</label><input ng-model="qkSearch.contactWay"  style="width: 80px;">
+                </span>
+                <span  ng-show="pageType=='gz'&& pageStatus==1"><label>是否贷款</label>
+                    <select  ng-model="qkSearch.ifLoan" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in loan">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span style="display: inline-block" ng-show="pageType=='gz'&& pageStatus==1">
+                    <label>去年保费排序：</label><input ng-model="qkSearch.qnbfSort" ng-true-value="1" ng-false-value="0" type="checkbox">
+                </span>
+                <span style="display: inline-block" ng-show="pageType=='gz'&& pageStatus==1">
+                    <label>高意向：</label><input type="checkbox" ng-model="qkSearch.sfgyx" ng-true-value="1" ng-false-value="-1">
+                </span>
+                <button class="ml5" type="button" ng-click="getSearchByTime()">查询</button>
+                <button type="button" ng-click="clearQksearch()">清空</button>
+                <button style="margin-left: 10px;" ng-if="!((pageType=='ht'&&pageStatus==11)||(pageType=='ht'&&pageStatus==2))" type="button" ng-click="replacePriBox()">批量更换持有人</button>
+            </div>
+            <div ui-grid="customerAllPage" ng-style="gridbox" class="gridbox"
+                 ui-grid-pinning  ui-grid-resize-columns ui-grid-selection ui-grid-infinite-scroll>
+            </div>
+            <div class="gridbox-footer" ng-if="loadStatus==0"  ng-click="searchMore()">加载更多(<span>{{policyCount}}</span>)</div>
+            <div class="gridbox-footernone" ng-if="loadStatus==1" >正在加载中...</div>
+            <div class="gridbox-footernone" ng-if="loadStatus==2" >全部加载完成(<span>{{policyCount}}</span>)</div>
+        </div>
+        <div class="tab-pane fade" id="saleStatistics" style="height:97%;padding-bottom: 3%;">
+            <div ui-grid="saleStatisticsAllPage" ng-style="gridboxTj" class="gridbox"  ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="chaxun">
+            <div id="searchDiv">
+                <div id="searchDivTr">
+                    <span style="display: inline-block">
+                    <label>品牌：</label>
+                    <select required="" ng-model="search.carBrand" style="width: 100px"
+                            ng-options="carBrand as carBrand.brandName for (key,carBrand) in carBrands"
+                            ng-change="searchVehicleModel()">
+                        <option value="">请选择品牌</option>
+                    </select>
+                    <label>型号：</label>
+                    <select id="clxhxz_search" ng-model="search.vehicleModel" style="width: 100px"
+                            ng-options="vehicleModel as vehicleModel.modelName for (key,vehicleModel) in search.carBrand.carModelList">
+                        <option value="">请选择型号</option>
+                    </select>
+                    <input type="text" style="width: 100px" id="clxhsr_search" ng-model="search.vehicleModelInput" ></span>
+                    <span style="display: inline-block">
+                        <label>车架号：</label><input  ng-model="search.chassisNumber" style="width: 150px;"></span>
+                    <span style="display: inline-block">
+                        <label>车牌号：</label><input  ng-model="search.carLicenseNumber" style="width: 100px;"></span>
+                    <span style="display: inline-block">
+                        <label>被保险人：</label><input ng-model="search.insured"  style="width: 65px;"></span>
+                     <span style="display: inline-block">
+                        <label>车主：</label><input ng-model="search.carOwner"  style="width: 65px;"></span>
+                    <span style="display: inline-block">
+                        <label>联系人：</label><input ng-model="search.contact"  style="width: 65px;"></span>
+                    <span style="display: inline-block">
+                        <label>联系方式：</label><input ng-model="search.contactWay"  style="width: 85px;"></span>
+                    <!--<span style="display: inline-block">
+                        <label>联系方式（备）：</label><input ng-model="search.contactWayReserve"  style="width: 80px;"></span>-->
+                     <span class="holder" style="display: inline-block" ng-mouseleave="holderHide()">
+                        <label>持有人：</label><input ng-mouseenter="holderShow()"  ng-model="search.holder" type="text" style="width: 80px;">
+                        <ul class="holder_list">
+                            <li ng-click="holderSet2(holder.userName)" title="{{holder.userName}}" ng-repeat="holder in holders | filter:search.holder as result">{{holder.userName}}</li>
+                        </ul>
+                    </span>
+                    <span style="display: inline-block"><label>保险公司：</label>
+                    <select required="" ng-model="search.insuranceCompLY" style="height: 20px;margin: 5px;margin-left: 2px"
+                            ng-options="vlaue.insuranceCompName as vlaue.insuranceCompName for (key,vlaue) in insuranceCompNames">
+                        <option value="">请选择</option>
+                    </select></span>
+                    <span style="display: inline-block" class="multiselectBtn">
+                        <label>投保类型：</label>
+                        <select id="example-getting-started" ng-model="search.renewalType" multiple="multiple">
+                            <option value="2">新转续</option>
+                            <option value="3">续转续</option>
+                            <option value="4">间转续</option>
+                            <option value="5">潜转续</option>
+                            <option value="6">首次</option>
+                        </select>
+                    </span>
+                    <span style="display: inline-block" class="multiselectBtn">
+                    <label>级别：</label>
+                    <select id="example-getting-started-customerLevel" ng-model="search.customerLevel"  multiple="multiple">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                    </select></span>
+                    <span style="display: inline-block">
+                        <label>到店次数：</label><input type="number" min="0" ng-model="search.comeStoreNumber"  style="width: 65px;"></span>
+                    <span style="display: inline-block"><label>负责人：</label>
+                    <select required="" ng-model="search.principalId"
+                            ng-options="vlaue.id as vlaue.userName for (key,vlaue) in kingdsUser.principal">
+                        <option value="">请选择</option>
+                    </select></span>
+                    <span style="display: inline-block">
+                        <label>本店投保次数：</label><input type="number" min="0" ng-model="search.insurNumber"  style="width: 65px;"></span>
+                    <button type="button" id="morebtn">更多</button>
+                    <button id="submitBtn" type="button"  ng-click="findByCondition()">查询</button>
+                    <button id="emptyBtn" type="button" ng-click="cleanForm()">清空</button>
+                    <button style="margin-left: 10px;" ng-if="!((pageType=='ht'&&pageStatus==11)||(pageType=='ht'&&pageStatus==2))" type="button" ng-click="replacePriBox()">批量更换持有人</button>
+                </div>
+                <div id="searchDivTr2" style="display: none;margin-top: 2px;">
+                    <span style="display: inline-block">
+                    <label>是否邀约：</label>
+                    <select ng-model="search.isInvite" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                        <option value="">请选择</option>
+                    </select></span>
+                    <span style="display: inline-block">
+                    <label>是否到店：</label>
+                    <select ng-model="search.isComeStore" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                        <option value="">请选择</option>
+                    </select></span>
+                    <span style="display: inline-block">
+                    <label>是否报价：</label>
+                    <select ng-model="search.isQuote" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                        <option value="">请选择</option>
+                    </select>
+                    </span>
+                    <span>
+                        <label>是否高意向：</label>
+                        <select ng-model="search.sfgyx"  ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                            <option value="">请选择</option>
+                        </select>
+                    </span>
+                    <span><label>是否贷款</label>
+                        <select  ng-model="search.ifLoan" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in loan">
+                            <option value="">请选择</option>
+                        </select>
+                    </span>
+                     <span>
+                        <label>将脱保天数：</label>
+                        <select ng-model="search.remainLostInsurDay"  ng-options="x.value as x.range for (key,x) in lostInsurDays">
+                            <option value="">请选择</option>
+                        </select>
+                    </span>
+                    <br>
+                    <span style="width: 277px;display: inline-block;">
+                        <label>投保日期：</label>
+                        <input type="text" style="width:80px;"  ng-model="search.insurDateLYStart" class="starttime">-
+                        <input type="text" style="width:80px;"  ng-model="search.insurDateLYEnd" class="endtime">
+                    </span>
+                    <span style="width: 292px;display: inline-block;">
+                        <label>交强到期日：</label>
+                        <input type="text" style="width:80px;"  ng-model="search.insuranceEndDateStart"  class="starttimemd">-
+                        <input type="text" style="width:80px;" ng-model="search.insuranceEndDateEnd" class="endtimemd">
+                    </span>
+                    <span style="width: 268px;display: inline-block;">
+                        <label>商业到期日：</label>
+                        <input type="text" style="width:80px;"  ng-model="search.syxrqDateStart" class="starttimemd">-
+                        <input type="text" style="width:80px;"  ng-model="search.syxrqDateEnd" class="endtimemd">
+                    </span>
+                    <span style="width: 268px;display: inline-block;">
+                        <label>报价日期：</label>
+                        <input type="text" style="width:80px;"  ng-model="search.quoteDateStart"  class="starttime">-
+                        <input type="text" style="width:80px;"  ng-model="search.quoteDateEnd"  class="endtime">
+                    </span>
+                    <span style="width: 270px;display: inline-block;">
+                        <label>上牌日期：</label>
+                        <input type="text" style="width:80px;"  ng-model="search.registrationDateStart"  class="starttime">-
+                        <input type="text" style="width:80px;"  ng-model="search.registrationDateEnd"  class="endtime">
+                    </span>
+                    <span style="width: 265px;display: inline-block;">
+                        <label>到店日期：</label>
+                        <input type="text" style="width:80px;"  ng-model="search.comeStoreDateStart"  class="starttime">-
+                        <input type="text" style="width:80px;"  ng-model="search.comeStoreDateEnd"  class="endtime">
+                    </span>
+                    <span style="width: 280px;display: inline-block;">
+                        <label>预计到店日期：</label>
+                        <input type="text" style="width:80px;"  ng-model="search.inviteDateStart"  class="starttime">-
+                        <input type="text" style="width:80px;"  ng-model="search.inviteDateEnd"   class="endtime">
+                    </span>
+                    <span style="width: 280px;display: inline-block;">
+                        <label>末次跟踪日期：</label>
+                        <input type="text" style="width:80px;"  ng-model="search.lastTraceDateStart"  class="starttime">-
+                        <input type="text" style="width:80px;"  ng-model="search.lastTraceDateEnd"  class="endtime">
+                    </span>
+                     <span style="width: 280px;display: inline-block;">
+                        <label>应跟踪日期：</label>
+                        <input type="text" style="width:80px;"  ng-model="search.traceDateStart"  class="starttime">-
+                        <input type="text" style="width:80px;"  ng-model="search.traceDateEnd"  class="endtime">
+                    </span>
+                    <span style="width: 280px;display: inline-block;">
+                        <label>最低折扣：</label>
+                        <input type="text" style="width:80px;"  ng-model="search.zdZheKouStart" >-
+                        <input type="text" style="width:80px;"  ng-model="search.zdZheKouEnd" >
+                    </span>
+                </div>
+                <div style="height:97%;padding-bottom: 3%;">
+                    <div ui-grid="customerAllSearchPage" ng-style="gridSearchbox" class="gridbox gridSearchbox"
+                         ui-grid-pinning  ui-grid-resize-columns ui-grid-selection ui-grid-infinite-scroll ui-grid-auto-resize>
+                    </div>
+                    <div class="gridbox-footer" ng-if="loadStatus==0"  ng-click="searchMore()">加载更多(<span>{{policySearchCount}}</span>)</div>
+                    <div class="gridbox-footernone" ng-if="loadStatus==1" >正在加载中...</div>
+                    <div class="gridbox-footernone" ng-if="loadStatus==2" >全部加载完成(<span>{{policySearchCount}}</span>)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div ng-include="'./views/salesManager/customerTrackRecordSaM.html'"></div>
+<div ng-include="'./views/salesManager/confirmPageSaM.html'"></div>
+<div ng-include="'./views/quoteDetails.html'"></div>
+<div ng-include="'./views/pauseOrForbidden.html'"></div>
+<div ng-include="'./views/maintainRecordInfo.html'"></div>
+<div ng-include="'./views/pushRepairInfo.html'"></div>

@@ -1,0 +1,23 @@
+<ion-view view-title="到店未出单" ng-init="ctrl.findDDWCDWorkCollection()">
+  <ion-nav-buttons side="left">
+    <button ng-if="ctrl.user.role.roleId!=7&&ctrl.user.role.roleId!=9" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('homePage.myHomePage')"></button>
+    <button ng-if="ctrl.user.role.roleId==7||ctrl.user.role.roleId==9" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('mgrHomePage.mgrMyHomePage')"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="bip-item-divider">
+      <div class="title">到店未出单潜客数：{{ctrl.allCustomerNum}}</div>
+    </div>
+    <div class="bip-row">
+      <div class="col bip-col-33" ng-repeat="a in ctrl.ddwcdWorkCollection">
+        <div class="bip-custbox">
+          <a class="bip-tel" ng-show="!a.phone">{{a.userName}}</a>
+          <a ng-show="a.phone" class="bip-tel" href="tel:{{a.phone}}">
+            <span class="worker-name">{{a.userName}}</span>
+            <i class="icon ion-ios-telephone"></i>
+          </a>
+          <a class="bip-amount" ui-sref="customerListDdwcd({userId:a.userId,userName:a.userName})">{{a.customerNum}}</a>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bofide.bip.mapper.UnderWritingMapper">
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.UnderWriting" >
+    	<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="source" property="Source" jdbcType="INTEGER" />
+    	<result column="submitStatus" property="SubmitStatus" jdbcType="INTEGER" />
+    	<result column="submitResult" property="SubmitResult" jdbcType="DOUBLE" />
+    	<result column="bizNo" property="BizNo" jdbcType="DOUBLE" />
+    	<result column="fourceNo" property="FourceNo" jdbcType="VARCHAR" />
+    	<result column="bipRate" property="BipRate" jdbcType="DOUBLE" />
+    	<result column="forceRate" property="ForceRate" jdbcType="DOUBLE" />
+    	<result column="storeId" property="StoreId" jdbcType="INTEGER" />
+    	<result column="customerId" property="customerId" jdbcType="INTEGER" />
+    	<result column="bjId" property="bjId" jdbcType="INTEGER" />
+  	</resultMap>
+  	
+  	<insert id="insertUnderWriting" parameterType="java.util.Map">
+  		insert into bf_bip_underWriting (source,submitStatus,submitResult,bizNo,forceNo,bizRate,forceRate,storeId,customerId,bjId)
+  			values (#{Source},#{SubmitStatus},#{SubmitResult},#{BizNo},#{ForceNo},#{BizRate},#{ForceRate},#{storeId},#{customerId},#{bjId})
+  	</insert>
+  	
+</mapper>

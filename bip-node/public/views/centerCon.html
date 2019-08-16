@@ -1,0 +1,358 @@
+<div class="scmContentTitle">
+    <ul id="myTab" class="cartype nav nav-tabs" style="border-bottom: none;">
+        <li class="active"  href="#xinbao" data-toggle="tab">
+            新保
+        </li>
+        <li  href="#xinzx" data-toggle="tab">
+            新转续
+        </li>
+        <li href="#xuzx" data-toggle="tab">
+            续转续
+        </li>
+        <li href="#jianzx" data-toggle="tab">
+            间转续
+        </li>
+        <li href="#qianzx" data-toggle="tab">
+            潜转续
+        </li>
+        <li href="#shouci" data-toggle="tab">
+            首次
+        </li>
+        <li  href="#chaxun" data-toggle="tab">
+            保单查询
+        </li>
+    </ul>
+    <div id="scmTitleTool" class="scmTitleTools">
+        <div id="starttime_main" class="control-group">
+            <label class="control-label" for="starttime">开始时间：</label>
+            <div class="date form_datetime controls" data-date="2016.05.10"  id="starttimeDiv">
+                <input type="text" class="span9" value="" id="starttime" readonly>
+                <span class="add-on"><i class="icon-calendar"></i></span>
+            </div>
+        </div>
+        <div id="endtime_main" class="control-group">
+            <label class="control-label" for="endtime">结束时间：</label>
+            <div class=" controls date form_datetime"
+                 data-date="2016.05.10"  id="endtimeDiv">
+                <input type="text" class="span9" value="" id="endtime" readonly>
+                <span class="add-on"><i class="icon-calendar"></i> </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myTabContent" class="tab-content" style="padding: 10px 14px;">
+    <div class="tab-pane fade in active" id="xinbao">
+        <div class="tabletitle">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th width="95">序号（10）</th>
+                    <th width="75">承保日期</th>
+                    <th width="65">负责人</th>
+                    <th width="65">被保险人</th>
+                    <th width="65">联系人</th>
+                    <th width="75">联系电话</th>
+                    <th width="75">保险公司</th>
+                    <th width="65">车牌号</th>
+                    <th width="75" id="baodmx">车架号+</th>
+                    <th width="75">承保类型</th>
+                    <th width="105">本店承保次数</th>
+                    <th width="105">保险开始日期</th>
+                    <th width="105">保险结束日期</th>
+                    <th width="75">应收保费</th>
+                    <th width="75">实收保费</th>
+                    <th>出单员</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="tablebox">
+            <table class="table table-bordered">
+                <tbody style="text-align: center;">
+                <tr>
+                    <td width="95">12</td>
+                    <td width="75"></td>
+                    <td width="65"></td>
+                    <td width="65"></td>
+                    <td width="65"></td>
+                    <td width="75"></td>
+                    <td width="75"></td>
+                    <td width="65"></td>
+                    <td width="75"></td>
+                    <td width="75"></td>
+                    <td width="105"></td>
+                    <th width="105"></th>
+                    <td width="105"></td>
+                    <td width="75"></td>
+                    <td width="75"></td>
+                    <td class="lasttd">
+                        <div class="rowButtons">
+                            <button type="button" class="btn btn-default btn-sm">保单明细</button>
+                            <button type="button" class="btn btn-default btn-sm">跟踪记录</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="lasttd">
+                        <div class="rowButtons">
+                            <button type="button" class="btn btn-default btn-sm">保单明细</button>
+                            <button type="button" class="btn btn-default btn-sm">跟踪记录</button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="xinzx">
+        2
+        <!--<div class="progressContainer">
+            <div class="progressBar" style="width: 400px;">
+                <div class="progressNow" style="width:33%">
+                </div>
+                <ul>
+                    <li class="progressDot progressStart" style="left:0%;">
+                        报价
+                        <div>
+                        </div>
+                    </li>
+                    <li class="progressDot" style="left:33%;">
+                        邀约
+                        <div>
+                        </div>
+                    </li>
+                    <li class="progressDot emptyDot" style="left:66%;">
+                        进店
+                        <div>
+                        </div>
+                    </li>
+                    <li class="progressDot emptyDotEnd" style="left:99%;">
+                        出单
+                        <div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>-->
+    </div>
+    <div class="tab-pane fade" id="xuzx">
+        3
+    </div>
+    <div class="tab-pane fade" id="jianzx">
+        4
+    </div>
+    <div class="tab-pane fade" id="qianzx">
+        5
+    </div>
+    <div class="tab-pane fade" id="shouci">
+        66
+    </div>
+    <div class="tab-pane fade" id="chaxun">
+        <div id="searchDiv" style="margin-left: 20px">
+            <div id="searchDivTr">
+                <label>店名：</label>
+                <select>
+                    <option >全部</option>
+                    <option>listitem1</option>
+                    <option>listitem2</option>
+                    <option>listitem3</option>
+                </select>
+                <label>品牌：</label>
+                <select>
+                    <option >全部</option>
+                    <option>listitem1</option>
+                    <option>listitem2</option>
+                    <option>listitem3</option>
+                </select>
+                <label>车型:</label>
+                <select>
+                    <option >全部</option>
+                    <option>listitem1</option>
+                    <option>listitem2</option>
+                    <option>listitem3</option>
+                </select>
+                <label>被保险人：</label><input  style="width: 65px;">
+                <label>联系人：</label><input  style="width: 65px;">
+                <label>联系电话：</label><input  style="width: 85px;">
+                <label>保险公司:</label>
+                <select>
+                    <option >全部</option>
+                    <option>listitem1</option>
+                    <option>listitem2</option>
+                    <option>listitem3</option>
+                </select>
+                <label>车牌号：</label><input  style="width: 65px;">
+                <label>车架号：</label><input  style="width: 65px;">
+                <label>承保类型:</label>
+                <select>
+                    <option >全部</option>
+                    <option>listitem1</option>
+                    <option>listitem2</option>
+                    <option>listitem3</option>
+                </select>
+                <label>本店承保次数：</label><input  style="width: 65px;">
+                <label>负责人:</label>
+                <select>
+                    <option >全部</option>
+                    <option>listitem1</option>
+                    <option>listitem2</option>
+                    <option>listitem3</option>
+                </select>
+                <label>出单员:</label>
+                <select>
+                    <option >全部</option>
+                    <option>listitem1</option>
+                    <option>listitem2</option>
+                    <option>listitem3</option>
+                </select>
+                <button type="button" id="morebtn">更多</button>
+                <input id="submitBtn" type="button" value="查询">
+                <input id="emptyBtn" type="button" value="清空">
+            </div>
+            <div id="searchDivTr2" style="display: none;">
+                <label>承保日期开始：</label>
+                <select>
+                    <option >全部</option>
+                    <option>listitem1</option>
+                    <option>listitem2</option>
+                    <option>listitem3</option>
+                </select>
+                <label>承保日期结束：</label>
+                <select>
+                    <option >全部</option>
+                    <option>listitem1</option>
+                    <option>listitem2</option>
+                    <option>listitem3</option>
+                </select>
+                <label>保单号查询：</label><input  style="width: 85px;">
+                <label>商业险日期开始：</label>
+                <select>
+                    <option >全部</option>
+                    <option>listitem1</option>
+                    <option>listitem2</option>
+                    <option>listitem3</option>
+                </select>
+                <label>商业险日期结束：</label>
+                <select>
+                    <option >全部</option>
+                    <option>listitem1</option>
+                    <option>listitem2</option>
+                    <option>listitem3</option>
+                </select>
+                <label>交强险日期开始：</label>
+                <select>
+                    <option >全部</option>
+                    <option>listitem1</option>
+                    <option>listitem2</option>
+                    <option>listitem3</option>
+                </select>
+                <label>交强险日期结束：</label>
+                <select>
+                    <option >全部</option>
+                    <option>listitem1</option>
+                    <option>listitem2</option>
+                    <option>listitem3</option>
+                </select>
+                <label>险种查询：</label>
+                <select>
+                    <option >全部</option>
+                    <option>listitem1</option>
+                    <option>listitem2</option>
+                    <option>listitem3</option>
+                </select>
+                <label>商业险金额查询：</label><input  style="width: 65px;">
+            </div>
+            <div class="tabletitle">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th width="95">序号（10）</th>
+                        <th width="75">承保日期</th>
+                        <th width="65">负责人</th>
+                        <th width="65">被保险人</th>
+                        <th width="65">联系人</th>
+                        <th width="75">联系电话</th>
+                        <th width="75">保险公司</th>
+                        <th width="65">车牌号</th>
+                        <th width="75" id="">车架号+</th>
+                        <th width="75">承保类型</th>
+                        <th width="105">本店承保次数</th>
+                        <th width="105">保险开始日期</th>
+                        <th width="105">保险结束日期</th>
+                        <th width="75">应收保费</th>
+                        <th width="75">实收保费</th>
+                        <th>出单员</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="tablebox" style="max-height: 300px;">
+                <table class="table table-bordered">
+                    <tbody style="text-align: center;">
+                    <tr >
+                        <td width="95">12</td>
+                        <td width="75"></td>
+                        <td width="65"></td>
+                        <td width="65"></td>
+                        <td width="65"></td>
+                        <td width="75"></td>
+                        <td width="75"></td>
+                        <td width="65"></td>
+                        <td width="75"></td>
+                        <td width="75"></td>
+                        <td width="105"></td>
+                        <th width="105"></th>
+                        <td width="105"></td>
+                        <td width="75"></td>
+                        <td width="75"></td>
+                        <td class="lasttd">
+                            <div class="rowButtons">
+                                <button type="button" class="btn btn-default btn-sm">保单明细</button>
+                                <button type="button" class="btn btn-default btn-sm">跟踪记录</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="lasttd">
+                            <div class="rowButtons">
+                                <button type="button" class="btn btn-default btn-sm">保单明细</button>
+                                <button type="button" class="btn btn-default btn-sm">跟踪记录</button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

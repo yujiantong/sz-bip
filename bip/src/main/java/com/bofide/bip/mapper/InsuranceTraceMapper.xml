@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.InsuranceTraceMapper" >
+  <resultMap id="BaseResultMap" type="com.bofide.bip.po.InsuranceTrace" >
+    <id column="insuranceTraceId" property="insuranceTraceId" jdbcType="INTEGER" />
+    <result column="insuranceBillId" property="insuranceBillId" jdbcType="INTEGER" />
+    <result column="principal" property="principal" jdbcType="VARCHAR" />
+    <result column="traceClcye" property="traceClcye" jdbcType="VARCHAR" />
+    <result column="traceNumber" property="traceNumber" jdbcType="INTEGER" />
+    <result column="coverType" property="coverType" jdbcType="VARCHAR" />
+    <result column="advanceOutDate" property="advanceOutDate" jdbcType="INTEGER" />
+    <result column="isInvite" property="isInvite" jdbcType="INTEGER" />
+    <result column="inviteNumber" property="inviteNumber" jdbcType="INTEGER" />
+    <result column="isInviteToStore" property="isInviteToStore" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    insuranceTraceId, insuranceBillId, principal, traceClcye, traceNumber, coverType, 
+    advanceOutDate, isInvite, inviteNumber, isInviteToStore, remark
+  </sql>
+  <select id="findInsuranceTrace" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bf_bip_insurance_trace
+    where insuranceBillId = #{insuranceBillId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bf_bip_insurance_trace
+    where insuranceTraceId = #{insurancetraceId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bofide.bip.po.InsuranceTrace" >
+    insert into bf_bip_insurance_trace (insuranceBillId, 
+      principal, traceClcye, traceNumber, 
+      coverType, advanceOutDate, isInvite, 
+      inviteNumber, isInviteToStore, remark
+      )
+	values
+      (#{insuranceBillId,jdbcType=INTEGER}, #{principal,jdbcType=VARCHAR}, #{traceClcye,jdbcType=VARCHAR}, #{traceNumber,jdbcType=INTEGER}, 
+      #{coverType,jdbcType=VARCHAR}, #{advanceOutDate,jdbcType=INTEGER}, #{isInvite,jdbcType=INTEGER}, 
+      #{inviteNumber,jdbcType=INTEGER}, #{isInviteToStore,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bofide.bip.po.InsuranceTrace" >
+    insert into bf_bip_insurance_trace
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="insurancetraceid != null" >
+        insuranceTraceId,
+      </if>
+      <if test="insurancebillid != null" >
+        insuranceBillId,
+      </if>
+      <if test="principal != null" >
+        principal,
+      </if>
+      <if test="traceClcye != null" >
+        traceClcye,
+      </if>
+      <if test="tracenumber != null" >
+        traceNumber,
+      </if>
+      <if test="covertype != null" >
+        coverType,
+      </if>
+      <if test="advanceoutdate != null" >
+        advanceOutDate,
+      </if>
+      <if test="isinvite != null" >
+        isInvite,
+      </if>
+      <if test="invitenumber != null" >
+        inviteNumber,
+      </if>
+      <if test="isinvitetostore != null" >
+        isInviteToStore,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="insurancetraceid != null" >
+        #{insurancetraceid,jdbcType=INTEGER},
+      </if>
+      <if test="insurancebillid != null" >
+        #{insurancebillid,jdbcType=INTEGER},
+      </if>
+      <if test="principal != null" >
+        #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="traceClcye != null" >
+        #{traceClcye,jdbcType=VARCHAR},
+      </if>
+      <if test="tracenumber != null" >
+        #{tracenumber,jdbcType=INTEGER},
+      </if>
+      <if test="covertype != null" >
+        #{covertype,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceoutdate != null" >
+        #{advanceoutdate,jdbcType=INTEGER},
+      </if>
+      <if test="isinvite != null" >
+        #{isinvite,jdbcType=INTEGER},
+      </if>
+      <if test="invitenumber != null" >
+        #{invitenumber,jdbcType=INTEGER},
+      </if>
+      <if test="isinvitetostore != null" >
+        #{isinvitetostore,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bofide.bip.po.InsuranceTrace" >
+    update bf_bip_insurance_trace
+    <set >
+      <if test="insurancebillid != null" >
+        insuranceBillId = #{insurancebillid,jdbcType=INTEGER},
+      </if>
+      <if test="principal != null" >
+        principal = #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="traceClcye != null" >
+        traceClcye = #{traceClcye,jdbcType=VARCHAR},
+      </if>
+      <if test="tracenumber != null" >
+        traceNumber = #{tracenumber,jdbcType=INTEGER},
+      </if>
+      <if test="covertype != null" >
+        coverType = #{covertype,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceoutdate != null" >
+        advanceOutDate = #{advanceoutdate,jdbcType=INTEGER},
+      </if>
+      <if test="isinvite != null" >
+        isInvite = #{isinvite,jdbcType=INTEGER},
+      </if>
+      <if test="invitenumber != null" >
+        inviteNumber = #{invitenumber,jdbcType=INTEGER},
+      </if>
+      <if test="isinvitetostore != null" >
+        isInviteToStore = #{isinvitetostore,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where insuranceTraceId = #{insurancetraceid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bofide.bip.po.InsuranceTrace" >
+    update bf_bip_insurance_trace
+    set insuranceBillId = #{insuranceBillId,jdbcType=INTEGER},
+      principal = #{principal,jdbcType=VARCHAR},
+      traceClcye = #{traceClcye,jdbcType=VARCHAR},
+      traceNumber = #{tracenumber,jdbcType=INTEGER},
+      coverType = #{covertype,jdbcType=VARCHAR},
+      advanceOutDate = #{advanceoutdate,jdbcType=INTEGER},
+      isInvite = #{isinvite,jdbcType=INTEGER},
+      inviteNumber = #{invitenumber,jdbcType=INTEGER},
+      isInviteToStore = #{isinvitetostore,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where insuranceTraceId = #{insurancetraceid,jdbcType=INTEGER}
+  </update>
+  
+   <delete id="deleteByStoreId" parameterType="java.lang.Integer">
+  	DELETE
+	FROM
+		bf_bip_insurance_trace
+	WHERE
+		insuranceBillId IN (
+	SELECT
+		insuranceBillId
+	FROM
+		bf_bip_insurance_bill
+	WHERE
+		fourSStoreId = #{storeId}
+	)
+  </delete>
+  
+  <delete id="deleteByInsuranceBillId" parameterType="java.lang.Integer" >
+    delete from bf_bip_insurance_trace
+    where insuranceBillId = #{insuranceBillId,jdbcType=INTEGER}
+  </delete>
+  
+</mapper>

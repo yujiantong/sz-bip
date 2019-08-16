@@ -1,0 +1,44 @@
+<div id="exportStore" style="display: none" xmlns:x="http://www.w3.org/1999/xhtml">
+    <table id="targetTable" border="1">
+        <thead>
+            <tr align="center">
+                <th>序号</th>
+                <th>4S店名称</th>
+                <th>4S店简称</th>
+                <th>AM账号</th>
+                <th>汽车品牌</th>
+                <th>创建日期</th>
+                <th>店有效期</th>
+                <th>备注</th>
+                <th>绑定的bsp店名</th>
+                <th>绑定时间</th>
+                <th>绑定状态</th>
+                <th>是否支持壁虎对接</th>
+                <th>壁虎渠道码</th>
+                <th>壁虎密钥</th>
+                <th>是否锁死级别</th>
+                <th>城市码</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr align="center" ng-repeat="exportStore in exportData">
+                <td>{{$index+1}}</td>
+                <td>{{exportStore.storeName}}</td>
+                <td>{{exportStore.shortStoreName}}</td>
+                <td>{{exportStore.adminAccount}}</td>
+                <td>{{exportStore.carBrand}}</td>
+                <td>{{exportStore.createDate|date:'yyyy-MM-dd'}}</td>
+                <td>{{exportStore.vaildDate|date:'yyyy-MM-dd'}}</td>
+                <td>{{exportStore.remark}}</td>
+                <td>{{exportStore.bspStore.bspStoreName}}</td>
+                <td>{{exportStore.bangTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td>{{exportStore.bangStatu|mapSF}}</td>
+                <td>{{exportStore.bhDock|mapSF}}</td>
+                <td>{{exportStore.agent}}</td>
+                <td>{{exportStore.bihuKey}}</td>
+                <td>{{exportStore.lockLevel|mapSF}}</td>
+                <td>{{exportStore.cityCode}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

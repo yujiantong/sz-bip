@@ -1,0 +1,28 @@
+<ion-view view-title="邀约客户" ng-init="ctrl.findJRYYCustomerCollectionByUserId()">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('xbzyHomePage.xbzyMyHomePage')"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doJRYYRefresh()"></ion-refresher>
+    <div class="bip-item-divider">
+      <div>邀约潜客数：{{ctrl.customerCount}}</div>
+    </div>
+    <div class="list">
+      <a class="item billList item-icon-left item-icon-right" ng-repeat="customer in items" ui-sref="inviteXbzyDetails({userId:ctrl.userId,userName:ctrl.userName,customerId:customer.customerId})">
+        <i ng-show="customer.sfgyx == 1"class="icon ion-star fcgreen"></i>
+        <p>
+          <span class="fcgreen contactName">{{customer.contact}}</span>
+          <span class="ml10 fs12">车架号：{{customer.chassisNumber|limitTo:-6}}</span>
+        </p>
+        <p>
+          <span class="fs12">{{customer.contactWay}}</span>
+          <span class="ml10 fs12">预计到店：{{customer.inviteDate | date:'yy/MM/dd'}}</span>
+        </p>
+        <span class="badge bip-customerLv">{{customer.customerLevel}}</span>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </a>
+    </div>
+    <ion-infinite-scroll immediate-check="false" ng-if="!hasmore" on-infinite="ctrl.findJRYYCustomerCollectionByUserId()" distance="1%">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

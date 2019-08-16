@@ -1,0 +1,30 @@
+<ion-view view-title="联系客服" >
+  <ion-nav-buttons side="left">
+    <button  ng-if="ctrl.user.role.roleId==3||ctrl.user.role.roleId==10||ctrl.user.role.roleId==11||ctrl.user.role.roleId==16||ctrl.user.role.roleId==23" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('homePage.personalCenter')"></button>
+    <button  ng-if="ctrl.user.role.roleId==20" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('smsHomePage.smsPersonalCenter')"></button>
+    <button  ng-if="ctrl.user.role.roleId==2||ctrl.user.role.roleId==6||ctrl.user.role.roleId==8" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('xbzyHomePage.personalCenter')"></button>
+    <button ng-if="ctrl.user.role.roleId==7||ctrl.user.role.roleId==9" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('mgrHomePage.personalCenter')"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="list">
+      <a ng-if="ctrl.storeLogo==1||ctrl.storeLogo==null" class="item item-icon-right" href="tel:4009626201">
+        <h3>客服电话</h3>
+        <span class="fcgreen fs18">400-9626-201</span>
+        <i class="icon ion-chevron-right ion-ios-telephone fcgreen"></i>
+      </a>
+      <a ng-if="ctrl.storeLogo==2" class="item item-icon-right" href="tel:010-61565672">
+        <h3>客服电话</h3>
+        <span class="fcgreen fs18">010-61565672</span>
+        <i class="icon ion-chevron-right ion-ios-telephone fcgreen"></i>
+      </a>
+      <div class="padding">
+        <p>扫码关注</p>
+        <div class="text-center">
+          <img ng-if="ctrl.storeLogo==1||ctrl.storeLogo==null" src="img/bip.jpg" width="160" height="160" alt="博福易商">
+          <img ng-if="ctrl.storeLogo==2" src="img/chip.jpg" width="160" height="160" alt="传慧嘉和">
+        </div>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,59 @@
+{
+  "name": "bip-node",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "1.4.10",
+    "jquery": "2.2.3",
+    "angular-ui-router": "0.2.18",
+    "echarts": "^3.2.3",
+    "angular-animate": "1.4.10",
+    "angular-ui-grid": "4.0.6",
+    "angular-bootstrap": "1.3.1",
+    "sco.js": "~1.0.2",
+    "ladda": "0.9.7",
+    "jquery-confirm2": "~2.0.0",
+    "bootstrap-ui-datetime-picker": "^2.2.2",
+    "ngInfiniteScroll": "1.0.0",
+    "ng-file-upload": "^12.0.4",
+    "bootstrap-datepicker": "^1.6.1",
+    "jquery-form": "^3.46.0",
+    "angular-cookies": "1.5.7",
+    "angular-file-saver": "^1.1.2",
+    "bootstrap-multiselect": "^0.9.13"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.4.10"
+  },
+  "appPath": "app",
+  "moduleName": "myApp",
+  "overrides": {
+    "echarts": {
+      "main": [
+        "./dist/echarts.js",
+        "./map/js/world.js",
+        "./map/js/china.js"
+      ]
+    },
+    "bootstrap": {
+      "main": [
+        "./dist/js/bootstrap.min.js",
+        "./dist/css/bootstrap.min.css"
+      ]
+    },
+    "angular-bootstrap": {
+      "main": [
+        "./ui-bootstrap-tpls.js",
+        "./ui-bootstrap-csp.css"
+      ]
+    },
+    "bootstrap-datepicker": {
+      "main": [
+        "./dist/js/bootstrap-datepicker.main.js",
+        "./dist/css/bootstrap-datepicker.min.css"
+      ]
+    }
+  },
+  "resolutions": {
+    "angular": "1.4.10"
+  }
+}

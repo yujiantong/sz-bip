@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.GivingInformationRecordMapper" >
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.GivingInformation" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="approvalBillId" property="approvalBillId" jdbcType="INTEGER" />
+		<result column="zsxx" property="zsxx" jdbcType="VARCHAR" />
+		<result column="giftCode" property="giftCode" jdbcType="VARCHAR" />
+		<result column="giftName" property="giftName" jdbcType="VARCHAR" />
+		<result column="giftType" property="giftType" jdbcType="INTEGER" />
+		<result column="validDate" property="validDate" jdbcType="DATE" />
+		<result column="guidePrice" property="guidePrice" jdbcType="DOUBLE" />
+		<result column="salePrice" property="salePrice" jdbcType="DOUBLE" />
+		<result column="actualPrice" property="actualPrice" jdbcType="DOUBLE" />
+		<result column="discount" property="discount" jdbcType="DOUBLE" />
+		<result column="sellingPrice" property="sellingPrice" jdbcType="DOUBLE" />
+		<result column="amount" property="amount" jdbcType="INTEGER" />
+		<result column="amountMoney" property="amountMoney" jdbcType="DOUBLE" />
+		<result column="surplusNum" property="surplusNum" jdbcType="INTEGER" />
+		<result column="thisUseNum" property="thisUseNum" jdbcType="INTEGER" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="createTime" property="createTime" jdbcType="DATE" />
+		<result column="givingInformationId" property="givingInformationId" jdbcType="INTEGER" />
+		<result column="quota" property="quota" jdbcType="INTEGER" />
+		<result column="bcxfDetail" property="bcxfDetail" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="insertGivingInformationRecord" parameterType="com.bofide.bip.po.GivingInformation" useGeneratedKeys="true" keyProperty="id">
+		insert into bf_bip_giving_information_record (
+			approvalBillId,zsxx,giftCode,giftName,giftType,validDate,guidePrice,salePrice,actualPrice,
+			discount,sellingPrice,amount,amountMoney,remark,createTime,surplusNum,givingInformationId,
+			quota,bcxfDetail
+		)values(
+			#{approvalBillId},#{zsxx},#{giftCode},#{giftName},#{giftType},#{validDate},#{guidePrice},
+			#{salePrice},#{actualPrice},#{discount},#{sellingPrice},#{amount},
+			#{amountMoney},#{remark},now(),#{surplusNum},#{givingInformationId},
+			#{quota},#{bcxfDetail}
+		)
+	</insert> 
+	
+	<!-- 店初始化数据时,删除赠送记录 -->
+	<delete id="deleteByStoreId">
+		DELETE FROM bf_bip_giving_information_record
+		WHERE approvalBillId IN (
+			SELECT id FROM bf_bip_approval_bill_record WHERE fourSStoreId = #{storeId}
+		)
+	</delete> 
+	
+	<!-- 删除保单时,删除赠送记录 -->
+	<delete id="deleteForInsuranceBill" parameterType="java.lang.Integer">
+		delete i.* from bf_bip_insurance_bill a
+		inner join bf_bip_approval_bill_record b on a.approvalBillId = b.id
+		inner join bf_bip_giving_information_record i on i.approvalBillId = a.approvalBillId
+		where a.insuranceBillId = #{insuranceBillId};
+	</delete>
+	
+	<!-- 根据条件查询赠送信息相关联的保单信息 -->
+	<select id="findGivingByCondition" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT DISTINCT
+			a.*
+		FROM
+			bf_bip_insurance_bill a
+		inner JOIN bf_bip_giving_information_record b ON a.approvalBillId = b.approvalBillId
+		<where>
+			<if test="storeId != null and storeId != ''">
+				and a.fourSStoreId = #{storeId}
+			</if>
+			<if test="carLicenseNumber != null and carLicenseNumber != ''">
+				and a.carLicenseNumber like '%${carLicenseNumber}%'
+			</if>
+			<if test="chassisNumber != null and chassisNumber != ''">
+				and a.chassisNumber like '%${chassisNumber}%'
+			</if>
+			<if test="contact != null and contact != ''">
+				and a.contact = #{contact}
+			</if>
+			<if test="contactWay != null and contactWay != ''">
+				and a.contactWay like '%${contactWay}%'
+			</if>
+			<if test="binsuranceNumber != null and binsuranceNumber != ''">
+				and a.binsuranceNumber like '%${binsuranceNumber}%'
+			</if>
+			<if test="insuranceWriter != null and insuranceWriter != ''">
+				and a.insuranceWriter = #{insuranceWriter}
+			</if>
+			<if test="createTimeStart != null and createTimeStart !=''">
+				<![CDATA[and date_format(b.createTime, '%Y-%m-%d') >= #{createTimeStart}]]>
+			</if>
+			<if test="createTimeEnd != null and createTimeEnd != ''">
+				<![CDATA[and date_format(b.createTime, '%Y-%m-%d') <= #{createTimeEnd}]]>
+			</if>
+			<if test="giftType != null and giftType != ''">
+				and b.giftType = #{giftType}
+			</if>
+			<if test="roleId != null and roleId ==8">
+				<!-- 服务顾问只要显示需要核销的保单 -->
+				and b.giftType in (1,4,5)
+			</if>
+			and b.giftCode is not null
+		</where>
+		LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 上个查询的个数统计 -->
+	<select id="countGivingByCondition" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		SELECT
+			count(DISTINCT a.insuranceBillId)
+		FROM
+			bf_bip_insurance_bill a
+		inner JOIN bf_bip_giving_information_record b ON a.approvalBillId = b.approvalBillId
+		<where>
+			<if test="storeId != null and storeId != ''">
+				and a.fourSStoreId = #{storeId}
+			</if>
+			<if test="carLicenseNumber != null and carLicenseNumber != ''">
+				and a.carLicenseNumber like '%${carLicenseNumber}%'
+			</if>
+			<if test="chassisNumber != null and chassisNumber != ''">
+				and a.chassisNumber like '%${chassisNumber}%'
+			</if>
+			<if test="contact != null and contact != ''">
+				and a.contact = #{contact}
+			</if>
+			<if test="contactWay != null and contactWay != ''">
+				and a.contactWay like '%${contactWay}%'
+			</if>
+			<if test="binsuranceNumber != null and binsuranceNumber != ''">
+				and a.binsuranceNumber like '%${binsuranceNumber}%'
+			</if>
+			<if test="insuranceWriter != null and insuranceWriter != ''">
+				and a.insuranceWriter = #{insuranceWriter}
+			</if>
+			<if test="createTimeStart != null and createTimeStart !=''">
+				<![CDATA[and date_format(b.createTime, '%Y-%m-%d') >= #{createTimeStart}]]>
+			</if>
+			<if test="createTimeEnd != null and createTimeEnd != ''">
+				<![CDATA[and date_format(b.createTime, '%Y-%m-%d') <= #{createTimeEnd}]]>
+			</if>
+			<if test="giftType != null and giftType != ''">
+				and b.giftType = #{giftType}
+			</if>
+			<if test="roleId != null and roleId ==8">
+				<!-- 服务顾问只要显示需要核销的保单 -->
+				and b.giftType in (1,4,5)
+			</if>
+			and b.giftCode is not null
+		</where>  
+	</select>
+	
+	<!-- 根据审批单ID查询赠送信息明细 -->
+	<select id="findGivingByApprovalBillId" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+		SELECT
+			a.*
+		FROM
+			bf_bip_giving_information_record a
+		where a.approvalBillId = #{approvalBillId} and a.giftCode is not null
+	</select>
+	<!-- 根据审批单IDs查询赠送信息明细 -->
+	<select id="findGivingByApprovalBillIds" resultType="java.util.HashMap" parameterType="java.util.List">
+		SELECT
+			a.*
+		FROM
+			bf_bip_giving_information_record a
+		where 
+		<if test="approvalBillIds.size()>0">  
+		  a.approvalBillId in  
+		    <foreach item="item" index="index" collection="approvalBillIds" open="(" separator="," close=")"> 
+		        #{item}       </foreach>   </if> 
+		 and a.givingInformationId = 0 and a.giftCode is not null
+	</select>
+	
+	<!-- 修改赠送信息 -->
+	<update id="updateGiving" parameterType="java.util.HashMap" >
+	    update bf_bip_giving_information_record a
+	   	  <trim prefix="SET" suffixOverrides=",">  
+	        <if test="surplusNum != null">
+	            a.surplusNum = #{surplusNum,jdbcType=INTEGER},
+	        </if>
+	        <if test="thisUseNum != null">  
+	            a.thisUseNum = #{thisUseNum,jdbcType=INTEGER},
+	        </if>
+	        <if test="bcxfDetail != null">  
+	            a.bcxfDetail = #{bcxfDetail,jdbcType=VARCHAR},
+	        </if>
+	      </trim>  
+	    where
+	     	a.id = #{id,jdbcType=INTEGER}
+  	</update>
+  	
+  	<!-- 查询赠送总金额 -->
+  	<select id="sumAmountMoney" resultType="java.lang.Double" parameterType="java.util.HashMap">
+		SELECT DISTINCT
+			sum(b.amountMoney)
+		FROM
+			bf_bip_insurance_bill a
+		inner JOIN bf_bip_giving_information_record b ON a.approvalBillId = b.approvalBillId
+		<where>
+			b.givingInformationId = 0
+			<if test="storeId != null and storeId != ''">
+				and a.fourSStoreId = #{storeId}
+			</if>
+			<if test="carLicenseNumber != null and carLicenseNumber != ''">
+				and a.carLicenseNumber like '%${carLicenseNumber}%'
+			</if>
+			<if test="chassisNumber != null and chassisNumber != ''">
+				and a.chassisNumber like '%${chassisNumber}%'
+			</if>
+			<if test="contact != null and contact != ''">
+				and a.contact = #{contact}
+			</if>
+			<if test="contactWay != null and contactWay != ''">
+				and a.contactWay like '%${contactWay}%'
+			</if>
+			<if test="binsuranceNumber != null and binsuranceNumber != ''">
+				and a.binsuranceNumber like '%${binsuranceNumber}%'
+			</if>
+			<if test="insuranceWriter != null and insuranceWriter != ''">
+				and a.insuranceWriter = #{insuranceWriter}
+			</if>
+			<if test="createTimeStart != null and createTimeStart !=''">
+				<![CDATA[and date_format(b.createTime, '%Y-%m-%d') >= #{createTimeStart}]]>
+			</if>
+			<if test="createTimeEnd != null and createTimeEnd != ''">
+				<![CDATA[and date_format(b.createTime, '%Y-%m-%d') <= #{createTimeEnd}]]>
+			</if>
+			<if test="approvalBillId != null">
+				and a.approvalBillId = #{approvalBillId}
+			</if>
+			and b.giftCode is not null
+		</where>
+	</select>
+	
+</mapper>

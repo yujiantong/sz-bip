@@ -1,0 +1,26 @@
+<div id="addsystembox" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 280px; width: 400px; margin-left: -200px; margin-top: -140px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                发布系统通知
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget">
+            <div>
+                <p>内容：<textarea rows="3" cols="20" style="height: 165px;" class="suad_textarea" ng-model="addsystem.content" maxlength="200"></textarea></p>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="fr" ng-click="addsystemSubmit()" type="button" value="确认">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#addsystembox").hide();
+    });
+</script>

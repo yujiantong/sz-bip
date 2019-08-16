@@ -1,0 +1,136 @@
+<div id="spdDetails" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 600px; width: 1100px; margin-left: -550px; margin-top: -300px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                审批单
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget" style="height:500px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <h3>车辆信息</h3>
+                <span><label>车牌号</label> <input type="text" ng-model="spddetail.carLicenseNumber" readonly></span>
+                <span><label>车架号</label> <input type="text" ng-model="spddetail.chassisNumber" readonly></span>
+                <span><label>发动机号</label> <input type="text" ng-model="spddetail.engineNumber" readonly></span>
+                <span><label>品牌</label> <input type="text" ng-model="spddetail.carBrand" readonly></span>
+                <span><label>车型</label> <input type="text" ng-model="spddetail.vehicleModel" readonly></span>
+                <span><label>车型号</label> <input type="text" ng-model="spddetail.factoryLicenseType" readonly></span>
+            </div>
+            <div class="carmsg">
+                <h3>保险信息</h3>
+                <span>
+                    <label>交强险日期开始</label>
+                    <input type="text" value="{{spddetail.jqxrqStart|date:'yyyy-MM-dd HH:mm:ss'}}" readonly>
+                </span>
+                <span>
+                    <label>交强险日期结束</label>
+                    <input type="text" value="{{spddetail.jqxrqEnd|date:'yyyy-MM-dd HH:mm:ss'}}"  readonly>
+                </span>
+                <span><label>投保日期</label> <input type="text" value="{{spddetail.insurDate|date:'yyyy-MM-dd'}}" readonly></span>
+                <span><label>投保类型</label> <input type="text" value="{{spddetail.renewalType|mapTBLX}}" readonly></span>
+                <span><label>续保渠道</label> <input type="text" ng-model="spddetail.renewalWay" readonly></span>
+                <span><label>被保险人</label> <input type="text" ng-model="spddetail.insured" readonly></span>
+                <span><label>被保险人证件号</label> <input type="text" ng-model="spddetail.bbxrzjh" readonly></span>
+                <span><label>联系人</label> <input type="text" ng-model="spddetail.contact" readonly></span>
+                <span><label>联系方式</label> <input type="text" ng-model="spddetail.contactWay" readonly></span>
+                <span style="width: 506px"><label>备注</label> <input ng-model="spddetail.remark" style="width: 405px;"  type="text" readonly></span>
+                <div>
+                <span><label>保险公司</label> <input type="text" ng-model="spddetail.insuranceCompName" readonly></span>
+                </div>
+                <div style="padding: 5px 0px;">
+                    <span style="width: 90px;float: left"><label>商业险险种</label></span>
+                    <div class="insu_checkbox">
+                        <span ng-model="spddetail.insuranceTypes" ng-repeat="xz in spddetail.insuranceTypes">
+                            <input type="checkbox" ng-click="checkboxChange()" ng-model="xz.checkStatus">
+                            <label>{{xz.typeName}}</label>
+                            <input class="insured" ng-if="xz.status==1" type="number" min="0" step="0.01" num-format ng-model="xz.coverage">
+                            <!--车损-->
+                            <input type="number" ng-if="xz.typeId==64" id="chesun" ng-disabled="CheSunck!=1" class="bxxz" step="10000"
+                                   min="10000" max="300000"  ng-model="CheSun" style="width:80px">
+                            <!--三责-->
+                            <select class="insured" ng-if="xz.typeId==65"  id="sanzhe"  ng-model="SanZhe" ng-disabled="sanZheck!=1"  ng-options="x.value as x.site for x in SanZhes" style="width:80px" ng-click="sanzheCk()"/>
+                            <!--司机-->
+                            <input type="number" ng-if="xz.typeId==67" id="siji"  ng-disabled="siJick!=1" class="bxxz" step="10000"
+                                   min="10000" max="300000" ng-model="SiJick" style="width:80px"  ng-click="sijiCk()" />
+                            <!--乘客 bihubaojia.ChengKe-->
+                            <input type="number" ng-if="xz.typeId==76" ng-disabled="chengKeck!=1" class="bxxz" step="10000"
+                                   min="10000" max="300000" id="chengke" ng-model="ChengKe" style="width:80px"  ng-click="chengkeCk()" />
+                            <!--划痕-->
+                            <select class="bxxz" ng-if="xz.typeId==69" id="huahen" ng-model="HuaHen" ng-disabled="huaHenck!=1"  ng-options="x for x in HuaHens"  style="width:80px"  ng-change="huahenCk()"/>
+                            <!--玻璃-->
+                            <select ng-model="BoLi" ng-if="xz.typeId==70" id="boli" ng-disabled="boLick!=1" class="bxxz" ng-options="x.value as x.site for x in BoLis" style="width:80px"  ng-click="boliCk()"/>
+                            <!--货物-->
+                            <input type="number" ng-if="xz.typeId==79" id="huowu" min="0" class="bxxz" step="100" ng-disabled="hcHuock!=1" value="{{HcHuoWuZeRen}}" ng-model="HcHuoWuZeRen" style="width:80px"  ng-click="huowuCk()"/>
+                            <!--精神损失-->
+                            <input type="number" ng-if="xz.typeId==77" id="jingshen" min="0" class="bxxz" step="100" ng-disabled="hcJingShenck!=1" value="{{HcJingShenSunShi}}" ng-model="HcJingShenSunShi" style="width:80px"  ng-click="jingshenCk()"/>
+                            <!--费用补偿-->
+                            <input type="number" ng-if="xz.typeId==80" id="feiyong" min="0" class="bxxz" ng-disabled="hcFeiYongck!=1" value="{{hcFeiYongBuChang}}" ng-model="hcFeiYongBuChang" style="width:80px"  ng-click="feiyongbuchangCk()"/>
+                            <!--指定修理厂 -->
+                            <input type="number" ng-if="xz.typeId==74" id="zhiding" min="0" class="bxxz" step="100"  ng-disabled="hcXiuLick!=1" value="{{hcXiuLiBuChang}}" ng-model="hcXiuLiBuChang" style="width:80px"  ng-click="xiulibuchangCk()"/>
+                        </span>
+                    </div>
+                </div>
+                <div class="clear">
+                     <span style="width: 761px"><label>开票信息</label> <input type="text" ng-model="spddetail.kpxx" style="width: 660px;" readonly ></span>
+                </div>
+            </div>
+            <div class="carmsg" ng-if="accountModule!=1">
+                <h3>财务信息</h3>
+                <span><label>商业险金额</label> <input type="number" num-format ng-model="spddetail.syxje" readonly></span>
+                <span><label>交强险金额</label> <input type="number" num-format ng-model="spddetail.jqxje" readonly></span>
+                <span><label>车船税</label> <input type="number" num-format  ng-model="spddetail.ccs" readonly></span>
+                <span><label>保费合计</label> <input type="number" num-format  ng-model="spddetail.bfhj" readonly></span>
+                <span><label>开票金额</label> <input type="number" num-format ng-model="spddetail.kpje" readonly></span>
+                <span><label>优惠金额</label> <input  type="number" num-format  ng-model="spddetail.yhje" readonly></span>
+                <span><label>实收金额</label> <input type="number" num-format string-to-number ng-model="spddetail.ssje" readonly></span>
+                <span><label>付款方式</label> <input type="text" ng-model="spddetail.fkfs" readonly></span>
+            </div>
+            <div class="carmsg" ng-if="accountModule!=1">
+                <h3>赠送信息</h3><br/>
+                <span  ng-repeat="zsxx in zsxxAll" style="margin-left: 20px;width: 480px">{{$index+1}}<input ng-model="zsxx.zsxx"  style="width: 430px;" type="text" readonly></span>
+            </div>
+            <div class="carmsg" ng-if="accountModule==1">
+                <h3>财务信息</h3>
+                <span><label>商业险金额</label> <input type="number"  ng-model="spddetail.syxje" readonly></span>
+                <span><label>交强险金额</label> <input type="number" ng-model="spddetail.jqxje" readonly></span>
+                <span><label>车船税</label> <input type="number"  ng-model="spddetail.ccs" readonly></span>
+                <span><label>保费合计</label> <input type="number" ng-model="spddetail.bfhj" readonly></span>
+                <span><label>现金优惠</label> <input  type="number" ng-model="spddetail.yhje" readonly></span>
+                <span><label>现金优惠点位</label> <input  type="number"  ng-model="spddetail.xjyhdw" readonly></span>
+                <span><label>赠送优惠</label> <input type="number" ng-model="spddetail.giftDiscount" readonly></span>
+                <span><label>付款方式</label> <input type="text" ng-model="spddetail.fkfs" readonly></span>
+                <span><label>储值卡金额</label> <input type="number" ng-model="spddetail.czkje" disabled></span>
+                <span><label>储值卡金额点位</label> <input type="number" ng-model="spddetail.czkjedw" disabled></span>
+                <span><label>综合优惠</label> <input type="number" ng-model="spddetail.comprehensiveDiscount" readonly></span>
+                <span><label>实收金额</label> <input type="number" ng-model="spddetail.ssje" readonly></span>
+            </div>
+            <div class="carmsg" ng-if="accountModule==1">
+                <h3>赠送信息</h3><br/>
+                <div ui-grid="giftDetailAllPage" style="width: 1030px; height: 150px;"
+                     ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+                </div>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input type="button" class="closeBtn" value="关闭">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#spdDetails").hide();
+    });
+    $('.coverDate2').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });
+</script>

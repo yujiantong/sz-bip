@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bofide.bip.mapper.PushMaintenanceChildMapper">
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.PushMaintenanceChild" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="storeId" property="storeId" jdbcType="INTEGER" />
+    	<result column="reportNumber" property="reportNumber" jdbcType="VARCHAR" />
+    	<result column="ppcx" property="ppcx" jdbcType="VARCHAR" />
+    	<result column="engineNumber" property="engineNumber" jdbcType="VARCHAR" />
+    	<result column="insured" property="insured" jdbcType="VARCHAR" />
+    	<result column="clzws" property="clzws" jdbcType="INTEGER" />
+    	<result column="sfnzcxs" property="sfnzcxs" jdbcType="INTEGER" />
+    	<result column="cwckr" property="cwckr" jdbcType="VARCHAR" />
+    	<result column="rsdhcky" property="rsdhcky" jdbcType="VARCHAR" />
+    	<result column="rssdcky" property="rssdcky" jdbcType="VARCHAR" />
+    	<result column="sfdhck" property="sfdhck" jdbcType="INTEGER" />
+    	<result column="zfdxsfbbxr" property="zfdxsfbbxr" jdbcType="INTEGER" />
+    	<result column="sczfcgTime" property="sczfcgTime" jdbcType="DATE" />
+    	<result column="mczfcgTime" property="mczfcgTime" jdbcType="DATE" />
+    	<result column="sczfthTime" property="sczfthTime" jdbcType="DATE" />
+    	<result column="sfczjth" property="sfczjth" jdbcType="INTEGER" />
+    	<result column="dachr" property="dachr" jdbcType="VARCHAR" />
+    	<result column="dachsj" property="dachsj" jdbcType="DATE" />
+    	<result column="sfrskckp" property="sfrskckp" jdbcType="VARCHAR" />
+    	<result column="sdsj" property="sdsj" jdbcType="DATE" />
+    	<result column="sdr" property="sdr" jdbcType="VARCHAR" />
+    	<result column="sfrgls1" property="sfrgls1" jdbcType="INTEGER" />
+    	<result column="sfrgls2" property="sfrgls2" jdbcType="INTEGER" />
+    	<result column="zalsTimeStart" property="zalsTimeStart" jdbcType="DATE" />
+    	<result column="zalsTimeEnd" property="zalsTimeEnd" jdbcType="DATE" />
+    	<result column="scrgzjTimeStart" property="scrgzjTimeStart" jdbcType="DATE" />
+    	<result column="mcrgzjTimeEnd" property="mcrgzjTimeEnd" jdbcType="DATE" />
+    	<result column="scckTimeStart" property="scckTimeStart" jdbcType="DATE" />
+    	<result column="mcckTimeEnd" property="mcckTimeEnd" jdbcType="DATE" />
+    	<result column="sctdTime" property="sctdTime" jdbcType="DATE" />
+    	<result column="sfzdtd" property="sfzdtd" jdbcType="INTEGER" />
+    	<result column="sftd" property="sftd" jdbcType="INTEGER" />
+    	<result column="dssfbhsjf" property="dssfbhsjf" jdbcType="INTEGER" />
+    	<result column="sfxxycsjqq" property="sfxxycsjqq" jdbcType="INTEGER" />
+    	<result column="ckwtsljg" property="ckwtsljg" jdbcType="VARCHAR" />
+    	<result column="cwnbdcjsje" property="cwnbdcjsje" jdbcType="DOUBLE" />
+    	<result column="cwwbdcjsje" property="cwwbdcjsje" jdbcType="DOUBLE" />
+    	<result column="jpje" property="jpje" jdbcType="DOUBLE" />
+    	<result column="fkjsje" property="fkjsje" jdbcType="DOUBLE" />
+    	<result column="zcje" property="zcje" jdbcType="DOUBLE" />
+    	<result column="sfdlsp" property="sfdlsp" jdbcType="INTEGER" />
+    	<result column="dlspxlcmc" property="dlspxlcmc" jdbcType="VARCHAR" />
+    	<result column="sfss" property="sfss" jdbcType="INTEGER" />
+    	<result column="yeqxfsckrwls" property="yeqxfsckrwls" jdbcType="INTEGER" />
+    	<result column="yeqxfsdsrwls" property="yeqxfsdsrwls" jdbcType="INTEGER" />
+    	<result column="elpfsdsrwls" property="elpfsdsrwls" jdbcType="INTEGER" />
+    	<result column="elpfsckrwls" property="elpfsckrwls" jdbcType="INTEGER" />
+    	<result column="fscsdsrwls" property="fscsdsrwls" jdbcType="INTEGER" />
+    	<result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map" >
+    	insert into bf_bip_push_maintenance_child 
+    		(storeId, reportNumber, ppcx, engineNumber, insured, clzws, sfnzcxs, cwckr,
+    		rsdhcky, rssdcky, sfdhck, zfdxsfbbxr, sczfcgTime, mczfcgTime, sczfthTime,
+    		sfczjth, dachr, dachsj, sfrskckp, sdsj, sdr, sfrgls1, sfrgls2, zalsTimeStart,
+    		zalsTimeEnd, scrgzjTimeStart, mcrgzjTimeEnd, scckTimeStart, mcckTimeEnd, sctdTime,
+    		sfzdtd, sftd, dssfbhsjf, sfxxycsjqq, ckwtsljg, cwnbdcjsje, cwwbdcjsje, jpje,
+    		fkjsje, zcje, sfdlsp, dlspxlcmc, sfss, yeqxfsckrwls, yeqxfsdsrwls, elpfsdsrwls,
+    		elpfsckrwls, fscsdsrwls, createTime)
+    	values 
+    		(#{storeId}, #{reportNumber},#{ppcx},#{engineNumber},#{insured},#{clzws},#{sfnzcxs},#{cwckr},
+    		#{rsdhcky}, #{rssdcky},#{sfdhck},#{zfdxsfbbxr},#{sczfcgTime}, #{mczfcgTime},#{sczfthTime},
+    		#{sfczjth}, #{dachr},#{dachsj},#{sfrskckp}, #{sdsj}, #{sdr},#{sfrgls1},#{sfrgls2},#{zalsTimeStart},
+    		#{zalsTimeEnd}, #{scrgzjTimeStart},#{mcrgzjTimeEnd},#{scckTimeStart}, #{mcckTimeEnd}, #{sctdTime},
+    		#{sfzdtd}, #{sftd},#{dssfbhsjf},#{sfxxycsjqq}, #{ckwtsljg}, #{cwnbdcjsje}, #{cwwbdcjsje},#{jpje},
+    		#{fkjsje}, #{zcje},#{sfdlsp},#{dlspxlcmc}, #{sfss}, #{yeqxfsckrwls}, #{yeqxfsdsrwls},#{elpfsdsrwls},
+    		#{elpfsckrwls},#{fscsdsrwls}, now())
+  	</insert>
+	
+</mapper>

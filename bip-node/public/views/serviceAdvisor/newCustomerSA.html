@@ -1,0 +1,153 @@
+<div id="newCustomer" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 600px; width: 1100px; margin-left: -550px; margin-top: -300px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                新增潜客
+            </i>
+            <span ng-click="sfqxxzqk()" class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <form name="xzqk">
+            <div class="scmWindowContent ui-widget changeValue" style="height:500px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+                <div class="carmsg">
+                    <h3>车辆信息</h3>
+                    <span><label>车牌号</label> <input type="text" ng-model="newqk.carLicenseNumber" maxlength="30"></span>
+                    <span><label>车架号<em class="emphasis">*</em></label><input id="crlcjh" type="text" ng-model="newqk.chassisNumber" maxlength="50" ng-blur="yanzheng()"></span>
+                    <span><label>发动机号</label> <input type="text" ng-model="newqk.engineNumber" maxlength="50"></span>
+                    <span><label>上牌日期</label> <input type="text" ng-model="newqk.registrationDate" class="carDate" readonly></span>
+                    <span><label>品牌</label>
+                        <select required="" ng-model="newqk.carBrand" style="height: 20px;margin: 5px;margin-left: 2px"
+                                ng-options="carBrand as carBrand.brandName for (key,carBrand) in carBrands"
+                                ng-change="xzVehicleModel()">
+                            <option value="">请选择品牌</option>
+                        </select>
+                    </span>
+                    <span><label>车型</label>
+                        <select id="clxhxz" ng-model="newqk.vehicleModel" style="height: 20px;margin: 5px;margin-left: 2px"
+                                ng-options="vehicleModel as vehicleModel.modelName for (key,vehicleModel) in newqk.carBrand.carModelList">
+                            <option value="">请选择型号</option>
+                        </select>
+                         <input type="text" id="clxhsr" ng-model="newqk.vehicleModelInput" maxlength="50">
+                    </span>
+                    <span><label>车型号</label> <input type="text" ng-model="newqk.factoryLicenseType" maxlength="50"></span>
+                    <span><label>是否本店购买车辆</label>
+                        <select  ng-model="newqk.buyfromThisStore" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                            <option value="">请选择</option>
+                        </select>
+                    </span>
+                    <span><label>车辆年审日期</label> <input type="text" class="carDate" ng-model="newqk.carAnnualCheckUpDate" readonly></span>
+                    <span><label>是否贷款</label>
+                        <select  ng-model="newqk.ifLoan" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in loan">
+                            <option value="">请选择</option>
+                        </select>
+                    </span>
+                </div>
+                <div class="carmsg">
+                    <h3>保险信息
+                        <span ng-if="bhDock==4" style="vertical-align: middle;margin-top: -4px;width: 15px;" class="glyphicon glyphicon-repeat cursor" title="点击请求获取潜客最新续险信息" ng-click="newCover(2)"></span>
+                    </h3>
+                    <span>
+                        <label>商业险日期结束</label>
+                        <input type="text" class="coverDate" ng-model="newqk.syxrqEnd" readonly>
+                    </span>
+                    <span>
+                        <label>交强险日期结束<em class="emphasis">*</em></label>
+                        <input id="crljqxjs" type="text" class="coverDate" ng-model="newqk.jqxrqEnd" readonly>
+                    </span>
+                    <!-- 销售顾问新建潜客默认投保类型是潜转续 -->
+                    <span><label>投保类型<em class="emphasis">*</em></label>
+                        <select id="crltblx" required="" ng-model="newqk.renewalType" 
+                                ng-options="coverType.id as coverType.coverType for (key,coverType) in coverTypes" disabled>
+                        </select>
+                    </span>
+                     <span><label>续保渠道</label>
+                        <select ng-model="newqk.renewalWay" ng-options="x for x in renewalWays">
+                            <option value="">请选择</option>
+                        </select>
+                    </span>
+                    <span><label>去年投保日期</label> <input type="text" ng-model="newqk.insurDateLY" class="coverDate" readonly></span>
+                    <span><label>去年投保公司</label> <input type="text" ng-model="newqk.insuranceCompLY"  maxlength="50"></span>
+                    <span><label>去年保费</label> <input type="number" num-format min="0" step="0.01" ng-model="newqk.insuranceCoverageLY"  maxlength="11"></span>
+                    <span><label>去年优惠项目</label>
+                        <select ng-model="newqk.privilegeProLY" ng-options="x for x in privilegePros">
+                            <option value="">请选择</option>
+                        </select>
+                    </span>
+                    <span><label>去年被保险人</label> <input type="text" ng-model="custInfo.insuredLY" maxlength="30"></span>
+                    <div>
+                    <span style="width: 506px;">
+                        <label class="fl">去年投保险种</label>
+                        <textarea rows="3" cols="30" style="width: 405px;height: 50px;margin-left: 6px" ng-model="newqk.insuranceTypeLY" maxlength="200"></textarea>
+                    </span>
+                    <span style="width: 506px;">
+                        <label class="fl">备注</label>
+                        <textarea rows="3" cols="30" style="width: 405px;height: 50px;margin-left: 6px;" ng-model="newqk.remark" maxlength="500"></textarea>
+                    </span>
+                    </div>
+                </div>
+                <div class="carmsg">
+                    <h3>客户信息</h3>
+                    <span><label>车主</label> <input type="text" ng-model="newqk.carOwner"  maxlength="80"></span>
+                    <span><label>被保险人<em class="emphasis">*</em></label> <input id="crlbbxr" type="text" ng-model="newqk.insured"  maxlength="80"></span>
+                    <span><label>被保险人证件号</label> <input type="text" ng-model="newqk.certificateNumber" maxlength="80"></span>
+                     <span><label>潜客级别</label>
+                        <select  ng-model="newqk.customerLevel" ng-options="x for x in customerLevels">
+                        </select>
+                    </span>
+                    <span><label>联系人<em class="emphasis">*</em></label> <input id="crllxr" type="text" ng-model="newqk.contact"  maxlength="80"></span>
+                    <span><label>联系方式<em class="emphasis">*</em></label> <input id="crllxfs" type="text" ng-model="newqk.contactWay" maxlength="60"></span>
+                    <span><label>联系方式（备）</label> <input id="crllxfsby" type="text" ng-model="newqk.contactWayReserve" maxlength="60"></span>
+                     <span><label>是否本店再修客户</label>
+                        <select  ng-model="newqk.isMaintainAgain" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                            <option value="">请选择</option>
+                        </select>
+                    </span>
+                    <span style="width: 504px"><label>现住址</label> <input style="width: 403px" type="text" ng-model="newqk.address" maxlength="100"></span>
+                    <span><label>去年本店维修次数</label> <input type="number" ng-model="newqk.maintainNumberLY" min="0" onkeyup="value=value.replace(/[^\d]/g,'')"></span>
+                    <span><label>去年出险次数</label> <input type="number" ng-model="newqk.accidentNumberLY"  min="0" onkeyup="value=value.replace(/[^\d]/g,'')"></span>
+                    <span><label>去年事故车产值</label> <input type="number" num-format min="0" step="0.01" ng-model="newqk.accidentOutputValueLY"  maxlength="11"></span>
+                <span><label>服务顾问</label>
+                    <input type="text" ng-model="newqk.serviceConsultant" readonly>
+                </span>
+                    <span><label>客户性质</label> <input type="text" ng-model="newqk.customerCharacter" maxlength="20"></span>
+                <span><label>是否高意向</label>
+                    <select  ng-model="newqk.sfgyx" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span style="width: 506px;">
+                        <label class="fl">客户描述</label>
+                        <textarea rows="3" cols="30" style="width: 405px;height: 50px;margin-left: 6px;" ng-model="newqk.customerDescription" maxlength="100"></textarea>
+                    </span>
+                </div>
+            </div>
+            <div class="scmWindowButton">
+                <input id="backPCCancel" ng-click="submit()" type="button" value="确认">
+                <input ng-click="sfqxxzqk()" type="button" value="取消">
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $('.coverDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });
+    $('.carDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });
+</script>

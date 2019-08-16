@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.CustTraceRecordMapper" >
+ <resultMap type="com.bofide.bip.po.CustTraceRecodeVO" id="CustRecordMap">
+  <id column="customerId" property="customerId" jdbcType="INTEGER" />
+    <result column="principal" property="principal" jdbcType="VARCHAR" />
+    <result column="traceClcye" property="traceClcye" jdbcType="INTEGER" />
+    <result column="traceCount" property="traceCount" jdbcType="INTEGER" />
+    <result column="renewalType" property="renewalType" jdbcType="VARCHAR" />
+    <result column="outBillDay" property="outBillDay" jdbcType="INTEGER" />
+    <result column="isInvite" property="isInvite" jdbcType="VARCHAR" />
+    <result column="inviteNumber" property="inviteNumber" jdbcType="INTEGER" />
+    <result column="isComeStore" property="isComeStore" jdbcType="VARCHAR" />
+     <result column="lastTraceDate" property="lastTraceDate" jdbcType="VARCHAR" />
+    <result column="firstTraceDate" property="firstTraceDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectRecordsByCustId" resultMap="CustRecordMap" parameterType="java.lang.Integer" >
+  <![CDATA[
+    select 
+    	a.customerId customerId,
+  		a.principal principal,
+  		count(a.principalId) traceCount,
+  		b.renewalType renewalType,
+			IF(max(a.invite) = 1, 1, 0) isInvite,
+  		IF(sum(a.invite)  >0, sum(a.invite), 0) inviteNumber,
+  		sum(a.comeStore) isComeStore,
+  		date_format(max(currentTraceDate),'%Y-%m-%d') lastTraceDate,
+		date_format(min(currentTraceDate),'%Y-%m-%d') firstTraceDate 
+	from 
+  		bf_bip_customer_trace_recode a,
+  		bf_bip_renewaling_customer b
+	where
+  		a.customerId = #{customerId,jdbcType=INTEGER}
+  		and a.customerId=b.customerId
+  		and a.currentTraceDate > DATE_SUB(CURDATE(), INTERVAL 6 MONTH)  
+  		and a.currentNeedTraceDate is not null
+		group by a.principalId;]]>
+  </select>
+  
+<!--   <seelct id="calculateTraceCycle" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+	select max(currentTraceDate) lastTraceDate, min(currentTraceDate) firstTraceDate from bf_bip_customer_trace_recode where customerId = #{customerIds} group by principalId
+  </seelct> -->
+ 
+</mapper>

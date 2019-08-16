@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bofide.bip.mapper.PushMaintenanceMapper">
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.PushMaintenance" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="storeId" property="storeId" jdbcType="INTEGER" />
+    	<result column="reportNumber" property="reportNumber" jdbcType="VARCHAR" />
+    	<result column="pushTime" property="pushTime" jdbcType="DATE" />
+    	<result column="insuranceNumber" property="insuranceNumber" jdbcType="VARCHAR" />
+    	<result column="carLicenseNumber" property="carLicenseNumber" jdbcType="VARCHAR" />
+    	<result column="chassisNumber" property="chassisNumber" jdbcType="VARCHAR" />
+    	<result column="insuranceComp" property="insuranceComp" jdbcType="VARCHAR" />
+    	<result column="reporter" property="reporter" jdbcType="VARCHAR" />
+    	<result column="reporterPhone" property="reporterPhone" jdbcType="VARCHAR" />
+    	<result column="reportTime" property="reportTime" jdbcType="DATE" />
+    	<result column="accidentPlace" property="accidentPlace" jdbcType="VARCHAR" />
+    	<result column="accidentTime" property="accidentTime" jdbcType="DATE" />
+    	<result column="accidentReason" property="accidentReason" jdbcType="VARCHAR" />
+    	<result column="agencyName" property="agencyName" jdbcType="VARCHAR" />
+    	<result column="agencyCode" property="agencyCode" jdbcType="VARCHAR" />
+    	<result column="channelSource" property="channelSource" jdbcType="VARCHAR" />
+    	<result column="groupType" property="groupType" jdbcType="VARCHAR" />
+    	<result column="clerk" property="clerk" jdbcType="VARCHAR" />
+    	<result column="customerFlag" property="customerFlag" jdbcType="VARCHAR" />
+    	<result column="insuranceDateStart" property="insuranceDateStart" jdbcType="DATE" />
+    	<result column="insuranceDateEnd" property="insuranceDateEnd" jdbcType="DATE" />
+    	<result column="driveArea" property="driveArea" jdbcType="VARCHAR" />
+    	<result column="csxbe" property="csxbe" jdbcType="DOUBLE" />
+    	<result column="syszxbe" property="syszxbe" jdbcType="DOUBLE" />
+    	<result column="lasj" property="lasj" jdbcType="DATE" />
+    	<result column="laje" property="laje" jdbcType="DOUBLE" />
+    	<result column="cslaje" property="cslaje" jdbcType="DOUBLE" />
+    	<result column="rslaje" property="rslaje" jdbcType="DOUBLE" />
+    	<result column="wslaje" property="wslaje" jdbcType="DOUBLE" />
+    	<result column="jasj" property="jasj" jdbcType="DATE" />
+    	<result column="jaje" property="jaje" jdbcType="DOUBLE" />
+    	<result column="csjaje" property="csjaje" jdbcType="DOUBLE" />
+    	<result column="rsjaje" property="rsjaje" jdbcType="DOUBLE" />
+    	<result column="wsjaje" property="wsjaje" jdbcType="DOUBLE" />
+    	<result column="zaje" property="zaje" jdbcType="DOUBLE" />
+    	<result column="bajsy" property="bajsy" jdbcType="VARCHAR" />
+    	<result column="cxjsy" property="cxjsy" jdbcType="VARCHAR" />
+    	<result column="sfhk" property="sfhk" jdbcType="INTEGER" />
+    	<result column="sfxcba" property="sfxcba" jdbcType="INTEGER" />
+    	<result column="sfmxc" property="sfmxc" jdbcType="INTEGER" />
+    	<result column="sslx" property="sslx" jdbcType="VARCHAR" />
+    	<result column="baclyj" property="baclyj" jdbcType="VARCHAR" />
+    	<result column="sglx" property="sglx" jdbcType="VARCHAR" />
+    	<result column="zrxs" property="zrxs" jdbcType="INTEGER" />
+    	<result column="ajtd" property="ajtd" jdbcType="VARCHAR" />
+    	<result column="ajzt" property="ajzt" jdbcType="VARCHAR" />
+    	<result column="wjzt" property="wjzt" jdbcType="VARCHAR" />
+    	<result column="wjje" property="wjje" jdbcType="DOUBLE" />
+    	<result column="pfcs" property="pfcs" jdbcType="INTEGER" />
+    	<result column="pfjl" property="pfjl" jdbcType="VARCHAR" />
+    	<result column="baly" property="baly" jdbcType="VARCHAR" />
+    	<result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    	
+    	<collection property="maintenanceRecord" ofType="com.bofide.bip.po.MaintenanceRecord" column="maintenanceRecord">
+			<result column="maintainNumber" property="maintainNumber" jdbcType="VARCHAR" />
+    		<result column="maintenanceTimeStart" property="maintenanceTimeStart" jdbcType="DATE" />
+    		<result column="maintenanceTimeEnd" property="maintenanceTimeEnd" jdbcType="DATE" />
+	    	<result column="carLicenseNumber" property="carLicenseNumber" jdbcType="VARCHAR" />
+	    	<result column="entrustor" property="entrustor" jdbcType="VARCHAR" />
+			<result column="entrustorPhone" property="entrustorPhone" jdbcType="VARCHAR" />
+			<result column="maintenanceType" property="maintenanceType" jdbcType="VARCHAR" />
+			<result column="certainCost" property="certainCost" jdbcType="DOUBLE" />
+			<result column="maintainCost" property="maintainCost" jdbcType="DOUBLE" />
+			<result column="realCost" property="realCost" jdbcType="DOUBLE" />
+			<result column="consultantId" property="consultantId" jdbcType="INTEGER" />
+			<result column="consultantName" property="consultantName" jdbcType="VARCHAR" />
+			<result column="createTime1" property="createTime" jdbcType="TIMESTAMP" />
+		</collection>
+		
+		<collection property="pushMaintenanceChild" ofType="com.bofide.bip.po.PushMaintenanceChild" column="pushMaintenanceChild">
+			<result column="ppcx" property="ppcx" jdbcType="VARCHAR" />
+    		<result column="engineNumber" property="engineNumber" jdbcType="VARCHAR" />
+	    	<result column="insured" property="insured" jdbcType="VARCHAR" />
+	    	<result column="clzws" property="clzws" jdbcType="INTEGER" />
+	    	<result column="sfnzcxs" property="sfnzcxs" jdbcType="INTEGER" />
+	    	<result column="cwckr" property="cwckr" jdbcType="VARCHAR" />
+	    	<result column="rsdhcky" property="rsdhcky" jdbcType="VARCHAR" />
+	    	<result column="rssdcky" property="rssdcky" jdbcType="VARCHAR" />
+	    	<result column="sfdhck" property="sfdhck" jdbcType="INTEGER" />
+	    	<result column="zfdxsfbbxr" property="zfdxsfbbxr" jdbcType="INTEGER" />
+	    	<result column="sczfcgTime" property="sczfcgTime" jdbcType="DATE" />
+	    	<result column="mczfcgTime" property="mczfcgTime" jdbcType="DATE" />
+	    	<result column="sczfthTime" property="sczfthTime" jdbcType="DATE" />
+	    	<result column="sfczjth" property="sfczjth" jdbcType="INTEGER" />
+	    	<result column="dachr" property="dachr" jdbcType="VARCHAR" />
+	    	<result column="dachsj" property="dachsj" jdbcType="DATE" />
+	    	<result column="sfrskckp" property="sfrskckp" jdbcType="VARCHAR" />
+	    	<result column="sdsj" property="sdsj" jdbcType="DATE" />
+	    	<result column="sdr" property="sdr" jdbcType="VARCHAR" />
+	    	<result column="sfrgls1" property="sfrgls1" jdbcType="INTEGER" />
+	    	<result column="sfrgls2" property="sfrgls2" jdbcType="INTEGER" />
+	    	<result column="zalsTimeStart" property="zalsTimeStart" jdbcType="DATE" />
+	    	<result column="zalsTimeEnd" property="zalsTimeEnd" jdbcType="DATE" />
+	    	<result column="scrgzjTimeStart" property="scrgzjTimeStart" jdbcType="DATE" />
+	    	<result column="mcrgzjTimeEnd" property="mcrgzjTimeEnd" jdbcType="DATE" />
+	    	<result column="scckTimeStart" property="scckTimeStart" jdbcType="DATE" />
+	    	<result column="mcckTimeEnd" property="mcckTimeEnd" jdbcType="DATE" />
+	    	<result column="sctdTime" property="sctdTime" jdbcType="DATE" />
+	    	<result column="sfzdtd" property="sfzdtd" jdbcType="INTEGER" />
+	    	<result column="sftd" property="sftd" jdbcType="INTEGER" />
+	    	<result column="dssfbhsjf" property="dssfbhsjf" jdbcType="INTEGER" />
+	    	<result column="sfxxycsjqq" property="sfxxycsjqq" jdbcType="INTEGER" />
+	    	<result column="ckwtsljg" property="ckwtsljg" jdbcType="VARCHAR" />
+	    	<result column="cwnbdcjsje" property="cwnbdcjsje" jdbcType="DOUBLE" />
+	    	<result column="cwwbdcjsje" property="cwwbdcjsje" jdbcType="DOUBLE" />
+	    	<result column="jpje" property="jpje" jdbcType="DOUBLE" />
+	    	<result column="fkjsje" property="fkjsje" jdbcType="DOUBLE" />
+	    	<result column="zcje" property="zcje" jdbcType="DOUBLE" />
+	    	<result column="sfdlsp" property="sfdlsp" jdbcType="INTEGER" />
+	    	<result column="dlspxlcmc" property="dlspxlcmc" jdbcType="VARCHAR" />
+	    	<result column="sfss" property="sfss" jdbcType="INTEGER" />
+	    	<result column="yeqxfsckrwls" property="yeqxfsckrwls" jdbcType="INTEGER" />
+	    	<result column="yeqxfsdsrwls" property="yeqxfsdsrwls" jdbcType="INTEGER" />
+	    	<result column="elpfsdsrwls" property="elpfsdsrwls" jdbcType="INTEGER" />
+	    	<result column="elpfsckrwls" property="elpfsckrwls" jdbcType="INTEGER" />
+	    	<result column="fscsdsrwls" property="fscsdsrwls" jdbcType="INTEGER" />
+	    	<result column="createTime1" property="createTime" jdbcType="TIMESTAMP" />
+		</collection>
+	</resultMap>
+	<!-- 新增一条推送修记录 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map" >
+    	insert into bf_bip_push_maintenance 
+    		(storeId, reportNumber, pushTime, insuranceNumber, carLicenseNumber, chassisNumber, 
+    		insuranceComp, reporter, reporterPhone, reportTime, accidentPlace, accidentTime,
+    		accidentReason, agencyName, agencyCode, channelSource, groupType, clerk,
+    		customerFlag, insuranceDateStart, insuranceDateEnd, driveArea, csxbe, syszxbe, lasj,
+    		laje, cslaje, rslaje, wslaje, jasj, jaje, csjaje, rsjaje, wsjaje, zaje, bajsy, cxjsy,
+    		sfhk, sfxcba, sfmxc, sslx, baclyj, sglx, zrxs, ajtd, ajzt, wjzt, wjje, pfcs, pfjl,
+    		baly, createTime)
+    	values 
+    		(#{storeId}, #{reportNumber},#{pushTime},#{insuranceNumber}, #{carLicenseNumber}, #{chassisNumber},
+    		#{insuranceComp}, #{reporter},#{reporterPhone},#{reportTime}, #{accidentPlace}, #{accidentTime},
+    		#{accidentReason}, #{agencyName},#{agencyCode},#{channelSource}, #{groupType},#{clerk},
+    		#{customerFlag}, #{insuranceDateStart},#{insuranceDateEnd},#{driveArea}, #{csxbe}, #{syszxbe},#{lasj},
+    		#{laje}, #{cslaje},#{rslaje},#{wslaje}, #{jasj}, #{jaje}, #{csjaje},#{rsjaje},#{wsjaje}, #{zaje}, #{bajsy},#{cxjsy},
+    		#{sfhk}, #{sfxcba},#{sfmxc},#{sslx}, #{baclyj}, #{sglx}, #{zrxs},#{ajtd},#{ajzt}, #{wjzt}, #{wjje},#{pfcs},#{pfjl},
+    		#{baly}, now())
+  	</insert>
+  	
+  	<!-- 根据报案号和店id查询推送修记录 -->
+	<select id="findByReportNumber"  parameterType="java.util.Map" resultMap="BaseResultMap">
+		select * from bf_bip_push_maintenance where storeId=#{storeId} and reportNumber =#{reportNumber}
+	</select>
+	<!-- 根据条件查询推送修记录 -->
+  	<select id="findByCondition" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+		SELECT
+			m.*,
+			r.*
+		FROM
+			bf_bip_push_maintenance m
+		LEFT JOIN bf_bip_maintenance_record r ON m.reportNumber = r.reportNumber AND m.storeId = r.storeId
+		<where>
+			<if test="storeId != null">
+				and m.storeId = #{storeId}
+			</if>
+			<if test="reportNumber != null and reportNumber != ''">
+				and m.reportNumber = #{reportNumber}
+			</if>
+			<if test="carLicenseNumber != null and carLicenseNumber != ''">
+				and m.carLicenseNumber = #{carLicenseNumber}
+			</if>
+			<if test="insuranceComp != null and insuranceComp != ''">
+				and m.insuranceComp = #{insuranceComp}
+			</if>
+			<if test="sfwx != null and sfwx == 1">
+				and r.id is not null
+			</if>
+			<if test="sfwx != null and sfwx == 0">
+				and r.id is null
+			</if>
+			<if test="bdcb != null and bdcb == 1">
+				and EXISTS (
+					select 1 from bf_bip_insurance_bill b where 
+					b.chassisNumber = m.chassisNumber
+					and b.fourSStoreId = m.storeId
+					<![CDATA[and b.syxrqStart <= m.pushTime and m.pushTime <= b.syxrqEnd]]>
+				)
+			</if>
+			<if test="bdcb != null and bdcb == 0">
+				and not EXISTS (
+					select 1 from bf_bip_insurance_bill b where
+					b.chassisNumber = m.chassisNumber
+					<if test="storeId != null">
+						and b.fourSStoreId = #{storeId}
+					</if>
+					<![CDATA[and b.syxrqStart <= m.pushTime and m.pushTime <= b.syxrqEnd]]>
+				)
+			</if>
+			<if test="chassisNumber != null and chassisNumber != ''">
+				and m.chassisNumber = #{chassisNumber}
+			</if>
+		</where>
+		LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	<!--上个查询的总数 -->
+	<select id="countByCondition" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		SELECT
+			count(1)
+		FROM
+			bf_bip_push_maintenance m
+		LEFT JOIN bf_bip_maintenance_record r ON m.reportNumber = r.reportNumber AND m.storeId = r.storeId
+		<where>
+			<if test="storeId != null">
+				and m.storeId = #{storeId}
+			</if>
+			<if test="reportNumber != null and reportNumber != ''">
+				and m.reportNumber = #{reportNumber}
+			</if>
+			<if test="carLicenseNumber != null and carLicenseNumber != ''">
+				and m.carLicenseNumber = #{carLicenseNumber}
+			</if>
+			<if test="insuranceComp != null and insuranceComp != ''">
+				and m.insuranceComp = #{insuranceComp}
+			</if>
+			<if test="sfwx != null and sfwx == 1">
+				and r.id is not null
+			</if>
+			<if test="sfwx != null and sfwx == 0">
+				and r.id is null
+			</if>
+			<if test="bdcb != null and bdcb == 1">
+				and EXISTS (
+					select 1 from bf_bip_insurance_bill b where
+					b.chassisNumber = m.chassisNumber
+					<if test="storeId != null">
+						and b.fourSStoreId = #{storeId}
+					</if>
+					<![CDATA[and b.syxrqStart <= m.pushTime and m.pushTime <= b.syxrqEnd]]>
+				)
+			</if>
+			<if test="bdcb != null and bdcb == 0">
+				and not EXISTS (
+					select 1 from bf_bip_insurance_bill b where 
+					b.chassisNumber = m.chassisNumber
+					<if test="storeId != null">
+						and b.fourSStoreId = #{storeId}
+					</if>
+					<![CDATA[and b.syxrqStart <= m.pushTime and m.pushTime <= b.syxrqEnd]]>
+				)
+			</if>
+			<if test="chassisNumber != null and chassisNumber != ''">
+				and m.chassisNumber = #{chassisNumber}
+			</if>
+		</where>
+	</select>
+	<!-- 根据报案号以及店ID查询推送修记录的明细 -->
+	<select id="findPMaintenanceByRNumber" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+		SELECT
+			*
+		FROM
+			bf_bip_push_maintenance m,
+			bf_bip_push_maintenance_child c
+		WHERE
+			m.storeId = c.storeId
+		AND m.reportNumber = c.reportNumber
+		AND m.storeId = #{storeId}
+		AND m.reportNumber = #{reportNumber}
+	</select>
+	<!-- 台帐查询推送修 -->
+	<select id="findTzPushMaintenance" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT m.insuranceNumber,m.carLicenseNumber,m.chassisNumber,m.reporter,m.reporterPhone,
+			r.certainCost,r.maintainCost,r.realCost,  r.maintainCost-r.realCost as needCost
+		FROM bf_bip_push_maintenance m 
+		INNER JOIN bf_bip_push_maintenance_child mc ON mc.reportNumber = m.reportNumber
+		LEFT JOIN bf_bip_maintenance_record r ON m.reportNumber = r.reportNumber
+		<where>
+			m.storeId = #{storeId}
+			<if test="insuranceNumber != null or insuranceNumber != '' ">
+				AND m.insuranceNumber  like '%${insuranceNumber}%'
+			</if>
+			<if test="chassisNumber != null or chassisNumber != '' ">
+				AND m.chassisNumber  like '%${chassisNumber}%'
+			</if>
+			<if test="carLicenseNumber != null or carLicenseNumber != '' ">
+				AND m.carLicenseNumber  like '%${carLicenseNumber}%'
+			</if>
+			<if test="isMaintenance != null  ">
+				<if test="isMaintenance == 0">AND r.maintainNumber IS NULL</if>
+				<if test="isMaintenance == 1">AND r.maintainNumber IS NOT NULL</if>
+			</if> 
+		</where>
+		LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	<!-- 台帐查询推送修维修总收入和总记录数 -->
+	<select id="findTzMaintainCountAndCostSum" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT count(1) countPushMaintenance,case when sum(r.maintainCost) is null then 0 else sum(r.maintainCost) end sumMaintainCost
+		FROM bf_bip_push_maintenance m 
+		INNER JOIN bf_bip_push_maintenance_child mc ON mc.reportNumber = m.reportNumber
+		LEFT JOIN bf_bip_maintenance_record r ON m.reportNumber = r.reportNumber
+		<where>
+			m.storeId = #{storeId}
+			<if test="insuranceNumber != null or insuranceNumber != '' ">
+				AND m.insuranceNumber  like '%${insuranceNumber}%'
+			</if>
+			<if test="chassisNumber != null or chassisNumber != '' ">
+				AND m.chassisNumber  like '%${chassisNumber}%'
+			</if>
+			<if test="carLicenseNumber != null or carLicenseNumber != '' ">
+				AND m.carLicenseNumber  like '%${carLicenseNumber}%'
+			</if>
+			<if test="isMaintenance != null  ">
+				<if test="isMaintenance == 0">AND r.maintainNumber IS NULL</if>
+				<if test="isMaintenance == 1">AND r.maintainNumber IS NOT NULL</if>
+			</if> 
+		</where>
+	</select>
+</mapper>

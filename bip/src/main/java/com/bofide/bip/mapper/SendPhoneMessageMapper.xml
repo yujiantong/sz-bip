@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bofide.bip.mapper.SendPhoneMessageMapper">
+	<insert id="insert" parameterType="java.util.Map" >
+		insert into bf_bip_send_phone_message (
+			storeId, userId, customerId, contact, contactWay, content, sendTime, type,smsTemplateId
+		) values (
+			#{storeId}, #{userId}, #{customerId}, #{contact}, #{contactWay},#{content}, now(),#{type},#{smsTemplateId}
+		)
+	</insert>
+
+	<select id="findPhoneMessage" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT m.*, case when u.userName is null then '系统' else u.userName end userName,s.templateName,s.details
+		FROM bf_bip_send_phone_message m 
+		LEFT JOIN bf_bip_user u ON u.id = m.userId 
+		LEFT JOIN bf_bip_sms_template s ON m.smsTemplateId = s.id
+		WHERE m.storeId = #{storeId} 
+		<if test="smsTemplateId	 != null and smsTemplateId != ''">
+  			and s.id = #{smsTemplateId}
+  		</if>
+  		<if test="sendTimeStart != null and sendTimeStart != ''">
+  			<![CDATA[and  DATE_FORMAT(m.sendTime,'%Y-%m-%d')  >=  #{sendTimeStart,jdbcType=DATE} ]]>
+  		</if>
+  		<if test="sendTimeEnd != null and sendTimeEnd != ''">
+  			<![CDATA[and  DATE_FORMAT(m.sendTime,'%Y-%m-%d') <=  #{sendTimeEnd,jdbcType=DATE} ]]>
+  		</if>
+  		<if test="sfgyx == 0 or sfgyx == 1">
+  			and m.sfdj = #{sfgyx}
+  		</if>
+		ORDER BY m.sendTime DESC
+		LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER} 
+	</select>
+	
+	<select id="findPhoneMessageCount" parameterType="java.util.Map" resultType="Integer">
+		SELECT count(1) 
+		FROM bf_bip_send_phone_message m 
+		LEFT JOIN bf_bip_user u ON u.id = m.userId 
+		LEFT JOIN bf_bip_sms_template s ON m.smsTemplateId = s.id
+		WHERE m.storeId = #{storeId}
+		<if test="smsTemplateId	 != null and smsTemplateId != ''">
+  			and s.id = #{smsTemplateId}
+  		</if>
+  		<if test="sendTimeStart != null and sendTimeStart != ''">
+  			<![CDATA[and  DATE_FORMAT(m.sendTime,'%Y-%m-%d')  >=  #{sendTimeStart,jdbcType=DATE} ]]>
+  		</if>
+  		<if test="sendTimeEnd != null and sendTimeEnd != ''">
+  			<![CDATA[and  DATE_FORMAT(m.sendTime,'%Y-%m-%d') <=  #{sendTimeEnd,jdbcType=DATE} ]]>
+  		</if>
+  		<if test="sfgyx == 0 or sfgyx == 1">
+  			and m.sfdj = #{sfgyx}
+  		</if>
+	</select>
+	
+	<!-- 修改是否点击 -->
+	<update id="updateSFDJ" parameterType="java.util.HashMap" >
+	    update bf_bip_send_phone_message set sfdj = 1 where customerId = #{customerId} and type = 1 and sfdj = 0 or sfdj is null
+  	</update>
+  	<!-- 根据潜客ID查询是否已点击 -->
+  	<select id="findPhoneBySFDJCount" parameterType="java.util.Map" resultType="Integer">
+		SELECT count(1) FROM bf_bip_send_phone_message WHERE customerId = #{customerId} and type = 1 and sfdj = 1
+	</select>
+</mapper>

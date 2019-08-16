@@ -1,0 +1,36 @@
+<ion-view ng-init="ctrl.findDefeatedDetail()" >
+  <ion-nav-title>
+    {{ctrl.customerDetails.contact}} 线索详情
+  </ion-nav-title>
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios-arrow-left fcf" ui-sref="defeatList({userId:ctrl.userId,userName:ctrl.userName})"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="bip-item-divider">
+      <div class="title">客户信息</div>
+    </div>
+    <div class="row fs12">
+      <div class="col col-50">联系人姓名：{{ctrl.customerDetails.contact}}</div>
+      <div class="col col-50"><span class="ml10">电话：{{ctrl.customerDetails.contactWay}}</span></div>
+    </div>
+    <div class="bip-item-divider">
+      <div class="title">失销信息</div>
+    </div>
+    <div class="row fs12">
+      <div class="col">失销原因：{{ctrl.customerDetails.cause}}</div>
+    </div>
+    <div class="row fs12">
+      <div class="col">失销分析：{{ctrl.customerDetails.causeAnalysis}}</div>
+    </div>
+    <div class="row fs12">
+      <div class="col">失销时间：{{ctrl.customerDetails.failureTime | date:'yyyy-MM-dd' }}</div>
+    </div>
+  </ion-content>
+  <ion-footer-bar ng-show="ctrl.user.role.roleId==2" align-title="center" class="dark-border">
+    <div class="button-bar">
+      <button class="button button-bip" ui-sref="newCustomer({userId:ctrl.userId,userName:ctrl.userName,customerId:ctrl.customerDetails.id,
+      contact:ctrl.customerDetails.contact,contactWay:ctrl.customerDetails.contactWay})">生成潜客</button>
+      <button class="button button-bip" ng-click="ctrl.defeatCustomerBtn()">战败</button>
+    </div>
+  </ion-footer-bar>
+</ion-view>

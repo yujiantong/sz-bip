@@ -1,0 +1,36 @@
+<ion-view view-title="暂停管理" >
+  <ion-nav-buttons side="left">
+    <button ng-if="ctrl.user.role.roleId==3||ctrl.user.role.roleId==10||ctrl.user.role.roleId==11||ctrl.user.role.roleId==16||ctrl.user.role.roleId==23" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('homePage.personalCenter')"></button>
+    <button ng-if="ctrl.user.role.roleId==7||ctrl.user.role.roleId==9" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('mgrHomePage.personalCenter')"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="bip-row">
+      <div class="col bip-col-33" ng-repeat="worker in ctrl.workersAll" ng-if="worker.status!=2">
+        <div class="bip-custbox" ng-show="worker.status==0">
+          <a class="bip-tel bip-workbg" ng-show="!worker.phone">{{worker.userName}}</a>
+          <a ng-show="worker.phone" class="bip-tel bip-workbg" href="tel:{{worker.phone}}"><span class="worker-name">{{worker.userName}}</span><i class="icon ion-ios-telephone"></i></a>
+          <div class="bip-work" ng-if="ctrl.user.role.roleId==3||ctrl.user.role.roleId==7||ctrl.user.role.roleId==9" ng-click="ctrl.pauseOrRegain(worker.id,worker.status,$index)">
+            <div class="circle"><i class="icon ion-ios-play" style="margin-left: 4px;"></i></div>
+            <div class="mt5">工作进行中</div>
+          </div>
+          <div class="bip-work"  ng-if="ctrl.user.role.roleId!=3&&ctrl.user.role.roleId!=7&&ctrl.user.role.roleId!=9">
+            <div class="circle"><i class="icon ion-ios-play" style="margin-left: 4px;"></i></div>
+            <div class="mt5">工作进行中</div>
+          </div>
+        </div>
+        <div class="bip-custbox" ng-show="worker.status==1">
+          <a class="bip-tel bip-pausebg" ng-show="!worker.phone">{{worker.userName}}</a>
+          <a ng-show="worker.phone" class="bip-tel bip-pausebg" href="tel:{{worker.phone}}"><span class="worker-name">{{worker.userName}}</span><i class="icon ion-ios-telephone"></i></a>
+          <div class="bip-pause"  ng-if="ctrl.user.role.roleId==3||ctrl.user.role.roleId==7||ctrl.user.role.roleId==9" ng-click="ctrl.pauseOrRegain(worker.id,worker.status,$index)">
+            <div class="circle"><i class="icon ion-ios-pause"></i></div>
+            <div class="mt5">工作暂停中</div>
+          </div>
+          <div class="bip-pause"  ng-if="ctrl.user.role.roleId!=3&&ctrl.user.role.roleId!=7&&ctrl.user.role.roleId!=9">
+            <div class="circle"><i class="icon ion-ios-pause"></i></div>
+            <div class="mt5">工作暂停中</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,156 @@
+<div class="scmContentTitle">
+   <ul id="myTab" class="cartype nav nav-tabs" style="border-bottom: none;">
+      <li class="active"  href="#bxgs"  ng-click="" data-toggle="tab">
+         保险公司
+      </li>
+      <li  href="#sxf"  ng-click="FactorageComp()" data-toggle="tab">
+         手续费设置
+      </li>
+      <li  href="#jibie"  ng-click="" data-toggle="tab">
+         级别跟踪天数
+      </li>
+      <li  href="#mokuai" data-toggle="tab">
+         模块开启设置
+      </li>
+      <li  href="#fenpei" data-toggle="tab">
+         分配方式设置
+      </li>
+      <li  href="#sxht" data-toggle="tab" ng-click="reasonBtn()">
+         失销/回退原因
+      </li>
+   </ul>
+</div>
+<div id="myTabContent" class="tab-content" style="padding: 10px 14px;">
+   <div class="tab-pane fade in active" id="bxgs" style="overflow-x: auto;overflow-y: hidden;">
+      <div class="paramCon-group">
+         <p class="h5 text-center">保险公司选定</p>
+         <label class="checkbox-inline" ng-repeat="InsuranceComp in InsuranceCompAll" ng-model="InsuranceCompAll">
+            <input type="checkbox" id={{InsuranceComp.insuranceComp.insuranceCompId}} ng-click="" ng-model="InsuranceComp.statu">
+            {{InsuranceComp.insuranceComp.insuranceCompName}}
+         </label>
+         <p class="text-center mt10"><input type="button" ng-click="InsuranceCompsubmit()" value="确认"></p>
+      </div>
+   </div>
+   <div class="tab-pane fade" id="sxf" style="overflow-x: auto;overflow-y: hidden;">
+      <div class="paramCon-group">
+         <p class="h5 text-center">手续费设置</p>
+         <label class="checkbox-inline" ng-repeat="Factorage in FactorageAll" ng-if="Factorage.statu== true" ng-model="FactorageAll">
+            <input type="radio" id={{Factorage.insuranceComp.insuranceCompId}} ng-click="FactorageCompSearch()"  name="fourSId" >{{Factorage.insuranceComp.insuranceCompName}}
+         </label>
+         <div >
+            <div id="sxfSet">
+               <span class="lable-title"><label>新保商业险手续费(全款)</label><input type="text" ng-model="factoragesetAllMap.binsuranceNew">%</span>
+               <span class="lable-title"><label>新保交强险手续费(全款)</label><input type="text" ng-model="factoragesetAllMap.cinsuranceNew">%</span>
+               <span class="lable-title"><label>商业险手续费</label><input type="text" ng-model="factoragesetAllMap.binsurance">%</span>
+               <span class="lable-title"><label>交强险手续费</label><input type="text" ng-model="factoragesetAllMap.cinsurance">%</span>
+               <span class="lable-title"><label>新保商业险手续费(贷款)</label><input type="text" ng-model="factoragesetAllMap.binsuranceNewLoan">%</span>
+               <span class="lable-title"><label>新保交强险手续费(贷款)</label><input type="text" ng-model="factoragesetAllMap.cinsuranceNewLoan">%</span>
+            </div>
+         </div>
+         <p class="text-center mt10"><input type="button" ng-click="Factoragesubmit()" value="确认"></p>
+      </div>
+   </div>
+   <div class="tab-pane fade" id="jibie" style="overflow-x: auto;overflow-y: hidden;">
+      <table class="mintable">
+         <tbody>
+            <tr>
+               <td colspan="2">跟踪天数设置</td>
+            </tr>
+            <tr>
+               <td width="120">级别</td>
+               <td>天数</td>
+            </tr>
+            <tr ng-repeat="Level in LevelAll" ng-model="LeveltAll">
+               <td ng-if="Level.customerLevel != 'Z'">{{Level.customerLevel}}</td>
+               <td ng-if="Level.customerLevel == 'Z'">首次提醒天数</td>
+               <td><input ng-model="Level.dayNumber" type="text">天</td>
+            </tr>
+            <tr>
+               <td colspan="2"><input type="button" ng-click="Levelsubmit();" value="确认"></td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+   <div class="tab-pane fade" id="mokuai">
+      <div  class="fl margin_left">
+         <table class="mintable">
+            <tbody>
+            <tr>
+               <td colspan="3">模块开启设置</td>
+            </tr>
+            <tr ng-repeat="moduleset in modulesetAll" ng-model="modulesetAll">
+               <td width="200" ng-if="!(moduleset.moduleName=='cover'|| moduleset.moduleName=='accountModule')" >
+                  <span ng-if="moduleset.moduleName=='finance'">是否启用财务模块</span>
+                  <span ng-if="moduleset.moduleName=='sale'">是否启用销售模块</span>
+                  <span ng-if="moduleset.moduleName=='afterSale'">是否启用售后模块</span>
+                  <span ng-if="moduleset.moduleName=='updateSMS'">是否自动发送营销短信（收费）</span>
+                  <!-- <span ng-if="moduleset.moduleName=='cover'">是否自动覆盖保险到期日</span>-->
+                  <span ng-if="moduleset.moduleName=='csModule'">是否启用客服模块</span>
+                  <span ng-if="moduleset.moduleName=='asmModule'">是否启用出单员模块</span>
+               </td>
+               <td  ng-if="!(moduleset.moduleName=='cover'|| moduleset.moduleName=='accountModule'||moduleset.moduleName=='updateSMS')">
+                  <span><input name="" type="radio" value="1" ng-model="moduleset.switchOn" />是</span>
+                  <span><input name="" type="radio" value="0" ng-model="moduleset.switchOn" />否</span>
+               </td>
+               <td  ng-if="moduleset.moduleName=='updateSMS'">
+                  <span><input name="" disabled type="radio" value="1" ng-model="moduleset.switchOn" />是</span>
+                  <span><input name="" disabled type="radio" value="0" ng-model="moduleset.switchOn" />否</span>
+               </td>
+            </tr>
+            <tr>
+               <td colspan="2"><input type="button" ng-click="modulesubmit();" value="确认"></td>
+            </tr>
+            </tbody>
+         </table>
+      </div>
+      <div class="space fl"></div>
+      <div class="mt20 fl" style="margin-top: 7%">
+         <h4>注：</h4>
+         <p>1.财务模块：需要审批单功能的开启此功能。</p>
+         <p>2.销售模块：需要销售部门协助续保的开启此功能。</p>
+         <p>3.售后模块：需要服务部门协助续保的开启此功能。</p>
+         <p>4.客服模块：需要客服部门协助续保的开启此功能。</p>
+         <p>5.出单员模块：需要出单员协助出单的开启此功能；若关闭，出单员功能将合并到续保专员系统。</p>
+         <p>6.自动发送营销短信（收费）：早上8点发送营销短信。</p>
+      </div>
+   </div>
+   <div>
+
+
+   </div>
+   <div class="tab-pane fade" id="fenpei">
+      <table class="mintable">
+         <tbody>
+         <tr>
+            <td rowspan="2">分配方式设置</td>
+            <td>&nbsp;&nbsp;<input name="distribution" type="radio" value="0" ng-model="distribution.switchOn" />&nbsp;&nbsp;</td>
+            <td>按续保类型，先补齐再平均分配</td>
+         </tr>
+         <tr>
+            <td><input name="distribution" type="radio" value="1" ng-model="distribution.switchOn" /></td>
+            <td>按续保类型，平均分配</td>
+         </tr>
+         <tr>
+            <td rowspan="2">失销客户分配方式设置</td>
+            <td>&nbsp;&nbsp;<input name="responsible_person" type="radio" value="0" ng-model="responsible_person.switchOn" />&nbsp;&nbsp;</td>
+            <td>原负责人优先分配</td>
+         </tr>
+         <tr>
+            <td><input name="responsible_person" type="radio" value="1" ng-model="responsible_person.switchOn" /></td>
+            <td>按无负责人分配</td>
+         </tr>
+         <tr>
+            <td colspan="4"><input type="button" ng-click="distributionSet();" value="确认"></td>
+         </tr>
+         </tbody>
+      </table>
+   </div>
+   <div class="tab-pane fade" id="sxht" style="height:97%;padding-bottom: 3%;">
+      <div class="condition-search text-right">
+         <button type="button" ng-click="addReasonBtn()">新增失销/回退原因</button>
+      </div>
+      <div ui-grid="reasonAllPage" ng-style="gridbox" class="gridbox"  ui-grid-pinning  ui-grid-resize-columns ui-grid-selection ui-grid-infinite-scroll>
+      </div>
+   </div>
+</div>
+<div ng-include="'./views/renewalDirector/reasonManageRD.html'"></div>

@@ -1,0 +1,143 @@
+<ion-view>
+  <ion-nav-title>
+    保单明细
+  </ion-nav-title>
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios-arrow-left fcf" ui-sref="billList"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="bip-item-divider item-icon-right" ng-click="ctrl.billmxToggle()">
+      <div class="title">保单明细</div>
+      <i ng-hide="ctrl.billmx" class="icon ion-ios-arrow-up" style="font-size: 20px"></i>
+      <i ng-hide="!ctrl.billmx" class="icon ion-ios-arrow-down" style="font-size: 20px"></i>
+    </div>
+    <div class="padding" ng-hide="!ctrl.billmx">
+     <div class="billBox">
+       <h4 class="billTitle">车辆信息</h4>
+       <table class="billTable" border="0">
+         <tr>
+           <td width="50%">品牌：{{ctrl.billDetails.carBrand}}</td>
+           <td>车牌号：{{ctrl.billDetails.carLicenseNumber}}</td>
+         </tr>
+         <tr>
+           <td>发动机号：{{ctrl.billDetails.engineNumber}}</td>
+           <td>上牌日期：{{ctrl.billDetails.registrationDate | date:'yy/MM/dd'}}</td>
+         </tr>
+         <tr>
+           <td colspan="2">车型号：{{ctrl.billDetails.vehicleModel}}</td>
+         </tr>
+         <tr>
+           <td colspan="2">车架号：{{ctrl.billDetails.chassisNumber}}</td>
+         </tr>
+       </table>
+     </div>
+     <div class="billBox">
+       <h4 class="billTitle">保单信息</h4>
+       <table class="billTable" border="0">
+         <tr>
+           <td colspan="2">商业险保单号：{{ctrl.billDetails.binsuranceNumber}}</td>
+         </tr>
+         <tr>
+           <td colspan="2">交强险保单号：{{ctrl.billDetails.cinsuranceNumber}}</td>
+         </tr>
+         <tr>
+           <td width="50%">商业险金额：{{ctrl.billDetails.binsuranceCoverage}}</td>
+           <td>交强险金额：{{ctrl.billDetails.cinsuranceCoverage}}</td>
+         </tr>
+         <tr>
+           <td>车船税金额：{{ctrl.billDetails.vehicleTax}}</td>
+           <td>续保渠道：{{ctrl.billDetails.renewalWay}}</td>
+         </tr>
+         <tr>
+           <td>本店投保次数：{{ctrl.billDetails.insurNumber}}</td>
+           <td>优惠项目：{{ctrl.billDetails.privilegePro}}</td>
+         </tr>
+         <tr>
+           <td>保费合计：{{ctrl.billDetails.premiumCount}}</td>
+           <td>优惠金额：{{ctrl.billDetails.privilegeSum}}</td>
+         </tr>
+         <tr>
+           <td>实收金额：{{ctrl.billDetails.realPay}}</td>
+           <td>付款方式：{{ctrl.billDetails.payWay}}</td>
+         </tr>
+         <tr>
+           <td>送单方式：{{ctrl.billDetails.sdfs}}</td>
+           <td>投保类型：{{ctrl.billDetails.coverType | mapTBLX}}</td>
+         </tr>
+         <tr>
+           <td>是否贷款：{{ctrl.billDetails.sfdk| mapSF}}</td>
+           <td>投保日期：{{ctrl.billDetails.insurDate | date:'yy/MM/dd'}}</td>
+         </tr>
+         <tr>
+           <td>商业险开始：{{ctrl.billDetails.syxrqStart | date:'yy/MM/dd'}}</td>
+           <td>商业险结束：{{ctrl.billDetails.syxrqEnd | date:'yy/MM/dd'}}</td>
+         </tr>
+         <tr>
+           <td>交强险开始：{{ctrl.billDetails.jqxrqStart | date:'yy/MM/dd'}}</td>
+           <td>交强险结束：{{ctrl.billDetails.jqxrqEnd | date:'yy/MM/dd'}}</td>
+         </tr>
+         <tr>
+           <td>去年保费：{{ctrl.billDetails.qnbe}}</td>
+           <td>去年商业险金额：{{ctrl.billDetails.qnsyxje}}</td>
+         </tr>
+         <tr>
+           <td>去年交强险金额：{{ctrl.billDetails.qnjqxje}}</td>
+           <td>去年车船税金额：{{ctrl.billDetails.qnccsje}}</td>
+         </tr>
+         <tr>
+           <td>保险公司：{{ctrl.billDetails.insuranceCompName}}</td>
+           <td>开票名称：{{ctrl.billDetails.invoiceName}}</td>
+         </tr>
+       </table>
+     </div>
+     <div class="billBox">
+       <h4 class="billTitle">办理人员</h4>
+       <table class="billTable" border="0">
+         <tr>
+           <td width="50%">负责人：{{ctrl.billDetails.principal}}</td>
+           <td>业务员：{{ctrl.billDetails.clerk}}</td>
+         </tr>
+         <tr>
+           <td>出单员：{{ctrl.billDetails.insuranceWriter}}</td>
+           <td>收银员：{{ctrl.billDetails.cashier}}</td>
+         </tr>
+       </table>
+     </div>
+     <div class="billBox">
+       <h4 class="billTitle">客户信息</h4>
+       <table class="billTable" border="0">
+         <tr>
+           <td width="50%">车主：{{ctrl.billDetails.carOwner}}</td>
+           <td>被保险人：{{ctrl.billDetails.insured}}</td>
+         </tr>
+         <tr>
+           <td>联系人：{{ctrl.billDetails.contact}}</td>
+           <td>联系方式：{{ctrl.billDetails.contactWay}}</td>
+         </tr>
+         <tr>
+           <td>客户来源：{{ctrl.billDetails.customerSource}}</td>
+           <td>客户性质：{{ctrl.billDetails.customerCharacter}}</td>
+         </tr>
+         <tr>
+           <td colspan="2">被保险人证件号：{{ctrl.billDetails.certificateNumber}}</td>
+         </tr>
+         <tr>
+           <td colspan="2">现住址：{{ctrl.billDetails.address}}</td>
+         </tr>
+       </table>
+     </div>
+   </div>
+    <div class="bip-item-divider item-icon-right" style="margin-top: 5px;" ng-click="ctrl.billjlToggle()">
+      <div class="title">跟踪记录</div>
+      <i ng-hide="ctrl.billjl" class="icon ion-ios-arrow-up" style="font-size: 20px"></i>
+      <i ng-hide="!ctrl.billjl" class="icon ion-ios-arrow-down" style="font-size: 20px"></i>
+    </div>
+    <div class="list bipPsize" ng-hide="!ctrl.billjl">
+      <div class="item trackList" ng-repeat="billTrack in  ctrl.billTrackList">
+        <p>下次跟踪日期：{{billTrack.nextTraceDate | date:'yy/MM/dd'}}<span class="ml10">{{billTrack.customerLevel}}</span></p>
+        <div class="trackdetails">跟踪内容：{{billTrack.traceContext}}</div>
+        <p class="text-right">{{billTrack.currentTraceDate | date:'yy/MM/dd hh:mm'}}</p>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,124 @@
+<div id="exportPolicy" xmlns:x="http://www.w3.org/1999/xhtml">
+    <table id="targetTable" border="1">
+        <thead>
+        <!--<tr><th  colspan="10">北京博福易商科技有限公司</th></tr>-->
+        <tr align="center">
+            <th rowspan="2">序号</th>
+            <th rowspan="2">负责人</th>
+            <th rowspan="2">业务员</th>
+            <th rowspan="2">投保日期</th>
+            <th rowspan="2">投保类型</th>
+            <th rowspan="2">出单员</th>
+            <th rowspan="2">车牌号</th>
+            <th rowspan="2">车架号</th>
+            <th rowspan="2">发动机号</th>
+            <th rowspan="2">上牌日期</th>
+            <th rowspan="2">品牌</th>
+            <th rowspan="2">车辆型号</th>
+            <th rowspan="2">商业险保单号</th>
+            <th rowspan="2">商业险金额</th>
+            <th rowspan="2">车船税金额</th>
+            <th rowspan="2">续保渠道</th>
+            <th rowspan="2">本店投保次数</th>
+            <th rowspan="2">交强险保单号</th>
+            <th rowspan="2">交强险金额</th>
+            <th rowspan="2">手续费合计</th>
+            <th rowspan="2">付款方式</th>
+            <th rowspan="2">送单方式</th>
+            <th rowspan="2">利润</th>
+            <th rowspan="2">商业险日期开始</th>
+            <th rowspan="2">商业险日期结束</th>
+            <th rowspan="2">交强险日期开始</th>
+            <th rowspan="2">交强险日期结束</th>
+            <th rowspan="2">去年保费</th>
+            <th rowspan="2">去年商业险金额</th>
+            <th rowspan="2">去年交强险金额</th>
+            <th rowspan="2">去年车船税金额</th>
+            <th rowspan="2">开票名称</th>
+            <th rowspan="2">保险公司</th>
+            <th rowspan="2">保费合计</th>
+            <th rowspan="2">现金优惠</th>
+            <th rowspan="2">现金优惠点位</th>
+            <th rowspan="2">储值卡金额</th>
+            <th rowspan="2">储值卡金额点位</th>
+            <th rowspan="2">赠送金额</th>
+            <th rowspan="2">实收金额</th>
+            <th colspan={{insuranceAll.length}}>商业险险种</th>
+            <th rowspan="2">备注</th>
+            <th rowspan="2">收银员</th>
+            <th rowspan="2">招揽员</th>
+            <th rowspan="2">车主</th>
+            <th rowspan="2">被保险人</th>
+            <th rowspan="2">被保险人证件号</th>
+            <th rowspan="2">联系人</th>
+            <th rowspan="2">联系方式</th>
+            <th rowspan="2">客户来源</th>
+            <th rowspan="2">客户性质</th>
+            <th rowspan="2">现住址</th>
+            <th rowspan="2">是否贷款</th>
+        </tr>
+        <tr>
+            <th ng-repeat="x in insuranceAll">{{x.typeName}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr align="center" ng-repeat="exportPolicy in exportData">
+            <td>{{$index+1}}</td>
+            <td>{{exportPolicy.principal}}</td>
+            <td>{{exportPolicy.clerk}}</td>
+            <td>{{exportPolicy.insurDate|date:'yyyy-MM-dd'}}</td>
+            <td>{{exportPolicy.coverTypeName.coverTypeName}}</td>
+            <td>{{exportPolicy.insuranceWriter}}</td>
+            <td>{{exportPolicy.carLicenseNumber}}</td>
+            <td x:str="'{{exportPolicy.chassisNumber}}">{{exportPolicy.chassisNumber}}</td>
+            <td>{{exportPolicy.engineNumber}}</td>
+            <td>{{exportPolicy.registrationDate|date:'yyyy-MM-dd'}}</td>
+            <td>{{exportPolicy.carBrand}}</td>
+            <td>{{exportPolicy.vehicleModel}}</td>
+            <td x:str="'{{exportPolicy.binsuranceNumber}}">{{exportPolicy.binsuranceNumber}}</td>
+            <td>{{exportPolicy.binsuranceCoverage}}</td>
+            <td>{{exportPolicy.vehicleTax}}</td>
+            <td>{{exportPolicy.renewalWay}}</td>
+            <td>{{exportPolicy.insurNumber}}</td>
+            <td x:str="'{{exportPolicy.cinsuranceNumber}}">{{exportPolicy.cinsuranceNumber}}</td>
+            <td>{{exportPolicy.cinsuranceCoverage}}</td>
+            <td>{{exportPolicy.factorageCount}}</td>
+            <td>{{exportPolicy.payWay}}</td>
+            <td>{{exportPolicy.sdfs}}</td>
+            <td>{{exportPolicy.profit}}</td>
+            <td>{{exportPolicy.syxrqStart|date:'yyyy-MM-dd'}}</td>
+            <td>{{exportPolicy.syxrqEnd|date:'yyyy-MM-dd'}}</td>
+            <td>{{exportPolicy.jqxrqStart|date:'yyyy-MM-dd'}}</td>
+            <td>{{exportPolicy.jqxrqEnd|date:'yyyy-MM-dd'}}</td>
+            <td>{{exportPolicy.qnbe}}</td>
+            <td>{{exportPolicy.qnsyxje}}</td>
+            <td>{{exportPolicy.qnjqxje}}</td>
+            <td>{{exportPolicy.qnccsje}}</td>
+            <td>{{exportPolicy.invoiceName}}</td>
+            <td>{{exportPolicy.insuranceCompName}}</td>
+            <td>{{exportPolicy.premiumCount}}</td>
+            <td>{{exportPolicy.privilegeSum}}</td>
+            <td>{{exportPolicy.xjyhdw}}</td>
+            <td>{{exportPolicy.czkje}}</td>
+            <td>{{exportPolicy.czkjedw}}</td>
+            <td>{{exportPolicy.giftDiscount}}</td>
+            <td>{{exportPolicy.realPay}}</td>
+            <td ng-repeat="x in exportPolicy.insuranceList">
+                <span ng-if="x.checkState==true && x.coverage==null">√</span>
+                <span ng-if="x.checkState==true && x.coverage!=null">{{x.coverage}}</span>
+            </td>
+            <td>{{exportPolicy.remark}}</td>
+            <td>{{exportPolicy.cashier}}</td>
+            <td>{{exportPolicy.solicitMember}}</td>
+            <td>{{exportPolicy.carOwner}}</td>
+            <td>{{exportPolicy.insured}}</td>
+            <td x:str="'{{exportPolicy.certificateNumber}}">{{exportPolicy.certificateNumber}}</td>
+            <td>{{exportPolicy.contact}}</td>
+            <td x:str="'{{exportPolicy.contactWay|mapLXFS}}">{{exportPolicy.contactWay|mapLXFS}}</td>
+            <td>{{exportPolicy.customerSource}}</td>
+            <td>{{exportPolicy.customerCharacter}}</td>
+            <td>{{exportPolicy.address}}</td>
+            <td>{{exportPolicy.sfdkStr}}</td>
+        </tr></tbody>
+    </table>
+</div>

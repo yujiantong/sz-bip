@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="../images/chip.ico" type="image/x-icon">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <link rel="stylesheet" href="../styles/all.css">
+  <title>CHIP客户端下载</title>
+  <style>
+    body {
+      margin: 0;
+      background-image: url(../images/SPLoginBG.jpg);
+      background-position: center top;
+      background-repeat: no-repeat;
+      font-family: "Microsoft YaHei","微软雅黑";
+    }
+    .bf4sN_Title {
+      font-size: 15px;
+      height: 40px;
+      line-height: 40px;
+      text-indent: 15px;
+      border-bottom: 1px solid #ddd;
+      font-weight: 700;
+      background: #fff;
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .bf4sN_Title:before {
+      content: "";
+      width: 4px;
+      height: 25px;
+      background: #0d9bca;
+      position: absolute;
+      left: 0;
+      top: 8px;
+    }
+    #downloadApp .webRow {
+      padding: 10px 0 20px 20px;
+      font-size: 14px;
+    }
+    #downloadApp .dcontent {
+      float: left;
+      height: 260px;
+      width: 380px;
+      background-color: #f1f1f1;
+      padding: 10px;
+    }
+    #downloadApp .dcontent .dtitle {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    #downloadApp .dcontent .drow {
+      padding: 8px 0;
+      overflow: hidden;
+    }
+    #downloadApp .dcontent .drow div {
+      float: left;
+      width: 40%;
+    }
+    #downloadApp .dcontent .dsubtitle {
+      font-size: 14px;
+      font-weight: 700;
+      float: left;
+      width: 50%;
+      text-align: center;
+      padding-bottom: 8px;
+    }
+    #downloadApp .dcontent .imgcontent {
+      float: left;
+      width: 50%;
+      text-align: center;
+    }
+    #downloadApp .dcontent .imgcontent img {
+      width: 140px;
+    }
+    .tableContent {
+      height: 100%;
+      border-radius: 8px;
+      background-color: #fff;
+      border: 1px solid #cecece;
+      overflow: hidden;
+      overflow-y: auto;
+      padding: 0px 15px;;
+    }
+    #downloadApp{
+      height:480px;
+    }
+  </style>
+</head>
+<body>
+<div id="scmHeader" class="ng-scope">
+  <div class="CHLogo"></div>
+</div>
+<div id="scmContent">
+  <div class="tableContent">
+    <div id="downloadApp">
+      <div class="bf4s_content_fullWidth">
+        <div class="bf4sN_Title">客户端下载</div>
+        <div>
+          <!-- Android -->
+          <div class="dcontent">
+            <div class="dtitle">Android版</div>
+            <div class="drow">
+              <div>版本：1.10.2</div>
+              <div>大小：1.92MB</div>
+            </div>
+            <div class="dsubtitle">扫描二维码</div>
+            <div class="dsubtitle">直接下载</div>
+            <div>
+              <div class="imgcontent">
+                <img src="../images/chipApp.png" alt="">
+              </div>
+              <div class="imgcontent" style="padding-top:45px;">
+                <a href="../file/CHIP.v.1.10.0.apk"><img src="../images/download-Android.png" alt=""></a>
+
+              </div>
+            </div>
+          </div>
+          <!-- ios -->
+          <div style="margin-left:20px;" class="dcontent">
+            <div class="dtitle">iOS版</div>
+            <div class="drow">
+              <div>版本：1.10.4</div>
+              <div>大小：14.1MB</div>
+            </div>
+            <div class="dsubtitle" style="width:100%;">扫描二维码</div>
+            <div>
+              <div class="imgcontent" style="width:100%;">
+                <img src="../images/chipIOS.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="scmFooter" style="padding: 0px;"></div>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 建议都归属到bompd 的mongoDB中管理  2019-02-22  此文件无用 对应的数据库表（bf_bip_suggest） 也将无用-->
+<mapper namespace="com.bofide.bip.mapper.SuggestMapper">
+	<resultMap id="resultMap" type="com.bofide.bip.po.Suggest" >
+    	<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="userId" property="userId" jdbcType="INTEGER" />
+    	<result column="storeName" property="storeName" jdbcType="VARCHAR" />
+    	<result column="userRoleName" property="userRoleName" jdbcType="VARCHAR" />
+    	<result column="userName" property="userName" jdbcType="VARCHAR" />
+		<result column="userPhone" property="userPhone" jdbcType="VARCHAR" /> 
+ 		<result column="title" property="title" jdbcType="VARCHAR" />
+    	<result column="content" property="content" jdbcType="VARCHAR" />
+    	<result column="proposeTime" property="proposeTime" jdbcType="TIMESTAMP" />
+    	<result column="status" property="status" jdbcType="INTEGER" />
+    	<result column="customId" property="customId" jdbcType="INTEGER" />
+    	<result column="solveTime" property="solveTime" jdbcType="TIMESTAMP" />
+    	<result column="disContent" property="disContent" jdbcType="VARCHAR" />
+  	</resultMap>
+	
+	<!-- 根据ID查询建议 -->
+	<select id="selectSuggestById" resultMap="resultMap">
+		select * from bf_bip_suggest where id = #{id,jdbcType=INTEGER}
+	</select>
+	<!-- 查询有哪些店铺提了问题，只返回店铺名称 -->
+	<select id="selectAllStoreName" resultType="java.lang.String" parameterType="java.util.HashMap">
+		select distinct storeName from bf_bip_suggest
+	</select>
+ 	<!-- 查询建议 -->
+	<select id="selectAllSuggest" resultMap="resultMap">
+		select * from bf_bip_suggest where 1=1
+		<if test="status != null">
+			and status = #{status,jdbcType=INTEGER}
+		</if>
+		<if test="storeName != null and storeName != ''">
+			and storeName = #{storeName,jdbcType=VARCHAR}
+		</if>
+		<if test="userName != null and userName != ''">
+			and userName like '%${userName}%'
+		</if>
+		<!-- order by id desc -->
+  	    <!-- short代表按某字段排序，shortmain 1：升序，2：降序 -->
+  	    <if test="short==null and shortmain==null"> order by id desc</if>
+  	    <if test="short==29 and shortmain==1"> ORDER BY proposeTime ASC</if>
+  	    <if test="short==29 and shortmain==2"> ORDER BY proposeTime DESC</if>
+  	    <if test="short==30 and shortmain==1"> ORDER BY solveTime ASC</if>
+  	    <if test="short==30 and shortmain==2"> ORDER BY solveTime DESC</if>
+		LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	<!-- 查询建议的个数 -->
+	<select id="countAllSuggest" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		select count(*) from bf_bip_suggest where 1=1
+		<if test="status != null">
+			and status = #{status,jdbcType=INTEGER}
+		</if>
+		<if test="storeName != null and storeName != ''">
+			and storeName = #{storeName,jdbcType=VARCHAR}
+		</if>
+		<if test="userName != null and userName != ''">
+			and userName like '%${userName}%'
+		</if>  
+	</select>
+  	
+  	<!-- 修改处理状态 -->
+	<update id="updateSuggest" parameterType="com.bofide.bip.po.Suggest" >
+	    update bf_bip_suggest
+	   	  <trim prefix="SET" suffixOverrides=",">  
+	        <if test="status != null">  
+	            status = #{status,jdbcType=INTEGER},
+	        </if>
+	        <if test="customId != null">  
+	            customId = #{customId,jdbcType=INTEGER},
+	            solveTime = NOW(),
+	        </if>
+	        <if test="disContent != null">  
+	            disContent = #{disContent,jdbcType=VARCHAR},
+	        </if>
+	      </trim>  
+	    where
+	     	id = #{id,jdbcType=INTEGER}
+  	</update>
+  
+  <insert id="insertSuggest" useGeneratedKeys="true" keyProperty="id" parameterType="com.bofide.bip.po.Suggest" >
+    insert into bf_bip_suggest 
+    	(userId, storeName, userRoleName, userName, userPhone, title, 
+    	content, proposeTime)
+    values 
+    	(#{userId,jdbcType=INTEGER}, #{storeName,jdbcType=VARCHAR},#{userRoleName,jdbcType=VARCHAR},
+    	#{userName,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
+    	#{content,jdbcType=VARCHAR}, NOW())
+  </insert>
+   <!-- 查询建议 -->
+	<select id="findAllSuggestByUserId" resultMap="resultMap">
+		select * from bf_bip_suggest where 
+		<if test="userId != null" >
+			userId = #{userId,jdbcType=INTEGER}
+		</if>
+		<if test="title != null and title != ''">
+			and title like '%${title}%'
+		</if>
+		<if test="status != null and status != ''">
+			and status = #{status,jdbcType=INTEGER}
+		</if>
+		<if test="proposeTimeStart != ''">
+			<![CDATA[and date_format(proposeTime, '%Y-%m-%d') >= #{proposeTimeStart}]]>
+		</if>
+		<if test="proposeTimeEnd != '' ">
+			<![CDATA[and date_format(proposeTime, '%Y-%m-%d') <= #{proposeTimeEnd}]]>
+		</if>
+		<if test="solveTimeStart !=''">
+			<![CDATA[and date_format(solveTime, '%Y-%m-%d') >= #{solveTimeStart}]]>
+		</if>
+		<if test="solveTimeEnd != ''">
+			<![CDATA[and date_format(solveTime, '%Y-%m-%d') <= #{solveTimeEnd}]]>
+		</if>
+		ORDER BY id desc LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER} 
+	</select>
+	
+	
+	<!-- 查询上一个查询的记录数 -->
+	<select id="findAllSuggestByUserIdCount" resultType="Integer">
+		select count(*) from bf_bip_suggest where 
+		<if test="userId != null" >
+			userId = #{userId,jdbcType=INTEGER}
+		</if>
+		<if test="status != null and status != ''">
+			and status = #{status,jdbcType=INTEGER}
+		</if>
+		<if test="proposeTimeStart != ''">
+			<![CDATA[and date_format(proposeTime, '%Y-%m-%d') >= #{proposeTimeStart}]]>
+		</if>
+		<if test="proposeTimeEnd != ''">
+			<![CDATA[and date_format(proposeTime, '%Y-%m-%d') <= #{proposeTimeEnd}]]>
+		</if>
+		<if test="solveTimeStart !=''">
+			<![CDATA[and date_format(solveTime, '%Y-%m-%d') >= #{solveTimeStart}]]>
+		</if>
+		<if test="solveTimeEnd != ''">
+			<![CDATA[and date_format(solveTime, '%Y-%m-%d') <= #{solveTimeEnd}]]>
+		</if>
+	</select>
+</mapper>

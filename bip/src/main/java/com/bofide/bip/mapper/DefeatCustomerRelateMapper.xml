@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.DefeatCustomerRelateMapper" >
+	<select id="findExistRelate" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		SELECT count(*)
+		FROM bf_bip_defeat_customer_relate c 
+		WHERE c.contactWay = #{contactWay}
+		<if test="bsp_storeId != null" >AND c.bsp_storeId = #{bsp_storeId}</if>
+		<if test="bip_storeId != null" >AND c.bip_storeId = #{bip_storeId}</if>
+		<if test="storeId != null" >AND c.storeId = #{storeId}</if>
+	</select>
+	
+	<insert id="saveDefeatCustomerRelate" parameterType="java.util.HashMap">
+		insert into bf_bip_defeat_customer_relate 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="bsp_storeId != null" >bsp_storeId,</if>
+			<if test="bip_storeId != null" >bip_storeId,</if>
+			<if test="contactWay != null" >contactWay,</if>
+			<if test="defeated != null" >defeated,</if>
+			<if test="deleted != null" >deleted,</if>
+			<if test="userId != null" >userId,</if>
+			<if test="storeId != null" >storeId,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="bsp_storeId != null" >#{bsp_storeId},</if>
+			<if test="bip_storeId != null" >#{bip_storeId},</if>
+			<if test="contactWay != null" >#{contactWay},</if>
+			<if test="defeated != null" >#{defeated},</if>
+			<if test="deleted != null" >#{deleted},</if>
+			<if test="userId != null" >#{userId},</if>
+			<if test="storeId != null" >#{storeId},</if>
+		</trim>
+	</insert>
+
+	<update id="updateDefeatedRelateState" parameterType="java.util.Map">
+		update bf_bip_defeat_customer_relate
+		<set>
+			<if test="defeated != null">defeated = #{defeated},</if>
+			<if test="deleted != null">deleted = #{deleted},</if>
+			<if test="userId != null">userId = #{userId},</if>
+		</set>
+		WHERE contactWay = #{contactWay}
+		<if test="storeId != null" >AND storeId = #{storeId}</if>
+	</update>
+</mapper>

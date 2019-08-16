@@ -1,0 +1,65 @@
+<ion-view ng-init="ctrl.findCustomerDetailsByCustomerId()">
+  <ion-nav-title>
+    {{ctrl.customerDetails.contact}} 潜客信息
+  </ion-nav-title>
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios-arrow-left fcf" ui-sref="sleepList({userId:ctrl.userId,userName:ctrl.userName,returnStatu:3})"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="bip-item-divider">
+      <div class="title">客户信息</div>
+    </div>
+    <div class="row fs12">
+      <div class="col col-50">联系人姓名：{{ctrl.customerDetails.contact}}</div>
+      <div class="col col-50"><span class="ml10">{{ctrl.customerDetails.contactWay}}</span><span class="ml10">{{ctrl.customerDetails.customerLevel}}</span></div>
+    </div>
+    <div class="bip-item-divider">
+      <div class="title">车辆信息</div>
+    </div>
+    <div class="row fs12">
+      <div class="col col-50">车牌号：{{ctrl.customerDetails.carLicenseNumber}}</div>
+      <div class="col col-50">车架号：{{ctrl.customerDetails.chassisNumber|limitTo:-6}}</div>
+    </div>
+    <div class="row fs12">
+      <div class="col col-50">车型号：{{ctrl.customerDetails.vehicleModel}}</div>
+      <div class="col col-50">上牌日期：{{ctrl.customerDetails.registrationDate | date:'yy/MM/dd' }}</div>
+    </div>
+    <div class="bip-item-divider item-icon-right" ng-click="ctrl.insuranceStatus = !ctrl.insuranceStatus">
+      <div class="title">保险信息</div>
+      <i ng-hide="ctrl.insuranceStatus" class="icon ion-ios-arrow-up" style="font-size: 20px"></i>
+      <i ng-hide="!ctrl.insuranceStatus" class="icon ion-ios-arrow-down" style="font-size: 20px"></i>
+    </div>
+    <div class="row fs12">
+      <div class="col col-50">交强险到期日：{{ctrl.customerDetails.jqxrqEnd | date:'yy/MM/dd'}}</div>
+      <div class="col col-50">商业险到期日：{{ctrl.customerDetails.syxrqEnd | date:'yy/MM/dd'}}</div>
+    </div>
+    <div class="row fs12">
+      <div class="col col-50">去年保费：{{ctrl.customerDetails.insuranceCoverageLY}}元</div>
+    </div>
+    <div class="row fs12" ng-hide="!ctrl.insuranceStatus">
+      <div class="col">去年投保险种：{{ctrl.customerDetails.insuranceTypeLY}}</div>
+    </div>
+    <div class="row fs12" ng-hide="!ctrl.insuranceStatus">
+      <div class="col">备注：{{ctrl.customerDetails.remark}}</div>
+    </div>
+    <div class="bip-item-divider">
+      <div class="title">近5次跟踪记录 <span class="fr fcgreen padding-right" ui-sref="sleepRecord({userId:ctrl.userId,userName:ctrl.userName,customerId:ctrl.customerDetails.customerId,contact:ctrl.customerDetails.contact})">查看全部</span></div>
+    </div>
+    <div class="list bipPsize">
+      <div class="item item-icon-right trackList" ng-repeat="customerTraceRecode in  ctrl.customerTraceRecodes| limitTo: 5" ng-click="customerTraceRecode.hideStatus = !customerTraceRecode.hideStatus">
+        <p>{{customerTraceRecode.currentTraceDate | date:'yy/MM/dd hh:mm';}}</p>
+        <p  ng-hide="customerTraceRecode.hideStatus">跟踪内容：{{customerTraceRecode.traceContext}}</p>
+        <i  ng-hide="customerTraceRecode.hideStatus" class="icon ion-ios-arrow-up" style="font-size: 20px"></i>
+        <div ng-hide="!customerTraceRecode.hideStatus" class="trackdetails">跟踪内容：{{customerTraceRecode.traceContext}}</div>
+        <i ng-hide="!customerTraceRecode.hideStatus" class="icon ion-ios-arrow-down" style="font-size: 20px"></i>
+      </div>
+      <div class="text-center mt20" ng-if="ctrl.customerTraceRecodes.length==0">暂无记录</div>
+    </div>
+  </ion-content>
+  <ion-footer-bar ng-show="ctrl.user.role.roleId==3" align-title="center" class="dark-border">
+    <div class="button-bar">
+      <button class="button button-bip" ng-click="ctrl.AgreetraceReturn(3)">同意睡眠</button>
+      <button class="button button-bip" ng-click="ctrl.unAgreeTraceReturn(3)">拒绝睡眠</button>
+    </div>
+  </ion-footer-bar>
+</ion-view>

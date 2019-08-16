@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bofide.bip.mapper.MaintenancePartMapper">
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.MaintenancePart" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="storeId" property="storeId" jdbcType="INTEGER" />
+    	<result column="maintainNumber" property="maintainNumber" jdbcType="VARCHAR" />
+    	<result column="partName" property="partName" jdbcType="VARCHAR" />
+    	<result column="unit" property="unit" jdbcType="VARCHAR" />
+    	<result column="amount" property="amount" jdbcType="INTEGER" />
+    	<result column="unitPrice" property="unitPrice" jdbcType="DOUBLE" />
+    	<result column="totalAmount" property="totalAmount" jdbcType="DOUBLE" />
+    	<result column="remark" property="remark" jdbcType="VARCHAR" />
+    	<result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="insert"  parameterType="java.util.Map" >
+		insert into bf_bip_maintenance_part (
+			storeId, maintainNumber, partName, unit, amount, unitPrice, totalAmount,remark,createTime
+		) values (
+			#{storeId},#{maintainNumber},#{partName},#{unit},#{amount},#{unitPrice},#{totalAmount},#{remark},now()
+		)
+	</insert>
+	<!--  根据施工单号和配件名称查询维修配件记录 -->
+	<select id="findByMaintenanceNumAndPart"  parameterType="java.util.Map" resultMap="BaseResultMap">
+		select * from bf_bip_maintenance_part 
+		where storeId=#{storeId} and maintainNumber =#{maintainNumber} and partName = #{partName}
+	</select>
+	<!-- 根据施工单号和店ID查询维修配件 -->
+	<select id="findByMaintainNumber"  parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			NULL AS id,
+			NULL AS storeId,
+			NULL AS maintainNumber,
+			'合计' AS partName,
+			NULL AS unit,
+			NULL AS amount,
+			NULL AS unitPrice,
+			sum(totalAmount) AS totalAmount,
+			NULL AS remark,
+			NULL AS createTime
+		FROM
+			bf_bip_maintenance_part
+		WHERE
+			storeId = #{storeId}
+		AND maintainNumber = #{maintainNumber}
+		UNION ALL
+		select * from bf_bip_maintenance_part where storeId=#{storeId} and maintainNumber =#{maintainNumber}
+	</select>
+	
+</mapper>

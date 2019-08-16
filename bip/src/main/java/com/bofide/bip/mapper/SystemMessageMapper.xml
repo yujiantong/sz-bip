@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bofide.bip.mapper.SystemMessageMapper">
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.SystemMessage" >
+    	<id column="sysMessageId" property="sysMessageId" jdbcType="INTEGER" />
+    	<result column="content" property="content" jdbcType="VARCHAR" />
+    	<result column="messageDate" property="messageDate" jdbcType="TIMESTAMP" />
+    	<result column="fourStoreId" property="fourStoreId" jdbcType="INTEGER" />
+  	</resultMap>
+	<select id="selectMessage" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		<![CDATA[select 
+			*
+		from bf_bip_systemMessage
+		where
+		DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= date(messageDate)]]>
+		<if test="roleId==2 || roleId==3 || roleId==11">
+		    and (fourStoreId=#{storeId,jdbcType=INTEGER} or fourStoreId is Null)
+		</if>
+		<if test="roleId!=2 and roleId!=3 and roleId!=11">
+		    and fourStoreId is Null
+		</if>
+		order by messageDate desc
+	</select>
+	<select id="selectMessageCount" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from bf_bip_systemMessage 
+		<where>
+			<if test="sysMessageId != null and sysMessageId != ''">
+				sysMessageId > #{sysMessageId,jdbcType=INTEGER} 
+			</if>	
+			<![CDATA[and DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= date(messageDate)]]>
+			<if test="roleId==2 || roleId==3 || roleId==11">
+			    and (fourStoreId=#{storeId,jdbcType=INTEGER} or fourStoreId is Null)
+			</if>
+			<if test="roleId!=2 and roleId!=3 and roleId!=11">
+			    and fourStoreId is Null
+			</if>
+		</where>	
+	</select>
+	<select id="findSystemMessageTime" parameterType="Integer" resultType="Integer">
+		select 
+			count(*)
+		from bf_bip_systemMessage 
+		<where>
+		    <if test="storeId != null and storeId != ''">
+		         fourStoreId=#{storeId,jdbcType=INTEGER}
+		    </if>
+		    <if test="content != null and content != ''">
+			     and content=#{content,jdbcType=VARCHAR}
+		    </if>
+			<![CDATA[and DATE_SUB(CURDATE(), INTERVAL 20 DAY) <= date(messageDate)]]>
+		</where>	
+	</select>
+	<select id="findSystemMessageTimeFifty" parameterType="Integer" resultType="Integer">
+		select 
+			count(*)
+		from bf_bip_systemMessage 
+		<where>
+		    <if test="storeId != null and storeId != ''">
+		         fourStoreId=#{storeId,jdbcType=INTEGER}
+		    </if>
+		    <if test="content != null and content != ''">
+			     and content=#{content,jdbcType=VARCHAR}
+		    </if>
+			<![CDATA[and DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= date(messageDate)]]>
+		</where>	
+	</select>
+  	<insert id="insert" useGeneratedKeys="true" keyProperty="sysMessageId" parameterType="com.bofide.bip.po.SystemMessage" >
+    	insert into bf_bip_systemMessage 
+    	(content, messageDate, fourStoreId)
+      values 
+    	(#{content,jdbcType=VARCHAR}, #{messageDate,jdbcType=TIMESTAMP}, #{fourStoreId,jdbcType=VARCHAR})
+    </insert>
+  
+  <delete id="deleteMessage" parameterType="java.lang.Integer" >
+    delete from bf_bip_systemMessage
+    where sysMessageId = #{sysMessageId,jdbcType=INTEGER}
+  </delete>
+</mapper>

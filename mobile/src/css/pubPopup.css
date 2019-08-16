@@ -1,0 +1,128 @@
+/*.tWindow {*/
+  /*position: absolute;
+  width: 16em;
+  left: 50%;
+  top: 50%;
+  margin-left: -8em;
+  margin-top: -5em;
+  border-radius: 1em;
+  background-color: #fff;
+  box-shadow: 0 5px 10px rgba(0,0,0,.3);*/
+/*}*/
+
+.popup-container .popup{
+  border-radius: 1em;
+}
+
+.ion-datetime-picker{
+  width: 240px;
+}
+.tWindowTitle{
+  padding: 8px 10px;
+  border-bottom: 1px solid #dedede;
+  text-align: center;
+}
+.tWindowContents {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 1em 1em 0 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  min-height: 100px;
+}
+
+.tWindowBottoms {
+  width: 100%;
+  height: 2.5em;
+  bottom: 0;
+  position: relative;
+  line-height: 2.5em;
+  border-radius: 0 0 1em 1em;
+}
+
+.tWindowLine {
+  position: absolute;
+  width: 96%;
+  height: 1px;
+  /*height: 0.5px;*/
+  left: 2%;
+  background: rgba(0,0,0,.1);
+}
+
+.tWindowText {
+  display: -ms-flex;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  /*height: 100%;*/
+}
+
+.tWindowT {
+  line-height: 2em;
+}
+
+.hotlink {
+  color: #11c1f3;
+  cursor: pointer;
+}
+
+.hotlink:active {
+  background: rgba(0,0,0,.1);
+}
+
+.warningLink {
+  color: #ff2919;
+  cursor: pointer;
+  border-right: 1px solid rgba(0,0,0,.1);
+}
+
+.textDiv {
+  position: absolute;
+  width: 100%;
+  height: 5em;
+  bottom: 1em;
+}
+
+.tWindowBottoms .row.row-no-padding{
+  border-radius: 0 0 1em 1em;
+}
+
+.tWindowBottoms .row.row-no-padding .col:first-of-type{
+  border-bottom-left-radius: 1em;
+}
+
+.tWindowBottoms .row.row-no-padding .col:last-of-type{
+  border-bottom-right-radius: 1em;
+}
+
+.popup-container.ion-datetime-picker-popup.popup-showing .popup{
+  min-height: 320px;
+}
+
+.popup-container.ion-datetime-picker-popup.popup-showing .popup .tWindowContents{
+  padding: 1em 0 6px 0;
+}
+.popup-container input, .popup-container textarea.result-box{
+  width: 220px;
+  height: 70px;
+  padding: 5px;
+}
+.popup-container .principal-select{
+  width: 100%;
+  height: 24px;
+  line-height: 24px;
+  margin-bottom: 5px;
+  border-color: #dedede;
+}

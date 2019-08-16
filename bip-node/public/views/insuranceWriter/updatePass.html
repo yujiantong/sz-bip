@@ -1,0 +1,47 @@
+<div id="updatePass" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 275px; width: 350px; margin-left: -175px; margin-top: -130px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">保险密码更新</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget">
+            <div class="carmsg">
+                <table class="adduser-table" style="text-align: right;">
+                    <tr>
+                        <td width="120">保险公司：</td>
+                        <td>
+                            <select ng-model="newPassRecord.insuranceComp" style="float: left;"
+                                    ng-options="x as x.insuranceCompName for x in insuranceCompNames">
+                                <option value="">请选择</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>用户名：</td>
+                        <td><input type="text" name="loginName"  ng-model="newPassRecord.userName"
+                                   placeholder="请输入用户名" maxlength="40">
+                        </td>
+                    </tr>
+                    <tr ng-if="bhDock==1">
+                        <td>原密码：</td>
+                        <td><input type="text" ng-model="newPassRecord.oldPassword"  placeholder="请输入原密码"  maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td>新密码：</td>
+                        <td><input type="text" ng-model="newPassRecord.newPassword" placeholder="请输入新密码"  maxlength="40"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="addPassRecord()" type="button" value="更新">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".close_confirmPage").click(function(){
+        $("#updatePass").hide();
+    });
+</script>

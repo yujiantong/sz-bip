@@ -1,0 +1,151 @@
+<div class="scmContentTitle" ng-mouseleave="bipNavhide()">
+    <ul id="myTab" class="cartype nav nav-tabs"  style="border-bottom: none;">
+        <li href="#xzwh" data-toggle="tab" id="xzwh_li" ng-click="insurancebtn()" ng-show="user.role.roleId==18">
+            险种维护
+        </li>
+        <li  data-toggle="tab" href="#bxgs" ng-click="insuranceCompbtn()" ng-show="user.role.roleId==18">
+            保险公司
+        </li>
+        <li  data-toggle="tab" href="#cjia" ng-click="factoryBtn()" ng-show="user.role.roleId==18">
+            厂家
+        </li>
+        <li data-toggle="tab" href="#pinp" ng-click="carBrandbtn()" ng-show="user.role.roleId==18">
+            品牌
+        </li>
+        <li data-toggle="tab" href="#carwh" ng-click="cartypebtn()" ng-show="user.role.roleId==18">
+            车型维护
+        </li>
+        <li data-toggle="tab" href="#jianjt" id="jituan" ng-click="findBlocByCondition()" ng-show="user.role.roleId==17">
+            建集团
+        </li>
+        <li data-toggle="tab" href="#jiand" id="jiand_li" ng-click="storebtn('jiand')" ng-show="user.role.roleId==17">
+            建店
+        </li>
+        <li data-toggle="tab" href="#xtyh" id="xtyh_li" ng-click="findUser()" ng-show="user.role.roleId==15">
+            系统用户
+        </li>
+        <li data-toggle="tab" href="#system" ng-click="systembtn()" ng-show="user.role.roleId==18">
+            系统通知
+        </li>
+        <li data-toggle="tab" href="#suggest" ng-click="suggestbtn()" ng-show="user.role.roleId==18">
+            建议
+        </li>
+        <li data-toggle="tab" href="#xtyh" id="xtyh_xz_li" ng-click="findUser_xzjd('xtyh')" ng-show="user.role.roleId==17">
+            系统用户
+        </li>
+        <li data-toggle="tab" href="#pzd" id="xtyh_xz_pzd" ng-click="findUser_xzjd_store()" ng-show="user.role.roleId==17">
+            配置店
+        </li>
+    </ul>
+    <div class="biptooltap" ng-show="user.role.roleId==17 && pageType == 'jiand'">
+        <span class="glyphicon glyphicon-th-list" ng-click="bipNavshow()"></span>
+        <ul id="bipNav">
+            <li ng-click="exportToExcel('#exportStore')">
+                <span class="glyphicon glyphicon-share"></span> 导出店信息
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="myTabContent" class="tab-content" style="padding: 10px 14px;height: 100%">
+    <div class="tab-pane fade"  id="xzwh"  style="height:97%;padding-bottom: 3%;">
+        <div ui-grid="insuranceAll" ng-style="gridbox" class="gridbox" ui-grid-selection ui-grid-pinning  ui-grid-resize-columns></div>
+    </div>
+    <div class="tab-pane fade" id="bxgs"  style="height:97%;padding-bottom: 3%;">
+        <div ui-grid="insuranceCompAll" ng-style="gridbox" class="gridbox" ui-grid-selection ui-grid-pinning  ui-grid-resize-columns></div>
+    </div>
+    <div class="tab-pane fade" id="cjia"  style="height:97%;padding-bottom: 3%;">
+        <div class="condition-search">
+             <span style="display: inline-block">
+                <label>厂家：</label><input  ng-model="cjSearch.venderName" style="width: 150px;">
+            </span>
+            <span style="display: inline-block">
+                <label>厂家英文：</label><input  ng-model="cjSearch.venderEnglish" style="width: 150px;">
+            </span>
+            <button type="button" ng-click="factoryBtn()">查询</button>
+            <button type="button" ng-click="clearSearch()">清空</button>
+        </div>
+        <div ui-grid="factoryAll" ng-style="gridboxCjia" class="gridbox" ui-grid-selection ui-grid-pinning  ui-grid-resize-columns></div>
+    </div>
+    <div class="tab-pane fade" id="pinp" style="height:97%;padding-bottom: 3%;">
+        <div class="condition-search">
+             <span style="display: inline-block">
+                <label>厂家：</label><input  ng-model="ppSearch.venderName" style="width: 150px;">
+            </span>
+            <span style="display: inline-block">
+                <label>厂家英文：</label><input  ng-model="ppSearch.venderEnglish" style="width: 150px;">
+            </span>
+            <span style="display: inline-block">
+                <label>品牌：</label><input  ng-model="ppSearch.brandName" style="width: 150px;">
+            </span>
+            <span style="display: inline-block">
+                <label>品牌英文：</label><input  ng-model="ppSearch.brandEnglish" style="width: 150px;">
+            </span>
+            <button type="button" ng-click="carBrandbtn()">查询</button>
+            <button type="button" ng-click="clearSearch()">清空</button>
+        </div>
+        <div ui-grid="carBrandAll" ng-style="gridboxCjia" class="gridbox" ui-grid-selection ui-grid-pinning  ui-grid-resize-columns></div>
+    </div>
+    <div class="tab-pane fade" id="carwh" style="height:97%;padding-bottom: 3%;">
+        <div ui-grid="cartypeAll" ng-style="gridbox" class="gridbox" ui-grid-selection ui-grid-pinning  ui-grid-resize-columns></div>
+    </div>
+    <div class="tab-pane fade" id="jianjt" style="height:97%;padding-bottom: 3%;">
+        <div class="condition-search">
+             <span style="display: inline-block">
+                <label>集团名称：</label><input  ng-model="jtSearch.jtName" style="width: 200px;">
+            </span>
+            <button type="button" ng-click="findBlocByCondition()">查询</button>
+            <button type="button" ng-click="clearBloc()">清空</button>
+        </div>
+        <div ui-grid="blocAll" ng-style="gridboxCjia" class="gridbox" ui-grid-selection ui-grid-pinning  ui-grid-resize-columns></div>
+    </div>
+    <div class="tab-pane fade" id="jiand" style="height:97%;padding-bottom: 3%;">
+        <div class="condition-search">
+             <span style="display: inline-block">
+                <label>集团：</label><input  ng-model="storeSearch.jtName" style="width: 150px;">
+            </span>
+            <span style="display: inline-block">
+                <label>店名：</label><input  ng-model="storeSearch.storeName" style="width: 150px;">
+            </span>
+            <button type="button" ng-click="storebtn('jiand')">查询</button>
+            <button type="button" ng-click="clearSearch()">清空</button>
+        </div>
+        <div ui-grid="storeAll" ng-style="gridboxCjia" class="gridbox" ui-grid-selection ui-grid-pinning  ui-grid-resize-columns></div>
+    </div>
+    <div class="tab-pane fade" id="xtyh" style="height:97%;padding-bottom: 3%;">
+        <div ui-grid="userOptions"  ng-style="gridbox" class="gridbox" ui-grid-selection ui-grid-pinning  ui-grid-resize-columns></div>
+    </div>
+    <div class="tab-pane fade" id="pzd" style="height:97%;padding-bottom: 3%;">
+        <div ui-grid="userAndStoreOptions"  ng-style="gridbox" class="gridbox" ui-grid-selection ui-grid-pinning  ui-grid-resize-columns></div>
+    </div>
+    <div class="tab-pane fade" id="system" style="height:97%;padding-bottom: 3%;">
+        <div ui-grid="systemAll" ng-style="gridbox" class="gridbox" ui-grid-selection ui-grid-pinning  ui-grid-resize-columns></div>
+    </div>
+    <div class="tab-pane fade" id="suggest">
+        <div id="searchDiv">
+            <div id="searchDivTr">
+                    <span style="display: inline-block">
+                    <label>店名：</label>
+                    <select ng-model="search.storeName" style="width: 100px"
+                            ng-options="storeNames.storeName as storeNames.storeName for (key,storeNames) in storeNames">
+                        <option value="">请选择店名</option>
+                    </select>
+                    <label>&nbsp&nbsp处理状态：</label>
+                    <select ng-model="search.num" style="width: 120px"
+                            ng-options="selectStatus.num as selectStatus.name for (key,selectStatus) in selectStatus">
+                        <option value="">请选择处理状态</option>
+                    </select>
+                    <label>&nbsp&nbsp反馈人：</label>
+                        <input type="text" style="width:80px;"  ng-model="search.userName" >
+                    </span>
+                <button id="submitBtn" type="button"  ng-click="findByCondition()">查询</button>
+                <button id="emptyBtn" type="button" ng-click="cleanForm()">清空</button>
+            </div>
+            <div style="height:97%;padding-bottom: 3%;">
+                <div ui-grid="suggestAllPage" ng-style="gridboxJy" class="gridbox"  ui-grid-pinning  ui-grid-resize-columns ui-grid-selection ui-grid-infinite-scroll ui-grid-auto-resize></div>
+                <div class="gridbox-footer" ng-if="loadStatus==0"  ng-click="searchMore()">加载更多</div>
+                <div class="gridbox-footernone" ng-if="loadStatus==1" >正在加载中...</div>
+                <div class="gridbox-footernone" ng-if="loadStatus==2" >全部加载完成</div>
+            </div>
+        </div>
+    </div>
+</div>

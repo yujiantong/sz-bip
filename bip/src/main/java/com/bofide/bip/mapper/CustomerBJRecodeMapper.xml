@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.CustomerBJRecodeMapper" >
+  <resultMap id="BaseResultMap" type="com.bofide.bip.po.CustomerBJRecode" >
+    <id column="bjId" property="bjId" jdbcType="INTEGER" />
+    <result column="customerId" property="customerId" jdbcType="INTEGER" />
+    <result column="dcbjrq" property="dcbjrq" jdbcType="TIMESTAMP" />
+    <result column="bxgs" property="bxgs" jdbcType="VARCHAR" />
+    <result column="xz" property="xz" jdbcType="VARCHAR" />
+    <result column="syxje" property="syxje" jdbcType="FLOAT" />
+    <result column="jqxje" property="jqxje" jdbcType="FLOAT" />
+    <result column="ccsje" property="ccsje" jdbcType="FLOAT" />
+    <result column="bfhj" property="bfhj" jdbcType="FLOAT" />
+    <result column="shijize" property="shijize" jdbcType="FLOAT" />
+    <result column="jncdzk" property="jncdzk" jdbcType="FLOAT" />
+    <result column="cxcs" property="cxcs" jdbcType="INTEGER" />
+    <result column="lpje" property="lpje" jdbcType="FLOAT" />
+    <result column="bjr" property="bjr" jdbcType="VARCHAR" />
+    <result column="bjrId" property="storeId" jdbcType="INTEGER" />
+    <result column="storeId" property="storeId" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="rateFactor1" property="rateFactor1" jdbcType="FLOAT" />
+    <result column="rateFactor2" property="rateFactor2" jdbcType="FLOAT" />
+    <result column="rateFactor3" property="rateFactor3" jdbcType="FLOAT" />
+    <result column="rateFactor4" property="rateFactor4" jdbcType="FLOAT" />
+    <result column="quoteResult" property="quoteResult" jdbcType="VARCHAR" />
+    <result column="quoteStatus" property="quoteStatus" jdbcType="INTEGER" />
+    <result column="source" property="source" jdbcType="INTEGER" />
+    <result column="bjfs" property="bjfs" jdbcType="INTEGER" />
+    <result column="yhje" property="yhje" jdbcType="FLOAT" />
+    <result column="standardPremium" property="standardPremium" jdbcType="FLOAT" />
+    <result column="shopZheKou" property="shopZheKou" jdbcType="FLOAT" />
+    <collection property="underWriting" ofType="com.bofide.bip.po.UnderWriting" column="underWriting">
+		<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="source" property="Source" jdbcType="INTEGER" />
+    	<result column="submitStatus" property="SubmitStatus" jdbcType="INTEGER" />
+    	<result column="submitResult" property="SubmitResult" jdbcType="DOUBLE" />
+    	<result column="bizNo" property="BizNo" jdbcType="DOUBLE" />
+    	<result column="fourceNo" property="FourceNo" jdbcType="VARCHAR" />
+    	<result column="bipRate" property="BipRate" jdbcType="DOUBLE" />
+    	<result column="forceRate" property="ForceRate" jdbcType="DOUBLE" />
+    	<result column="storeId" property="storeId" jdbcType="INTEGER" />
+    	<result column="customerId" property="customerId" jdbcType="INTEGER" />
+    	<result column="bjId" property="bjId" jdbcType="INTEGER" />
+	</collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bjId, customerId, dcbjrq, bxgs, xz, syxje, jqxje, ccsje, bfhj, jncdzk, cxcs, lpje, 
+    bjr,bjrId,storeId,remark,rateFactor1,rateFactor2,rateFactor3,rateFactor4,quoteResult,
+    quoteStatus,source,bjfs,yhje,shijize
+  </sql>
+  
+  <select id="findListCustomerBJRecode" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    *
+    from bf_bip_customer_bj_recode a LEFT JOIN bf_bip_underwriting b ON a.bjId=b.bjId
+    where a.customerId = #{customerId,jdbcType=INTEGER} order by a.dcbjrq DESC
+  </select>
+
+	<insert id="insertCustomerBJRecode" useGeneratedKeys="true" keyProperty="bjId" parameterType="com.bofide.bip.po.CustomerBJRecode" >
+    insert into bf_bip_customer_bj_recode (customerId, dcbjrq, 
+      bxgs, xz, syxje, jqxje, 
+      ccsje, bfhj, jncdzk, cxcs, 
+      lpje, bjr,bjrId,storeId,remark,rateFactor1,rateFactor2,rateFactor3,rateFactor4,quoteResult,
+    quoteStatus,source,bjfs,yhje,shijize,standardPremium,shopZheKou)
+    values (#{customerId,jdbcType=INTEGER}, #{dcbjrq,jdbcType=TIMESTAMP}, 
+      #{bxgs,jdbcType=VARCHAR}, #{xz,jdbcType=VARCHAR}, #{syxje,jdbcType=FLOAT}, #{jqxje,jdbcType=FLOAT}, 
+      #{ccsje,jdbcType=FLOAT}, #{bfhj,jdbcType=FLOAT}, #{jncdzk,jdbcType=FLOAT}, #{cxcs,jdbcType=INTEGER}, 
+      #{lpje,jdbcType=FLOAT}, #{bjr,jdbcType=VARCHAR}, #{bjrId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER},
+      #{remark},#{rateFactor1,jdbcType=FLOAT},#{rateFactor2,jdbcType=FLOAT},#{rateFactor3,jdbcType=FLOAT},
+      #{rateFactor4,jdbcType=FLOAT},#{quoteResult,jdbcType=VARCHAR},#{quoteStatus,jdbcType=INTEGER},
+      #{source,jdbcType=INTEGER},#{bjfs,jdbcType=INTEGER},#{yhje,jdbcType=FLOAT},#{shijize,jdbcType=FLOAT},
+      #{standardPremium,jdbcType=FLOAT},#{shopZheKou,jdbcType=FLOAT})
+  </insert>
+	
+	<delete id="deleteCustomerBJRecodeById" parameterType="java.lang.Integer">
+		delete from bf_bip_customer_bj_recode where bjId = #{bjId}
+	</delete>
+	
+	<delete id="deleteCustomerBJRecodeByCustomerId" parameterType="java.lang.Integer">
+		delete from bf_bip_customer_bj_recode where customerId = #{customerId}
+	</delete>
+	
+	<delete id="deleteByStoreId" parameterType="java.lang.Integer">
+		DELETE
+		FROM
+			bf_bip_customer_bj_recode
+		WHERE
+			storeId = #{storeId}
+	</delete>
+	<!-- 根据customerId和dcbjrq查询报价信息 -->
+	<select id="findBJListByCustomerId" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    	SELECT
+			t.*
+		FROM
+			(
+				SELECT
+					*
+				FROM
+					bf_bip_customer_bj_recode
+				WHERE
+					customerId = #{customerId}
+					AND date_format(dcbjrq, '%Y-%m-%d') >= #{time}
+				ORDER BY dcbjrq DESC
+			) t
+		GROUP BY t.bxgs
+  	</select>
+</mapper>

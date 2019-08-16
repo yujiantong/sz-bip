@@ -1,0 +1,144 @@
+<ion-view view-title="我的主页" hide-back-button="false">
+  <ion-nav-buttons side="left">
+    <img ng-if="ctrl.storeLogo==1||ctrl.storeLogo==null" class="titleImg" src="img/LOGO-WHITE.png">
+    <img ng-if="ctrl.storeLogo==2" class="titleImg" src="img/chipLOGO-WHITE.png">
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right" style="position: relative">
+    <button ng-show="ctrl.role.roleId==3||ctrl.role.roleId==10||ctrl.role.roleId==11" class="fcf button button-icon ion-ios-search-strong" ng-click="modal.show()"></button>
+    <button ng-show="ctrl.role.roleId==16||ctrl.role.roleId==23" class="button button-bip button-calm button-icon icon ion-navicon-round" ng-click="ctrl.storeListToggle()"></button>
+    <div class="dian_li" ng-show="ctrl.storeListShow">
+      <p class="selectInput"><input type="text"  ng-click="$event.stopPropagation()"  ng-model="storeSearch" autocomplete="off"></p>
+      <ul class="storeList">
+        <li ng-repeat="store in ctrl.storeAll | filter:{storeName:storeSearch} | orderBy:'store.storeName'"
+            ng-click="ctrl.changeStore(store);$event.stopPropagation()">{{store.storeName}}</li>
+      </ul>
+    </div>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="refreshHome()"></ion-refresher>
+    <div class="item item-divider" ng-show="ctrl.role.roleId==16||ctrl.role.roleId==23">
+      <span>4S店</span>
+      <span class="StoreName">{{ctrl.storeSelection}}</span>
+    </div>
+    <div class="row" style="padding: 0px;">
+      <div class="col col-50 text-center">实际到店：{{ctrl.homeCount.comeStoreTodayNum}}</div>
+      <div class="col col-50 text-center">出单数：{{ctrl.homeCount.billTodayNum}}</div>
+    </div>
+    <div class="list">
+      <!-- 工作待办 -->
+      <div class="bip-item-divider">
+        <div class="title">工作待办</div>
+      </div>
+      <div class="row bipPsize">
+        <div class="col col-33">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('approvalHt')">
+              <h2>{{ctrl.homeCount.returnApproveNum}}</h2>
+              <p>回退待审批</p>
+            </a>
+          </div>
+        </div>
+        <div class="col col-33">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('customerYqApproval')">
+              <h2>{{ctrl.homeCount.delayApproveNum}}</h2>
+              <p>延期待审批</p>
+            </a>
+          </div>
+        </div>
+        <div class="col col-33" ng-if="ctrl.csModuleFlag==1">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('customerWakeList')">
+              <h2>{{ctrl.homeCount.activeNum}}</h2>
+              <p>唤醒未分配</p>
+            </a>
+          </div>
+        </div>
+        <div class="col col-33" ng-if="ctrl.csModuleFlag==0">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('sleepApproval')">
+              <h2>{{ctrl.homeCount.sleepApproveNum}}</h2>
+              <p>睡眠待审批</p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="row bipPsize">
+        <div class="col col-33" ng-if="ctrl.csModuleFlag==0">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('lostApproval')">
+              <h2>{{ctrl.homeCount.lostApproveNum}}</h2>
+              <p>失销待审批</p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- 特别关注 -->
+      <div class="bip-item-divider">
+        <div class="title">特别关注</div>
+      </div>
+      <div class="row bipPsize">
+        <div class="col col-33">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('receivedWorkerList')">
+              <h2>{{ctrl.homeCount.accpetNum}}</h2>
+              <p>未接收</p>
+            </a>
+          </div>
+        </div>
+        <div class="col col-33">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('trackWorkerList')">
+              <h2>{{ctrl.homeCount.shouldTraceNum}}</h2>
+              <p>应跟踪</p>
+            </a>
+          </div>
+        </div>
+        <div class="col col-33">
+          <div class="list text-center">
+            <a class="item bg-eee"  ng-click="ctrl.stateChange('customerInviteWorkerList')">
+              <h2>{{ctrl.homeCount.inviteNum}}</h2>
+              <p>邀约人数</p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="row bipPsize">
+        <div class="col col-33">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('comeStoreNoBill')">
+              <h2>{{ctrl.homeCount.comeStoreNoBillNum}}</h2>
+              <p>到店未出单</p>
+            </a>
+          </div>
+        </div>
+        <div class="col col-33">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('willOut')">
+              <h2>{{ctrl.homeCount.willOutNum}}</h2>
+              <p>将脱保</p>
+            </a>
+          </div>
+        </div>
+        <div class="col col-33">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('lossInsuranceWorkerList')">
+              <h2>{{ctrl.homeCount.outedNum}}</h2>
+              <p>已脱保</p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="row bipPsize" ng-show="ctrl.role.roleId==3">
+        <div class="col col-33">
+          <div class="list text-center">
+            <a class="item bg-eee" ng-click="ctrl.stateChange('defeatWorkerList')">
+              <h2>{{ctrl.homeCount.defeatNum}}</h2>
+              <p>销售战败线索</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

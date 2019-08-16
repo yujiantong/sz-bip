@@ -1,0 +1,22 @@
+<div id="mkkq" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 160px; width: 250px; margin-left: -125px; margin-top: -80px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">提示</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget">
+            <p style="font-size: 14px">请确认模块是否正确配置</p>
+        </div>
+
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="makesure()" type="button" value="是">
+            <input class="fr close_confirmPage" type="button" value="否">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".close_confirmPage").click(function(){
+        $("#mkkq").hide();
+    });
+</script>

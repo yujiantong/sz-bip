@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.DefeatCustomerMapper" >
+	<resultMap id="BaseResultMap" type="java.util.Map" >
+		<result column="contact" property="contact" jdbcType="VARCHAR" />
+		<result column="contactWay" property="contactWay" jdbcType="VARCHAR" />
+		<result column="cause" property="cause" jdbcType="VARCHAR" />
+		<result column="causeAnalysis" property="causeAnalysis" jdbcType="VARCHAR" />
+		<result column="failureTime" property="failureTime" jdbcType="TIME" />
+	</resultMap>
+
+	<select id="findDefeatCustomer" resultType="java.util.Map" parameterType="java.util.HashMap">
+		SELECT c.contact,c.contactWay,c.cause,c.causeAnalysis,c.failureTime 
+			FROM bf_bip_defeat_customer c  
+		LEFT JOIN (
+			SELECT
+				cr.*
+			FROM
+				bf_bip_defeat_customer_relate cr
+			LEFT JOIN bf_bip_user u ON cr.userId = u.id
+			<where>
+				<if test="bsp_storeId != null and bsp_storeId != ''">
+					AND  cr.bsp_storeId = #{bsp_storeId}
+				</if>
+				<if test="bip_storeId != null and bip_storeId != ''">
+					AND  cr.bip_storeId = #{bip_storeId}
+				</if>
+				<if test="roleId != null and roleId != ''">
+					AND u.roleId = #{roleId}
+				</if>
+				<if test="userId != null and userId != ''">
+					AND u.id = #{userId}
+				</if>
+			</where>
+			) t ON c.contactWay = t.contactWay 
+		<if test="bsp_storeId != null and bsp_storeId != ''">
+			AND  c.bsp_storeId = t.bsp_storeId 
+		</if>
+		<if test="bip_storeId != null and bip_storeId != ''">
+			AND  c.bip_storeId = t.bip_storeId 
+		</if>
+		WHERE t.deleted = 0 AND t.defeated = 0
+		<if test="bsp_storeId != null and bsp_storeId != ''">
+			AND c.bsp_storeId = #{bsp_storeId}
+		</if>
+		<if test="bip_storeId != null and bip_storeId != ''">
+			AND c.bip_storeId = #{bip_storeId}
+		</if>
+		<if test="startTime != null and startTime != ''">
+			<![CDATA[AND c.failureTime >= #{startTime,jdbcType=DATE}]]>
+		</if> 
+		<if test="endTime != null and endTime != ''">
+			<![CDATA[AND c.failureTime <= #{endTime,jdbcType=DATE}]]>
+		</if> 
+		<if test="sxyy != null and sxyy != ''">
+			AND c.cause like '%${sxyy}%'
+		</if> 
+		<!-- shortZbqk代表按某字段排序，shortmain 1：升序，2：降序 -->
+		<if test="shortZbqk==2 and shortmain==1">ORDER BY c.contact asc</if>
+  	    <if test="shortZbqk==2 and shortmain==2">ORDER BY c.contact desc</if>
+  	    <if test="shortZbqk==3 and shortmain==1">ORDER BY c.contactWay asc</if>
+  	    <if test="shortZbqk==3 and shortmain==2">ORDER BY c.contactWay desc</if>
+  	    <if test="shortZbqk==4 and shortmain==1">ORDER BY c.cause asc</if>
+  	    <if test="shortZbqk==4 and shortmain==2">ORDER BY c.cause desc</if>
+  	    <if test="shortZbqk==5 and shortmain==1">ORDER BY c.causeAnalysis asc</if>
+  	    <if test="shortZbqk==5 and shortmain==2">ORDER BY c.causeAnalysis desc</if>
+  	    <if test="shortZbqk==6 and shortmain==1">ORDER BY c.failureTime asc</if>
+  	    <if test="shortZbqk==6 and shortmain==2">ORDER BY c.failureTime desc</if>
+		LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	
+	<select id="countFindDefeatCustomer" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		SELECT 
+			count(*) 
+		FROM bf_bip_defeat_customer c  
+		LEFT JOIN (
+			SELECT
+				cr.*
+			FROM
+				bf_bip_defeat_customer_relate cr
+			LEFT JOIN bf_bip_user u ON cr.userId = u.id
+			<where>
+				<if test="bsp_storeId != null and bsp_storeId != ''">
+					AND  cr.bsp_storeId = #{bsp_storeId}
+				</if>
+				<if test="bip_storeId != null and bip_storeId != ''">
+					AND  cr.bip_storeId = #{bip_storeId}
+				</if>
+				<if test="roleId != null and roleId != ''">
+					AND u.roleId = #{roleId}
+				</if>
+				<if test="userId != null and userId != ''">
+					AND u.id = #{userId}
+				</if>
+			</where> 
+			) t ON c.contactWay = t.contactWay
+		<if test="bsp_storeId != null and bsp_storeId != ''">
+			AND  c.bsp_storeId = t.bsp_storeId 
+		</if>
+		<if test="bip_storeId != null and bip_storeId != ''">
+			AND  c.bip_storeId = t.bip_storeId 
+		</if>
+		WHERE t.deleted = 0 AND t.defeated = 0
+		<if test="bsp_storeId != null and bsp_storeId != ''">
+			AND c.bsp_storeId = #{bsp_storeId}
+		</if>
+		<if test="bip_storeId != null and bip_storeId != ''">
+			AND c.bip_storeId = #{bip_storeId}
+		</if>
+		<if test="startTime != null and startTime != ''">
+			<![CDATA[AND c.failureTime >= #{startTime,jdbcType=DATE}]]>
+		</if> 
+		<if test="endTime != null and endTime != ''">
+			<![CDATA[AND c.failureTime <= #{endTime,jdbcType=DATE}]]>
+		</if> 
+		<if test="sxyy != null and sxyy != ''">
+			AND c.cause like '%${sxyy}%'
+		</if> 
+	</select>
+	
+	<insert id="saveDefeatCustomer" parameterType="java.util.HashMap">
+		insert into bf_bip_defeat_customer 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="bip_storeId != null" >bip_storeId,</if>
+			<if test="bsp_storeId != null" >bsp_storeId,</if>
+			<if test="contact != null" >contact,</if>
+			<if test="contactWay != null" >contactWay,</if>
+			<if test="cause != null" >cause,</if>
+			<if test="causeAnalysis != null" >causeAnalysis,</if>
+			<if test="failureTime != null" >failureTime,</if>
+			<if test="createDate != null" >createDate,</if>
+			<if test="bipImportData != null" >bipImportData,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="bip_storeId != null" >#{bip_storeId},</if>
+			<if test="bsp_storeId != null" >#{bsp_storeId},</if>
+			<if test="contact != null" >#{contact},</if>
+			<if test="contactWay != null" >#{contactWay},</if>
+			<if test="cause != null" >#{cause},</if>
+			<if test="causeAnalysis != null" >#{causeAnalysis},</if>
+			<if test="failureTime != null" >#{failureTime},</if>
+			<if test="createDate != null" >#{createDate},</if>
+			<if test="bipImportData != null" >#{bipImportData},</if>
+		</trim>
+	</insert>
+	
+	<select id="findExistDefeatCustomer" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		SELECT count(*) FROM bf_bip_defeat_customer c 
+		WHERE c.contactWay = #{contactWay}
+		<if test="bsp_storeId != null" >AND c.bsp_storeId = #{bsp_storeId}</if>
+		<if test="bip_storeId != null" >AND c.bip_storeId = #{bip_storeId}</if>
+	</select>
+	
+	<!-- 查找需要维护的数据 -->
+	<select id="findNeedMaintenance" resultType="java.util.Map" parameterType="java.util.HashMap">
+		SELECT
+			DISTINCT c.contactWay
+		FROM
+			bf_bip_defeat_customer c
+		LEFT JOIN (
+			SELECT
+				cr.*
+			FROM
+				bf_bip_defeat_customer_relate cr
+			LEFT JOIN bf_bip_user u ON u.id = cr.userId
+			WHERE 1 = 1
+				<if test="bsp_storeId != null and bsp_storeId != ''">
+					and  cr.bsp_storeId = #{bsp_storeId}
+				</if>
+				<if test="bip_storeId != null and bip_storeId != ''">
+					and  cr.bip_storeId = #{bip_storeId}
+				</if>
+			AND (
+				(
+					cr.defeated = 1
+					OR cr.deleted = 1
+				)
+				<if test="roleId != null and roleId != ''">
+					OR u.roleId = #{roleId}
+				</if>
+			)
+		) t ON c.contactWay = t.contactWay
+			<if test="bsp_storeId != null and bsp_storeId != ''">
+				and  c.bsp_storeId = t.bsp_storeId 
+			</if>
+			<if test="bip_storeId != null and bip_storeId != ''">
+				and  c.bip_storeId = t.bip_storeId 
+			</if>
+		WHERE t.id is null and c.contactWay != ''
+		<if test="bsp_storeId != null and bsp_storeId != ''">
+			and c.bsp_storeId = #{bsp_storeId}
+		</if>
+		<if test="bip_storeId != null and bip_storeId != ''">
+			and c.bip_storeId = #{bip_storeId}
+		</if>
+		LIMIT 0,50
+	</select>
+	<!-- 按用户id查询线索列表信息 -->
+	<select id="findDefeatedSourceByUserId" resultType="java.util.Map" parameterType="java.util.HashMap">
+		SELECT r.contactWay,c.cause,c.contact,c.id
+		FROM bf_bip_defeat_customer_relate r 
+		INNER JOIN bf_bip_defeat_customer c on c.contactWay = r.contactWay
+			<if test="bsp_storeId != null" >AND r.bsp_storeId = c.bsp_storeId</if>
+			<if test="bip_storeId != null" >AND r.bip_storeId = c.bip_storeId</if>
+		<where>
+			r.deleted = 0 AND r.defeated = 0
+			<if test="bsp_storeId != null" >AND r.bsp_storeId = #{bsp_storeId}</if>
+			<if test="bip_storeId != null" >AND r.bip_storeId = #{bip_storeId}</if>
+			<if test="userId != null">AND r.userId = #{userId}</if>
+			<if test="storeId != null">AND r.storeId = #{storeId}</if>
+			LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</where>
+	</select>
+	<!-- 按用户id查询线索列表总数 -->
+	<select id="findCountDefeatedSourceByUserId" resultType="Integer" parameterType="java.util.HashMap">
+		SELECT count(1)
+		FROM bf_bip_defeat_customer_relate r 
+		INNER JOIN bf_bip_defeat_customer c on c.contactWay = r.contactWay
+			<if test="bsp_storeId != null" >AND r.bsp_storeId = c.bsp_storeId</if>
+			<if test="bip_storeId != null" >AND r.bip_storeId = c.bip_storeId</if>
+		INNER JOIN bf_bip_user u on u.id = r.userId
+		<where>
+			r.deleted = 0 AND r.defeated = 0
+			<if test="bsp_storeId != null" >AND r.bsp_storeId = #{bsp_storeId}</if>
+			<if test="bip_storeId != null" >AND r.bip_storeId = #{bip_storeId}</if>
+			<if test="userId != null">AND r.userId = #{userId}</if>
+			<if test="roleId != null">AND u.roleId = #{roleId}</if>
+			<if test="storeId != null">AND r.storeId = #{storeId}</if>
+		</where>
+	</select>
+	<!-- 根据线索id查询线索 -->
+	<select id="findDefeatedSourceById" resultType="java.util.Map" parameterType="java.util.HashMap">
+		SELECT * FROM bf_bip_defeat_customer c where c.id = #{id}
+	</select>
+</mapper>

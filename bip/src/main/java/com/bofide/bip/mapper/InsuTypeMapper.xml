@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bofide.bip.mapper.InsuTypeMapper">
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.InsuType" >
+    	<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="storeId" property="storeId" jdbcType="INTEGER" />
+    	<result column="insuId" property="insuId" jdbcType="INTEGER" />
+    	<result column="typeName" property="typeName" jdbcType="VARCHAR" />
+    	<result column="coverage" property="coverage" jdbcType="DOUBLE" />
+    	<result column="type" property="type" jdbcType="INTEGER" />
+  	</resultMap>
+  	<!-- 根据条件查询保单或审批单的险种信息 -->
+	<select id="selectByCondition" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+			*
+		FROM
+			bf_bip_insu_insuType
+		<where>
+			<if test="insuId != null">  
+	            and insuId = #{insuId}
+	        </if>
+	        <if test="storeId != null">  
+	            and storeId = #{storeId}
+	        </if>
+	        <if test="typeName != null and typeName != ''">  
+	            and typeName = #{typeName}
+	        </if>
+	        <if test="type != null">  
+	            and type = #{type}
+	        </if>
+		</where>
+	</select>
+	
+	<!-- 新增保单或审批单的险种信息 -->
+  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.bofide.bip.po.InsuType" >
+	   	INSERT INTO bf_bip_insu_insuType (
+	   		storeId,
+			insuId,
+			typeName,
+			coverage,
+			type
+		)
+		VALUES 
+	    	(#{storeId,jdbcType=INTEGER},#{insuId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, #{coverage,jdbcType=DOUBLE},#{type,jdbcType=INTEGER})
+  	</insert>
+  	
+  	<!-- 根据条件删除保单或审批单的险种信息 -->
+  	<delete id="deleteByInsuIdAndType" parameterType="java.util.Map" >
+    	DELETE
+		FROM
+			bf_bip_insu_insuType
+		WHERE
+			insuId = #{insuId}
+		AND type = #{type}
+  	</delete>
+</mapper>

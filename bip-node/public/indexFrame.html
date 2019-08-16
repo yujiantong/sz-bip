@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="博福、汽车、汽车保险">
+    <link id="linkhref" rel="icon" href="images/bofideIco.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/main.css -->
+    <!-- include:css(styles/**/*.css) -->
+    <!-- endbuild -->
+    <script src="https://www.sobot.com/chat/frame/js/entrance.js?sysNum=eede8ad2b4f44f809ee61f4301bcdc83" class="zhiCustomBtn" id="zhichiScript" data-args="manual=true"></script>
+  </head>
+  <body ng-app="myApp">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+
+
+
+    <div ui-view="">正在加载页面...</div>
+    <!-- build:js vendors/jquery.min.js -->
+    <script src="components/jquery/dist/jquery.min.js"></script>
+    <!-- endbuild -->
+
+    <script src="js/xlsx-style/jszip.js"></script>
+    <script src="js/xlsx-style/xlsx.full.min.js"></script>
+    <script src="js/xlsx-style/workbook.js"></script>
+    <script src="js/xlsx-style/FileSaver.js"></script>
+    <!-- build:js vendors/angular.min.js -->
+    <script src="components/angular/angular.min.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js vendors/angular-ui-router.min.js -->
+    <script src="components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js vendors/echarts.min.js -->
+    <script src="components/echarts/dist/echarts.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js vendors/angular-animate.min.js -->
+    <script src="components/angular-animate/angular-animate.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js vendors/ui-grid.min.js -->
+    <script src="components/angular-ui-grid/ui-grid.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js vendors/ui-bootstrap-tpls.min.js -->
+    <script src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js vendors/spin.min.js -->
+    <script src="components/spin.js/spin.js"></script>
+    <!-- endbuild -->
+    <!-- build:js vendors/ladda.min.js -->
+    <script src="components/ladda/dist/ladda.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js vendors/bootstrap.min.js -->
+    <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js vendors/bootstrap-datepicker.min.js -->
+    <script src="components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js vendors/bootstrap-datepicker.zh-CN.min.js -->
+    <script src="components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js vendors/datetime-picker.min.js -->
+    <script src="components/bootstrap-ui-datetime-picker/dist/datetime-picker.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js vendors/datetime-picker.tpls.js -->
+    <script src="components/bootstrap-ui-datetime-picker/dist/datetime-picker.tpls.js"></script>
+    <!-- endbuild -->
+    <!-- build:js vendors/angular-cookies.min.js -->
+    <script src="components/angular-cookies/angular-cookies.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js vendors/ng-file-upload-shim.min.js -->
+    <script src="components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js vendors/ng-file-upload.min.js -->
+    <script src="components/ng-file-upload/ng-file-upload.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js vendors/angular-file-saver.min.js -->
+    <script src="components/angular-file-saver/dist/angular-file-saver.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js vendors/angular-file-saver.bundle.min.js -->
+    <script src="components/angular-file-saver/dist/angular-file-saver.bundle.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js vendors/echarts.min.js -->
+    <script src="components/echarts/dist/echarts.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js vendors/bootstrap-multiselect.js -->
+    <script src="components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js scripts/scripts.js -->
+    <!-- include:js(javascripts/**/*.js) -->
+    <!-- endbuild -->
+    <script type="text/javascript">
+      var strUrl = window.location.href;
+      var host = window.location.host;
+      var link = document.getElementById("linkhref");
+      if(host.indexOf("120.24.17.197") >= 0 || host.indexOf("bofide.cn") >= 0 || host.indexOf("localhost") >= 0){
+        document.title = '博福续保管理系统';
+      }else {
+        document.title = '传慧嘉和管理系统';
+        link.href="images/chip.ico";
+      }
+
+      if(strUrl.indexOf("#") != -1) {
+        //alert(strUrl);
+      }else {
+        window.location.href = "/index";
+      }
+
+      var clickstatus = false;
+      var lastX = 0;
+      var lastY = 0;
+      var lastcX = 0;
+      var lastcY = 0;
+      function mousedown(e){
+        if(e.target.id.indexOf('zhichiBtn')!=-1){
+          clickstatus = true;
+          var moveObject = document.getElementById('zhichiBtnBox');
+          lastX = moveObject.offsetLeft;
+          lastY = moveObject.offsetTop;
+          lastcX = e.clientX;
+          lastcY = e.clientY;
+        }
+      }
+
+      function mousemove(e){
+        var moveObject = document.getElementById('zhichiBtnBox');
+        if(clickstatus){
+          moveObject.style.left = lastX + (e.clientX - lastcX - 10) + 'px' ;
+          moveObject.style.top = lastY + (e.clientY-lastcY - 10) + 'px';
+        }
+      }
+
+      function mouseup(e){
+        clickstatus = false;
+        lastX=0;
+        lastY=0;
+        lastcX=0;
+        lastcY=0;
+      }
+
+      document.addEventListener('mousedown',mousedown);
+      document.addEventListener('mousemove',mousemove);
+      document.addEventListener('mouseup',mouseup);
+    </script>
+
+  </body>
+</html>

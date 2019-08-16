@@ -1,0 +1,23 @@
+<ion-view view-title="我的主页" hide-back-button="false">
+  <ion-nav-buttons side="left">
+    <img ng-if="ctrl.storeLogo==1" class="titleImg" src="img/LOGO-WHITE.png">
+    <img ng-if="ctrl.storeLogo==2" class="titleImg" src="img/chipLOGO-WHITE.png">
+  </ion-nav-buttons>
+  <ion-content ng-init="ctrl.findPhoneMessage()">
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefreshMessage()"></ion-refresher>
+    <div class="bip-item-divider">
+      <div>已发短信：{{ctrl.messageCount}}</div>
+    </div>
+    <div class="list bipPsize">
+      <div class="item item-icon-right trackList" ng-repeat="message in items" ng-click="message.hideStatus = !message.hideStatus">
+        <h2><span>{{message.contact}}</span><span class="ml10">{{message.sendTime | date:'yy/MM/dd HH:mm:ss'}}</span></h2>
+        <p  ng-hide="message.hideStatus">短信内容：{{message.content}}</p>
+        <i  ng-hide="message.hideStatus" class="icon ion-ios-arrow-up" style="font-size: 20px"></i>
+        <div ng-hide="!message.hideStatus" class="trackdetails">短信内容：{{message.content}}</div>
+        <i ng-hide="!message.hideStatus" class="icon ion-ios-arrow-down" style="font-size: 20px"></i>
+      </div>
+    </div>
+    <ion-infinite-scroll immediate-check="false" ng-if="!hasmore" on-infinite="ctrl.findPhoneMessage()" distance="1%">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

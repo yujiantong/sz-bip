@@ -1,0 +1,40 @@
+<div id="addFactorybox" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 250px; width: 450px; margin-left: -225px; margin-top: -125px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                新加厂家
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget">
+            <div>
+                <table class="addstore-table" style="text-align: left;">
+                    <tr>
+                        <td width="70" class="text-right">厂家：</td>
+                        <td><input type="text" style="width: 330px;" ng-model="addFactory.venderName" maxlength="50"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">厂家英文：</td>
+                        <td><input type="text" style="width: 330px;" ng-model="addFactory.venderEnglish" maxlength="100"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">备注：</td>
+                        <td><textarea rows="3" cols="20" style="width: 330px;height: 50px;margin-left: 5px;" ng-model="addFactory.venderRemark" maxlength="500"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="fr closeBtn" type="button" value="取消">
+            <input class="fr" ng-click="addFactorySubmit()" type="button" value="确认">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#addFactorybox").hide();
+    });
+</script>

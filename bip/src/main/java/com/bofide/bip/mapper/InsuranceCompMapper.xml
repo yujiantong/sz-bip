@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.InsuranceCompMapper" >
+  <resultMap id="BaseResultMap" type="com.bofide.bip.po.InsuranceComp" >
+    <id column="insuranceCompId" property="insuranceCompId" jdbcType="INTEGER" />
+    <result column="insuranceCompName" property="insuranceCompName" jdbcType="VARCHAR" />
+    <result column="typeName" property="typeName" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="INTEGER" />
+    <result column="insuranceKey" property="insuranceKey" jdbcType="VARCHAR" />
+    
+  </resultMap>
+ <select id="findInsuranceComp" resultMap="BaseResultMap">
+ 	select * from bf_bip_insurance_company
+ </select>
+ 
+<!--  <insert id="insert" parameterType="java.lang.String">
+ 	insert into bf_bip_insurance_company (insuranceComp) values (#{name,jdbcType=VARCHAR})
+ </insert> -->
+ 
+ <update id="update" parameterType="java.util.HashMap">
+ 	update bf_bip_insurance_company set statu = #{statu,jdbcType=VARCHAR} where insuranceCompId = #{id,jdbcType=INTEGER}
+ </update>
+ 
+
+ <!-- 设置保险险种 -->
+ <insert id= "addInsuranceType" parameterType="java.util.HashMap">
+ 	insert into bf_bip_insurance_type (bInsuranceType,insuranceCompId) values(#{bInsuranceType,jdbcType=VARCHAR},#{insuranceCompId,jdbcType=INTEGER})
+ </insert>
+ 
+ 
+ <!-- 查询4s店选定的保险公司 -->
+ <select id="findByFourSId" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+ 	select id, 
+ 		b.insuranceCompId insuranceCompId,
+ 		insuranceCompName,
+ 		b.typeName typeName,
+ 		fourSId ,b.source, b.insuranceKey
+ 		from bf_bip_insurance_company_4s a,bf_bip_insurance_company b 
+ 		where a.insuranceCompId = b.insuranceCompId and a.fourSId = #{storeId,jdbcType=INTEGER}
+ </select>
+ 
+ <!-- 清空原始数据 -->
+ <delete id="deleteInsuranceComp" parameterType="int">
+ 	delete from bf_bip_insurance_company_4s where fourSId = #{fourSId,jdbcType=INTEGER}
+ </delete>
+ 
+ <!--插入重新选定的保险公司 -->
+ <insert id="insertInsuranceComp" parameterType="java.util.HashMap">
+ 	insert into bf_bip_insurance_company_4s (insuranceCompId,fourSId) values (#{insuranceCompId},#{fourSId})
+ </insert>
+ 
+ <select id="findbyInsuranceCompIds" resultMap="BaseResultMap">
+ 	select * from bf_bip_insurance_company where insuranceCompId in
+ 	<foreach collection="list"></foreach>
+ 	
+ </select>
+ 
+  <!-- 新增保险公司及险种 --> 
+ <insert id="insert" useGeneratedKeys="true" keyProperty="insuranceCompId" parameterType="com.bofide.bip.po.InsuranceComp" >
+   	 insert into bf_bip_insurance_company 
+    	(insuranceCompName, typeName, createDate, remark,insuranceKey)
+   	 values 
+    	(#{insuranceCompName,jdbcType=INTEGER},#{typeName,jdbcType=INTEGER}, CURDATE(), #{remark,jdbcType=VARCHAR},
+    	#{insuranceKey,jdbcType=VARCHAR}
+    	)
+ </insert>
+ <!-- 删除保险公司 -->  	
+ <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bf_bip_insurance_company
+    where insuranceCompId = #{insuranceCompId,jdbcType=INTEGER}
+ </delete>
+ <!-- 查询保险公司 -->  
+ <select id="selectAll" resultMap="BaseResultMap">
+		select 
+			*
+		from bf_bip_insurance_company
+ </select>
+ <!-- 更新保险公司险种 --> 
+ <update id="updateCompanyType" parameterType="com.bofide.bip.po.InsuranceComp">
+ 	update bf_bip_insurance_company 
+ 		set typeName = #{typeName,jdbcType=VARCHAR} ,
+ 			insuranceKey = #{insuranceKey,jdbcType=VARCHAR} ,
+ 			remark = #{remark,jdbcType=VARCHAR} 
+ 	where insuranceCompId = #{insuranceCompId,jdbcType=INTEGER}
+ </update>
+ 
+  <!-- 根据保险公司名称查询保险公司 -->  
+ <select id="selectByCompanyName" resultMap="BaseResultMap">
+		select 
+			*
+		from bf_bip_insurance_company
+		where insuranceCompName = #{companyName,jdbcType=VARCHAR} 
+ </select>
+ 
+	<!-- 根据保险公司id查询保险公司 -->  
+	<select id="selectByCompanyId" resultMap="BaseResultMap">
+		select * from bf_bip_insurance_company
+		where insuranceCompId = #{insuranceCompId,jdbcType=INTEGER} 
+	</select>
+</mapper>

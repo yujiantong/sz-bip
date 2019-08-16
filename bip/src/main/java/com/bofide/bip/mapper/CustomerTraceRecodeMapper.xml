@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.CustomerTraceRecodeMapper" >
+  <resultMap id="BaseResultMap" type="com.bofide.bip.po.CustomerTraceRecode" >
+    <id column="customerTraceId" property="customerTraceId" jdbcType="INTEGER" />
+    <result column="customerId" property="customerId" jdbcType="INTEGER" />
+    <result column="nextTraceDate" property="nextTraceDate" jdbcType="DATE" />
+    <result column="renewalType" property="renewalType" jdbcType="VARCHAR" />
+    <result column="customerLevel" property="customerLevel" jdbcType="VARCHAR" />
+    <result column="inviteDate" property="inviteDate" jdbcType="DATE" />
+    <result column="traceContext" property="traceContext" jdbcType="VARCHAR" />
+    <result column="currentTraceDate" property="currentTraceDate" jdbcType="TIMESTAMP" />
+    <result column="customerDescription" property="customerDescription" jdbcType="VARCHAR" />
+    <result column="quote" property="quote" jdbcType="VARCHAR" />
+    <result column="quotedPrice" property="quotedPrice" jdbcType="FLOAT" />
+    <result column="principalId" property="principalId" jdbcType="INTEGER" />
+    <!--新增字段 -->
+    <result column="principal" property="principal" jdbcType="VARCHAR" />
+    <result column="outBillDay" property="outBillDay" jdbcType="INTEGER" />
+    <result column="inviteNumber" property="inviteNumber" jdbcType="INTEGER" />
+    <result column="invite" property="invite" jdbcType="INTEGER" />
+    <result column="comeStore" property="comeStore" jdbcType="INTEGER" />
+    <result column="sfjt" property="sfjt" jdbcType="INTEGER" />
+    <result column="lxr" property="lxr" jdbcType="VARCHAR" />
+    <result column="lxfs" property="lxfs" jdbcType="VARCHAR" />
+    <result column="cx" property="cx" jdbcType="VARCHAR" />
+    <result column="bxdqr" property="bxdqr" jdbcType="DATE" />
+    <result column="cyts" property="cyts" jdbcType="INTEGER" />
+    <result column="dealInsur" property="dealInsur" jdbcType="INTEGER" />
+    <result column="syxbj" property="syxbj" jdbcType="FLOAT" />
+    <result column="jqxbj" property="jqxbj" jdbcType="FLOAT" />
+    <result column="ccsbj" property="ccsbj" jdbcType="FLOAT" />
+    <result column="newNextTraceDate" property="newNextTraceDate" jdbcType="DATE" />
+  </resultMap>
+  <!-- 导出跟踪记录VO -->
+  <resultMap id="BaseResultMapVo" type="com.bofide.bip.vo.CustomerTraceRecodeVo" >
+    <id column="customerTraceId" property="customerTraceId" jdbcType="INTEGER" />
+    <result column="customerId" property="customerId" jdbcType="INTEGER" />
+    <result column="nextTraceDate" property="nextTraceDate" jdbcType="DATE" />
+    <result column="renewalType" property="renewalType" jdbcType="VARCHAR" />
+    <result column="customerLevel" property="customerLevel" jdbcType="VARCHAR" />
+    <result column="inviteDate" property="inviteDate" jdbcType="DATE" />
+    <result column="traceContext" property="traceContext" jdbcType="VARCHAR" />
+    <result column="currentTraceDate" property="currentTraceDate" jdbcType="TIMESTAMP" />
+    <result column="customerDescription" property="customerDescription" jdbcType="VARCHAR" />
+    <result column="quote" property="quote" jdbcType="VARCHAR" />
+    <result column="quotedPrice" property="quotedPrice" jdbcType="FLOAT" />
+    <result column="principalId" property="principalId" jdbcType="INTEGER" />
+    <!--新增字段 -->
+    <result column="principal" property="principal" jdbcType="VARCHAR" />
+    <result column="outBillDay" property="outBillDay" jdbcType="INTEGER" />
+    <result column="inviteNumber" property="inviteNumber" jdbcType="INTEGER" />
+    <result column="invite" property="invite" jdbcType="INTEGER" />
+    <result column="comeStore" property="comeStore" jdbcType="INTEGER" />
+    <result column="comeStoreDate" property="comeStoreDate" jdbcType="TIMESTAMP" />
+    <result column="sfjt" property="sfjt" jdbcType="INTEGER" />
+    <result column="lxr" property="lxr" jdbcType="VARCHAR" />
+    <result column="lxfs" property="lxfs" jdbcType="VARCHAR" />
+    <result column="cx" property="cx" jdbcType="VARCHAR" />
+    <result column="bxdqr" property="bxdqr" jdbcType="DATE" />
+    <result column="cyts" property="cyts" jdbcType="INTEGER" />
+    <result column="dealInsur" property="dealInsur" jdbcType="INTEGER" />
+    <result column="syxbj" property="syxbj" jdbcType="FLOAT" />
+    <result column="jqxbj" property="jqxbj" jdbcType="FLOAT" />
+    <result column="ccsbj" property="ccsbj" jdbcType="FLOAT" />
+    <result column="fourSStoreId" property="fourSStoreId" jdbcType="INTEGER" />
+    <result column="carOwner" property="carOwner" jdbcType="VARCHAR" />
+    <result column="insured" property="insured" jdbcType="VARCHAR" />
+    <result column="chassisNumber" property="chassisNumber" jdbcType="VARCHAR" />
+    <result column="carLicenseNumber" property="carLicenseNumber" jdbcType="VARCHAR" />
+    <result column="newNextTraceDate" property="newNextTraceDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    customerTraceId, customerId, nextTraceDate, renewalType, customerLevel, inviteDate, traceContext, currentTraceDate, 
+    customerDescription, quote, quotedPrice,principalId,principal,outBillDay,inviteNumber,invite,comeStore,sfjt,
+    lxr,lxfs,cx,cyts,bxdqr,dealInsur,newNextTraceDate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from bf_bip_customer_trace_recode
+    where customerTraceId = #{customerTraceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bf_bip_customer_trace_recode
+    where customerTraceId = #{customertraceid,jdbcType=INTEGER}
+  </delete>
+  <update id="updateByCustomerTraceId" parameterType="java.util.HashMap" >
+   update bf_bip_customer_trace_recode
+   	set inviteDate = null,invite = 0 where customerTraceId = #{customerTraceId,jdbcType=INTEGER}
+  </update>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="customerTraceId" parameterType="com.bofide.bip.po.CustomerTraceRecode" >
+    insert into bf_bip_customer_trace_recode (customerTraceId, customerId, nextTraceDate, 
+      renewalType, customerLevel, inviteDate, traceContext, currentTraceDate, 
+      customerDescription, quote, quotedPrice,principalId,principal,sfjt,invite, lxr,lxfs,cx,bxdqr,cyts,
+      currentNeedTraceDate,syxbj,jqxbj,ccsbj,comeStore,dealInsur,lossReason,returnReason,comeStoreDate,virtualJqxdqr,
+      operatorID,newNextTraceDate
+      )
+    values (#{customerTraceId,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{nextTraceDate,jdbcType=DATE}, 
+    #{renewalType,jdbcType=VARCHAR}, #{customerLevel,jdbcType=VARCHAR}, 
+      #{inviteDate,jdbcType=DATE}, #{traceContext,jdbcType=VARCHAR}, CURRENT_TIMESTAMP(), 
+      #{customerDescription,jdbcType=VARCHAR}, #{quote,jdbcType=INTEGER}, #{quotedPrice,jdbcType=INTEGER}, 
+      #{principalId,jdbcType=INTEGER}, #{principal,jdbcType=VARCHAR}, #{sfjt,jdbcType=INTEGER}, 
+      #{invite,jdbcType=INTEGER},#{lxr,jdbcType=VARCHAR},#{lxfs,jdbcType=VARCHAR},#{cx,jdbcType=VARCHAR},
+      #{bxdqr,jdbcType=DATE},#{cyts,jdbcType=INTEGER},#{currentNeedTraceDate,jdbcType=DATE},
+      #{syxbj},#{jqxbj},#{ccsbj},#{comeStore,jdbcType=INTEGER},#{dealInsur},#{lossReason},#{returnReason},
+      #{comeStoreDate},#{virtualJqxdqr},#{operatorID},#{newNextTraceDate}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bofide.bip.po.CustomerTraceRecode" >
+    insert into bf_bip_customer_trace_recode
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="customertraceid != null" >
+        customerTraceId,
+      </if>
+      <if test="customerid != null" >
+        customerId,
+      </if>
+      <if test="nexttracedate != null" >
+        nextTraceDate,
+      </if>
+      <if test="renewalType != null" >
+        renewalType,
+      </if>
+      <if test="customerLevel != null" >
+        customerLevel,
+      </if>
+      <if test="invitedate != null" >
+        inviteDate,
+      </if>
+      <if test="tracecontext != null" >
+        traceContext,
+      </if>
+      <if test="currenttracedate != null" >
+        currentTraceDate,
+      </if>
+      <if test="customerdescription != null" >
+        customerDescription,
+      </if>
+      <if test="quote != null" >
+        quote,
+      </if>
+      <if test="quotedprice != null" >
+        quotedPrice,
+      </if>
+      <if test="newNextTraceDate != null" >
+        newNextTraceDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="customertraceid != null" >
+        #{customertraceid,jdbcType=INTEGER},
+      </if>
+      <if test="customerid != null" >
+        #{customerid,jdbcType=INTEGER},
+      </if>
+      <if test="nexttracedate != null" >
+        #{nexttracedate,jdbcType=DATE},
+      </if>
+      <if test="renewalType != null" >
+        #{renewalType,jdbcType=DATE},
+      </if>
+      <if test="customerLevel != null" >
+        #{customerLevel,jdbcType=DATE},
+      </if>
+      <if test="invitedate != null" >
+        #{invitedate,jdbcType=DATE},
+      </if>
+      <if test="tracecontext != null" >
+        #{tracecontext,jdbcType=VARCHAR},
+      </if>
+      <if test="currenttracedate != null" >
+        #{currenttracedate,jdbcType=DATE},
+      </if>
+      <if test="customerdescription != null" >
+        #{customerdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="quote != null" >
+        #{quote,jdbcType=VARCHAR},
+      </if>
+      <if test="quotedprice != null" >
+        #{quotedprice,jdbcType=VARCHAR},
+      </if>
+      <if test="newNextTraceDate != null" >
+        #{newNextTraceDate},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bofide.bip.po.CustomerTraceRecode" >
+    update bf_bip_customer_trace_recode
+    <set >
+      <if test="customerId != null" >
+        customerId = #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="renewalType != null" >
+        renewalType = #{renewalType,jdbcType=VARCHAR},
+      </if>
+      <if test="customerLevel != null" >
+        customerLevel = #{customerLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="invitedate != null" >
+        inviteDate = #{invitedate,jdbcType=DATE},
+      </if>
+      <if test="tracecontext != null" >
+        traceContext = #{tracecontext,jdbcType=VARCHAR},
+      </if>
+      <if test="currenttracedate != null" >
+        currentTraceDate = #{currenttracedate,jdbcType=DATE},
+      </if>
+      <if test="customerdescription != null" >
+        customerDescription = #{customerdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="quote != null" >
+        quote = #{quote,jdbcType=VARCHAR},
+      </if>
+      <if test="quotedprice != null" >
+        quotedPrice = #{quotedprice,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where customerTraceId = #{customerTraceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bofide.bip.po.CustomerTraceRecode" >
+    update bf_bip_customer_trace_recode
+    set customerId = #{customerid,jdbcType=INTEGER},
+      nextTraceDate = #{nexttracedate,jdbcType=DATE},
+      renewalType = #{renewalType,jdbcType=VARCHAR},
+      customerLevel = #{customerLevel,jdbcType=VARCHAR},
+      inviteDate = #{invitedate,jdbcType=DATE},
+      traceContext = #{tracecontext,jdbcType=VARCHAR},
+      currentTraceDate = #{currenttracedate,jdbcType=DATE},
+      customerDescription = #{customerdescription,jdbcType=VARCHAR},
+      quote = #{quote,jdbcType=VARCHAR},
+      quotedPrice = #{quotedprice,jdbcType=VARCHAR}
+    where customerTraceId = #{customertraceid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByCustId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bf_bip_customer_trace_recode
+    where customerId = #{customerId,jdbcType=INTEGER}
+    and currentNeedTraceDate is not null
+  </select>
+  <!-- 根据潜客id查询潜客跟踪记录 -->
+  <select id="findTraceRecordByCustomerId" resultMap="BaseResultMap">
+    select b.* from bf_bip_customer_trace_recode b
+    	where b.customerId = #{customerId,jdbcType=INTEGER} order by b.customerTraceId desc;
+  </select>
+  
+  <!-- 计算异常报表中未准时跟踪的,作为准时跟进率分子中的未准时跟踪 -->
+  <select id="findWzsgzsInExcetion" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+	select count(1) 
+	from bf_bip_report_day_exception_detail a 
+	INNER JOIN bf_bip_user u on u.id = a.userId 
+	where u.roleId = 2 and a.stackName = '未准时跟踪'
+	<![CDATA[ AND DATE_FORMAT(a.recordTime,'%Y-%m-%d') < CURDATE() ]]>
+	<if test="storeId != null">
+		and a.storeId = #{storeId} 
+	</if>
+	<if test="userId != null">
+		AND a.userId = #{userId}
+	</if>
+	<if test="statisticTime != null">
+		and DATE_FORMAT(a.recordTime,'%Y-%m') = #{statisticTime} 
+	</if>
+	<if test="renewalType != null">
+		AND a.renewalType = #{renewalType}
+	</if>
+  </select>
+  <!-- 根据负责人和投保类型和某时间段查询准时跟踪记录数 -->
+  <select id="findTraceRecodeByPrincipal" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+  		SELECT COUNT(1) 
+		FROM bf_bip_customer_trace_recode t
+		WHERE  t.nexttracedate IS NOT NULL AND t.principalid  = t.operatorid
+			AND DATE_FORMAT(t.currentTraceDate,'%Y-%m-%d') >= DATE_FORMAT(t.currentNeedTraceDate,'%Y-%m-%d') 
+			<![CDATA[ AND DATE_FORMAT(t.currentTraceDate,'%Y-%m-%d') < CURDATE() ]]>
+			<if test="startTime != null">
+				<![CDATA[ AND DATE_FORMAT(t.currentTraceDate,'%Y-%m-%d') >= #{startTime}]]>
+			</if>
+			<if test="endTime != null">
+				<![CDATA[ AND DATE_FORMAT(t.currentTraceDate,'%Y-%m-%d') <= #{endTime}]]>
+			</if>
+			<if test="statisticTime != null">
+					and DATE_FORMAT(t.currentTraceDate,'%Y-%m') = #{statisticTime} 
+			</if>
+			<if test="renewalTypeStr != null">
+				AND t.renewalType = #{renewalTypeStr}
+			</if>
+			<if test="userId != null">
+				AND t.principalId = #{userId}
+			</if>
+  </select>
+   <!-- 根据负责人和投保类型和某时间段查询应跟踪次数 -->
+  <select id="findTraceRecodeNumByPrincipal" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		SELECT sum(a.needTraceCount) AS needTraceCount 
+		FROM (
+			select sum(t.needTraceCount) AS needTraceCount 
+			from bf_bip_report_day_need_trace t 
+			where <![CDATA[ DATE_FORMAT(t.recordtime,'%Y-%m-%d') < CURDATE() ]]>
+				<if test="renewalType != null">
+					AND t.renewalType = #{renewalType}
+				</if>
+				<if test="userId != null">
+					AND t.userId = #{userId}
+				</if>
+				<if test="statisticTime != null">
+					and DATE_FORMAT(t.recordTime,'%Y-%m') = #{statisticTime} 
+				</if>
+			UNION ALL 
+			SELECT count(1) AS needTraceCount
+			FROM bf_bip_customer_trace_recode t 
+			WHERE t.principalid  = t.operatorid 
+				AND t.tracecontext like '%接收' 
+				<![CDATA[ AND DATE_FORMAT(t.currentTraceDate,'%Y-%m-%d') < CURDATE() ]]>
+				<if test="startTime != null">
+					<![CDATA[ AND DATE_FORMAT(t.currentTraceDate,'%Y-%m-%d') >= #{startTime}]]>
+				</if>
+				<if test="endTime != null">
+					<![CDATA[ AND DATE_FORMAT(t.currentTraceDate,'%Y-%m-%d') <= #{endTime}]]>
+				</if>
+				<if test="renewalTypeStr != null">
+					AND t.renewalType = #{renewalTypeStr}
+				</if>
+				<if test="userId != null">
+					AND t.principalId = #{userId}
+				</if>
+				<if test="statisticTime != null">
+					and DATE_FORMAT(t.currentTraceDate,'%Y-%m') = #{statisticTime} 
+				</if>
+			UNION ALL
+			<!-- 下次跟踪日期是当天的 -->
+			select count(1) AS needTraceCount
+			from bf_bip_customer_trace_recode t 
+			where t.principalid  = t.operatorid 
+			and DATE_FORMAT(t.currenttracedate, '%Y-%m-%d') = DATE_FORMAT(t.nexttracedate, '%Y-%m-%d')
+			<![CDATA[ AND DATE_FORMAT(t.currentTraceDate,'%Y-%m-%d') < CURDATE() ]]>
+			<if test="renewalTypeStr != null">
+				AND t.renewalType = #{renewalTypeStr}
+			</if>
+			<if test="userId != null">
+				AND t.principalId = #{userId}
+			</if>
+			<if test="statisticTime != null">
+				and DATE_FORMAT(t.currentTraceDate,'%Y-%m') = #{statisticTime} 
+			</if>
+		) a 
+  </select>
+  
+  <update id="updateByTraceId" parameterType="com.bofide.bip.po.CustomerTraceRecode" >
+    update bf_bip_customer_trace_recode
+	set 
+	    comeStore = 1,comeStoreDate=CURRENT_TIMESTAMP()
+    where 
+    	customerTraceId = #{customerTraceId,jdbcType=INTEGER}
+  </update>
+
+  <select id="findTraceYearGroup" resultType="java.util.HashMap">
+  	select
+		DATE_FORMAT(bxdqr,'%Y') traceYear,principalId principalId,customerId customerId
+	from
+		bf_bip_customer_trace_recode 
+	<where>
+		<if test="userId != null">
+			and principalId = #{userId}
+			and bxdqr is not null
+		</if>
+		<if test="renewalTypeStr != null">
+			and renewalType =#{renewalTypeStr}
+		</if>
+	</where> 
+		
+	group by
+		DATE_FORMAT(bxdqr,'%Y'),customerId
+  </select>
+  
+  <delete id="deleteByStoreId" parameterType="java.lang.Integer">
+	DELETE
+	FROM
+		bf_bip_customer_trace_recode
+	WHERE
+		customerId IN (
+	SELECT
+		customerId
+	FROM
+		bf_bip_customer
+	WHERE
+		fourSStoreId = #{storeId}
+	)
+	</delete> 
+	<!-- 根据潜客id查询潜客信息(批量)  -->
+  <select id="findCustomerInfoByCustomerIdList" resultMap="BaseResultMapVo" parameterType="java.util.List">
+   select  
+   	a.fourSStoreId,
+   	a.carLicenseNumber,
+    a.chassisNumber,
+   	a.carOwner,
+   	a.insured,
+	c.*
+	from bf_bip_customer a LEFT JOIN bf_bip_renewaling_customer b on (a.customerId = b.customerId)
+	right JOIN bf_bip_customer_trace_recode c on (a.customerId = c.customerId)
+    	where 
+    	<if test="customerIds != null and customerIds.size() > 0">
+  			a.customerId in
+  			<foreach collection="customerIds" item="customerId" open="(" separator="," close=")">
+  				#{customerId}
+  			</foreach> 
+  		</if>
+  </select>
+	<!-- 根据潜客id查询对应潜客的跟踪记录条数 -->
+	<select id="findTraceCount" resultType="Integer" parameterType="Integer">
+		select count(1) from bf_bip_customer_trace_recode 
+		where customerId = #{customerId} and nextTraceDate is not null
+		<![CDATA[and DATE_SUB(CURDATE(), INTERVAL 180 DAY) <= date(currentTraceDate)]]>
+	</select>
+	
+	<!-- 根据潜客id查询失销原因 -->
+	<select id="findLostReasonByCustomerId" resultType="String" parameterType="Integer">
+		select lossReason from bf_bip_customer_trace_recode 
+		where customerId = #{customerId} and lossReason is not null 
+		order by customerTraceId desc limit 1;
+	</select>
+	
+	<!-- 根据潜客ID和用户ID查询当前跟踪次数 -->
+	<select id="findGzCount" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT
+			t.id as id,
+			count(c.traceContext) as gzCount
+		FROM
+			(
+			SELECT
+				a.customerId AS id,
+				max(b.currentTraceDate) AS maxDate
+			FROM
+				bf_bip_customer_assign a
+			LEFT JOIN bf_bip_customer_trace_recode b ON a.customerId = b.customerId
+				AND b.traceContext LIKE "%操作：接收"
+			WHERE
+				IFNULL(a.traceStatu, 0) != 3
+				AND a.customerId IN (${customers})
+				GROUP BY a.customerId
+			) t
+		LEFT JOIN bf_bip_customer_trace_recode c ON c.customerId = t.id
+			AND c.currentTraceDate >= t.maxDate
+			AND c.nextTraceDate IS NOT NULL
+			GROUP BY t.id
+	</select>
+	<!-- 根据潜客ID和跟踪记录ID查询除删除掉的邀约外,最新的邀约 -->
+	<select id="findLatestInviteRecord" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+		select * from bf_bip_customer_trace_recode a 
+		where a.customerId = #{customerId} and a.customerTraceId != #{customerTraceId}
+		and a.inviteDate is not null ORDER BY a.inviteDate desc limit 1;
+	</select>
+	
+	<!-- 校验邀约日期是否可用 -->
+	<select id="findRecordByInviteDate" resultType="Integer" parameterType="java.util.HashMap">
+		select count(1) from bf_bip_customer_trace_recode a 
+		where a.customerId = #{customerId} and a.inviteDate = #{inviteDate};
+	</select>
+</mapper>

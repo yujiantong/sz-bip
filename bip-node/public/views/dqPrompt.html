@@ -1,0 +1,21 @@
+<div id="dqtx" class="scmMaskWindow" ng-init="dqPrompt()">
+    <div class="scmWindow" style="height: 140px; width: 300px; margin-left: -125px; margin-top: -80px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">通知</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove" ></span>
+        </div>
+        <div class="scmWindowContent ui-widget">
+            <p style="font-size: 14px">
+                您好,您的系统即将到期,且于{{vaildDate}}关闭。请知悉。如有疑问,请拨打我司客户服务热线：4009626201
+                <br/>
+                感谢您的支持。
+            </p>
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".close_confirmPage").click(function(){
+        $("#dqtx").hide();
+    });
+</script>

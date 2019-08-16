@@ -1,0 +1,22 @@
+<div class="dealBox" style="min-height: 130px;">
+  <ion-modal-view style="margin-top: 0px;min-height: 130px;">
+    <ion-content class="padding">
+      <table class="searchTable" style="width:100%;margin: 0 auto;">
+        <tr>
+          <td class="text-right">选择人员：</td>
+          <td>
+            <select style="width: 140px;" ng-model="ctrl.newPri.User" ng-options="x as x.userName for (key,x) in ctrl.PriUser">
+              <option value="">请选择持有人</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    </ion-content>
+    <ion-footer-bar align-title="center" class="dark-border">
+      <div class="button-bar">
+        <button class="button button-bip" ng-click="changePri.hide()">取消</button>
+        <button class="button button-bip" ng-click="ctrl.changePrincipalBatch()">确认</button>
+      </div>
+    </ion-footer-bar>
+  </ion-modal-view>
+</div>

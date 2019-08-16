@@ -1,0 +1,27 @@
+<ion-view view-title="月报-出单员" ng-init="ctrl.monthKpiCdy()">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('homePage.report',{ReportTabNO:2})"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="padding assertive">注：以下商业险出单数和商业险保费均不含单三者</div>
+    <div style="padding: 0px 10px;">
+       <span>月份：<select ng-model="ctrl.report.mouthDate" ng-options="x for x in ctrl.selectTimes" ng-change="ctrl.monthKpiCdy()">
+         <option value="">请选择保险到期月</option>
+       </select></span>
+    </div>
+    <div class="barGroup">
+      <div class="barmenu"><span class="barBox barBg1"></span>接待人数 {{ctrl.cdyReport[0].jdrs}}</div>
+      <div class="barmenu"><span class="barBox barBg2"></span>续保车数 {{ctrl.cdyReport[0].xbcs}}</div>
+      <div class="barmenu"><span class="barBox barBg3"></span>出单数 {{ctrl.cdyReport[0].cds}}</div>
+      <div class="barmenu"><span class="barBox barBg4"></span>商业险出单数 {{ctrl.cdyReport[0].syxcds}}</div>
+    </div>
+    <div id="chartCdy1"></div>
+    <div class="padding mt20" style="border-top: 1px #000 solid;"></div>
+    <div class="barGroup">
+      <div class="barmenu"><span class="barBox barBg5"></span>签单保费 {{ctrl.cdyReport[0].bfhj | number:2}}</div>
+      <div class="barmenu"><span class="barBox barBg6"></span>商业险签单保费 {{ctrl.cdyReport[0].syxbfhj | number:2}}</div>
+      <div class="barmenu"><span class="barBox barBg7"></span>商业险单均保费 {{ctrl.cdyReport[0].syxdjbf | number:2}}</div>
+    </div>
+    <div id="chartCdy2"></div>
+  </ion-content>
+</ion-view>

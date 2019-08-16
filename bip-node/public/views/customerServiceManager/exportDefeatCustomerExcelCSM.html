@@ -1,0 +1,22 @@
+<div id="defeatCustomerExport">
+    <table id="targetTable" border="1">
+        <thead>
+        <!--<tr><th  colspan="10">北京博福易商科技有限公司</th></tr>-->
+        <tr align="center">
+            <th>序号</th>
+            <th>潜客名称</th>
+            <th>潜客电话</th>
+            <th>失销原因</th>
+            <th>失销分析</th>
+            <th>失销时间</th>
+        </tr> </thead><tbody>
+        <tr align="center" ng-repeat="exportCus in exportData">
+            <td>{{$index+1}}</td>
+            <td>{{exportCus.contact}}</td>
+            <td>{{exportCus.contactWay}}</td>
+            <td>{{exportCus.cause}}</td>
+            <td>{{exportCus.causeAnalysis}}</td>
+            <td>{{exportCus.failureTime|date:'yyyy-MM-dd'}}</td>
+        </tr></tbody>
+    </table>
+</div>

@@ -1,0 +1,48 @@
+<div id="exportYyjl" xmlns:x="http://www.w3.org/1999/xhtml">
+    <table id="targetTable" border="1">
+        <thead>
+        <!--<tr><th  colspan="10">北京博福易商科技有限公司</th></tr>-->
+        <tr align="center">
+            <th>序号</th>
+            <th>负责人</th>
+            <th>业务员</th>
+            <th>联系人</th>
+            <th>联系方式</th>
+            <th>车架号</th>
+            <th>投保类型</th>
+            <th>保险到期日</th>
+            <th>客户级别</th>
+            <th>应跟踪日期</th>
+            <th>预计到店日期</th>
+            <th>是否到店</th>
+            <th>末次跟踪日期</th>
+            <th>末次跟踪结果</th>
+            <th>延期到期日</th>
+            <th>将脱保(天)</th>
+            <th>持有天数</th>
+            <th>持有人</th>
+            <th>邀约人</th>
+        </tr> </thead><tbody>
+        <tr align="center" ng-repeat="exportCusYyjl in exportGzjlDataTemp track by $index">
+            <td>{{$index+1}}</td>
+            <td>{{exportCusYyjl.principal}}</td>
+            <td>{{exportCusYyjl.clerk}}</td>
+            <td>{{exportCusYyjl.contact}}</td>
+            <td x:str="'{{exportCusYyjl.contactWay|mapLXFS}}">{{exportCusYyjl.contactWay|mapLXFS}}</td>
+            <td x:str="'{{exportCusYyjl.chassisNumber}}">{{exportCusYyjl.chassisNumber}}</td>
+            <td>{{exportCusYyjl.coverTypeName}}</td>
+            <td>{{exportCusYyjl.jqxrqEnd|date:'yyyy-MM-dd'}}</td>
+            <td>{{exportCusYyjl.customerLevel}}</td>
+            <td>{{exportCusYyjl.willingTraceDate}}</td>
+            <td>{{exportCusYyjl.inviteDate|date:'yyyy-MM-dd'}}</td>
+            <td>{{exportCusYyjl.isComeStore|mapSF}}</td>
+            <td>{{exportCusYyjl.lastTraceDate|date:'yyyy-MM-dd HH:mm'}}</td>
+            <td>{{exportCusYyjl.lastTraceResult}}</td>
+            <td>{{exportCusYyjl.delayDate|date:'yyyy-MM-dd'}}</td>
+            <td>{{exportCusYyjl.remainLostInsurDay}}</td>
+            <td>{{exportCusYyjl.cyts}}</td>
+            <td>{{exportCusYyjl.holder}}</td>
+            <td>{{exportCusYyjl.yyr}}</td>
+        </tr></tbody>
+    </table>
+</div>

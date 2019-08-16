@@ -1,0 +1,18 @@
+<ion-tabs class="tabs-icon-top tabs-color-active-positive">
+
+  <!-- 我的首页 -->
+  <ion-tab title="我的主页" icon-off="ion-ios-home" icon-on="ion-ios-home" href="#/xbzyHomePage/xbzyMyHomePage">
+    <ion-nav-view name="myHomePage"></ion-nav-view>
+  </ion-tab>
+
+  <!-- 个人中心 -->
+  <ion-tab title="个人中心" icon-off="ion-person" icon-on="ion-person" href="#/xbzyHomePage/personalCenter">
+    <ion-nav-view name="personalCenter"></ion-nav-view>
+  </ion-tab>
+
+  <!-- 在线客服 -->
+  <ion-tab ng-if="ctrl.storeLogo==1" title="在线客服" icon-off="ion-chatboxes" icon-on="ion-chatboxes"  ng-click="ctrl.goOnLineService('onlineService')">
+    <ion-nav-view name="chatboxes"></ion-nav-view>
+  </ion-tab>
+
+</ion-tabs>

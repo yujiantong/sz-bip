@@ -1,0 +1,10 @@
+<div style="font-size:12px" ng-bind="$ctrl.transmit.title + '：' + $ctrl.transmit.bar.value"></div>
+<div class="progress" ng-style="$ctrl.widthStyle">
+  <div class="progress-bar" ng-style="$ctrl.barStyle"></div>
+  <div class="progress-number" ng-style="$ctrl.numberStyle" ng-bind="$ctrl.barName"></div>
+  <div class="progress-line" ng-style="$ctrl.lineStyle" ng-show="$ctrl.isExceed"></div>
+</div>
+<div style="text-align:right;font-size:12px;" ng-style="$ctrl.targetStyle" ng-bind="$ctrl.targetName"></div>
+<div style="text-align:right;font-size:12px;" ng-repeat="list in $ctrl.transmit.list">
+  <div ng-bind="list.name + '：' + list.value"></div>
+</div>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!-- saved from url=(0035)http://bofide.cn/download-bomp.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>BIP客户端下载</title>
+    <style>
+      *{
+        margin: 0px;
+        padding:0px;
+      }
+      body{
+        background-color:#f3f3f4;
+      }
+      .msgContent{
+        padding: 30px 30px;
+        margin: 260px 10px 0 10px;
+        border: 1px solid #ddd;
+        background-color: #ececec;
+      }
+      #top-mask{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: #EFEFEF;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+        background: rgba(0, 0, 0, 0.5);
+        padding: 5px 18px;
+        display: none;
+      }
+      #top-mask h3 {
+        margin: 0;
+        padding: 0;
+        line-height: 60px;
+        background: transparent url(../images/arrow-right.png) top right no-repeat;
+        -webkit-background-size: 60px;
+        -moz-background-size: 60px;
+        -o-background-size: 60px;
+        background-size: 60px;
+      }
+
+    </style>
+  </head>
+  <body>
+  	<script>
+  		window.onload = function(){
+  	    if(isWeiXin()){
+          var msg = document.getElementById('msg');
+          msg.className = 'msgContent'; 
+          msg.innerHTML = '请点击右上角，选择‘在浏览器打开’，下载BIP客户端。';
+          var mask = document.getElementById('top-mask');
+          mask.style.display = 'block';
+  	    }else{
+          window.location = 'http://bip.bofide.cn/file/BIP.v.1.0.2.apk';
+        }
+  		}
+      // 判断是否微信
+  		function isWeiXin(){
+  	    var ua = window.navigator.userAgent.toLowerCase();
+  	    if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+          return true;
+  	    }else{
+          return false;
+  	    }
+  		}
+  	</script>
+
+    <div id="top-mask">
+      <h3>在浏览器中打开</h3>
+    </div>
+    <div id="msg"></div>
+  
+
+</body></html>

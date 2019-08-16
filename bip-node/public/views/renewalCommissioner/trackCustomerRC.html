@@ -1,0 +1,90 @@
+<div id="trackCust" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 320px; width: 860px; margin-left: -430px; margin-top: -160px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                跟踪信息
+            </i>
+            <span class="trackcloseBtn glyphicon glyphicon-remove" ng-click="closeChangeBtn()"></span>
+        </div>
+        <div class="scmWindowContent ui-widget" style="height:235px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <span ng-if="lockLevel==0"><label>潜客级别</label>
+                    <select  ng-click="custLevelCheck()" ng-model="newTrace.customerLevel" ng-options="x for x in customerLevels">
+                    </select>
+                </span>
+                 <span ng-if="lockLevel==1"><label>潜客级别</label><input type="text" ng-value="newTrace.customerLevel" readonly></span>
+                <span ng-if="lockLevel==2"><label>潜客级别</label>
+                     <select ng-if="thisRowData.remainLostInsurDay>60" ng-click="custLevelCheck()" ng-model="newTrace.customerLevel" ng-options="x for x in customerLevels">
+                     </select>
+                     <select ng-if="thisRowData.remainLostInsurDay<=60 && thisRowData.remainLostInsurDay>30" ng-click="custLevelCheck()"  ng-model="newTrace.customerLevel" ng-options="x for x in customerLevelsB">
+                         <option ng-if="newTrace.customerLevel == 'D'" value="">{{newTrace.customerLevel}}</option>
+                     </select>
+                     <select ng-if="thisRowData.remainLostInsurDay<=30 && thisRowData.remainLostInsurDay>7" ng-click="custLevelCheck()"  ng-model="newTrace.customerLevel" ng-options="x for x in customerLevelsC">
+                         <option ng-if="newTrace.customerLevel == 'C'|| newTrace.customerLevel == 'D'" value="">{{newTrace.customerLevel}}</option>
+                     </select>
+                     <select ng-if="thisRowData.remainLostInsurDay<=7" ng-model="newTrace.customerLevel" ng-click="custLevelCheck()" ng-options="x for x in customerLevelsD">
+                         <option ng-if="newTrace.customerLevel != 'A'" value="">{{newTrace.customerLevel}}</option>
+                     </select>
+                </span>
+                <span><label>下次跟踪日期</label> <input type="text" id="nextTraceDate" ng-model="newTrace.nextTraceDate" class="coverDate" readonly></span>
+                <span><label>是否接通</label>
+                    <select  ng-model="newTrace.sfjt" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span><label>预计到店日期</label> <input  class="gzMsg coverDate"  type="text" ng-model="newTrace.inviteDate" readonly></span>
+                <span><label>是否报价</label>
+                    <select  ng-model="newTrace.quote" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span><label>报价金额</label> <input type="number" string-to-number ng-model="newTrace.quotedPrice" disabled></span>
+                <span><label>商业险报价</label> <input ng-change="jsbjje()" min="0" num-format step="0.01"  type="number" ng-model="newTrace.syxbj"></span>
+                <span><label>交强险报价</label> <input ng-change="jsbjje()" min="0" num-format step="0.01" type="number" ng-model="newTrace.jqxbj"></span>
+                <span><label>车船税报价</label> <input ng-change="jsbjje()" min="0" num-format step="0.01" type="number" ng-model="newTrace.ccsbj"></span>
+                <span>
+                    <label>是否高意向</label>
+                    <select ng-model="newTrace.sfgyx" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <!--<span><label>优惠项目</label>-->
+                    <!--<select ng-model="newTrace.privilegePro" ng-options="x for x in privilegePros">-->
+                        <!--<option value="">请选择</option>-->
+                    <!--</select>-->
+                <!--</span>-->
+                <!--<span style="width: 800px">-->
+                    <!--<label class="fl">优惠项目内容</label>-->
+                    <!--<textarea rows="3" cols="30" style="width: 660px;height: 50px;margin-left: 5px;" ng-model="newTrace.yhxmnr"></textarea>-->
+                <!--</span>-->
+                <span style="width: 800px">
+                    <label class="fl">跟踪内容<em class="emphasis">*</em></label>
+                    <textarea rows="3" cols="30" style="width: 660px;height: 50px;margin-left: 5px;" ng-model="newTrace.traceContext" maxlength="500"></textarea>
+                </span>
+
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="surebtn" ng-click="addNewTrace(1)" type="button" value="确认">
+            <input ng-if="csModuleFlag==1" ng-click="addNewTrace(3,0)" type="button" value="保存并回退">
+            <input ng-if="csModuleFlag==0" ng-click="addNewTrace(3,1)" type="button" value="保存并失销">
+            <input ng-if="csModuleFlag==0" ng-click="addNewTrace(3,2)" type="button" value="保存并睡眠">
+            <input class="trackcloseBtn" ng-click="closeChangeBtn()" type="button" value="关闭">
+        </div>
+
+    </div>
+</div>
+<script>
+    $('.coverDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });
+</script>

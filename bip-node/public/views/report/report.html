@@ -1,0 +1,1398 @@
+<div class="report_nav">
+   <ul  class="report_nav_tabs">
+      <li class="active">
+         全部潜客
+      </li>
+      <li>
+         跟踪/邀约
+      </li>
+      <li>
+         进店/出单
+      </li>
+      <li>
+         失销/回退
+      </li>
+      <li>
+         人员效能
+      </li>
+   </ul>
+   <div class="report_tab_content">
+      <div class="report_fade">
+         <ul class="nav nav-tabs">
+            <li href="#khlzbb"  data-toggle="tab" ng-click="findReportSearchTime('khlz')">
+               潜客流转分析报表
+            </li>
+            <li href="#khbb"  data-toggle="tab" ng-click="findReportSearchTime('kh')">
+               持有潜客统计报表
+            </li>
+         </ul>
+      </div>
+      <div  class="report_fade">
+         <ul class="nav nav-tabs">
+            <li href="#yyl" data-toggle="tab" ng-click="findReportSearchTime('yyl')">
+               邀约统计报表-邀约率
+            </li>
+            <li  href="#ddl" data-toggle="tab" ng-click="findComeStoreReportData()">
+               邀约统计报表-到店率
+            </li>
+         </ul>
+      </div>
+      <div  class="report_fade">
+         <ul class="nav nav-tabs">
+            <li href="#bxgsywzb"  data-toggle="tab" ng-click="countInsuranceBill()">
+               保险公司业务占比报表
+            </li>
+            <li href="#dqxbl"  data-toggle="tab" ng-click="findReportSearchTime('dqxbl')">
+               续保率统计报表-当期续保率
+            </li>
+            <li href="#zhxbl"  data-toggle="tab" ng-click="findReportSearchTime('zhxbl')">
+               续保率统计报表-综合续保率
+            </li>
+            <li href="#dqqs"  data-toggle="tab" ng-click="findReportSearchTime('dqqs')">
+               续保率趋势报表-当期续保率
+            </li>
+            <li href="#zhxbqs"  data-toggle="tab" ng-click="findReportSearchTime('zhxbqs')">
+               续保率趋势报表-综合续保率
+            </li>
+         </ul>
+      </div>
+      <div class="report_fade">
+         <ul class="nav nav-tabs">
+            <li href="#sxyy" data-toggle="tab" ng-click="findLossReasonCount()">
+               失销原因统计报表
+            </li>
+            <li  href="#htyy" data-toggle="tab" ng-click="findReturnReasonCount()">
+               回退原因统计报表
+            </li>
+         </ul>
+      </div>
+      <div  class="report_fade">
+         <ul class="nav nav-tabs">
+            <li  href="#ryxnfx" data-toggle="tab" ng-click="bipRiBao()">
+               KPI日报
+            </li>
+            <li  href="#ybRenewal" data-toggle="tab" ng-click="findReportSearchTime('ybCoverType')">
+               KPI月报-分续保类型
+            </li>
+            <li  href="#ybCompanys" data-toggle="tab" ng-click="findReportSearchTime('ybCompany')">
+               KPI月报-分保险公司
+            </li>
+            <li  href="#ybWorkers" data-toggle="tab" ng-click="findReportSearchTime('ybWorker')">
+               KPI月报-分工作人员
+            </li>
+            <li  href="#aberrant" data-toggle="tab" ng-click="findCustomerYcsj()">
+               KPI日报-异常数据
+            </li>
+         </ul>
+      </div>
+   </div>
+</div>
+<div class="tab-content" style="padding: 0px 0px 40px 0px;">
+   <div class="report_pane tab-pane fade in active" id="khlzbb">
+      <div class="report_title">潜客流转分析报表</div>
+      <div class="selectBiao">
+        <span><select ng-model="khlzHolder.selectTime" ng-options="x for x in selectTimes" style="width: 120px;height: 22px;">
+           <option value="">请选择月份</option>
+        </select></span>
+         <span style="margin-left: 10px;"><button type="button" ng-click="findCustomerKhlz()">查询</button></span>
+         <div class="report_type">
+            <export-report data="exportData_khlzbb" export-data="exportReportData"></export-report>
+         </div>
+      </div>
+      <e-chart-single customer-detail="custDetail()" line-data="lineData" id="khlzReport" chart-options="chartOptions_khlzbb" data="khlzReportData"
+                       update-data="updateData" e-r-data='exportData_khlzbb.data'></e-chart-single>
+   </div>
+   <div class="report_pane tab-pane fade" id="khbb">
+      <div class="report_title">持有潜客统计报表</div>
+      <div class="selectBiao">
+        <span><select ng-model="CustomerHolder.selectTime" ng-options="x for x in selectTimes" style="width: 100px;height: 22px;">
+           <option value="">请选择时间</option>
+        </select></span>
+         <span><select ng-model="CustomerHolder.selectRoleIds" ng-options="x.roleId as x.RoleName for (key,x) in selectRoleIds" style="width: 100px;height: 22px;">
+         </select></span>
+         <span style="margin-left: 10px;"><button type="button" ng-click="findCustomerHolder()">查询</button></span>
+         <div class="report_type">
+            <export-report data="exportData_khbb" export-data="exportReportData"></export-report>
+         </div>
+      </div>
+      <e-chart-single line-data="lineData" id="CustomerHolder" chart-options="chartOptions_CustomerHolder" data="CustomerReportData"
+                      update-data="updateData" e-r-data='exportData_khbb.data'></e-chart-single>
+   </div>
+   <div class="report_pane tab-pane fade" id="yyl">
+      <div class="report_title">邀约统计报表-邀约率</div>
+      <div class="selectBiao">
+         <span><select ng-model="reportCondition.selectTime" ng-options="x for x in selectTimes">
+            <option value="">请选择时间</option>
+         </select></span>
+         <span style="margin-left: 10px;"><button type="button" ng-click="findInviteReportData()">查询</button></span>
+         <div class="report_type">
+            <export-report data="exportData_yyl" export-data="exportReportData"></export-report>
+         </div>
+      </div>
+      <e-chart-single line-data="lineData" id="echart_yyl" chart-options="chartOptions_yytjbb_yyl" update-data="updateData"
+                      e-r-data='exportData_yyl.data' data="reportData__yyl"></e-chart-single>
+   </div>
+   <div class="report_pane tab-pane fade" id="ddl">
+      <div class="report_title">邀约统计报表-到店率</div>
+      <div class="selectBiao">
+         <span>
+            <input type="text" placeholder="日期起" ng-model="comeStoreDate.startTime" style="width: 100px;" class="starttime">-
+            <input type="text" placeholder="日期止" ng-model="comeStoreDate.endTime" style="width: 100px;" class="endtime">
+         </span>
+         <span><select ng-model="comeStoreDate.rangeTime"  ng-click="comeStoreTimes()" ng-options="x.rangeTime as x.timeName for (key,x) in rangeTimes"  style="width: 100px;height: 22px;">
+         </select></span>
+         <span style="margin-left: 10px;"><button type="button" ng-click="findComeStoreReportData()">查询</button></span>
+         <div class="report_type">
+            <export-report data="exportData_ddl" export-data="exportReportData"></export-report>
+         </div>
+      </div>
+      <e-chart-single line-data="lineData" id="echart_ddl" chart-options="chartOptions_yytjbb_ddl" update-data="updateData"
+                      e-r-data='exportData_ddl.data' data="reportData__ddl"></e-chart-single>
+   </div>
+   <div class="report_pane tab-pane fade" id="bxgsywzb">
+      <div class="report_title">保险公司业务占比报表</div>
+      <div class="selectBiao">
+         <span>
+            投保日期：
+            <input type="text" placeholder="投保日期起" ng-model="insuranceBill.startTime" style="width: 100px;" class="starttime">-
+            <input type="text" placeholder="投保日期止" ng-model="insuranceBill.endTime" style="width: 100px;" class="endtime">
+         </span>
+         <span><select ng-model="insuranceBill.rangeTime"  ng-change="insuranceBillRangeTimes()" ng-options="x.rangeTime as x.timeName for (key,x) in rangeTimes"  style="width: 100px;height: 22px;">
+         </select></span>
+         <span style="margin-left: 10px;"><button type="button" ng-click="countInsuranceBill()">查询</button></span>
+         <div class="report_type">
+            <export-report data="exportData_bxgsywzb" export-data="exportReportData"></export-report>
+         </div>
+      </div>
+      <e-chart-single line-data="lineData" id="main111" chart-options="insuranceBill_company" update-data="updateData"
+                      e-r-data='exportData_bxgsywzb.data' data="countInsuranceBillData"></e-chart-single>
+   </div>
+   <div class="report_pane tab-pane fade" id="dqxbl">
+      <div class="report_title">续保率统计报表-当期续保率</div>
+      <div class="selectBiao">
+         <span>保险到期月：<select ng-model="reportCondition.selectTime_dqxbl" ng-options="x for x in selectTimes_dqxbl">
+            <option value="">请选择保险到期月</option>
+         </select></span>
+         <span style="margin-left: 10px;"><button type="button" ng-click="xbltjbbDqxbl()">查询</button></span>
+         <div class="report_type">
+            <export-report data="exportData_dqxbl" export-data="exportReportData"></export-report>
+         </div>
+      </div>
+      <e-chart-single line-data="lineData" id="main119" chart-options="xbltjbb_dqxbl" update-data="updateData"
+                      e-r-data='exportData_dqxbl.data' data="xbltjbbDqxblData"></e-chart-single>
+   </div>
+   <div class="report_pane tab-pane fade" id="zhxbl">
+      <div class="report_title">续保率统计报表-综合续保率</div>
+      <div class="selectBiao">
+          <span><select ng-model="zhxbl.selectTime" ng-options="x for x in selectTimes" style="width: 100px;height: 22px;">
+             <option value="">请选择时间</option>
+          </select></span>
+         <span style="margin-left: 10px;"><button type="button" ng-click="xbltjbbZhxbl()">查询</button></span>
+         <div class="report_type">
+            <export-report data="exportData_zhxbl" export-data="exportReportData"></export-report>
+         </div>
+      </div>
+      <e-chart-single line-data="lineData" id="zhxblReport" chart-options="xbltjbb_zhxbl" data="zhxblReportData"
+                      update-data="updateData" e-r-data='exportData_zhxbl.data'></e-chart-single>
+   </div>
+   <div class="report_pane tab-pane fade" id="dqqs">
+      <div class="report_title">续保率趋势报表-当期续保率</div>
+      <div class="selectBiao">
+         <span>保险到期年：<select ng-model="reportCondition.selectTime_dqqs" ng-options="x for x in selectTimes_dqqs">
+            <option value="">请选择</option>
+         </select></span>
+         <span style="margin-left: 10px;"><button type="button" ng-click="xblqsbbDqqs()">查询</button></span>
+         <div class="report_type">
+            <export-report data="exportData_dqqs" export-data="exportReportData"></export-report>
+         </div>
+      </div>
+      <e-chart-single line-data="lineData" id="dqqsReport" chart-options="xblqsbb_dqqs" update-data="updateData"
+                      e-r-data='exportData_dqqs.data' data="xblqsbbDqqsData"></e-chart-single>
+   </div>
+   <div class="report_pane tab-pane fade" id="zhxbqs">
+      <div class="report_title">续保率趋势报表-综合续保率</div>
+      <div class="selectBiao">
+         <span>保险到期年：<select ng-model="reportCondition.selectTime_zhxbqs" ng-options="x for x in selectTimes_zhxbqs">
+            <option value="">请选择</option>
+         </select></span>
+         <span style="margin-left: 10px;"><button type="button" ng-click="zhxblqsSearch()">查询</button></span>
+         <div class="report_type">
+            <export-report data="exportData_zhxbqs" export-data="exportReportData"></export-report>
+         </div>
+      </div>
+      <e-chart-single line-data="lineData" id="zhxbqsReport" chart-options="xblqsbb_zhxbqs" update-data="updateData"
+                      e-r-data='exportData_zhxbqs.data' data="zhxbqsbbData"></e-chart-single>
+   </div>
+   <div class="report_pane tab-pane fade" id="sxyy">
+      <div class="report_title">失销原因统计报表</div>
+      <div class="selectBiao">
+         <span>
+            <input type="text" placeholder="日期起" ng-model="lostSale.startTime" style="width: 100px;" class="starttime">-
+            <input type="text" placeholder="日期止" ng-model="lostSale.endTime" style="width: 100px;" class="endtime">
+         </span>
+         <span><select ng-model="lostSale.rangeTime"  ng-change="lostSaleRangeTimes()" ng-options="x.rangeTime as x.timeName for (key,x) in rangeTimes"  style="width: 100px;height: 22px;">
+         </select></span>
+         <span style="margin-left: 10px;"><button type="button" ng-click="findLossReasonCount()">查询</button></span>
+         <div class="report_type">
+            <export-report data="exportData_sxyy" export-data="exportReportData"></export-report>
+         </div>
+      </div>
+      <e-chart-single line-data="lineData" id="lostSale" chart-options="chartOptions_lostSale" data="lostSaleReportData"
+                      update-data="updateData" e-r-data='exportData_sxyy.data'></e-chart-single>
+   </div>
+   <div class="report_pane tab-pane fade" id="htyy">
+      <div class="report_title">回退原因统计报表</div>
+      <div class="selectBiao">
+         <span>
+            <input type="text" placeholder="日期起" ng-model="sendBack .startTime" style="width: 100px;" class="starttime">-
+            <input type="text" placeholder="日期止" ng-model="sendBack.endTime"  style="width: 100px;" class="endtime">
+         </span>
+         <span><select ng-model="sendBack.rangeTime"  ng-change="sendBackRangeTimes()" ng-options="x.rangeTime as x.timeName for (key,x) in rangeTimes"  style="width: 100px;height: 22px;">
+         </select></span>
+         <span style="margin-left: 10px;"><button type="button" ng-click="findReturnReasonCount()">查询</button></span>
+         <div class="report_type">
+            <export-report data="exportData_htyy" export-data="exportReportData"></export-report>
+         </div>
+      </div>
+      <e-chart-single line-data="lineData" id="sendBack" chart-options="chartOptions_sendBack" data="sendBackReportData"
+                      update-data="updateData" e-r-data='exportData_htyy.data'></e-chart-single>
+   </div>
+   <div class="report_pane tab-pane fade" id="ryxnfx">
+      <div class="report_title">KPI日报</div>
+      <div class="selectBiao">
+         <span><input type="text" ng-model="countTraceCount_time" value="{{countTraceCount_time}}" style="width: 80px;" class="time" readonly></span>
+         <span style="margin-left: 10px;"><button type="button" ng-click="bipRiBao()">查询</button></span>
+         <div class="report_type">
+            <span ng-click="daochu()">导出</span>
+         </div>
+      </div>
+      <div id="ribao">
+         <div class="clearfix">
+            <div>
+               <p class="fs16"><strong>保险KPI日报-分续保类型</strong></p>
+               <table class="table table-bordered">
+                  <tbody>
+                  <tr class="gray">
+                     <td colspan="2">项目</td>
+                     <td>合计</td>
+                     <td>新转续</td>
+                     <td>续转续</td>
+                     <td>间转续</td>
+                     <td>潜转续</td>
+                     <td>首次</td>
+                  </tr>
+                  <tr>
+                     <td colspan="2">实际到店人数 | 邀约到店人数</td>
+                     <td>{{crltc.newsjddrs+crltc.renewsjddrs+crltc.jzxsjddrs+crltc.qzxsjddrs+crltc.scsjddrs}} |
+                        {{crltc.newyyddrs+crltc.renewyyddrs+crltc.jzxyyddrs+crltc.qzxyyddrs+crltc.scyyddrs}}
+                     </td>
+                     <td>{{crltc.newsjddrs}} | {{crltc.newyyddrs}}</td>
+                     <td>{{crltc.renewsjddrs}} | {{crltc.renewyyddrs}}</td>
+                     <td>{{crltc.jzxsjddrs}} | {{crltc.jzxyyddrs}}</td>
+                     <td>{{crltc.qzxsjddrs}} | {{crltc.qzxyyddrs}}</td>
+                     <td>{{crltc.scsjddrs}} | {{crltc.scyyddrs}}</td>
+                  </tr>
+                  <tr>
+                     <td rowspan="5" style="vertical-align: middle;">商业险
+                        </br>综合续保出单数
+                        </br>（不含单三者，单）</td>
+                     <td>合计</td>
+                     <td>{{crltc.newsyxcds+crltc.newsyxcds1+crltc.newsyxcds2+crltc.newsyxcds3+
+                        crltc.renewsyxcds+crltc.renewsyxcds1+crltc.renewsyxcds2+crltc.renewsyxcds3+
+                        crltc.jzxsyxcds+crltc.jzxsyxcds1+crltc.jzxsyxcds2+crltc.jzxsyxcds3+
+                        crltc.qzxsyxcds+crltc.qzxsyxcds1+crltc.qzxsyxcds2+crltc.qzxsyxcds3+
+                        crltc.scsyxcds+crltc.scsyxcds1+crltc.scsyxcds2+crltc.scsyxcds3}}</td>
+                     <td>{{crltc.newsyxcds+crltc.newsyxcds1+crltc.newsyxcds2+crltc.newsyxcds3}}</td>
+                     <td>{{crltc.renewsyxcds+crltc.renewsyxcds1+crltc.renewsyxcds2+crltc.renewsyxcds3}}</td>
+                     <td>{{crltc.jzxsyxcds+crltc.jzxsyxcds1+crltc.jzxsyxcds2+crltc.jzxsyxcds3}}</td>
+                     <td>{{crltc.qzxsyxcds+crltc.qzxsyxcds1+crltc.qzxsyxcds2+crltc.qzxsyxcds3}}</td>
+                     <td>{{crltc.scsyxcds+crltc.scsyxcds1+crltc.scsyxcds2+crltc.scsyxcds3}}</td>
+                  </tr>
+                  <tr>
+                     <td>{{yueInt}}月到期</td>
+                     <td>{{crltc.newsyxcds+crltc.renewsyxcds+crltc.jzxsyxcds+crltc.qzxsyxcds+crltc.scsyxcds}}</td>
+                     <td>{{crltc.newsyxcds}}</td>
+                     <td>{{crltc.renewsyxcds}}</td>
+                     <td>{{crltc.jzxsyxcds}}</td>
+                     <td>{{crltc.qzxsyxcds}}</td>
+                     <td>{{crltc.scsyxcds}}</td>
+                  </tr>
+                  <tr>
+                     <td>{{yueInt1}}月到期</td>
+                     <td>{{crltc.newsyxcds1+crltc.renewsyxcds1+crltc.jzxsyxcds1+crltc.qzxsyxcds1+crltc.scsyxcds1}}</td>
+                     <td>{{crltc.newsyxcds1}}</td>
+                     <td>{{crltc.renewsyxcds1}}</td>
+                     <td>{{crltc.jzxsyxcds1}}</td>
+                     <td>{{crltc.qzxsyxcds1}}</td>
+                     <td>{{crltc.scsyxcds1}}</td>
+                  </tr>
+                  <tr>
+                     <td>{{yueInt2}}月到期</td>
+                     <td>{{crltc.newsyxcds2+crltc.renewsyxcds2+crltc.jzxsyxcds2+crltc.qzxsyxcds2+crltc.scsyxcds2}}</td>
+                     <td>{{crltc.newsyxcds2}}</td>
+                     <td>{{crltc.renewsyxcds2}}</td>
+                     <td>{{crltc.jzxsyxcds2}}</td>
+                     <td>{{crltc.qzxsyxcds2}}</td>
+                     <td>{{crltc.scsyxcds2}}</td>
+                  </tr>
+                  <tr>
+                     <td>{{yueInt3}}月到期</td>
+                     <td>{{crltc.newsyxcds3+crltc.renewsyxcds3+crltc.jzxsyxcds3+crltc.qzxsyxcds3+crltc.scsyxcds3}}</td>
+                     <td>{{crltc.newsyxcds3}}</td>
+                     <td>{{crltc.renewsyxcds3}}</td>
+                     <td>{{crltc.jzxsyxcds3}}</td>
+                     <td>{{crltc.qzxsyxcds3}}</td>
+                     <td>{{crltc.scsyxcds3}}</td>
+                  </tr>
+                  </tbody>
+               </table>
+            </div>
+         <div style="margin-top: 20px;">
+            <p class="fs16"><strong>保险KPI日报-分保险公司</strong></p>
+            <table class="table table-bordered" border="1">
+               <thead>
+               <tr class="gray">
+                  <td rowspan="2" colspan="2" style="vertical-align: middle;">项目</td>
+                  <td colspan="3">出单数量（单）</td>
+                  <td colspan="3">签单保费（元）</td>
+               </tr>
+               <tr class="gray">
+                  <td>合计</td>
+                  <td>交强</td>
+                  <td>商业</td>
+                  <td>合计</td>
+                  <td>交强</td>
+                  <td>商业</td>
+               </tr>
+               </thead>
+               <tbody ng-repeat="dailyData in dailyInsuranceComps">
+               <tr>
+                  <td rowspan="3" style="vertical-align: middle;">{{dailyData.insuranceCompName}}</td>
+                  <td>合计</td>
+                  <td>{{dailyData.sumCds}}</td>
+                  <td>{{dailyData.sumCdsJqx}}</td>
+                  <td>{{dailyData.sumCdsSyx}}</td>
+                  <td>{{dailyData.sumQdbf | number:2}}</td>
+                  <td>{{dailyData.sumQdbfJqx | number:2}}</td>
+                  <td>{{dailyData.sumQdbfSyx | number:2}}</td>
+               </tr>
+               <tr>
+                  <td>新保</td>
+                  <td>{{dailyData.sumNewBillCount}}</td>
+                  <td>{{dailyData.jqxNewBillCount}}</td>
+                  <td>{{dailyData.syxNewBillCount}}</td>
+                  <td>{{dailyData.sumNewBillPremium | number:2}}</td>
+                  <td>{{dailyData.jqxNewBillPremium | number:2}}</td>
+                  <td>{{dailyData.syxNewBillPremium | number:2}}</td>
+               </tr>
+               <tr>
+                  <td>续保</td>
+                  <td>{{dailyData.sumRenewalBillCount}}</td>
+                  <td>{{dailyData.jqxRenewalBillCount}}</td>
+                  <td>{{dailyData.syxRenewalBillCount}}</td>
+                  <td>{{dailyData.sumRenewalBillPremium | number:2}}</td>
+                  <td>{{dailyData.jqxRenewalBillPremium | number:2}}</td>
+                  <td>{{dailyData.syxRenewalBillPremium | number:2}}</td>
+               </tr>
+               </tbody>
+            </table>
+         </div>
+            <div style="margin-top: 20px;">
+               <p class="fs16"><strong>保险KPI日报-分工作人员</strong></p>
+               <table class="table table-bordered" border="1">
+                  <tbody>
+                  <tr class="gray">
+                     <td>续保专员</td>
+                     <td>跟踪人数</td>
+                     <td>邀约人数</td>
+                     <td>邀约到店人数</td>
+                     <td>续保车数</td>
+                     <td>商业险出单数（不含单三者）</td>
+                  </tr>
+                  <tr ng-repeat="tc in dayXbzyKPIs">
+                     <td style="position: relative">{{tc.userName}}<span class="riheji glyphicon glyphicon-link cursor" ng-click="showXq()" ng-if="tc.userName=='日合计'"></span></td>
+                     <td>{{tc.traceCount}}</td>
+                     <td>{{tc.inviteCount}}</td>
+                     <td>{{tc.comeStoreCount}}</td>
+                     <td>{{tc.xbcs}}</td>
+                     <td>{{tc.syxcds}}</td>
+                  </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div style="margin-top: 20px;">
+               <table class="table table-bordered" border="1">
+                  <tbody>
+                  <tr class="gray">
+                     <td>销售顾问</td>
+                     <td>跟踪人数</td>
+                     <td>跟踪完成人数</td>
+                     <td>回退人数</td>
+                  </tr>
+                  <tr ng-repeat="tc in dayXsgwKPIs">
+                     <td>{{tc.userName}}</td>
+                     <td>{{tc.gzrs}}</td>
+                     <td>{{tc.gzwcrs}}</td>
+                     <td>{{tc.htrs}}</td>
+                  </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div style="margin-top: 20px;">
+               <table class="table table-bordered" border="1">
+                  <tbody>
+                  <tr class="gray">
+                     <td>服务顾问</td>
+                     <td>跟踪人数</td>
+                     <td>跟踪完成人数</td>
+                     <td>回退人数</td>
+                  </tr>
+                  <tr ng-repeat="tc in dayFwgwKPIs">
+                     <td>{{tc.userName}}</td>
+                     <td>{{tc.gzrs}}</td>
+                     <td>{{tc.gzwcrs}}</td>
+                     <td>{{tc.htrs}}</td>
+                  </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div style="margin-top: 20px;">
+               <table class="table table-bordered" border="1">
+                  <tbody>
+                  <tr class="gray">
+                     <td>出单员</td>
+                     <td>接待人数（实际到店人数）</td>
+                     <td>续保车数</td>
+                     <td>出单数</td>
+                     <td>商业险出单数（不含单三者）</td>
+                     <td>保费合计（元）</td>
+                     <td>商业险金额合计（不含单三者，元）</td>
+                     <td>商业险单均金额（不含单三者，元）</td>
+                  </tr>
+                  <tr ng-repeat="tc in dayCdyKPIs">
+                     <td>{{tc.userName}}</td>
+                     <td>{{tc.jdrs}}</td>
+                     <td>{{tc.xbcs}}</td>
+                     <td>{{tc.cds}}</td>
+                     <td>{{tc.syxcds}}</td>
+                     <td>{{tc.bfhj | number:2}}</td>
+                     <td>{{tc.syxbfhj | number:2}}</td>
+                     <td>{{tc.syxdjbf | number:2}}</td>
+                  </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div style="margin-top: 20px;display: none;">
+               <table class="table table-bordered" border="1">
+                  <tbody>
+                  <tr class="gray">
+                     <td>续保专员</td>
+                     <td>项目</td>
+                     <td>合计</td>
+                     <td>新转续</td>
+                     <td>续转续</td>
+                     <td>间转续</td>
+                     <td>潜转续</td>
+                     <td>首次</td>
+                  </tr>
+                  </tbody>
+                  <tbody ng-repeat="tc in dayXbzyKPIDetails">
+                  <tr>
+                     <td rowspan="4" style="vertical-align: middle;">{{tc.userName}}</td>
+                     <td>跟踪人数</td>
+                     <td>{{tc.sum1}}</td>
+                     <td>{{tc.newgzrs}}</td>
+                     <td>{{tc.renewgzrs}}</td>
+                     <td>{{tc.jzxgzrs}}</td>
+                     <td>{{tc.qzxgzrs}}</td>
+                     <td>{{tc.scgzrs}}</td>
+                  </tr>
+                  <tr>
+                     <td>邀约人数</td>
+                     <td>{{tc.sum2}}</td>
+                     <td>{{tc.newyyrs}}</td>
+                     <td>{{tc.renewyyrs}}</td>
+                     <td>{{tc.jzxyyrs}}</td>
+                     <td>{{tc.qzxyyrs}}</td>
+                     <td>{{tc.scyyrs}}</td>
+                  </tr>
+                  <tr>
+                     <td>邀约到店人数</td>
+                     <td>{{tc.sum3}}</td>
+                     <td>{{tc.newyyddrs}}</td>
+                     <td>{{tc.renewyyddrs}}</td>
+                     <td>{{tc.jzxyyddrs}}</td>
+                     <td>{{tc.qzxyyddrs}}</td>
+                     <td>{{tc.scyyddrs}}</td>
+                  </tr>
+                  <tr>
+                     <td>续保车数</td>
+                     <td>{{tc.sum4}}</td>
+                     <td>{{tc.newxbcs}}</td>
+                     <td>{{tc.renewxbcs}}</td>
+                     <td>{{tc.jzxxbcs}}</td>
+                     <td>{{tc.qzxxbcs}}</td>
+                     <td>{{tc.scxbcs}}</td>
+                  </tr>
+                  </tbody>
+               </table>
+            </div>
+      </div>
+      </div>
+   </div>
+   <div class="report_pane tab-pane fade" id="ybRenewal">
+      <div class="report_title">KPI月报-分续保类型</div>
+      <div class="selectBiao">
+         <span><select ng-model="ybRenewal_selectTime" ng-options="x for x in selectTimes" style="width: 100px;height: 22px;">
+            <option value="">请选择时间</option>
+         </select></span>
+         <span style="margin-left: 10px;"><button type="button" ng-click="findCountMonthKpiCoverType()">查询</button></span>
+         <div class="report_type">
+            <span ng-click="MonthKpiRenewalExport()">导出</span>
+         </div>
+      </div>
+      <div id="MonthKpiRenewalType">
+         <table class="table table-bordered">
+            <tr class="gray">
+               <td colspan="3">项目</td>
+               <td>合计</td>
+               <td>新转续</td>
+               <td>续转续</td>
+               <td>间转续</td>
+               <td>潜转续</td>
+               <td>首次</td>
+            </tr>
+            <tr>
+               <td rowspan="17" style="vertical-align: middle;">资源</td>
+               <td rowspan="4" style="vertical-align: middle;">全部潜客中交强险<br>到期车辆数（台）</td>
+               <td>{{thisMonth}}月到期</td>
+               <td>{{zynum00}}</td>
+               <td>{{MonthKpiCoverType.zy[0].newN}}</td>
+               <td>{{MonthKpiCoverType.zy[0].renewN}}</td>
+               <td>{{MonthKpiCoverType.zy[0].jzxN}}</td>
+               <td>{{MonthKpiCoverType.zy[0].qzxN}}</td>
+               <td>{{MonthKpiCoverType.zy[0].scN}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth1}}月到期</td>
+               <td>{{zynum01}}</td>
+               <td>{{MonthKpiCoverType.zy[0].newN1}}</td>
+               <td>{{MonthKpiCoverType.zy[0].renewN1}}</td>
+               <td>{{MonthKpiCoverType.zy[0].jzxN1}}</td>
+               <td>{{MonthKpiCoverType.zy[0].qzxN1}}</td>
+               <td>{{MonthKpiCoverType.zy[0].scN1}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth2}}月到期</td>
+               <td>{{zynum02}}</td>
+               <td>{{MonthKpiCoverType.zy[0].newN2}}</td>
+               <td>{{MonthKpiCoverType.zy[0].renewN2}}</td>
+               <td>{{MonthKpiCoverType.zy[0].jzxN2}}</td>
+               <td>{{MonthKpiCoverType.zy[0].qzxN2}}</td>
+               <td>{{MonthKpiCoverType.zy[0].scN2}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth3}}月到期</td>
+               <td>{{zynum03}}</td>
+               <td>{{MonthKpiCoverType.zy[0].newN3}}</td>
+               <td>{{MonthKpiCoverType.zy[0].renewN3}}</td>
+               <td>{{MonthKpiCoverType.zy[0].jzxN3}}</td>
+               <td>{{MonthKpiCoverType.zy[0].qzxN3}}</td>
+               <td>{{MonthKpiCoverType.zy[0].scN3}}</td>
+            </tr>
+            <tr>
+               <td rowspan="4" style="vertical-align: middle;">往月提前出单车数<br>（台）</td>
+               <td>{{thisMonth}}月到期</td>
+               <td>{{zynum10}}</td>
+               <td>{{MonthKpiCoverType.zy[1].newN}}</td>
+               <td>{{MonthKpiCoverType.zy[1].renewN}}</td>
+               <td>{{MonthKpiCoverType.zy[1].jzxN}}</td>
+               <td>{{MonthKpiCoverType.zy[1].qzxN}}</td>
+               <td>{{MonthKpiCoverType.zy[1].scN}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth1}}月到期</td>
+               <td>{{zynum11}}</td>
+               <td>{{MonthKpiCoverType.zy[1].newN1}}</td>
+               <td>{{MonthKpiCoverType.zy[1].renewN1}}</td>
+               <td>{{MonthKpiCoverType.zy[1].jzxN1}}</td>
+               <td>{{MonthKpiCoverType.zy[1].qzxN1}}</td>
+               <td>{{MonthKpiCoverType.zy[1].scN1}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth2}}月到期</td>
+               <td>{{zynum12}}</td>
+               <td>{{MonthKpiCoverType.zy[1].newN2}}</td>
+               <td>{{MonthKpiCoverType.zy[1].renewN2}}</td>
+               <td>{{MonthKpiCoverType.zy[1].jzxN2}}</td>
+               <td>{{MonthKpiCoverType.zy[1].qzxN2}}</td>
+               <td>{{MonthKpiCoverType.zy[1].scN2}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth3}}月到期</td>
+               <td>{{zynum13}}</td>
+               <td>{{MonthKpiCoverType.zy[1].newN3}}</td>
+               <td>{{MonthKpiCoverType.zy[1].renewN3}}</td>
+               <td>{{MonthKpiCoverType.zy[1].jzxN3}}</td>
+               <td>{{MonthKpiCoverType.zy[1].qzxN3}}</td>
+               <td>{{MonthKpiCoverType.zy[1].scN3}}</td>
+            </tr>
+            <tr>
+               <td rowspan="4" style="vertical-align: middle;">往月失销车辆数<br>（台）</td>
+               <td>{{thisMonth}}月到期</td>
+               <td>{{zynum20}}</td>
+               <td>{{MonthKpiCoverType.zy[2].newN}}</td>
+               <td>{{MonthKpiCoverType.zy[2].renewN}}</td>
+               <td>{{MonthKpiCoverType.zy[2].jzxN}}</td>
+               <td>{{MonthKpiCoverType.zy[2].qzxN}}</td>
+               <td>{{MonthKpiCoverType.zy[2].scN}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth1}}月到期</td>
+               <td>{{zynum21}}</td>
+               <td>{{MonthKpiCoverType.zy[2].newN1}}</td>
+               <td>{{MonthKpiCoverType.zy[2].renewN1}}</td>
+               <td>{{MonthKpiCoverType.zy[2].jzxN1}}</td>
+               <td>{{MonthKpiCoverType.zy[2].qzxN1}}</td>
+               <td>{{MonthKpiCoverType.zy[2].scN1}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth2}}月到期</td>
+               <td>{{zynum22}}</td>
+               <td>{{MonthKpiCoverType.zy[2].newN2}}</td>
+               <td>{{MonthKpiCoverType.zy[2].renewN2}}</td>
+               <td>{{MonthKpiCoverType.zy[2].jzxN2}}</td>
+               <td>{{MonthKpiCoverType.zy[2].qzxN2}}</td>
+               <td>{{MonthKpiCoverType.zy[2].scN2}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth3}}月到期</td>
+               <td>{{zynum23}}</td>
+               <td>{{MonthKpiCoverType.zy[2].newN3}}</td>
+               <td>{{MonthKpiCoverType.zy[2].renewN3}}</td>
+               <td>{{MonthKpiCoverType.zy[2].jzxN3}}</td>
+               <td>{{MonthKpiCoverType.zy[2].qzxN3}}</td>
+               <td>{{MonthKpiCoverType.zy[2].scN3}}</td>
+            </tr>
+            <tr>
+               <td rowspan="5" style="vertical-align: middle;">本月可出单车数<br>（台）</td>
+               <td>合计可出单车数</td>
+               <td>{{zynum30+zynum31+zynum32+zynum33}}</td>
+               <td>{{MonthKpiCoverType.zy[3].newN+MonthKpiCoverType.zy[3].newN1+MonthKpiCoverType.zy[3].newN2+MonthKpiCoverType.zy[3].newN3}}</td>
+               <td>{{MonthKpiCoverType.zy[3].renewN+MonthKpiCoverType.zy[3].renewN1+MonthKpiCoverType.zy[3].renewN2+MonthKpiCoverType.zy[3].renewN3}}</td>
+               <td>{{MonthKpiCoverType.zy[3].jzxN+MonthKpiCoverType.zy[3].jzxN1+MonthKpiCoverType.zy[3].jzxN2+MonthKpiCoverType.zy[3].jzxN3}}</td>
+               <td>{{MonthKpiCoverType.zy[3].qzxN+MonthKpiCoverType.zy[3].qzxN1+MonthKpiCoverType.zy[3].qzxN2+MonthKpiCoverType.zy[3].qzxN3}}</td>
+               <td>{{MonthKpiCoverType.zy[3].scN+MonthKpiCoverType.zy[3].scN1+MonthKpiCoverType.zy[3].scN2+MonthKpiCoverType.zy[3].scN3}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth}}月到期</td>
+               <td>{{zynum30}}</td>
+               <td>{{MonthKpiCoverType.zy[3].newN}}</td>
+               <td>{{MonthKpiCoverType.zy[3].renewN}}</td>
+               <td>{{MonthKpiCoverType.zy[3].jzxN}}</td>
+               <td>{{MonthKpiCoverType.zy[3].qzxN}}</td>
+               <td>{{MonthKpiCoverType.zy[3].scN}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth1}}月到期</td>
+               <td>{{zynum31}}</td>
+               <td>{{MonthKpiCoverType.zy[3].newN1}}</td>
+               <td>{{MonthKpiCoverType.zy[3].renewN1}}</td>
+               <td>{{MonthKpiCoverType.zy[3].jzxN1}}</td>
+               <td>{{MonthKpiCoverType.zy[3].qzxN1}}</td>
+               <td>{{MonthKpiCoverType.zy[3].scN1}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth2}}月到期</td>
+               <td>{{zynum32}}</td>
+               <td>{{MonthKpiCoverType.zy[3].newN2}}</td>
+               <td>{{MonthKpiCoverType.zy[3].renewN2}}</td>
+               <td>{{MonthKpiCoverType.zy[3].jzxN2}}</td>
+               <td>{{MonthKpiCoverType.zy[3].qzxN2}}</td>
+               <td>{{MonthKpiCoverType.zy[3].scN2}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth3}}月到期</td>
+               <td>{{zynum33}}</td>
+               <td>{{MonthKpiCoverType.zy[3].newN3}}</td>
+               <td>{{MonthKpiCoverType.zy[3].renewN3}}</td>
+               <td>{{MonthKpiCoverType.zy[3].jzxN3}}</td>
+               <td>{{MonthKpiCoverType.zy[3].qzxN3}}</td>
+               <td>{{MonthKpiCoverType.zy[3].scN3}}</td>
+            </tr>
+            <tr>
+               <td rowspan="10" style="vertical-align: middle;">本月跟踪<br>&<br>邀约</td>
+               <td rowspan="5" style="vertical-align: middle;">跟踪人数（人）</td>
+               <td>合计跟踪数</td>
+               <td>{{gzyynum00+gzyynum01+gzyynum02+gzyynum03}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].newN+MonthKpiCoverType.gzyy[0].newN1+MonthKpiCoverType.gzyy[0].newN2+MonthKpiCoverType.gzyy[0].newN3}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].renewN+MonthKpiCoverType.gzyy[0].renewN1+MonthKpiCoverType.gzyy[0].renewN2+MonthKpiCoverType.gzyy[0].renewN3}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].jzxN+MonthKpiCoverType.gzyy[0].jzxN1+MonthKpiCoverType.gzyy[0].jzxN2+MonthKpiCoverType.gzyy[0].jzxN3}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].qzxN+MonthKpiCoverType.gzyy[0].qzxN1+MonthKpiCoverType.gzyy[0].qzxN2+MonthKpiCoverType.gzyy[0].qzxN3}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].scN+MonthKpiCoverType.gzyy[0].scN1+MonthKpiCoverType.gzyy[0].scN2+MonthKpiCoverType.gzyy[0].scN3}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth}}月到期</td>
+               <td>{{gzyynum00}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].newN}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].renewN}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].jzxN}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].qzxN}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].scN}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth1}}月到期</td>
+               <td>{{gzyynum01}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].newN1}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].renewN1}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].jzxN1}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].qzxN1}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].scN1}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth2}}月到期</td>
+               <td>{{gzyynum02}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].newN2}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].renewN2}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].jzxN2}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].qzxN2}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].scN2}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth3}}月到期</td>
+               <td>{{gzyynum03}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].newN3}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].renewN3}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].jzxN3}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].qzxN3}}</td>
+               <td>{{MonthKpiCoverType.gzyy[0].scN3}}</td>
+            </tr>
+            <tr>
+               <td rowspan="5" style="vertical-align: middle;">邀约人数（人）</td>
+               <td>合计邀约数</td>
+               <td>{{gzyynum10+gzyynum11+gzyynum12+gzyynum13}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].newN+MonthKpiCoverType.gzyy[1].newN1+MonthKpiCoverType.gzyy[1].newN2+MonthKpiCoverType.gzyy[1].newN3}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].renewN+MonthKpiCoverType.gzyy[1].renewN1+MonthKpiCoverType.gzyy[1].renewN2+MonthKpiCoverType.gzyy[1].renewN3}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].jzxN+MonthKpiCoverType.gzyy[1].jzxN1+MonthKpiCoverType.gzyy[1].jzxN2+MonthKpiCoverType.gzyy[1].jzxN3}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].qzxN+MonthKpiCoverType.gzyy[1].qzxN1+MonthKpiCoverType.gzyy[1].qzxN2+MonthKpiCoverType.gzyy[1].qzxN3}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].scN+MonthKpiCoverType.gzyy[1].scN1+MonthKpiCoverType.gzyy[1].scN2+MonthKpiCoverType.gzyy[1].scN3}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth}}月到期</td>
+               <td>{{gzyynum10}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].newN}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].renewN}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].jzxN}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].qzxN}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].scN}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth1}}月到期</td>
+               <td>{{gzyynum11}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].newN1}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].renewN1}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].jzxN1}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].qzxN1}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].scN1}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth2}}月到期</td>
+               <td>{{gzyynum12}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].newN2}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].renewN2}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].jzxN2}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].qzxN2}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].scN2}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth3}}月到期</td>
+               <td>{{gzyynum13}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].newN3}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].renewN3}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].jzxN3}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].qzxN3}}</td>
+               <td>{{MonthKpiCoverType.gzyy[1].scN3}}</td>
+            </tr>
+            <tr>
+               <td rowspan="11" style="vertical-align: middle;">本月到店<br>&<br>出单数
+               </td>
+               <td rowspan="5" style="vertical-align: middle;">实际到店人数 |<br>邀约到店人数<br>（人）</td>
+               <td>合计到店</td>
+               <td>{{ddcdnum00+ddcdnum01+ddcdnum02+ddcdnum03}} | {{ddcdnum10+ddcdnum11+ddcdnum12+ddcdnum13}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].newN + MonthKpiCoverType.ddcd[0].newN1 + MonthKpiCoverType.ddcd[0].newN2 + MonthKpiCoverType.ddcd[0].newN3 }} |
+                  {{MonthKpiCoverType.ddcd[1].newN + MonthKpiCoverType.ddcd[1].newN1 + MonthKpiCoverType.ddcd[1].newN2 + MonthKpiCoverType.ddcd[1].newN3 }}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].renewN + MonthKpiCoverType.ddcd[0].renewN1 + MonthKpiCoverType.ddcd[0].renewN2 + MonthKpiCoverType.ddcd[0].renewN3 }} |
+                  {{MonthKpiCoverType.ddcd[1].renewN + MonthKpiCoverType.ddcd[1].renewN1 + MonthKpiCoverType.ddcd[1].renewN2 + MonthKpiCoverType.ddcd[1].renewN3 }}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].jzxN + MonthKpiCoverType.ddcd[0].jzxN1 + MonthKpiCoverType.ddcd[0].jzxN2 + MonthKpiCoverType.ddcd[0].jzxN3 }} |
+                  {{MonthKpiCoverType.ddcd[1].jzxN + MonthKpiCoverType.ddcd[1].jzxN1 + MonthKpiCoverType.ddcd[1].jzxN2 + MonthKpiCoverType.ddcd[1].jzxN3 }}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].qzxN + MonthKpiCoverType.ddcd[0].qzxN1 + MonthKpiCoverType.ddcd[0].qzxN2 + MonthKpiCoverType.ddcd[0].qzxN3 }} |
+                  {{MonthKpiCoverType.ddcd[1].qzxN + MonthKpiCoverType.ddcd[1].qzxN1 + MonthKpiCoverType.ddcd[1].qzxN2 + MonthKpiCoverType.ddcd[1].qzxN3 }}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].scN + MonthKpiCoverType.ddcd[0].scN1 + MonthKpiCoverType.ddcd[0].scN2 + MonthKpiCoverType.ddcd[0].scN3 }} |
+                  {{MonthKpiCoverType.ddcd[1].scN + MonthKpiCoverType.ddcd[1].scN1 + MonthKpiCoverType.ddcd[1].scN2 + MonthKpiCoverType.ddcd[1].scN3 }}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth}}月到期</td>
+               <td>{{ddcdnum00}} | {{ddcdnum10}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].newN}} | {{MonthKpiCoverType.ddcd[1].newN}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].renewN}} | {{MonthKpiCoverType.ddcd[1].renewN}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].jzxN}} | {{MonthKpiCoverType.ddcd[1].jzxN}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].qzxN}} | {{MonthKpiCoverType.ddcd[1].qzxN}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].scN}} | {{MonthKpiCoverType.ddcd[1].scN}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth1}}月到期</td>
+               <td>{{ddcdnum01}} | {{ddcdnum11}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].newN1}} | {{MonthKpiCoverType.ddcd[1].newN1}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].renewN1}} | {{MonthKpiCoverType.ddcd[1].renewN1}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].jzxN1}} | {{MonthKpiCoverType.ddcd[1].jzxN1}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].qzxN1}} | {{MonthKpiCoverType.ddcd[1].qzxN1}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].scN1}} | {{MonthKpiCoverType.ddcd[1].scN1}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth2}}月到期</td>
+               <td>{{ddcdnum02}} | {{ddcdnum12}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].newN2}} | {{MonthKpiCoverType.ddcd[1].newN2}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].renewN2}} | {{MonthKpiCoverType.ddcd[1].renewN2}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].jzxN2}} | {{MonthKpiCoverType.ddcd[1].jzxN2}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].qzxN2}} | {{MonthKpiCoverType.ddcd[1].qzxN2}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].scN2}} | {{MonthKpiCoverType.ddcd[1].scN2}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth3}}月到期</td>
+               <td>{{ddcdnum03}} | {{ddcdnum13}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].newN3}} | {{MonthKpiCoverType.ddcd[1].newN3}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].renewN3}} | {{MonthKpiCoverType.ddcd[1].renewN3}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].jzxN3}} | {{MonthKpiCoverType.ddcd[1].jzxN3}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].qzxN3}} | {{MonthKpiCoverType.ddcd[1].qzxN3}}</td>
+               <td>{{MonthKpiCoverType.ddcd[0].scN3}} | {{MonthKpiCoverType.ddcd[1].scN3}}</td>
+            </tr>
+            <tr>
+               <td colspan="2">目标值</td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+            </tr>
+            <tr>
+               <td colspan="2">合计出单数（综合续保数）</td>
+               <td>{{ddcdnum20+ddcdnum21+ddcdnum22+ddcdnum23}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].newN+MonthKpiCoverType.ddcd[2].newN1+MonthKpiCoverType.ddcd[2].newN2+MonthKpiCoverType.ddcd[2].newN3}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].renewN+MonthKpiCoverType.ddcd[2].renewN1+MonthKpiCoverType.ddcd[2].renewN2+MonthKpiCoverType.ddcd[2].renewN3}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].jzxN+MonthKpiCoverType.ddcd[2].jzxN1+MonthKpiCoverType.ddcd[2].jzxN2+MonthKpiCoverType.ddcd[2].jzxN3}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].qzxN+MonthKpiCoverType.ddcd[2].qzxN1+MonthKpiCoverType.ddcd[2].qzxN2+MonthKpiCoverType.ddcd[2].qzxN3}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].scN+MonthKpiCoverType.ddcd[2].scN1+MonthKpiCoverType.ddcd[2].scN2+MonthKpiCoverType.ddcd[2].scN3}}</td>
+            </tr>
+            <tr>
+               <td>本月到期本月出单车数（台）</td>
+               <td>{{thisMonth}}月到期</td>
+               <td>{{ddcdnum20}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].newN}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].renewN}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].jzxN}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].qzxN}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].scN}}</td>
+            </tr>
+            <tr>
+               <td rowspan="3" style="vertical-align: middle;">本月提前出单车数<br>（台）</td>
+               <td>{{thisMonth1}}月到期</td>
+               <td>{{ddcdnum21}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].newN1}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].renewN1}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].jzxN1}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].qzxN1}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].scN1}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth2}}月到期</td>
+               <td>{{ddcdnum22}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].newN2}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].renewN2}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].jzxN2}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].qzxN2}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].scN2}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth3}}月到期</td>
+               <td>{{ddcdnum23}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].newN3}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].renewN3}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].jzxN3}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].qzxN3}}</td>
+               <td>{{MonthKpiCoverType.ddcd[2].scN3}}</td>
+            </tr>
+            <tr>
+               <td rowspan="6" colspan="2" style="vertical-align: middle;">本月续保任务完成率<br>（%）
+               </td>
+               <td>任务完成率（按可出单）</td>
+               <td>{{MonthKpiCoverType.xbwcl.allSum | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.newSum | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.renewSum | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.jzxSum | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.qzxSum | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.scSum | number:2}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth}}月到期</td>
+               <td>{{MonthKpiCoverType.xbwcl.sumN | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.newN | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.renewN | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.jzxN | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.qzxN | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.scN | number:2}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth1}}月到期</td>
+               <td>{{MonthKpiCoverType.xbwcl.sumN1 | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.newN1 | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.renewN1 | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.jzxN1 | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.qzxN1 | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.scN1 | number:2}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth2}}月到期</td>
+               <td>{{MonthKpiCoverType.xbwcl.sumN2 | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.newN2 | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.renewN2 | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.jzxN2 | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.qzxN2 | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.scN2 | number:2}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth3}}月到期</td>
+               <td>{{MonthKpiCoverType.xbwcl.sumN3 | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.newN3 | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.renewN3 | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.jzxN3 | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.qzxN3 | number:2}}</td>
+               <td>{{MonthKpiCoverType.xbwcl.scN3 | number:2}}</td>
+            </tr>
+            <tr>
+               <td>任务完成率（按目标出单）</td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+            </tr>
+            <tr>
+               <td rowspan="3" style="vertical-align: middle;">综合续保</td>
+               <td colspan="2">去年同期综合续保车数（台）</td>
+               <td>{{MonthKpiCoverType.zhxb.sumQntqcds}}</td>
+              <!-- <td>{{MonthKpiCoverType.zhxb.newQntqcds}}</td>
+               <td>{{MonthKpiCoverType.zhxb.renewQntqcds}}</td>
+               <td>{{MonthKpiCoverType.zhxb.jzxQntqcds}}</td>
+               <td>{{MonthKpiCoverType.zhxb.qzxQntqcds}}</td>
+               <td>{{MonthKpiCoverType.zhxb.scQntqcds}}</td>-->
+               <td>--</td>
+               <td>--</td>
+               <td>--</td>
+               <td>--</td>
+               <td>--</td>
+            </tr>
+            <tr>
+               <td rowspan="2">本月综合续保率<br>（%）</td>
+               <td>目标值</td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+            </tr>
+            <tr>
+               <td>本月实际达成</td>
+               <td>{{MonthKpiCoverType.zhxb.sumBqzhxbl | number:2}}</td>
+               <!--<td>{{MonthKpiCoverType.zhxb.newBqzhxbl | number:2}}</td>
+               <td>{{MonthKpiCoverType.zhxb.renewBqzhxbl | number:2}}</td>
+               <td>{{MonthKpiCoverType.zhxb.jzxBqzhxbl | number:2}}</td>
+               <td>{{MonthKpiCoverType.zhxb.qzxBqzhxbl | number:2}}</td>
+               <td>{{MonthKpiCoverType.zhxb.scBqzhxbl | number:2}}</td>-->
+               <td>--</td>
+               <td>--</td>
+               <td>--</td>
+               <td>--</td>
+               <td>--</td>
+            </tr>
+            <tr>
+               <td rowspan="10" style="vertical-align: middle;">当期续保</td>
+               <td rowspan="5" style="vertical-align: middle;">当期续保车数<br>（台）</td>
+               <td>目标值</td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+            </tr>
+            <tr>
+               <td>本月当期续保车数</td>
+               <td>{{MonthKpiCoverType.dqxb[0].sumN}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].newN}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].renewN}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].jzxN}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].qzxN}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].scN}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth1}}月</td>
+               <td>{{MonthKpiCoverType.dqxb[0].sumN1}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].newN1}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].renewN1}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].jzxN1}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].qzxN1}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].scN1}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth2}}月</td>
+               <td>{{MonthKpiCoverType.dqxb[0].sumN2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].newN2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].renewN2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].jzxN2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].qzxN2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].scN2}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth3}}月</td>
+               <td>{{MonthKpiCoverType.dqxb[0].sumN3}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].newN3}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].renewN3}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].jzxN3}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].qzxN3}}</td>
+               <td>{{MonthKpiCoverType.dqxb[0].scN3}}</td>
+            </tr>
+            <tr>
+               <td rowspan="5" style="vertical-align: middle;">当期续保率<br>（%）</td>
+               <td>目标值</td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+               <td> </td>
+            </tr>
+            <tr>
+               <td>本月当期续保率</td>
+               <td>{{MonthKpiCoverType.dqxb[1].sumN | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].newN | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].renewN | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].jzxN | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].qzxN | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].scN | number:2}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth1}}月</td>
+               <td>{{MonthKpiCoverType.dqxb[1].sumN1 | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].newN1 | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].renewN1 | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].jzxN1 | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].qzxN1 | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].scN1 | number:2}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth2}}月</td>
+               <td>{{MonthKpiCoverType.dqxb[1].sumN2 | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].newN2 | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].renewN2 | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].jzxN2 | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].qzxN2 | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].scN2 | number:2}}</td>
+            </tr>
+            <tr>
+               <td>{{thisMonth3}}月</td>
+               <td>{{MonthKpiCoverType.dqxb[1].sumN3 | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].newN3 | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].renewN3 | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].jzxN3 | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].qzxN3 | number:2}}</td>
+               <td>{{MonthKpiCoverType.dqxb[1].scN3 | number:2}}</td>
+            </tr>
+         </table>
+      </div>
+   </div>
+   <div class="report_pane tab-pane fade" id="ybCompanys">
+      <div class="report_title">KPI月报-分保险公司</div>
+      <div class="selectBiao">
+         <!--<span><select ng-model="ybKpiCompany_selectTime" ng-options="x for x in selectTimes" style="width: 100px;height: 22px;">
+            <option value="">请选择时间</option>
+         </select></span>-->
+         <input type="text" style="width: 100px;height: 22px;"  ng-model="ybKpiCompany_selectTime" class="selectDate">
+         <span style="margin-left: 10px;"><button type="button" ng-click="findCountMonthKpiInsurComp()">查询</button></span>
+         <div class="report_type">
+            <span ng-click="monthKpiCompExport()">导出</span>
+         </div>
+      </div>
+      <div id="monthKpiCompany">
+         <table class="table table-bordered">
+            <thead>
+            <tr class="gray">
+               <td colspan="2" rowspan="2" style="vertical-align: middle;">项目</td>
+               <td colspan="3">出单数量（单）</td>
+               <td colspan="3">签单保费（元）</td>
+               <td colspan="2">手续费率（%）</td>
+               <td colspan="3">手续费金额（元）</td>
+            </tr>
+            <tr class="gray">
+               <td>合计</td>
+               <td>交强</td>
+               <td>商业</td>
+               <td>合计</td>
+               <td>交强</td>
+               <td>商业</td>
+               <td>交强</td>
+               <td>商业</td>
+               <td>合计</td>
+               <td>交强</td>
+               <td>商业</td>
+            </tr>
+            </thead>
+            <tbody ng-repeat="KpiInsurComp in monthCompany">
+            <tr ng-repeat="bbsj in KpiInsurComp.shuju">
+               <td rowspan={{KpiInsurComp.num}} ng-if="$index==0" style="vertical-align: middle;">{{KpiInsurComp.insuranceCompName}}</td>
+               <td>{{bbsj.name}}</td>
+               <td>{{bbsj.cdsSum}}</td>
+               <td>{{bbsj.jqxcds}}</td>
+               <td>{{bbsj.syxcds}}</td>
+               <td>{{bbsj.bfSum}}</td>
+               <td>{{bbsj.jqxbf}}</td>
+               <td>{{bbsj.syxbf}}</td>
+               <td>{{bbsj.jqxsxfRate}}</td>
+               <td>{{bbsj.syxsxfRate}}</td>
+               <td>{{bbsj.sxfAmountSum}}</td>
+               <td>{{bbsj.jqxsxfAmount}}</td>
+               <td>{{bbsj.syxsxfAmount}}</td>
+            </tr>
+            </tbody>
+         </table>
+         <!--<table class="table table-bordered">
+            <thead>
+            <tr class="gray">
+               <td colspan="2" rowspan="2" style="vertical-align: middle;">项目</td>
+               <td colspan="3">出单数量（单）</td>
+               <td colspan="3">签单保费（元）</td>
+               <td colspan="2">手续费率（%）</td>
+               <td colspan="3">手续费金额（元）</td>
+            </tr>
+            <tr class="gray">
+               <td>合计</td>
+               <td>交强</td>
+               <td>商业</td>
+               <td>合计</td>
+               <td>交强</td>
+               <td>商业</td>
+               <td>交强</td>
+               <td>商业</td>
+               <td>合计</td>
+               <td>交强</td>
+               <td>商业</td>
+            </tr>
+            </thead>
+            <tbody ng-repeat="KpiInsurComp in monthCompany">
+            <tr>
+               <td rowspan="4" style="vertical-align: middle;">{{KpiInsurComp.insuranceCompName}}</td>
+               <td>合计</td>
+               <td>{{KpiInsurComp.sumCds}}</td>
+               <td>{{KpiInsurComp.sumCdsJqx}}</td>
+               <td>{{KpiInsurComp.sumCdsSyx}}</td>
+               <td>{{KpiInsurComp.sumQdbf | number:2}}</td>
+               <td>{{KpiInsurComp.sumQdbfJqx | number:2}}</td>
+               <td>{{KpiInsurComp.sumQdbfSyx | number:2}}</td>
+               <td>{{KpiInsurComp.sumSxflJqx | number:2}}</td>
+               <td>{{KpiInsurComp.sumSxflSyx | number:2}}</td>
+               <td>{{KpiInsurComp.sumSxfje | number:2}}</td>
+               <td>{{KpiInsurComp.sumSxfjeJqx | number:2}}</td>
+               <td>{{KpiInsurComp.sumSxfjeSyx | number:2}}</td>
+            </tr>
+            <tr>
+               <td>新保-全</td>
+               <td>{{KpiInsurComp.sumNewBillCountQk}}</td>
+               <td>{{KpiInsurComp.jqxNewBillCountQk}}</td>
+               <td>{{KpiInsurComp.syxNewBillCountQk}}</td>
+               <td>{{KpiInsurComp.sumNewBillPremiumQk | number:2}}</td>
+               <td>{{KpiInsurComp.jqxNewBillPremiumQk | number:2}}</td>
+               <td>{{KpiInsurComp.syxNewBillPremiumQk | number:2}}</td>
+               <td>{{KpiInsurComp.jqxNewBillHandlingRateQk | number:2}}</td>
+               <td>{{KpiInsurComp.syxNewBillHandlingRateQk | number:2}}</td>
+               <td>{{KpiInsurComp.sumNewBillHandlingAmountQk | number:2}}</td>
+               <td>{{KpiInsurComp.jqxNewBillHandlingAmountQk | number:2}}</td>
+               <td>{{KpiInsurComp.syxNewBillHandlingAmountQk | number:2}}</td>
+            </tr>
+            <tr>
+               <td>新保-贷</td>
+               <td>{{KpiInsurComp.sumNewBillCountDk}}</td>
+               <td>{{KpiInsurComp.jqxNewBillCountDk}}</td>
+               <td>{{KpiInsurComp.syxNewBillCountDk}}</td>
+               <td>{{KpiInsurComp.sumNewBillPremiumDk | number:2}}</td>
+               <td>{{KpiInsurComp.jqxNewBillPremiumDk | number:2}}</td>
+               <td>{{KpiInsurComp.syxNewBillPremiumDk | number:2}}</td>
+               <td>{{KpiInsurComp.jqxNewBillHandlingRateDk | number:2}}</td>
+               <td>{{KpiInsurComp.syxNewBillHandlingRateDk | number:2}}</td>
+               <td>{{KpiInsurComp.sumNewBillHandlingAmountDk | number:2}}</td>
+               <td>{{KpiInsurComp.jqxNewBillHandlingAmountDk | number:2}}</td>
+               <td>{{KpiInsurComp.syxNewBillHandlingAmountDk | number:2}}</td>
+            </tr>
+            <tr>
+               <td>续保</td>
+               <td>{{KpiInsurComp.sumRenewalBillCount}}</td>
+               <td>{{KpiInsurComp.jqxRenewalBillCount}}</td>
+               <td>{{KpiInsurComp.syxRenewalBillCount}}</td>
+               <td>{{KpiInsurComp.sumRenewalBillPremium | number:2}}</td>
+               <td>{{KpiInsurComp.jqxRenewalBillPremium | number:2}}</td>
+               <td>{{KpiInsurComp.syxRenewalBillPremium | number:2}}</td>
+               <td>{{KpiInsurComp.jqxRenewalBillHandlingRate | number:2}}</td>
+               <td>{{KpiInsurComp.syxRenewalBillHandlingRate | number:2}}</td>
+               <td>{{KpiInsurComp.sumRenewalBillHandlingAmount | number:2}}</td>
+               <td>{{KpiInsurComp.jqxRenewalBillHandlingAmount | number:2}}</td>
+               <td>{{KpiInsurComp.syxRenewalBillHandlingAmount | number:2}}</td>
+            </tr>
+            </tbody>
+         </table>-->
+      </div>
+   </div>
+   <div class="report_pane tab-pane fade" id="ybWorkers">
+      <div class="report_title">KPI月报-分工作人员</div>
+      <div class="selectBiao">
+         <span><select ng-model="ybKpiWorker_selectTime" ng-options="x for x in selectTimes" style="width: 100px;height: 22px;">
+            <option value="">请选择时间</option>
+         </select></span>
+         <span style="margin-left: 10px;"><button type="button" ng-click="findCountMonthKpi()">查询</button></span>
+         <div class="report_type">
+            <span ng-click="monthKpiExport()">导出</span>
+         </div>
+      </div>
+      <div id="monthKpiWorker">
+         <table class="table table-bordered" border="1">
+            <tbody>
+            <tr class="gray">
+               <td style="min-width: 100px;">续保专员</td>
+               <td>跟踪人数</td>
+               <td>准时跟进率（%）</td>
+               <td>邀约人数</td>
+               <td>潜客邀约率（%）</td>
+               <td>预计到店人数</td>
+               <td>邀约到店人数</td>
+               <td>邀约到店率（%）</td>
+               <td>续保车数</td>
+               <td>商业险出单数（单）</td>
+            </tr>
+            <tr ng-repeat="xbzy in monthXbzy">
+               <td style="position: relative">{{xbzy.userName}}<span class="riheji glyphicon glyphicon-link cursor" ng-click="showMonthXbzy()" ng-if="xbzy.userName=='合计'"></span></td>
+               <td>{{xbzy.traceCount}}</td>
+               <td>{{xbzy.zsgjl | number:2}}</td>
+               <td>{{xbzy.inviteCount}}</td>
+               <td>{{xbzy.qkyyl | number:2}}</td>
+               <td>{{xbzy.yjddrs}}</td>
+               <td>{{xbzy.comeStoreCount}}</td>
+               <td>{{xbzy.yyddl | number:2}}</td>
+               <td>{{xbzy.xbcs}}</td>
+               <td>{{xbzy.syxcds}}</td>
+            </tr>
+            </tbody>
+         </table>
+         <div style="display: none">
+            <table class="table table-bordered" border="1">
+               <tbody>
+               <tr class="gray">
+                  <td>续保专员</td>
+                  <td>项目</td>
+                  <td>合计</td>
+                  <td>新转续</td>
+                  <td>续转续</td>
+                  <td>间转续</td>
+                  <td>潜转续</td>
+                  <td>首次</td>
+               </tr>
+               </tbody>
+               <tbody ng-repeat="tc in monthXbzyDetail">
+               <tr>
+                  <td rowspan="4" style="vertical-align: middle;">{{tc.userName}}</td>
+                  <td>跟踪人数</td>
+                  <td>{{tc.sum1}}</td>
+                  <td>{{tc.newgzrs}}</td>
+                  <td>{{tc.renewgzrs}}</td>
+                  <td>{{tc.jzxgzrs}}</td>
+                  <td>{{tc.qzxgzrs}}</td>
+                  <td>{{tc.scgzrs}}</td>
+               </tr>
+               <tr>
+                  <td>邀约人数</td>
+                  <td>{{tc.sum2}}</td>
+                  <td>{{tc.newyyrs}}</td>
+                  <td>{{tc.renewyyrs}}</td>
+                  <td>{{tc.jzxyyrs}}</td>
+                  <td>{{tc.qzxyyrs}}</td>
+                  <td>{{tc.scyyrs}}</td>
+               </tr>
+               <tr>
+                  <td>邀约到店人数</td>
+                  <td>{{tc.sum3}}</td>
+                  <td>{{tc.newyyddrs}}</td>
+                  <td>{{tc.renewyyddrs}}</td>
+                  <td>{{tc.jzxyyddrs}}</td>
+                  <td>{{tc.qzxyyddrs}}</td>
+                  <td>{{tc.scyyddrs}}</td>
+               </tr>
+               <tr>
+                  <td>续保车数</td>
+                  <td>{{tc.sum4}}</td>
+                  <td>{{tc.newxbcs}}</td>
+                  <td>{{tc.renewxbcs}}</td>
+                  <td>{{tc.jzxxbcs}}</td>
+                  <td>{{tc.qzxxbcs}}</td>
+                  <td>{{tc.scxbcs}}</td>
+               </tr>
+               </tbody>
+            </table>
+         </div>
+         <table class="table table-bordered mt20" border="1" ng-if="asmModuleFlag==1">
+            <tbody>
+            <tr class="gray">
+               <td style="min-width: 70px;">出单员</td>
+               <td>接待人数</td>
+               <td>续保车数</td>
+               <td>出单数（单）</td>
+               <td>到店出单率（%）</td>
+               <td>商业险出单数（不含单三者）</td>
+               <td>保费合计（元）</td>
+               <td>商业险金额合计（不含单三者，元）</td>
+               <td>商业险单均金额（不含单三者，元）</td>
+            </tr>
+            <tr ng-repeat="cdy in monthCdy">
+               <td>{{cdy.userName}}</td>
+               <td>{{cdy.jdrs}}</td>
+               <td>{{cdy.xbcs}}</td>
+               <td>{{cdy.cds}}</td>
+               <td>{{cdy.ddcdl | number:2}}</td>
+               <td>{{cdy.syxcds}}</td>
+               <td>{{cdy.bfhj | number:2}}</td>
+               <td>{{cdy.syxbfhj | number:2}}</td>
+               <td>{{cdy.syxdjbf | number:2}}</td>
+            </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+   <div class="report_pane tab-pane fade" id="aberrant">
+      <div class="report_title">KPI日报-异常数据</div>
+      <div class="selectBiao">
+         <input type="text"  ng-model="aberrant.selectTime" style="width: 100px;" class="starttime">
+          <span><select ng-init="aberrant.selectRoleId = 2" ng-model="aberrant.selectRoleId" ng-options="x.roleId as x.RoleName for (key,x) in selectRoleIds" style="width: 100px;height: 22px;">
+          </select></span>
+         <span style="margin-left: 10px;"><button type="button" ng-click="findCustomerYcsj()">查询</button></span>
+         <div class="report_type">
+            <export-report data="exportData_ycsjbb" export-data="exportReportData"></export-report>
+         </div>
+      </div>
+      <e-chart-single customer-detail="ycsjDetail(ycsjData.seriesIndex,ycsjData.seriesName)" line-data="ycsjData" id="ycsjReport" chart-options="chartOptions_ycsjbb" data="ycsjReportData"
+                      update-data="updateData" e-r-data='exportData_ycsjbb.data'></e-chart-single>
+   </div>
+</div>
+
+<div ng-include="'./views/report/exportExcelReportData.html'"></div>
+<div ng-include="'./views/report/showXbzyXQ.html'"></div>
+<div ng-include="'./views/report/monthXbzyXQ.html'"></div>
+<div ng-include="'./views/report/customerDetail.html'"></div>
+

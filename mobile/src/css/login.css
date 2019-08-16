@@ -1,0 +1,100 @@
+.login-back{
+  background:url("../img/loginBg.jpg") no-repeat center center;
+  background-attachment: fixed;
+  background-size:100%;
+}
+
+.forgetPassword{
+  text-align: right;
+  margin:0px 10px 5px 0px;
+  color: #333;
+  height: 28px;
+}
+.forgetPassword .passBtn{
+  line-height: 28px;
+  cursor: pointer;
+}
+.forgetPassword .passTip{
+  display: inline-block;
+  padding: 3px 8px;
+  background: #fff;
+  border: 1px #ddd solid;
+  border-radius: 5px;
+  margin-right: 13px;
+  position: relative;
+}
+.forgetPassword .passTip:after{
+  border: 10px solid transparent;
+  border-left: 10px solid #fff;
+  width: 0;
+  height: 0;
+  position: absolute;
+  right: -16px;
+  content: ' '
+}
+.loginErrMsg{
+  width: 100%;
+  text-align: center;
+  color:#ef473a;
+}
+
+.loginTopDiv{
+  min-height:80px;
+  width:100%;
+  position:relative;
+}
+
+.loginTopDiv .logo-all{
+  position:absolute;
+  width:140px;
+  margin-left: 10px;
+}
+
+.loginTopDiv .logo-bsp-content{
+  text-align: center;
+  position: relative;
+  top: 60px;
+  height: 220px;
+  line-height: 220px;
+/*  transition: height 1s;
+  -moz-transition: height 1s;
+  -webkit-transition: height 1s;
+  -o-transition: height 1s; */
+}
+
+.loginTopDiv .logo-bsp-content .logo-img{
+  max-height:150px;
+  margin-left: -18px;
+}
+
+.loginTopDiv .logo-bsp-content .logo-text{
+  position:absolute;
+  color:#00899D;
+  width:100%;
+  top:110px;
+  font-size:12px;
+}
+
+.loginDownArea{
+  position:fixed;
+  bottom:30px;
+  width:80%;
+  left:10%;
+  text-align:center;
+}
+
+.loginDownArea .row .col{
+  cursor: pointer;
+}
+
+.loginDownArea .row .col:active{
+  opacity:0.3;
+}
+.footer-version{
+  position: fixed;
+  bottom: 10px;
+  font-size: 12px;
+  color: #11c1f3;
+  width: 100%;
+  text-align: center;
+}

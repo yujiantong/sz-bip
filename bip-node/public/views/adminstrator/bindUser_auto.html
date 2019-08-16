@@ -1,0 +1,33 @@
+<div id="bindUserAutobox" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 500px; width: 800px; margin-left: -330px; margin-top: -240px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                智能绑定用户
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+
+        <form name="myForm" novalidate="novalidate">
+            <div class="scmWindowContent ui-widget">
+                <div class="carmsg" style="height: 390px">
+                    <div ui-grid="userBindAutoPage" style="width:100%;height: 300px;" ui-grid-selection ui-grid-pinning  ui-grid-resize-columns ui-grid-auto-resize></div>
+                    <b>提示：</b>
+                    <p style="text-indent:2em;line-height:10px">1.智能绑定的前提是BIP系统中的用户姓名与BSP中的用户一致；</p>
+                    <p style="text-indent:2em;line-height:10px">2.不管是BIP系统中还是BSP系统中，如果出现相同的用户姓名将不会出现在此列表，需手工绑定；</p>
+                    <p style="text-indent:2em;line-height:10px">3.对于已经绑定过的用户将不会出现在此列表。</p>
+                </div>
+            </div>
+            <div class="scmWindowButton">
+                <input ng-click="submit_bindInfo()" type="button" value="确认">
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#bindUserAutobox").hide();
+    });
+</script>

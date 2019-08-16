@@ -1,0 +1,773 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.CustomerAssignMapper" >
+  <resultMap id="BaseResultMap" type="com.bofide.bip.po.CustomerAssign" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="customerId" property="customerId" jdbcType="INTEGER" />
+    <result column="userId" property="userId" jdbcType="INTEGER" />
+    <result column="traceStatu" property="traceStatu" jdbcType="INTEGER" />
+    <result column="traceDate" property="traceDate" jdbcType="DATE" />
+    <result column="inviteStatu" property="inviteStatu" jdbcType="INTEGER" />
+ 	<result column="inviteDate" property="inviteDate" jdbcType="DATE" />
+    <result column="acceptStatu" property="acceptStatu" jdbcType="INTEGER" />
+    <result column="acceptDate" property="acceptDate" jdbcType="DATE" />
+    <result column="returnStatu" property="returnStatu" jdbcType="INTEGER" />
+    <result column="returnDate" property="returnDate" jdbcType="DATE" />
+ 	<result column="customerTraceId" property="customerTraceId" jdbcType="INTEGER" />
+ 	<result column="assignDate" property="assignDate" jdbcType="DATE" />
+ 	<result column="delayDate" property="delayDate" jdbcType="DATE"/>
+ 	<result column="applyDelayDay" property="applyDelayDay" jdbcType="DATE"/>
+ 	<result column="applyStatu" property="applyStatu" jdbcType="INTEGER" />
+ 	<result column="applyLossReason" property="applyLossReason" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, customerId, userId, traceStatu,traceDate,
+    inviteStatu,inviteDate,acceptStatu, acceptDate, returnStatu, returnDate,
+    customerTraceId, assignDate,delayDate,applyStatu,applyLossReason
+  </sql>
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bf_bip_customer_assign
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bf_bip_customer_assign
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.bofide.bip.po.CustomerAssign" >
+    insert into bf_bip_customer_assign
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="customerId != null" >
+        customerId,
+      </if>
+      <if test="userId != null" >
+        userId,
+      </if>
+      <if test="traceStatu != null" >
+        traceStatu,
+      </if>
+      <if test="traceDate != null">
+      	traceDate,
+      </if>
+       
+      <if test="inviteStatu != null" >
+        inviteStatu,
+      </if>
+      <if test="inviteDate != null" >
+        inviteDate,
+      </if>
+      <if test="acceptStatu != null" >
+        acceptStatu,
+      </if>
+      <if test="acceptDate != null" >
+        acceptDate,
+      </if>
+      <if test="returnStatu != null" >
+        returnStatu,
+      </if>
+      <if test="returnDate != null" >
+        returnDate,
+      </if>
+      <if test="customerTraceId != null">
+      	customerTraceId,
+      </if>
+      <if test="assignDate != null" >
+        assignDate,
+      </if>
+      <if test="delayDate != null">
+      	delayDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+     <if test="customerId != null" >
+        #{customerId},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="traceStatu != null" >
+        #{traceStatu},
+      </if>
+      <if test="traceDate != null">
+      	#{traceDate},
+      </if>
+      
+      <if test="inviteStatu != null" >
+        #{inviteStatu},
+      </if>
+      <if test="inviteDate != null" >
+        #{inviteDate},
+      </if>
+      <if test="acceptStatu != null" >
+        #{acceptStatu},
+      </if>
+      <if test="acceptDate != null" >
+        #{acceptDate},
+      </if>
+      <if test="returnStatu != null" >
+        #{returnStatu},
+      </if>
+      <if test="returnDate != null" >
+        #{returnDate},
+      </if>
+      <if test="customerTraceId != null">
+      	#{customerTraceId},
+      </if>
+      <if test="assignDate != null" >
+        #{assignDate},
+      </if>
+      <if test="delayDate != null">
+      	#{delayDate},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateSelectiveByDifferentId" parameterType="java.util.Map" >
+    update bf_bip_customer_assign
+    <set >
+      <if test="traceStatu != null" >traceStatu = #{traceStatu},</if>
+      <if test="traceDate != null" >traceDate = #{traceDate},</if>
+      <if test="inviteStatu != null" >inviteStatu = #{inviteStatu},</if>
+      <if test="inviteDate != null" >inviteDate = #{inviteDate},</if>
+      <if test="acceptStatu != null" >acceptStatu = #{acceptStatu},</if>
+      <if test="acceptDate != null" >acceptDate = #{acceptDate},</if>
+      <if test="returnStatu != null" >returnStatu = #{returnStatu},</if>
+      <if test="returnDate != null" >returnDate = #{returnDate},</if>
+      <if test="customerTraceId != null" >customerTraceId = #{customerTraceId},</if>
+      <if test="assignDate != null" >assignDate = #{assignDate},</if>
+      <if test="delayDate != null" >delayDate = #{delayDate},</if>
+      <if test="applyDelayDay != null" >applyDelayDay = #{applyDelayDay},</if>
+    </set>
+    where 
+      <if test="id != null" >id = #{id}</if>
+      <if test="customerId != null" >customerId = #{customerId}</if>
+      <if test="customerId != null and userId != null" >and</if>
+      <if test="userId != null" >userId = #{userId}</if>
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bofide.bip.po.CustomerAssign" >
+    update bf_bip_customer_assign
+    set customerId = #{customerid,jdbcType=INTEGER},
+      userId = #{userid,jdbcType=INTEGER},
+      traceStatu = #{tracestatu,jdbcType=INTEGER},
+      inviteStatu = #{invitestatu,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateInviteStatu" parameterType="java.util.HashMap">
+  	update bf_bip_customer_assign 
+  		set inviteStatu = 1,inviteDate = null
+  		where userId = #{userId,jdbcType=INTEGER} and customerTraceId = #{customerTraceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateAcceptStatu">
+  	update bf_bip_customer_assign 
+  		set traceStatu = 1,traceDate = CURDATE(),acceptStatu = 2,acceptDate = CURDATE()
+  		where userId = #{userId,jdbcType=INTEGER} and customerId = #{customerId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateCseAcceptStatu">
+  	update bf_bip_customer_assign 
+  		set returnStatu = 4,returnDate = CURDATE(),acceptStatu = 2,acceptDate = CURDATE()
+  		where userId = #{userId,jdbcType=INTEGER} and customerId = #{customerId,jdbcType=INTEGER}
+  </update>
+
+  <select id="findAssignDate" resultType="String" >
+    select assignDate 
+    from bf_bip_customer_assign 
+    where userId = #{userId,jdbcType=INTEGER} and customerId = #{customerId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="findCustomerTraceId" resultType="Integer" >
+    select count(*) 
+    from bf_bip_customer_assign a
+    left join bf_bip_user u on u.id = a.userId 
+    where u.roleId = 1 and customerId = #{customerId,jdbcType=INTEGER}
+  </select>
+
+  <!-- 根据潜客id和用户或其上级id修改跟踪状态 -->
+  <update id="updateTraceStatu">
+    update bf_bip_customer_assign 
+    set traceStatu = #{statu,jdbcType=INTEGER}, traceDate = CURDATE()
+    where userId = #{userId,jdbcType=INTEGER} and customerId = #{customerId,jdbcType=INTEGER}
+  </update>
+  <!-- 根据潜客id和用户或其上级id修改跟踪完成状态 -->
+  <update id="updateTraceCompleteStatu">
+    update bf_bip_customer_assign 
+    set traceStatu = #{traceStatu,jdbcType=INTEGER}, traceDate = CURDATE(),
+       returnStatu = #{returnStatu,jdbcType=INTEGER}, returnDate = CURDATE()
+    where userId = #{userId,jdbcType=INTEGER} and customerId = #{customerId,jdbcType=INTEGER}
+  </update>
+  <!-- 根据潜客id和用户id修改跟踪状态 -->
+  <update id="updateConsultantTraceStatu">
+    update bf_bip_customer_assign 
+    set traceStatu = #{statu,jdbcType=INTEGER}, traceDate = CURDATE() ,acceptStatu = null, acceptDate = null, returnStatu = null, returnDate = null
+    where userId = #{userId,jdbcType=INTEGER} and customerId = #{customerId,jdbcType=INTEGER}
+  </update>
+  <!-- 更换负责人时,更新当前负责人的分配信息 -->
+  <update id="updatePreviousAssignRecord" >
+    update bf_bip_customer_assign 
+    set traceStatu = null, traceDate = null, acceptStatu = 1, acceptDate = null, returnStatu = #{returnStatu}, returnDate = null ,assignDate = CURDATE() 
+    where userId = #{userId,jdbcType=INTEGER} and customerId = #{customerId,jdbcType=INTEGER}
+  </update>
+  <!-- 更换负责人时,插入一条新的负责人的分配信息 -->
+  <insert id="insertNewPrincipalAssign" >
+  	insert into bf_bip_customer_assign ( customerId, userId, acceptStatu, returnStatu, returnDate,assignDate) 
+  		values(#{customerId},#{userId},1,#{returnStatu},CURDATE(),CURDATE())
+  </insert>
+  <!-- 更换负责人时,更新当前负责人上级的分配信息 -->
+  <update id="updateSuperiorAssignRecord" >
+    update bf_bip_customer_assign 
+    set traceStatu = null, traceDate = null, acceptStatu = 1, acceptDate = null, returnStatu = 1, returnDate = null ,assignDate = CURDATE() 
+    where userId = #{superiorId,jdbcType=INTEGER} and customerId = #{customerId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findUpdateData" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+  	select * from bf_bip_customer_assign where customerId = #{customerId,jdbcType=INTEGER} and userId = #{userId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- <insert id="insert" parameterType="java.util.HashMap">
+  	insert into bf_bip_customer_assign ( customerId, userId, traceStatu, inviteStatu, 
+    traceDate, acceptStatu, acceptDate, returnStatu, returnDate,
+    customerTraceId, inviteDate,assignDate) values(#{customerId},#{userId},#{traceStatu},
+    #{inviteStatu},#{traceDate},#{acceptStatu},#{acceptDate},#{returnStatu},
+    #{returnDate},#{customerTraceId},#{inviteDate},#{assignDate})
+  </insert> -->
+  
+  <!-- 
+  <insert id="insertKfzy" parameterType="java.util.HashMap">
+  	insert into bf_bip_customer_assign ( customerId, userId, traceStatu, inviteStatu,
+    traceDate, acceptStatu, acceptDate, returnStatu, returnDate,
+    customerTraceId, inviteDate, assignDate) values(#{customerId},#{userId},#{traceStatu},
+    #{inviteStatu},#{traceDate},#{acceptStatu},#{acceptDate},#{returnStatu},
+    #{returnDate},#{customerTraceId},#{inviteDate},#{assignDate})
+  </insert> -->
+  
+  
+  <!-- 插入userId为续保专员一条记录 -->
+  <insert id="insertXbzy" parameterType="java.util.HashMap">
+  	insert into bf_bip_customer_assign ( customerId, userId, traceStatu, inviteStatu, 
+    customerStatu, traceDate, acceptStatu, acceptDate, returnStatu, returnDate,
+    customerTraceId, inviteDate, approvalStatu, approvalDate,assignDate) values(#{customerId},#{userId},#{traceStatu},
+    #{inviteStatu},#{customerStatu},#{traceDate},#{acceptStatu},#{acceptDate},#{returnStatu},
+    #{returnDate},#{customerTraceId},#{inviteDate},#{approvalStatu},#{approvalDate},#{assignDate})
+  </insert>
+  <!-- 更新user的回退状态 -->
+   <update id="updateUserReturnStatu" parameterType="java.util.HashMap">
+  	update bf_bip_customer_assign 
+  	<set>
+  		<if test="returnStatu != null">
+  			returnStatu = #{returnStatu,jdbcType=INTEGER},
+  		</if>
+  	 	<if test="returnDate != null">
+  	 		returnDate = #{returnDate,jdbcType=DATE},	
+  	 	</if>
+  	 	<if test="traceStatu != null">
+		  	traceStatu = #{traceStatu,jdbcType=INTEGER},
+  	 	</if>
+  	 	<if test="traceDate != null">
+  	 		traceDate = #{traceDate,jdbcType=DATE},
+  	 	</if>
+  	 	<if test="applyStatu != null">
+  	 		applyStatu = #{applyStatu,jdbcType=INTEGER},
+  	 	</if>
+  	 	<if test="applyLossReason != null and applyLossReason !=''">
+  	 		applyLossReason = #{applyLossReason,jdbcType=VARCHAR}
+  	 	</if>
+  	 </set>
+  		where 
+  		customerId = #{customerId,jdbcType=INTEGER} 
+  		<if test="userId != null">
+		  	and userId = #{userId,jdbcType=INTEGER}
+  	 	</if>
+  	 	<if test="caozuoId != null and principalId !=null">
+		  	and (userId in (${caozuoId}) or userId = #{principalId,jdbcType=INTEGER})
+  	 	</if>
+  </update>
+  <!-- <update id="updateToKfzyWake" parameterType="java.util.HashMap">
+  	update bf_bip_customer_assign set returnStatu = #{returnStatu},returnDate = #{returnDate}
+  	 where customerId = #{customerId} and userId = #{kfzyId}
+  </update> -->
+  <!-- 更新user上司的回退状态 -->
+  <update id="updateSuperiorReturnStatu" parameterType="java.util.HashMap">
+  	update bf_bip_customer_assign 
+  		<set>
+	  		<if test="returnStatu != null">
+	  			returnStatu = #{returnStatu,jdbcType=INTEGER},
+	  		</if>
+	  	 	<if test="returnDate != null">
+	  	 		returnDate = #{returnDate,jdbcType=DATE},	
+	  	 	</if>
+	  	 	<if test="traceStatu != null">
+			  	traceStatu = #{traceStatu,jdbcType=INTEGER},
+	  	 	</if>
+	  	 	<if test="traceDate != null">
+	  	 		traceDate = #{traceDate,jdbcType=DATE}
+	  	 	</if>
+  	 	</set>
+  		where customerId = #{customerId,jdbcType=INTEGER} and userId = #{superiorId,jdbcType=INTEGER}
+  </update>
+    <!-- 更新user下属的回退状态 -->
+  <update id="updatePrincipalReturnStatu" parameterType="java.util.HashMap">
+  	update bf_bip_customer_assign set returnStatu = #{returnStatu,jdbcType=INTEGER},returnDate = #{returnDate,jdbcType=DATE},
+  	traceStatu = #{traceStatu,jdbcType=INTEGER},traceDate = #{traceDate,jdbcType=DATE}
+  		where customerId = #{customerId,jdbcType=INTEGER} and userId = #{principalId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 同步上级数据 -->
+  <update id="updateSuperior" parameterType="java.util.HashMap">
+  	update bf_bip_customer_assign 
+  	<set>
+	  	<if test="traceStatu != null">
+	  		traceStatu = #{traceStatu},
+	  	</if> 
+	  	<if test="traceDate != null">
+	  		traceDate = #{traceDate},
+	  	</if>
+	  	
+	  	<if test="inviteStatu != null">
+	  		inviteStatu = #{inviteStatu}, 
+	  	</if>
+	  	<if test="inviteDate != null">
+	  		inviteDate = #{inviteDate},
+	  	</if>
+	  	<if test="acceptStatu != null">
+	  		acceptStatu = #{acceptStatu},
+	  	</if>
+	  	<if test="acceptDate != null">
+	  		acceptDate = #{acceptDate},
+	  	</if>
+	  	<if test="returnStatu != null">
+	  		returnStatu = #{returnStatu},
+	  	</if>
+	  	<if test="returnDate != null">
+	  		returnDate = #{returnDate},
+	  	</if>
+	  	<if test="customerTraceId != null">
+	  		customerTraceId = #{customerTraceId},
+	  	</if>
+	    <if test="assignDate != null">
+	    	assignDate = #{assignDate}
+	    </if>
+	    <if test="delayDate != null">
+	    	delayDate = #{delayDate}
+	    </if>
+    </set>
+    where customerId = #{customerId} and userId = #{userId}
+  </update>
+  
+  <!-- 插入分配表 -->
+  <insert id="insert" parameterType="java.util.HashMap" >
+    insert into bf_bip_customer_assign ( customerId, userId, traceStatu, inviteStatu, 
+    traceDate, acceptStatu, acceptDate, returnStatu, returnDate,
+    customerTraceId, inviteDate,assignDate,delayDate) values(#{customerId},#{userId},#{traceStatu},
+    #{inviteStatu},#{traceDate},#{acceptStatu},#{acceptDate},#{returnStatu},
+    #{returnDate},#{customerTraceId},#{inviteDate},#{assignDate},#{delayDate})
+  </insert>
+  
+  
+<!--   <update id="updateToKfjlWake" parameterType="java.util.HashMap">
+  	update bf_bip_customer_assign set returnStatu = #{returnStatu},returnDate = #{returnDate}
+  	 where customerId = #{customerId} and userId = #{kfjlId}
+  </update> -->
+
+  <!-- 定时任务分配 -->
+  <insert id="assign" parameterType="java.util.ArrayList">
+  	insert into bf_bip_customer_assign (customerId, userId, traceStatu, inviteStatu,
+    traceDate, acceptStatu, acceptDate, returnStatu, returnDate,
+    customerTraceId, inviteDate,assignDate,delayDate) 
+    values
+    <foreach collection="list" item="param" index="index" separator=",">
+    (#{param.customerId},#{param.userId},#{param.traceStatu},#{param.inviteStatu},
+    #{param.traceDate},#{param.acceptStatu},#{param.acceptDate},#{param.returnStatu},#{param.returnDate},
+    #{param.customerTraceId},#{param.inviteDate},#{param.assignDate},#{param.delayDate})
+    </foreach>
+  </insert>
+  <!-- 定时更新跟踪状态 -->
+  <update id="updateTraceStatuOnTime" parameterType="java.util.HashMap">
+  	update bf_bip_customer_assign set traceStatu = 1 ,traceDate = curdate() 
+  	where userId = #{userId}
+  	and customerId = #{customerId}
+  	
+  </update>
+ 
+  
+  <select id="findXbzy" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+  	select * from bf_bip_customer_assign where userId = #{userId} and customerId = #{customerId}
+  	
+  </select>
+  
+ <!--  <update id="updateReturnStatu" parameterType="java.util.HashMap">
+  	update bf_bip_customer_assign set returnStatu = #{returnStatu}, returnDate = #{returnDate} where 
+  	customerId = #{customerId} and userId = #{userId}
+  </update> -->
+  
+  <select id="findAllRecode" parameterType="java.util.ArrayList" resultMap="BaseResultMap">
+  	select * from bf_bip_customer_assign where userId in
+  	<foreach collection="list" item="user" open="(" separator="," close=")">
+  		#{user.userId}
+  	</foreach>
+  </select>
+  
+  <select id="findLeastCustomerByWorker" resultType="java.util.HashMap">
+	SELECT
+		count(userId) haveCusNum,
+		userId userId
+	FROM
+		bf_bip_customer_assign ca,bf_bip_renewaling_customer rc,bf_bip_user u
+	WHERE
+		ca.customerId = rc.customerId
+		and ca.userId = u.id
+		and u.roleId =  #{roleId}
+		and ca.traceStatu != 3
+		and rc.fourSStoreId = #{fourSStoreId}
+		and u.status = 0
+		and u.deleted = 0
+	GROUP BY
+		userId  
+	ORDER BY haveCusNum 
+	LIMIT 0,1
+  </select>
+
+  <!-- 延期操作,更新回退状态  -->
+  <update id="updateReturnStatu">
+  	update bf_bip_customer_assign 
+  		set returnStatu = #{returnStatu,jdbcType=INTEGER},
+  			returnDate = CURDATE() 
+  		where customerId = #{customerId,jdbcType=INTEGER} 
+  			and userId = #{userId,jdbcType=INTEGER} 
+  </update>
+  
+  <!-- 延期审批时,更新延期到期日  -->
+  <update id="updateDelayDate">
+  	update bf_bip_customer_assign 
+  		set delayDate = DATE_ADD(CURDATE(),INTERVAL 7 day),
+  			returnStatu = 8,
+  			returnDate = CURDATE() 
+  		where customerId = #{customerId,jdbcType=INTEGER} 
+  			and userId = #{userId,jdbcType=INTEGER} 
+  </update>
+  <!-- 将延期日更新为null  -->
+  <update id="updateDelayDate2" parameterType="java.util.HashMap">
+  	update bf_bip_customer_assign 
+  		set delayDate = null
+  		where customerId = #{customerId,jdbcType=INTEGER} 
+  			and userId = #{userId,jdbcType=INTEGER} 
+  </update>
+  
+	 <select id="selectExistAssign" parameterType="java.util.ArrayList"  resultMap="BaseResultMap">
+  	select * from bf_bip_customer_assign where customerId in
+  	<foreach collection="list" item="customer" open="(" separator="," close=")">
+  		#{customer.customerId}
+  	</foreach>
+  </select>	
+  
+  <delete id="deleteExistAssign" parameterType="java.util.ArrayList">
+  	delete from bf_bip_customer_assign where customerId in
+  	<foreach collection="list" item="customer" open="(" separator="," close=")">
+  		#{customer.customerId}
+  	</foreach>
+  </delete>	
+
+  
+  <!-- 跟踪时,录入了邀约日期则表示已邀约  -->
+  <update id="updateAssignInviteStatu">
+  	update bf_bip_customer_assign 
+  		set inviteStatu = 2, inviteDate = CURDATE(), customerTraceId = #{customerTraceId} 
+  		where customerId = #{customerId,jdbcType=INTEGER} 
+  			and userId = #{userId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询应跟踪数量  -->
+  <select id="selectShouldTraceNum" resultType="java.lang.Integer">
+    select 
+    	count(*)
+	from bf_bip_customer_assign
+	where traceStatu = 1
+	and userId = #{userId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询已跟踪数量  -->
+  <select id="selectTracedNum" resultType="java.lang.Integer">
+    select 
+    	count(*)
+	from bf_bip_customer_assign
+	where traceStatu = 2
+	and userId = #{userId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询未接收数量  -->
+  <select id="selectAcceptNum" resultType="java.lang.Integer">
+    select 
+    	count(*)
+	from bf_bip_customer_assign
+	where acceptStatu = 1
+	and userId = #{userId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询待审批数量  -->
+  <select id="selectApproveNum" resultType="java.lang.Integer">
+    select 
+    	count(*)
+	from bf_bip_customer_assign
+	where userId = #{userId,jdbcType=INTEGER}
+	and returnStatu = 3
+  </select>
+  
+  <!-- 查询待审批数量 续保专员  -->
+  <select id="selectApproveNumRC" resultType="java.lang.Integer">
+    select 
+    	count(*)
+	from bf_bip_customer_assign
+	where userId = #{userId,jdbcType=INTEGER}
+	and (returnStatu = 3
+	or returnStatu = 7)
+  </select>
+  
+  
+
+  <!-- 查询待失销/已失销/已唤醒数量  -->
+  <select id="selectReturnNum" resultType="java.lang.Integer">
+    select 
+    	count(*)
+	from bf_bip_customer_assign
+	where userId = #{userId,jdbcType=INTEGER}
+	and returnStatu = #{returnStatu,jdbcType=INTEGER}
+	
+  </select>
+  <!-- 查询已分配的数量  -->
+  <select id="findExistAssign" resultType="java.lang.Integer">
+    select count(*) from bf_bip_customer_assign
+		where userId = #{userId} 
+		and customerId = #{customerId}
+  </select>
+ <!-- 根据用户id修改其跟踪潜客的跟踪状态  -->
+ <update id="updateTraceStatustByUserId" >
+    update bf_bip_customer_assign
+   	 set 
+      traceStatu = #{traceStatu,jdbcType=INTEGER}
+    where userId = #{userId,jdbcType=INTEGER}
+  </update>
+  <!-- 根据用户id查询未"跟踪完成"的潜客信息  -->
+  <select id="findCustByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    	*
+	from bf_bip_customer_assign
+	where userId = #{userId,jdbcType=INTEGER}
+	and ifnull(traceStatu,0) != 3
+  </select>
+  
+	
+	
+	
+	<!--  -->
+	<select id="findSADoYishixiao" resultType="java.util.HashMap">
+		select a.userId userId, b.superiorId superiorId from bf_bip_customer_assign a,bf_bip_user b 
+			where a.userId = b.id and a.customerId = #{customerId} and b.roleId = #{roleId} and returnStatu = 5
+	</select>
+	
+	<!-- 查询是否存在分配记录 -->
+	<select id="findIsAssign" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+		select 
+		* 
+		from bf_bip_customer_assign
+		where userId = #{userId} and customerId = #{customerId} 
+	</select>
+	<!-- 查询不是跟踪完成的 分配记录-->
+	<select id="findAssignRecode" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+		select 
+		* 
+		from bf_bip_customer_assign
+		where userId = #{userId} and customerId = #{customerId} and ifnull(traceStatu,0) != 3
+	</select>
+	<!-- 查询分配记录-->
+	<select id="findAssignRecode2" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+		select 
+		* 
+		from bf_bip_customer_assign
+		where userId = #{userId} and customerId = #{customerId} and ifnull(traceStatu,0) = 3
+	</select>
+	<!-- 查询不是跟踪完成的 分配记录-->
+	<select id="findAssignRecode3" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+		select 
+		* 
+		from bf_bip_customer_assign
+		where userId = #{userId} and customerId = #{customerId} 
+	</select>
+	<!-- 根据userId查询分配记录 -->
+	<select id="findAssignRecodeByUserId" resultType="java.lang.Integer">
+		select ifnull(count(1),0) from bf_bip_customer_assign 
+		where userId = #{userId}
+		and ifnull(traceStatu,0) != 3
+	</select>
+	
+
+
+  <update id="update" parameterType="java.util.HashMap">
+  	update bf_bip_customer_assign 
+  	<set>
+	  	<if test="traceStatu != null">
+	  		traceStatu = #{traceStatu},
+	  	</if> 
+	  	<if test="traceDate != null">
+	  		traceDate = #{traceDate},
+	  	</if>
+	  	
+	  	<if test="inviteStatu != null">
+	  		inviteStatu = #{inviteStatu}, 
+	  	</if>
+	  	<if test="inviteDate != null">
+	  		inviteDate = #{inviteDate},
+	  	</if>
+	  	<if test="acceptStatu != null">
+	  		acceptStatu = #{acceptStatu},
+	  	</if>
+	  	<if test="acceptDate != null">
+	  		acceptDate = #{acceptDate},
+	  	</if>
+	  	<if test="returnStatu != null">
+	  		returnStatu = #{returnStatu},
+	  	</if>
+	  	<if test="returnDate != null">
+	  		returnDate = #{returnDate},
+	  	</if>
+	  	<if test="customerTraceId != null">
+	  		customerTraceId = #{customerTraceId},
+	  	</if>
+	    <if test="assignDate != null">
+	    	assignDate = #{assignDate},
+	    </if>
+	    <if test="delayDate != null">
+	    	delayDate = #{delayDate}
+	    </if>
+    </set>
+    where customerId = #{customerId} and userId = #{userId}
+  </update>
+  <update id="update2" parameterType="java.util.HashMap">
+  	update bf_bip_customer_assign 
+  	set
+	traceStatu = #{traceStatu},
+	traceDate = #{traceDate},
+	inviteStatu = #{inviteStatu}, 
+	inviteDate = #{inviteDate},
+	acceptStatu = #{acceptStatu},
+	acceptDate = #{acceptDate},
+	returnStatu = #{returnStatu},
+	returnDate = #{returnDate},
+	customerTraceId = #{customerTraceId},
+	assignDate = #{assignDate},
+	delayDate = #{delayDate}
+    where customerId = #{customerId} and userId = #{userId}
+  </update>
+	<select id="selectByCustUser" resultMap="BaseResultMap">
+		select 
+			* 
+		from bf_bip_customer_assign 
+		where 
+		userId = #{userId,jdbcType=INTEGER}
+		and customerId = #{customerId,jdbcType=INTEGER}
+	</select>
+	<select id="findAcceptStatu" resultType="Integer">
+		select acceptStatu from bf_bip_customer_assign where userId = #{userId} and customerId = #{customerId}
+	</select>
+	<select id="findAssignRecodeByCustomerId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select 
+			* 
+		from bf_bip_customer_assign 
+		where 
+		customerId = #{customerId,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="deleteByStoreId" parameterType="java.lang.Integer">
+		DELETE
+		FROM
+			bf_bip_customer_assign
+		WHERE
+			customerId IN (
+		SELECT
+			customerId
+		FROM
+			bf_bip_customer
+		WHERE
+			fourSStoreId = #{storeId}
+	)
+	</delete> 
+	
+	 <update id="updateByCustomerId" parameterType="java.util.HashMap">
+  	update bf_bip_customer_assign 
+  	<set>
+	  	<if test="traceStatu != null">
+	  		traceStatu = #{traceStatu},
+	  	</if> 
+	  	<if test="traceDate != null">
+	  		traceDate = #{traceDate},
+	  	</if>
+	  	
+	  	<if test="inviteStatu != null">
+	  		inviteStatu = #{inviteStatu}, 
+	  	</if>
+	  	<if test="inviteDate != null">
+	  		inviteDate = #{inviteDate},
+	  	</if>
+	  	<if test="acceptStatu != null">
+	  		acceptStatu = #{acceptStatu},
+	  	</if>
+	  	<if test="acceptDate != null">
+	  		acceptDate = #{acceptDate},
+	  	</if>
+	  	<if test="returnStatu != null">
+	  		returnStatu = #{returnStatu},
+	  	</if>
+	  	<if test="returnDate != null">
+	  		returnDate = #{returnDate},
+	  	</if>
+	  	<if test="customerTraceId != null">
+	  		customerTraceId = #{customerTraceId},
+	  	</if>
+	    <if test="assignDate != null">
+	    	assignDate = #{assignDate},
+	    </if>
+	    <if test="delayDate != null">
+	    	delayDate = #{delayDate}
+	    </if>
+    </set>
+    where customerId = #{customerId} 
+  </update>
+  
+  <delete id="deleteByCustomerIdAndUserId" parameterType="java.util.HashMap" >
+  	delete from bf_bip_customer_assign where customerId = #{customerId} and userId = #{userId}
+  </delete>
+  
+  <delete id="deleteByCustomerId" parameterType="java.util.HashMap" >
+  	delete from bf_bip_customer_assign where customerId = #{customerId} 
+  </delete>
+  
+  <!-- 根据潜客ID判断是否被正在跟踪 -->
+  	<select id="findTraceStatu" resultType="Integer">
+		select count(id) from bf_bip_customer_assign where customerId = #{customerId} and IFNULL(traceStatu,0) != 3
+	</select>
+	<!-- 根据潜客ID查询当前持有人-->
+	<select id="findAssignByCustomerId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select * from bf_bip_customer_assign where customerId = #{customerId} and IFNULL(traceStatu,0) != 3
+	</select>
+	
+	<!-- 查询不包含参数的数据-->
+	<select id="findAssignNoCustomer" resultMap="BaseResultMap">
+		select a.id from bf_bip_customer_assign a
+		left join bf_bip_user b on
+		a.userId = b.id
+	    where a.customerId = #{customerId} and a.userId != #{userId} and b.roleId = 2
+	</select>
+	<delete id="deleteById" parameterType="java.lang.Integer" >
+	  	delete from bf_bip_customer_assign where id = #{id} 
+	</delete>
+	<!-- 取消睡眠后更新分配表中的信息 -->
+	<update id="updateTraceStatuAndAcceptStatu" parameterType="java.util.HashMap">
+	  	update bf_bip_customer_assign 
+  		set traceStatu = 0, traceDate = CURDATE(), acceptStatu = 1, assignDate = CURDATE()
+  		where userId = #{userId,jdbcType=INTEGER} and customerId = #{customerId,jdbcType=INTEGER}
+    </update>
+	
+</mapper>

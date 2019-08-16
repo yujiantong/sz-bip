@@ -1,0 +1,21 @@
+<div id="giveCust" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 150px; width: 250px; margin-left: -125px; margin-top: -70px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <span class="closeBtn glyphicon glyphicon-remove giveCust"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            请确认是否放弃新增潜客
+        </div>
+        <div class="scmWindowButton">
+            <input ng-click="giveAddCust()" type="button" value="是">
+            <input class="fr giveCust" type="button" value="否">
+        </div>
+    </div>
+</div>
+<script>
+    $(".giveCust").click(function(){
+        $("#giveCust").hide();
+    });
+</script>

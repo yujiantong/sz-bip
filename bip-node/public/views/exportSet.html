@@ -1,0 +1,30 @@
+<div id="exportSet" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 220px; width: 300px; margin-left: -150px; margin-top: -110px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+        </div>
+        <div class="scmWindowContent ui-widget">
+            <div class="red">导出记录数较大,采用分文件导出的方法,请选择每个文件最多存放的记录数.若导出失败，请减少单文件导出量</div>
+            <div class="mt10">
+                <span>总计导出量：</span>
+                <span ng-if="showExp==1">{{expNum}}</span>
+                <span ng-if="showExp==2">{{expGzjlNum}}</span>
+            </div>
+            <div class="mt5">
+                <span>单文件导出量：</span>
+                <select style="width: 80px;"  ng-model="setExport.expCount" ng-options="x for x in expCountValue"></select>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input ng-click="setExp()" type="button" value="确认">
+            <input class="fr closeExp" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeExp").click(function(){
+        $("#exportSet").hide();
+    });
+</script>

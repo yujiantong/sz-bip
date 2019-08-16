@@ -1,0 +1,277 @@
+<div id="ht" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 220px; width: 400px; margin-left: -200px; margin-top: -110px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">回退原因</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt" style="height:150px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <span><label style="width: 50px">回退原因</label>
+                        <select  ng-model="confirmData.htyyxz" ng-options="x for x in htyySelect">
+                            <option value="">请选择原因</option>
+                        </select>
+                </span>
+                <span style="width: 350px;"><label class="fl" style="width: 50px">备注</label>
+                <textarea rows="3" cols="30" style="width: 290px;height: 50px;margin-left: 5px" ng-model="confirmData.htyysr" maxlength="500"></textarea>
+                </span>
+            </div>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="makesure()" type="button" value="确认">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="scyy" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 160px; width: 250px; margin-left: -125px; margin-top: -80px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">删除邀约原因</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            <textarea rows="3" cols="30" style="width: 220px;height: 50px;float: right;" ng-model="confirmData.scyyyy" maxlength="500"></textarea>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="makesure()" type="button" value="确认">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+
+<div id="yq" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 220px; width: 400px; margin-left: -200px; margin-top: -110px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">延期原因</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            <div class="carmsg">
+                <span>
+                    <label style="width: 50px">延期日期<em class="emphasis">*</em></label>
+                    <input type="text" style="margin-left: 4px" ng-model="confirmData.applyDelayDay" class="coverDate" readonly>
+                </span>
+                <span style="width: 350px;margin-left: 6px;"><label class="fl" style="width: 50px">原因<em class="emphasis">*</em></label>
+                <textarea rows="3" cols="30" style="width: 290px;height: 50px;margin-left: 2px;" ng-model="confirmData.yqyy" maxlength="500"></textarea>
+                </span>
+            </div>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="makesure()" type="button" value="确认">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="hx" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 160px; width: 250px; margin-left: -125px; margin-top: -80px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">激活原因</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            <textarea rows="3" cols="30" style="width: 220px;height: 50px;float: right;" ng-model="confirmData.hxyy" maxlength="500"></textarea>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="makesure()" type="button" value="确认">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="sms" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 430px; width: 680px; margin-left: -340px; margin-top: -210px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">发送短信</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt" style="height:340px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg" style="height: 310px">
+                <span style="width: 350px;">
+                    <label style="width: 60px">手机号码：</label>
+                    <input type="text" style="margin-left: 1px;width: 100px;" ng-model="sendMess.phone">
+
+                    <label style="width: 60px">昵称：</label>
+                    <input type="text" style="width: 100px;" ng-model="custInfo.nicheng">
+                    <!-- <label style="width: 60px">发送通道：</label>
+                    <select ng-model="sendMess.sendWay" ng-options="x.id as x.value for x in sendWays">
+                    </select>-->
+                    <label style="width: 60px">发送通道：</label>
+                    <input type="radio" ng-model="sendMess.sendWay" value="1">专员通道
+                    <input type="radio" ng-model="sendMess.sendWay" value="2">公共通道
+                </span>
+                <span style="width: 630px;"><label class="fl" style="width: 60px">短信内容：</label>
+                <textarea rows="3" id="contentId" cols="30" style="width: 450px;height: 180px;margin-left: 5px" ng-model="sendMess.content" maxlength="500"></textarea>
+                    <div class="addbjBtn" ng-click="showBJYZ()">
+                        添加报价明细
+                    </div>
+                </span>
+                <span style="width: 630px;">
+                    <label style="width: 60px">模板内容：</label>
+                    <input type="text" style="margin-left: 1px;width: 450px;" ng-model="sendMess.moban" ng-disabled="boo">
+                    <input class="fr" type="button" value="{{anniu}}" style="margin-right: 50px;line-height: 16px;margin-top: 4px;" ng-click="bianji()">
+                </span>
+            </div>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input class="fr close_confirmPage" type="button" value="取消">
+            <input class="fr" ng-click="makesure()" type="button" value="发送">
+        </div>
+    </div>
+</div>
+<div id="phoneNumber" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 150px; width: 250px; margin-left: -125px; margin-top: -70px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            手机号有误，是否继续发送？
+        </div>
+        <div class="scmWindowButton">
+            <input ng-click="continueSend()" type="button" value="确认">
+            <input class="fr" ng-click="noSend()" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="bjNo" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 160px; width: 250px; margin-left: -125px; margin-top: -80px;">
+        <div class="scmWindowTitle">
+            <span class="close_confirmPage_bjNo glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            无报价记录，请先进行一次报价或发送普通短信！
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="open_BJ(1)" ng-if="bhDock==1||bhDock==3" type="button" value="报价">
+            <input class="fr close_confirmPage_ptdx" type="button" value="普通短信">
+        </div>
+    </div>
+</div>
+<div id="sx" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 250px; width: 400px; margin-left: -200px; margin-top: -120px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">失销原因</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            <div class="carmsg">
+                <span><label style="width: 50px">失销原因</label>
+                        <select  ng-model="confirmData.sxyyxz" ng-options="x for x in sxyySelect">
+                            <option value="">请选择原因</option>
+                        </select>
+                </span>
+                <span style="width: 350px;"><label class="fl" style="width: 50px">备注</label>
+                <textarea rows="3" cols="30" style="width: 290px;height: 50px;margin-left: 5px" ng-model="confirmData.sxyysr" maxlength="500"></textarea>
+                </span>
+                <p class="red">*提示：{{tipMessage}}</p>
+            </div>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="makesure()" type="button" value="确认">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="sm" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 160px; width: 250px; margin-left: -125px; margin-top: -80px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">睡眠原因</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            <textarea rows="3" cols="30" style="width: 220px;height: 50px;float: right;" ng-model="confirmData.smyy" maxlength="500"></textarea>
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="makesure()" type="button" value="确认">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="cancel" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 150px; width: 250px; margin-left: -125px; margin-top: -70px;">
+        <div class="scmWindowTitle">
+            <i style="left: 12px;">撤销申请</i>
+            <span class="close_confirmPage glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+           是否确认撤销申请？
+        </div>
+        <div class="scmWindowButton">
+            <input ng-click="makesure()" type="button" value="确认">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+
+//出单员禁用
+<div id="jybdts" class="scmMaskWindow" style="z-index: 1005">
+    <div class="scmWindow" style="height: 160px; width: 250px; margin-left: -125px; margin-top: -80px;">
+        <div style="padding: 35px 12px;font-size: 16px;">
+            存在与该车架号的投保日期月份相同的保单,是否继续生成保单
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="makesure()" type="button" value="确认">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+
+<div id="smqkjybd" class="scmMaskWindow" style="z-index: 1005">
+    <div class="scmWindow" style="height: 150px; width: 240px; margin-left: -125px; margin-top: -80px;">
+        <div style="padding: 35px 12px;font-size: 14px;">
+            该客户为睡眠客户，请核实联系人及联系方式。是否确认出单？
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="makesure()" type="button" value="确认">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="jqbe" class="scmMaskWindow" style="z-index: 1005">
+    <div class="scmWindow" style="height: 150px; width: 240px; margin-left: -125px; margin-top: -80px;">
+        <div style="padding: 35px 12px;font-size: 14px;">
+            该客户的交强险金额为0，是否确认出单？
+        </div>
+        <div class="scmWindowButton" style="padding: 10px 10px;">
+            <input  ng-click="jqxbe()" type="button" value="确认">
+            <input class="fr close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".close_confirmPage").click(function(){
+
+    });
+</script>
+<script>
+    //关闭弹框
+    $(".close_confirmPage").click(function(){
+        $("#ht").hide();
+        $("#scyy").hide();
+        $("#yq").hide();
+        $("#hx").hide();
+        $("#sms").hide();
+        $("#sx").hide();
+        $("#sm").hide();
+        $("#cancel").hide();
+        $("#jqbe").hide();
+        //出单员禁用
+        $("#jybdts").hide();
+        $("#smqkjybd").hide();
+    });
+    $(".close_confirmPage_ptdx").click(function(){
+        $("#bjNo").hide();
+    });
+    $(".close_confirmPage_bjNo").click(function(){
+        $("#bjNo").hide();
+    });
+    $('.coverDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });
+</script>

@@ -1,0 +1,27 @@
+
+
+<div class="container">
+    <div class="row text-center "　style="background-color: #dedef8;box-shadow:
+         inset 1px -1px 1px #444, inset -1px 1px 1px #444; height:40px;  line-height:200%">用户列表示例</div>
+
+    <div class="row "  style="border-bottom: 1px solid #f0f0f0" >
+        　
+        <div class="col-md-3">用户名</div>
+        <div class="col-md-3">密码</div>
+        <div class="col-md-3">地址</div>
+        <div class="col-md-3">操作</div>
+
+    </div>
+
+    <div class="row"  style="border-bottom: 1px solid #f0f0f0" ng-repeat="item in result.rows">
+        　
+        <div class="col-md-3">{{ item.userName}}</div>
+        <div class="col-md-3">{{item.userPassword}}</div>
+        <div class="col-md-3">{{ item.address}}</div>
+        <div class="col-md-3"><button  type="button" class="btn-danger" ng-click="click($index)" >删除</button>
+        </div>
+
+    </div>
+</div>
+
+

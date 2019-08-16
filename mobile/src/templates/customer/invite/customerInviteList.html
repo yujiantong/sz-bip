@@ -1,0 +1,29 @@
+<ion-view view-title="{{ctrl.userName}} 今日发起邀约" ng-init="ctrl.findJRYYCustomerCollectionByUserId()">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios-arrow-left"  ng-click="ctrl.stateChange('customerInviteWorkerList')"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doJRYYRefresh()"></ion-refresher>
+    <div class="row tab-titlebg">
+      <div class="col col-25 text-center">姓名</div>
+      <div class="col col-25 text-center">车牌号</div>
+      <div class="col col-25 text-center">预计到店日期</div>
+      <div class="col col-25 text-center">跟踪结果</div>
+    </div>
+    <div class="list bip-minHeight">
+      <div class="item" ng-repeat="customer in items" ng-click="customer.hideStatus = !customer.hideStatus" >
+        <div class="row text-center fsp12">
+          <p class="col col-25">{{customer.contact}}</p>
+          <p class="col col-25">{{customer.carLicenseNumber}}</p>
+          <p class="col col-25">{{customer.inviteDate | date:'yy/MM/dd'}}</p>
+          <p class="col col-25">{{customer.lastTraceResult}}</p>
+        </div>
+        <div class="insuranceDetails" ng-hide="!customer.hideStatus">
+          {{customer.lastTraceResult}}
+        </div>
+      </div>
+    </div>
+    <ion-infinite-scroll immediate-check="false" ng-if="!hasmore" on-infinite=" ctrl.findJRYYCustomerCollectionByUserId()" distance="1%">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

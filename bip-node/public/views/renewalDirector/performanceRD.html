@@ -1,0 +1,46 @@
+<div class="scmContentTitle">
+    <ul id="myTab" class="cartype nav nav-tabs" style="border-bottom: none;">
+        <li class="active"  href="#newInsurance" ng-click="statisticalXbInsurance('xb',1)" data-toggle="tab">
+            新保
+        </li>
+        <li href="#otherInsuranceType" ng-click="statisticalAllInsurance('xbhz',0)" data-toggle="tab">
+           续保汇总
+        </li>
+        <li href="#otherInsuranceType" ng-click="statisticalXinzxInsurance('xinzx',2)" data-toggle="tab">
+            新转续
+        </li>
+        <li href="#otherInsuranceType" ng-click="statisticalXuzxInsurance('xuzx',3)" data-toggle="tab">
+            续转续
+        </li>
+        <li href="#otherInsuranceType" ng-click="statisticalJianzxInsurance('jianzx',4)" data-toggle="tab">
+            间转续
+        </li>
+        <li href="#otherInsuranceType" ng-click="statisticalQianzxInsurance('qianzx',5)" data-toggle="tab">
+            潜转续
+        </li>
+        <li href="#otherInsuranceType" ng-click="statisticalFirstInsurance('first',6)" data-toggle="tab">
+            首次
+        </li>
+
+    </ul>
+    <div id="scmTitleTool" class="scmTitleTools">
+        <div id="starttime_main" class="control-group">
+            <label class="control-label">选择月份：</label>
+            <input type="text" style="width: 100px;" ng-change="getSearchByTime()"  ng-model="statisticTime" value="{{statisticTime}}" class="mouthtime">
+        </div>
+    </div>
+</div>
+<div id="myTabContent" class="tab-content" style="padding: 10px 14px;">
+    <div class="tab-pane fade in active" id="newInsurance" style="height:97%;padding-bottom: 3%;">
+        <div ui-grid="newInsuranceAllPage" ng-style="gridbox" class="gridbox"
+             ui-grid-pinning  ui-grid-resize-columns ui-grid-selection ui-grid-auto-resize>
+        </div>
+
+    </div>
+    <div class="tab-pane fade" id="otherInsuranceType" style="height:97%;padding-bottom: 3%;">
+        <div ui-grid="otherInsuranceTypeAllPage" ng-style="gridbox" class="gridbox"
+             ui-grid-pinning  ui-grid-resize-columns ui-grid-selection ui-grid-auto-resize>
+        </div>
+
+    </div>
+</div>

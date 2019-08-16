@@ -1,0 +1,45 @@
+<div class="modal searchBox">
+  <ion-modal-view style="background: #eee;margin-top: 0px">
+    <ion-content class="padding">
+      <table class="searchTable">
+        <tr>
+          <td class="text-right">联系人：</td>
+          <td><input type="text" ng-model="ctrl.searchGz.contact"></td>
+        </tr>
+        <tr>
+          <td class="text-right">客户级别：</td>
+          <td>
+            <select ng-model="ctrl.searchGz.customerLevel">
+              <option value="">请选择</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right">保险到期日始：</td>
+          <td>
+            <div class="inputDateTime" ion-datetime-picker ng-model="ctrl.searchGz.insuranceEndDateStart" title="ctrl.dateTrackOption.title" button-ok="ctrl.dateTrackOption.buttonOk"  button-cancel="ctrl.dateTrackOption.buttonCancel" date="'false'">
+              <span ng-bind="(ctrl.searchGz.insuranceEndDateStart | date: 'yyyy-MM-dd') || '请选择'"></span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right">保险到期日止：</td>
+          <td>
+            <div class="inputDateTime" ion-datetime-picker ng-model="ctrl.searchGz.insuranceEndDateEnd" title="ctrl.dateTrackOption.title" button-ok="ctrl.dateTrackOption.buttonOk"  button-cancel="ctrl.dateTrackOption.buttonCancel" date="'false'">
+              <span ng-bind="(ctrl.searchGz.insuranceEndDateEnd | date: 'yyyy-MM-dd') || '请选择'"></span>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <div style="padding:5px 0 50px 0;text-align: right;">
+        <button class="button-search button button-small" ng-click="doRefreshYgz(1)">
+          查询
+        </button>
+      </div>
+    </ion-content>
+  </ion-modal-view>
+</div>

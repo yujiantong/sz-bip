@@ -1,0 +1,21 @@
+<div id="updataPolicy" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 150px; width: 250px; margin-left: -125px; margin-top: -70px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <span class="closeBtn glyphicon glyphicon-remove updataPolicy"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            你确定更新车辆信息吗？
+        </div>
+        <div class="scmWindowButton">
+            <input ng-click="updataPolicy()" type="button" value="是">
+            <input class="fr updataPolicy" type="button" value="否">
+        </div>
+    </div>
+</div>
+<script>
+    $(".updataPolicy").click(function(){
+        $("#updataPolicy").hide();
+    });
+</script>

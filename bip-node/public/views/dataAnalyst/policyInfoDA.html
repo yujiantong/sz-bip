@@ -1,0 +1,106 @@
+
+<div id="singleDetails" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 600px; width: 1100px; margin-left: -550px; margin-top: -300px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                保单明细
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget" style="height:500px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <h3>车辆信息</h3>
+                <span><label>车牌号</label> <input type="text" ng-model="searchPolicy.carLicenseNumber" readonly></span>
+                <span><label>车架号</label> <input type="text" ng-model="searchPolicy.chassisNumber" readonly></span>
+                <span><label>发动机号</label> <input type="text"  ng-model="searchPolicy.engineNumber" readonly></span>
+                <span><label>上牌日期</label> <input type="text" ng-model="searchPolicy.registrationDate" readonly></span>
+                <span><label>品牌</label> <input type="text"  ng-model="searchPolicy.carBrand" readonly></span>
+                <span><label>车辆型号</label> <input type="text" ng-model="searchPolicy.vehicleModel" readonly></span>
+            </div>
+            <div class="carmsg">
+                <h3>保单信息</h3>
+                <span><label>商业险保单号</label> <input type="text" ng-model="searchPolicy.binsuranceNumber" readonly></span>
+                <span><label>商业险金额</label> <input type="number" ng-model="searchPolicy.binsuranceCoverage" readonly></span>
+                <span><label>车船税金额</label> <input type="number" ng-model="searchPolicy.vehicleTax" readonly></span>
+                <span><label>续保渠道</label> <input type="text" ng-model="searchPolicy.renewalWay" readonly></span>
+                <span><label>本店投保次数</label> <input type="number" ng-model="searchPolicy.insurNumber" readonly></span>
+                <span><label>交强险保单号</label> <input type="text" ng-model="searchPolicy.cinsuranceNumber" readonly></span>
+                <span><label>交强险金额</label> <input type="number" ng-model="searchPolicy.cinsuranceCoverage" readonly></span>
+               <span style="display: none"><label>赠送成本合计</label> <input type="number" ng-model="searchPolicy.donateCostCount" disabled></span>
+                <span><label>手续费合计</label> <input type="text" ng-model="searchPolicy.factorageCount" readonly></span>
+                <span><label>付款方式</label> <input type="text" ng-model="searchPolicy.payWay" readonly></span>
+                <span><label>送单方式</label> <input type="text" ng-model="searchPolicy.sdfs" readonly></span>
+                <span><label>利润</label> <input type="text" ng-model="searchPolicy.profit" readonly></span>
+                <span><label>投保类型</label> <input type="text" value="{{searchPolicy.coverType|mapTBLX}}" readonly></span>
+                <span><label>是否贷款</label>
+                    <input type="text" ng-disabled="searchsingle.coverType!=1" value="{{searchPolicy.sfdk|mapSF}}" readonly>
+                </span>
+                <span><label>投保日期</label> <input type="text" value="{{searchPolicy.insurDate|date:'yyyy-MM-dd'}}" readonly></span>
+                <span><label>商业险日期开始</label> <input type="text" value="{{searchPolicy.syxrqStart|date:'yyyy-MM-dd'}}" readonly></span>
+                <span><label>商业险日期结束</label> <input type="text" value="{{searchPolicy.syxrqEnd|date:'yyyy-MM-dd'}}" readonly></span>
+                <span><label>交强险日期开始</label> <input type="text" value="{{searchPolicy.jqxrqStart|date:'yyyy-MM-dd'}}" readonly></span>
+                <span><label>交强险日期结束</label> <input type="text" value="{{searchPolicy.jqxrqEnd|date:'yyyy-MM-dd'}}" readonly></span>
+                <span><label>去年保费</label> <input type="number" ng-model="searchPolicy.qnbe" readonly></span>
+                <span><label>去年商业险金额</label> <input type="number" ng-model="searchPolicy.qnsyxje" readonly></span>
+                <span><label>去年交强险金额</label> <input type="number" ng-model="searchPolicy.qnjqxje" readonly></span>
+                <span><label>去年车船税金额</label> <input type="number" ng-model="searchPolicy.qnccsje" readonly></span>
+                <span><label>保险公司</label> <input type="text" ng-model="searchPolicy.insuranceCompName" readonly></span>
+                <span style="width: 506px"><label>开票名称</label> <input style="width: 405px" type="text" ng-model="searchPolicy.invoiceName" readonly></span>
+
+                <div>
+                <span style="width: 506px;">
+                    <label class="fl">商业险险种</label>
+                    <textarea rows="3" cols="30" style="width: 405px;height: 50px;margin-left: 6px" ng-model="searchPolicy.insuranceType" readonly></textarea>
+                </span>
+                    <span style="width: 506px;">
+                        <label class="fl">备注</label>
+                        <textarea rows="3" cols="30" style="width: 405px;height: 50px;margin-left: 6px;" ng-model="searchPolicy.remark" readonly></textarea>
+                    </span>
+                </div>
+            </div>
+            <div class="carmsg">
+                <h3>财务信息</h3>
+                <span><label>保费合计</label> <input type="text" ng-model="searchPolicy.premiumCount" readonly></span>
+                <span><label>现金优惠</label> <input type="number" ng-model="searchPolicy.privilegeSum" readonly></span>
+                <span><label>现金优惠点位</label> <input  type="number" ng-model="searchPolicy.xjyhdw" readonly></span>
+                <span><label>储值卡金额</label> <input type="number" ng-model="searchPolicy.czkje" readonly></span>
+                <span><label>储值卡金额点位</label> <input type="number" ng-model="searchPolicy.czkjedw" readonly></span>
+                <span ng-if="accountModule==1"><label>赠送金额</label> <input type="number" ng-model="searchPolicy.giftDiscount" readonly></span>
+                <span><label>实收金额</label> <input type="text" ng-model="searchPolicy.realPay" readonly></span>
+            </div>
+            <div class="carmsg">
+                <h3>办理人员</h3>
+                <span><label>负责人</label><input type="text" ng-model="searchPolicy.principal" readonly></span>
+                <span><label>业务员</label><input type="text" ng-model="searchPolicy.clerk" readonly></span>
+                <span><label>出单员</label><input type="text" ng-model="searchPolicy.userName" readonly></span>
+                <span><label>收银员</label><input type="text" ng-model="searchPolicy.cashier" readonly></span>
+                <span><label>招揽员</label><input type="text" ng-model="searchPolicy.solicitMember" readonly></span>
+            </div>
+            <div class="carmsg">
+                <h3>客户信息</h3>
+                <span><label>车主</label><input type="text" ng-model="searchPolicy.carOwner" readonly></span>
+                <span><label>被保险人</label><input type="text" ng-model="searchPolicy.insured" readonly></span>
+                <span><label>被保险人证件号</label><input type="text" ng-model="searchPolicy.certificateNumber" readonly></span>
+                <span><label>联系人</label><input type="text" ng-model="searchPolicy.contact" readonly></span>
+                <span><label>联系方式</label><input type="text" ng-model="searchPolicy.contactWay" readonly></span>
+                <span><label>客户来源 </label><input type="text" ng-model="searchPolicy.customerSource" readonly></span>
+                <span><label>客户性质</label><input type="text" ng-model="searchPolicy.customerCharacter" readonly></span>
+                <span style="width: 504px"><label>现住址 </label><input style="width: 405px" type="text" ng-model="searchPolicy.address" readonly></span>
+                <br/><br/>
+                <div ui-grid="policyInfoTracePage" style="width: 1020px;height: 250px;"  ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+                </div>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="closeBtn" ng-click="cleanSingleDetails()" type="button" value="关闭">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#singleDetails").hide();
+    });
+</script>

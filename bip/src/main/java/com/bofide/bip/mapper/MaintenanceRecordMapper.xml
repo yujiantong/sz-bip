@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bofide.bip.mapper.MaintenanceRecordMapper">
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.MaintenanceRecord" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="storeId" property="storeId" jdbcType="INTEGER" />
+    	<result column="maintainNumber" property="maintainNumber" jdbcType="VARCHAR" />
+    	<result column="reportNumber" property="reportNumber" jdbcType="INTEGER" />
+    	<result column="maintenanceTimeStart" property="maintenanceTimeStart" jdbcType="DATE" />
+    	<result column="maintenanceTimeEnd" property="maintenanceTimeEnd" jdbcType="DATE" />
+    	<result column="carLicenseNumber" property="carLicenseNumber" jdbcType="VARCHAR" />
+    	<result column="entrustor" property="entrustor" jdbcType="VARCHAR" />
+		<result column="entrustorPhone" property="entrustorPhone" jdbcType="VARCHAR" />
+		<result column="maintenanceType" property="maintenanceType" jdbcType="VARCHAR" />
+		<result column="certainCost" property="certainCost" jdbcType="DOUBLE" />
+		<result column="maintainCost" property="maintainCost" jdbcType="DOUBLE" />
+		<result column="realCost" property="realCost" jdbcType="DOUBLE" />
+		<result column="consultantId" property="consultantId" jdbcType="INTEGER" />
+		<result column="consultantName" property="consultantName" jdbcType="VARCHAR" />
+		<result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<!-- 根据施工单号和店id查询维修记录 -->
+	<select id="findByMaintainNumber"  parameterType="java.util.Map" resultMap="BaseResultMap">
+		select * from bf_bip_maintenance_record where storeId=#{storeId} and maintainNumber =#{maintainNumber}
+	</select>
+	<!-- 根据施工单号和店id查询维修记录 -->
+	<select id="findByReportNumber"  parameterType="java.util.Map" resultMap="BaseResultMap">
+		select * from bf_bip_maintenance_record where storeId=#{storeId} and reportNumber =#{reportNumber}
+	</select>
+	
+	<!-- 插入一条维修记录 -->
+	<insert id="insert"  parameterType="java.util.Map" >
+		insert into bf_bip_maintenance_record (
+			storeId, maintainNumber, reportNumber,maintenanceTimeStart,maintenanceTimeEnd,carLicenseNumber,
+			entrustor, entrustorPhone, maintenanceType, certainCost,maintainCost,realCost,consultantId,consultantName,
+			createTime
+		) values (
+			#{storeId},#{maintainNumber},#{reportNumber},#{maintenanceTimeStart},#{maintenanceTimeEnd},
+			#{carLicenseNumber},#{entrustor},#{entrustorPhone},#{maintenanceType},#{certainCost},
+			#{maintainCost},#{realCost},#{consultantId},#{consultantName},now()
+		)
+	</insert>
+	
+	<!-- 根据条件查询维修记录 -->
+	<select id="findByCondition" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT
+			r.*,c.syxrqStart,c.syxrqEnd
+		FROM
+			bf_bip_maintenance_record r
+		LEFT JOIN bf_bip_insurance_bill c ON r.storeId = c.fourSStoreId AND r.carLicenseNumber = c.carLicenseNumber
+		<where>
+			<if test="storeId != null">
+				and r.storeId = #{storeId}
+			</if>
+			<if test="userId != null">
+				and r.consultantId = #{userId}
+			</if>
+			<if test="carLicenseNumber != null and carLicenseNumber != ''">
+				and r.carLicenseNumber = #{carLicenseNumber}
+			</if>
+			<if test="entrustor != null and entrustor != ''">
+				and r.entrustor = #{entrustor}
+			</if>
+			<if test="entrustorPhone != null and entrustorPhone != ''">
+				and r.entrustorPhone = #{entrustorPhone}
+			</if>
+			<if test="maintenanceTimeStartStart != null and maintenanceTimeStartStart != ''">
+				<![CDATA[and date_format(r.maintenanceTimeStart, '%Y-%m-%d') >= #{maintenanceTimeStartStart}]]>
+			</if>
+			<if test="maintenanceTimeStartEnd != null and maintenanceTimeStartEnd != ''">
+				<![CDATA[and date_format(r.maintenanceTimeStart, '%Y-%m-%d') <= #{maintenanceTimeStartEnd}]]>
+			</if>
+			<if test="maintenanceTimeEndStart != null and maintenanceTimeEndStart != ''">
+				<![CDATA[and date_format(r.maintenanceTimeEnd, '%Y-%m-%d') >= #{maintenanceTimeEndStart}]]>
+			</if>
+			<if test="maintenanceTimeEndEnd != null and maintenanceTimeEndEnd != ''">
+				<![CDATA[and date_format(r.maintenanceTimeEnd, '%Y-%m-%d') <= #{maintenanceTimeEndEnd}]]>
+			</if>
+			<if test="consultantName != null and consultantName != ''">
+				and r.consultantName = #{consultantName}
+			</if>
+			<if test="maintenanceType != null and maintenanceType != ''">
+				and r.maintenanceType = #{maintenanceType}
+			</if>
+			<if test="bdcb != null and bdcb == 1">
+				and EXISTS (
+					select 1 from bf_bip_insurance_bill b where 
+					b.carLicenseNumber = r.carLicenseNumber
+					<if test="storeId != null">
+						and b.fourSStoreId = #{storeId}
+					</if>
+					<![CDATA[and b.syxrqStart <= r.maintenanceTimeStart and r.maintenanceTimeStart <= b.syxrqEnd]]>
+				)
+			</if>
+			<if test="bdcb != null and bdcb == 0">
+				and not EXISTS (
+					select 1 from bf_bip_insurance_bill b where 
+					b.carLicenseNumber = r.carLicenseNumber
+					<if test="storeId != null">
+						and b.fourSStoreId = #{storeId}
+					</if>
+					<![CDATA[and b.syxrqStart <= r.maintenanceTimeStart and r.maintenanceTimeStart <= b.syxrqEnd]]>
+				)
+			</if>
+		</where>
+		LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	
+	<!--查询上一个查询的个数  -->
+	<select id="countByCondition" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		SELECT
+			count(1)
+		FROM
+			bf_bip_maintenance_record r
+		<where>
+			<if test="storeId != null">
+				and r.storeId = #{storeId}
+			</if>
+			<if test="userId != null">
+				and r.consultantId = #{userId}
+			</if>
+			<if test="carLicenseNumber != null and carLicenseNumber != ''">
+				and r.carLicenseNumber = #{carLicenseNumber}
+			</if>
+			<if test="entrustor != null and entrustor != ''">
+				and r.entrustor = #{entrustor}
+			</if>
+			<if test="entrustorPhone != null and entrustorPhone != ''">
+				and r.entrustorPhone = #{entrustorPhone}
+			</if>
+			<if test="maintenanceTimeStartStart != null and maintenanceTimeStartStart != ''">
+				<![CDATA[and date_format(r.maintenanceTimeStart, '%Y-%m-%d') >= #{maintenanceTimeStartStart}]]>
+			</if>
+			<if test="maintenanceTimeStartEnd != null and maintenanceTimeStartEnd != ''">
+				<![CDATA[and date_format(r.maintenanceTimeStart, '%Y-%m-%d') <= #{maintenanceTimeStartEnd}]]>
+			</if>
+			<if test="maintenanceTimeEndStart != null and maintenanceTimeEndStart != ''">
+				<![CDATA[and date_format(r.maintenanceTimeEnd, '%Y-%m-%d') >= #{maintenanceTimeEndStart}]]>
+			</if>
+			<if test="maintenanceTimeEndEnd != null and maintenanceTimeEndEnd != ''">
+				<![CDATA[and date_format(r.maintenanceTimeEnd, '%Y-%m-%d') <= #{maintenanceTimeEndEnd}]]>
+			</if>
+			<if test="consultantName != null and consultantName != ''">
+				and r.consultantName = #{consultantName}
+			</if>
+			<if test="maintenanceType != null and maintenanceType != ''">
+				and r.maintenanceType = #{maintenanceType}
+			</if>
+			<if test="bdcb != null and bdcb == 1">
+				and EXISTS (
+					select 1 from bf_bip_insurance_bill b where 
+					b.carLicenseNumber = r.carLicenseNumber
+					<if test="storeId != null">
+						and b.fourSStoreId = #{storeId}
+					</if>
+					<![CDATA[and b.syxrqStart <= r.maintenanceTimeStart and r.maintenanceTimeStart <= b.syxrqEnd]]>
+				)
+			</if>
+			<if test="bdcb != null and bdcb == 0">
+				and not EXISTS (
+					select 1 from bf_bip_insurance_bill b where 
+					b.carLicenseNumber = r.carLicenseNumber
+					<if test="storeId != null">
+						and b.fourSStoreId = #{storeId}
+					</if>
+					<![CDATA[and b.syxrqStart <= r.maintenanceTimeStart and r.maintenanceTimeStart <= b.syxrqEnd]]>
+				)
+			</if>
+		</where>
+	</select>
+	
+</mapper>

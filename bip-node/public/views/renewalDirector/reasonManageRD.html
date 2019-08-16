@@ -1,0 +1,86 @@
+<div id="addReasonbox" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 220px; width: 500px; margin-left: -250px; margin-top: -110px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                新增失销/回退原因
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget">
+            <div>
+                <table class="addstore-table">
+                    <tr>
+                        <td width="120" class="text-right">失销/回退原因：</td>
+                        <td><input type="text" style="width: 350px;" ng-model="addReason.reason" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">排序：</td>
+                        <td><input type="number" num-format style="width: 350px;" ng-model="addReason.sort" max="999" maxlength="3"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">启/禁用状态：</td>
+                        <td>
+                            <select ng-model="addReason.status" style="width: 350px;">
+                                <option value="1">启用</option>
+                                <option value="2">禁用</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input  ng-click="addNewReason()" type="button" value="保存">
+            <input class="close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="modifyReasonbox" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 220px; width: 500px; margin-left: -250px; margin-top: -110px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                失销/回退原因
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget">
+            <div>
+                <table class="addstore-table">
+                    <tr>
+                        <td width="120" class="text-right">失销/回退原因：</td>
+                        <td><input type="text" style="width: 350px;" ng-model="detailReason.reason" ng-disabled="detailReason.disable==0" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">排序：</td>
+                        <td><input type="number" num-format style="width: 350px;" ng-model="detailReason.sort" max="999" maxlength="3"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">启/禁用状态：</td>
+                        <td>
+                            <select ng-model="detailReason.status" style="width: 350px;">
+                                <option value="1">启用</option>
+                                <option value="2">禁用</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input ng-if="detailReason.disable==1"  ng-click="deleteReasonbtn()" type="button" value="删除">
+            <input  ng-click="modifyReasonSubmit()" type="button" value="保存">
+            <input class="close_confirmPage" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".close_confirmPage,.closeBtn").click(function(){
+        $("#addReasonbox").hide();
+        $("#modifyReasonbox").hide();
+    });
+</script>

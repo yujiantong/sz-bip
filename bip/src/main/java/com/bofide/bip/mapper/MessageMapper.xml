@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bofide.bip.mapper.MessageMapper">
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.Message" >
+    	<id column="messageId" property="messageId" jdbcType="INTEGER" />
+    	<result column="storeId" property="storeId" jdbcType="INTEGER" />
+    	<result column="userId" property="userId" jdbcType="INTEGER" />
+    	<result column="operatorId" property="operatorId" jdbcType="INTEGER" />
+    	<result column="operatorName" property="operatorName" jdbcType="VARCHAR" />
+    	<result column="content" property="content" jdbcType="VARCHAR" />
+    	<result column="messageDate" property="messageDate" jdbcType="TIMESTAMP" />
+    	<result column="readStatus" property="readStatus" jdbcType="INTEGER" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="customerId" property="customerId" jdbcType="INTEGER" />
+		<result column="chassisNumber" property="chassisNumber" jdbcType="VARCHAR" />
+		<collection property="user" ofType="com.bofide.bip.po.User" >
+			<result column="id" property="id" jdbcType="INTEGER" />
+			<result column="storeId" property="storeId" jdbcType="INTEGER" />
+	    	<result column="loginName" property="loginName" jdbcType="VARCHAR" />
+	    	<result column="userName" property="userName" jdbcType="VARCHAR" />
+	    	<result column="phone" property="phone" jdbcType="VARCHAR" />
+			<result column="email" property="email" jdbcType="VARCHAR" />
+	 		<result column="roleId" property="roleId" jdbcType="INTEGER" />
+	    	<result column="superiorId" property="superiorId" jdbcType="INTEGER" />
+	    	<result column="createDate" property="createDate" jdbcType="DATE" />
+	    	<result column="deleteDate" property="deleteDate" jdbcType="DATE" />
+	    	<result column="deleted" property="deleted" jdbcType="INTEGER" />
+	    	<result column="remark" property="remark" jdbcType="VARCHAR" />
+	    	<result column="status" property="status" jdbcType="INTEGER" />
+		</collection>
+  	</resultMap>
+	<select id="selectByUserId" resultMap="BaseResultMap">
+		<![CDATA[select 
+			*
+		from bf_bip_message a, bf_bip_user b
+		where
+		DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(messageDate)
+		and userId = #{userId,jdbcType=INTEGER} 
+		and a.userId = b.id]]>
+		order by messageDate desc
+	</select>
+	<select id="selectMessageCount" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from bf_bip_message 
+		where
+		<![CDATA[
+		DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(messageDate)]]>
+		and userId = #{userId,jdbcType=INTEGER} 
+		and readStatus = 0;
+	</select>
+	
+	<!-- 修改消息阅读状态 -->
+	<update id="updateReadStatus">
+	    update bf_bip_message
+	   	 set
+	        readStatus = 1
+	    where
+	     	userId = #{userId,jdbcType=INTEGER} and readStatus = 0
+ 	 </update>
+  	
+  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.bofide.bip.po.Message" >
+    	insert into bf_bip_message 
+    	(storeId, userId, operatorId, operatorName, content,
+    	messageDate, readStatus, remark,customerId,chassisNumber)
+    values 
+    	(#{storeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{operatorId,jdbcType=INTEGER}, 
+    	#{operatorName,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{messageDate,jdbcType=TIMESTAMP},0, #{remark,jdbcType=VARCHAR},
+    	#{customerId},#{chassisNumber})
+  </insert>
+  
+  <delete id="deleteByStoreId" parameterType="java.lang.Integer">
+  	DELETE
+	FROM
+		bf_bip_message
+	WHERE
+	storeId = #{storeId}
+  </delete>
+</mapper>

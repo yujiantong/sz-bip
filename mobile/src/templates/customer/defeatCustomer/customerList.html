@@ -1,0 +1,25 @@
+<ion-view view-title="{{ctrl.userName}} 销售战败线索" ng-init="ctrl.findDefeatedCustomer()" >
+  <ion-nav-buttons side="left">
+    <button ng-if="ctrl.user.role.roleId==3" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('defeatWorkerList')"></button>
+    <button ng-if="ctrl.user.role.roleId==2" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('xbzyHomePage.xbzyMyHomePage')"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefreshDefeat()"></ion-refresher>
+    <div class="bip-item-divider">
+      <div>销售战败线索：{{ctrl.customerCount}}</div>
+    </div>
+    <div class="list">
+      <a class="item item-icon-left item-icon-right" ng-repeat="customer in items"
+         ui-sref="defeatDetails({userId:ctrl.userId,userName:ctrl.userName,customerId:customer.id})">
+        <p>
+          <span class="fcgreen contactName">{{customer.contact}}</span>
+          <span class="ml10 fs12">{{customer.contactWay}}</span>
+        </p>
+        <p><span class="licenseSpan fs12">{{customer.cause}}</span></p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </a>
+    </div>
+    <ion-infinite-scroll immediate-check="false" ng-if="!hasmore" on-infinite="ctrl.findDefeatedCustomer()" distance="1%">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

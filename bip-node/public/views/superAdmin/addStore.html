@@ -1,0 +1,298 @@
+<div id="addStorebox" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 500px; width: 800px; margin-left: -400px; margin-top: -250px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                新建店
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget" style="max-height: 415px;overflow-y: auto;">
+            <div class="bloc_box">
+                <table class="bloc-table" style="text-align: left;">
+                    <tr>
+                        <td width="100" class="text-right">店名称：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="addStore.storeName" maxlength="20" ng-blur="findExistStoreByCondition(1)">
+                            <span ng-show="storeType1==1" class="glyphicon glyphicon-ok-sign green fs14"></span>
+                            <span ng-show="storeType1==0" class="glyphicon glyphicon-remove-sign red fs14"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"><span ng-show="storeType1==0">该店名已存在，不可重复新增</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">工商注册名称：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="addStore.registName" maxlength="40" ng-blur="findExistStoreByCondition(2)">
+                            <span ng-show="storeType2==1" class="glyphicon glyphicon-ok-sign green fs14"></span>
+                            <span ng-show="storeType2==0" class="glyphicon glyphicon-remove-sign red fs14"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"><span ng-show="storeType2==0">该工商注册名称已存在，不可重复新增</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">店名缩写：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="addStore.shortStoreName" maxlength="20" ng-blur="findExistStoreByCondition(3)">
+                            <span ng-show="storeType3==1" class="glyphicon glyphicon-ok-sign green fs14"></span>
+                            <span ng-show="storeType3==0" class="glyphicon glyphicon-remove-sign red fs14"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"><span ng-show="storeType3==0">该店名缩写已存在或者已被集团使用，请重新输入</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">税号：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="addStore.taxNum" maxlength="40"  ng-blur="findExistStoreByCondition(4)">
+                            <span ng-show="storeType4==1" class="glyphicon glyphicon-ok-sign green fs14"></span>
+                            <span ng-show="storeType4==0" class="glyphicon glyphicon-remove-sign red fs14"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"><span ng-show="storeType4==0">该税号已存在，不可重复新增</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">店代号：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="addStore.code" maxlength="40"  ng-blur="findExistStoreByCondition(5)">
+                            <span ng-show="storeType5==1" class="glyphicon glyphicon-ok-sign green fs14"></span>
+                            <span ng-show="storeType5==0" class="glyphicon glyphicon-remove-sign red fs14"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"><span ng-show="storeType5==0">该店代号存在，不可重复新增</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">所属集团：</td>
+                        <td>
+                            <select style="width: 240px;" ng-model="addStore.bloc" ng-options="x.jtName for x in blocSearchAll">
+                                <option value="">请选择</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td width="100" class="text-right">AM账号：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="addStore.adminAccount" disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">AM账号密码：</td>
+                        <td><input type="text" style="width: 240px;" value="123456" maxlength="128" disabled></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">负责人：</td>
+                        <td><input type="text" style="width: 240px;" ng-model="addStore.fzr" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">联系人：</td>
+                        <td><input type="text" style="width: 240px;" ng-model="addStore.lxr" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">电话：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="addStore.phone" maxlength="40" ng-blur="findExistStoreByCondition(6)">
+                            <span ng-show="storeType6==1" class="glyphicon glyphicon-ok-sign green fs14"></span>
+                            <span ng-show="storeType6==0" class="glyphicon glyphicon-remove-sign red fs14"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"><span ng-show="storeType6==0">该电话已存在，不可重复新增</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">邮箱：</td>
+                        <td><input type="text" style="width: 240px;" ng-model="addStore.email" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">地址：</td>
+                        <td><input type="text" style="width: 240px;" ng-model="addStore.address" maxlength="100"></td>
+                    </tr>
+                </table>
+            </div>
+            <div  class="bloc_box">
+                <table class="bloc-table" style="text-align: left;">
+                    <tr>
+                        <td class="text-right">有效使用期：</td>
+                        <td>
+                            <input type="text" style="width: 115px;" ng-model="addStore.vaildDateStart" ng-change="nextyear(3)" class="coverDate" readonly>-
+                            <input type="text" style="width: 115px;" ng-model="addStore.vaildDate"  class="coverDate" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">车险对接：</td>
+                        <td><label><input type="radio" value="0" name="dockType" ng-model="addStore.dockType" ng-click="bjTypeChoose('add',1)">无</label></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right"></td>
+                        <td><label style="margin-top: 10px;"><input type="radio" name="dockType" value="4" ng-model="addStore.dockType" ng-click="bjTypeChoose('add',2)">博福续险和报价查询</label></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right"></td>
+                        <td>店ID：<input type="text"  ng-disabled="addStore.dockType!=4" style="width: 203px;margin-top: 10px;" ng-model="addStore.shopId" maxlength="100"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right"></td>
+                        <td>密钥：<input type="text" ng-disabled="addStore.dockType!=4" style="width: 203px;margin-top: 10px;" ng-model="addStore.token" maxlength="100"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right"></td>
+                        <td><label style="margin-top: 10px;"><input type="radio" name="dockType" value="5" ng-model="addStore.dockType" ng-click="bjTypeChoose('add',3)">其他续险和报价查询</label></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right"></td>
+                        <td>
+                            <label style="margin-top: 10px;"><input type="checkbox" ng-disabled="addStore.dockType!=5" ng-true-value="1" ng-false-value="0" ng-model="addStore.bhxx">续险查询</label>
+                            <label style="margin-left: 10px;margin-top: 10px;"><input type="checkbox" ng-disabled="addStore.dockType!=5" ng-true-value="1" ng-false-value="0" ng-model="addStore.bhbj">报价查询</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">车险对接渠道码：</td>
+                        <td><input type="text" style="width: 240px;margin-top: 10px;" ng-disabled="addStore.dockType!=5" ng-model="addStore.agent" maxlength="100"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">车险对接密钥：</td>
+                        <td><input type="text" style="width: 240px;margin-top: 10px;" ng-disabled="addStore.dockType!=5" ng-model="addStore.bihuKey" maxlength="100"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">车险对接城市码：</td>
+                        <td><input type="text" style="width: 240px;margin-top: 10px;" ng-disabled="addStore.dockType!=5" ng-model="addStore.cityCode" maxlength="100"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right fr">备注：</td>
+                        <td><textarea rows="3" cols="20" style="width: 240px;height: 80px;" ng-model="addStore.remark" maxlength="500"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right fr">品牌选定：</td>
+                        <td><textarea rows="3" cols="20" style="width: 240px;height: 60px;" ng-model="addStore.carBrand" maxlength="500" readonly></textarea></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button class="brandBtn" style="margin-bottom: 4px" ng-click="checkbrank(1)">选择</button></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right fr">页面logo显示：</td>
+                        <td >
+                            <select style="margin-left: 0px;width: 240px;" ng-model="addStore.logo"
+                                    ng-options="value.id as value.value for (key,value) in logos">
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="fr closeBtn" type="button" value="取消">
+            <input class="fr" ng-click="addStoresubmitBtn()" type="button" value="确认">
+        </div>
+    </div>
+</div>
+<div id="brandCheckBox" class="scmMaskWindow" style="z-index: 1001;">
+    <div class="scmWindow" style="height: 430px; width: 650px; margin-left: -325px; margin-top: -215px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                品牌选定
+            </i>
+            <span class="closeNewBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget">
+            <div>
+                <span>厂家：
+                    <select style="width: 137px;height: 22px;" ng-model="searchBrand.venderId" ng-options="x.id as x.venderName for (key,x) in factorySearch"  ng-change="findCarBrandByOrder()">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span>品牌：<input type="text" ng-model="searchBrand.brandName" ng-change="findCarBrandByOrder()"></span>
+            </div>
+            <div class="brandleft">
+                <p>可选品牌：</p>
+                <div class="brands_box">
+                    <ul>
+                        <li ng-repeat="addStoreCarBrand in addStoreCarBrandAll" ng-show="addStoreCarBrand.state==0" ng-click="chooseBrand(addStoreCarBrand)">{{addStoreCarBrand.brandName}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="brandcenter">
+                ↔
+            </div>
+            <div class="brandright">
+                <p>已选品牌：</p>
+                <div class="brands_box">
+                    <ul>
+                        <li ng-repeat="addedBrand in checkedBrands" ng-click="deleteBrand(addedBrand)">{{addedBrand.brandName}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="fr closeNewBtn" type="button" value="取消">
+            <input class="fr" ng-click="makesureBrand()" type="button" value="确认">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#addStorebox").hide();
+    });
+    $(".closeNewBtn").click(function(){
+        $("#brandCheckBox").hide();
+    });
+    $('.coverDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });
+</script>

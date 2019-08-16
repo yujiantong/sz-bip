@@ -1,0 +1,28 @@
+<div class="scmContentTitle">
+    <ul id="myTab" class="cartype nav nav-tabs" style="border-bottom: none;">
+        <li href="#userManage" class="active" ng-click="findUser()"  data-toggle="tab">
+            用户管理
+        </li>
+        <li href="#userBind" ng-click="findBindUser()" data-toggle="tab">
+            用户绑定
+        </li>
+    </ul>
+</div>
+<div id="myTabContent" class="tab-content" style="padding: 10px 14px;height: 100%">
+    <div class="tab-pane fade in active" id="userManage" style="height:97%;padding-bottom: 3%;">
+        <div class="condition-search">
+             <span style="display: inline-block">
+                <label>用户姓名：</label><input  ng-model="Search.userName" style="width: 150px;">
+            </span>
+            <span style="display: inline-block">
+                <label>用户名：</label><input  ng-model="Search.loginName" style="width: 150px;">
+            </span>
+            <button type="button" ng-click="findUser()">查询</button>
+            <button type="button" ng-click="clearSearch()">清空</button>
+        </div>
+        <div ui-grid="userManageOptions" ng-style="gridboxCX" class="gridbox" ui-grid-selection ui-grid-pinning  ui-grid-resize-columns ui-grid-auto-resize></div>
+    </div>
+    <div class="tab-pane fade" id="userBind" style="height:97%;padding-bottom: 3%;">
+        <div ui-grid="userBindOptions" ng-style="gridbox" class="gridbox" ui-grid-selection ui-grid-pinning  ui-grid-resize-columns ui-grid-auto-resize></div>
+    </div>
+</div>

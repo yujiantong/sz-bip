@@ -1,0 +1,11 @@
+<ion-view view-title="博福在线客服" hide-back-button="false">
+  <ion-nav-buttons side="left">
+    <button  ng-if="ctrl.user.role.roleId==3||ctrl.user.role.roleId==10||ctrl.user.role.roleId==11||ctrl.user.role.roleId==16||ctrl.user.role.roleId==23" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('homePage.myHomePage')"></button>
+    <button  ng-if="ctrl.user.role.roleId==20" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('smsHomePage.smsPersonalCenter')"></button>
+    <button  ng-if="ctrl.user.role.roleId==2||ctrl.user.role.roleId==6||ctrl.user.role.roleId==8" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('xbzyHomePage.xbzyMyHomePage')"></button>
+    <button ng-if="ctrl.user.role.roleId==7||ctrl.user.role.roleId==9" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('mgrHomePage.mgrMyHomePage')"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-online-service">
+    <iframe data-tap-disabled="true" style="height:100%;width:100%;" ng-src="{{ctrl.paySrc}}"></iframe>
+  </ion-content>
+</ion-view>

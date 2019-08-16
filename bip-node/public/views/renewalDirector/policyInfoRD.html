@@ -1,0 +1,221 @@
+<div id="singleDetails" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 600px; width: 1100px; margin-left: -550px; margin-top: -300px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                保单明细
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove" ng-click="savePolicyChangeBtn()"></span>
+        </div>
+        <div class="scmWindowContent ui-widget changeValue" style="height:500px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <h3>车辆信息</h3>
+                <span><label>车牌号</label> <input type="text" ng-model="searchPolicy.carLicenseNumber"></span>
+                <span><label>车架号<em class="emphasis">*</em></label> <input type="text" ng-model="searchPolicy.chassisNumber" ></span>
+                <span><label>发动机号</label> <input type="text"  ng-model="searchPolicy.engineNumber" ></span>
+                <span><label>上牌日期</label> <input type="text" class="carDate" ng-model="searchPolicy.registrationDate" readonly></span>
+                <span><label>品牌</label>
+                    <select required="" ng-model="searchPolicy.carBrand" style="height: 20px;margin: 5px;margin-left: 2px"
+                            ng-options="carBrand as carBrand.brandName for (key,carBrand) in carBrandsXBD"
+                            ng-change="xzVehicleModel()">
+                        <option value="">请选择品牌</option>
+                    </select>
+                </span>
+                <span ><label>车辆型号</label>
+                    <select id="clxhxz_xbd" ng-model="searchPolicy.vehicleModel" style="height: 20px;margin: 5px;margin-left: 2px"
+                            ng-options="vehicleModel as vehicleModel.modelName for (key,vehicleModel) in searchPolicy.carBrand.carModelList">
+                        <option value="">请选择型号</option>
+                    </select>
+                     <input type="text" id="clxhsr_xbd" ng-model="searchPolicy.vehicleModelInput" >
+                </span>
+
+            </div>
+            <div class="carmsg">
+                <h3>保单信息</h3>
+                <span>
+                    <label>商业险保单号</label> <input type="text" ng-model="searchPolicy.binsuranceNumber">
+                </span>
+                <span class="tipbox"><label>商业险金额</label>
+                    <input type="number" min="0" num-format="" step="0.01" ng-model="searchPolicy.binsuranceCoverage" ng-change="bfhjjs()">
+                </span>
+                <span><label>车船税金额</label> <input type="number" min="0" num-format="" step="0.01" ng-model="searchPolicy.vehicleTax" ng-change="bfhjjs()"></span>
+                <!--<span><label>优惠项目</label>
+                    <select ng-model="searchPolicy.privilegePro" ng-options="x for x in privilegePros">
+                        <option value="">请选择</option>
+                    </select>
+                </span>-->
+                <span><label>续保渠道</label>
+                    <select ng-model="searchPolicy.renewalWay" ng-options="x for x in renewalWays">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span><label>本店投保次数</label> <input type="number" ng-model="searchPolicy.insurNumber"  min="0" onkeyup="value=value.replace(/[^\d]/g,'')"></span>
+                <span><label>交强险保单号</label> <input type="text" ng-model="searchPolicy.cinsuranceNumber"></span>
+                <span><label>交强险金额</label>
+                    <input type="number" min="0" step="0.01" num-format="" ng-model="searchPolicy.cinsuranceCoverage" ng-change="bfhjjs()" >
+                </span>
+                <span style="display: none"><label>赠送成本合计</label> <input type="number" ng-model="searchPolicy.donateCostCount" disabled></span>
+                <span><label>手续费合计</label> <input type="text" string-to-number="" ng-model="searchPolicy.factorageCount" disabled></span>
+                <span><label>付款方式</label>
+                    <select ng-model="searchPolicy.payWay" ng-options="x for x in payWays">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span><label>送单方式</label>
+                    <select ng-model="searchPolicy.sdfs" ng-options="x for x in sdfss">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span><label>利润</label> <input type="text" ng-model="searchPolicy.profit" disabled></span>
+                <span><label>投保类型</label> <input type="text" value="{{searchPolicy.coverType|mapTBLX}}" readonly></span>
+                <span><label>是否贷款</label> <input type="text" value="{{searchPolicy.sfdk|mapSF}}" readonly></span>
+                <span><label>投保日期</label> <input type="text" class="coverDate" ng-model="searchPolicy.insurDate" readonly></span>
+                <div class="datetimeBox">
+                    <label>商业险日期开始</label>
+                    <input  ng-change="syxrqStartChange()" readonly name="syxrqStartDate" class="datetimeInput" type="text" ng-model="searchPolicy.syxrqStart" datetime-picker="yyyy-MM-dd HH:mm:ss"  popup-placement="bottom-right" is-open="syxrqStartDate" datepicker-options="syxrqStartDateOptions" button-bar="{show:false}"  datepicker-append-to-body="true" ng-click="syxrqStartDate = true">
+                </div>
+                <span>
+                    <label>商业险日期结束</label>
+                    <input type="text" class="coverDate" ng-model="searchPolicy.syxrqEnd" disabled readonly>
+                </span>
+                <div class="datetimeBox">
+                    <label>交强险日期开始</label>
+                    <input  ng-change="jqxrqStartChange()" readonly name="jqxrqStartDate" class="datetimeInput" type="text" ng-model="searchPolicy.jqxrqStart" datetime-picker="yyyy-MM-dd HH:mm:ss" is-open="jqxrqStartDate" datepicker-options="jqxrqStartDateOptions" button-bar="{show:false}"  datepicker-append-to-body="true" ng-click="jqxrqStartDate = true">
+                </div>
+                <span>
+                    <label>交强险日期结束</label>
+                    <input type="text" class="coverDate" ng-model="searchPolicy.jqxrqEnd" disabled readonly>
+                </span>
+                <span><label>去年保费</label> <input type="number" min="0" step="0.01" num-format="" ng-model="searchPolicy.qnbe"></span>
+                <span><label>去年商业险金额</label> <input type="number" min="0" step="0.01" num-format="" ng-model="searchPolicy.qnsyxje"></span>
+                <span><label>去年交强险金额</label> <input type="number" min="0" step="0.01" num-format="" ng-model="searchPolicy.qnjqxje"></span>
+                <span><label>去年车船税金额</label> <input type="number" min="0" step="0.01" num-format="" ng-model="searchPolicy.qnccsje"></span>
+
+                <span style="width: 506px"><label>开票名称</label> <input style="width: 405px" type="text" ng-model="searchPolicy.invoiceName"></span>
+                <br/>
+                <span><label>保险公司</label>
+                    <select required="" ng-model="searchPolicy.insuranceCompName" style="height: 20px;margin: 5px;margin-left: 2px"
+                            ng-options="vlaue as vlaue.insuranceCompName for (key,vlaue) in insuranceCompNames"
+                            ng-change="sxfhj2(1)">
+                        <option value="">请选择</option>
+                    </select>
+                </span> <br/>
+                <div>
+                    <span style="width: 90px;float: left"><label>商业险险种</label></span>
+                    <div class="insu_checkbox">
+                        <span ng-model="searchPolicy.insuranceTypes" ng-repeat="xz in searchPolicy.insuranceTypes">
+                            <input type="checkbox" ng-click="checkboxChange()" ng-model="xz.checkStatus">
+                            <label>{{xz.typeName}}</label>
+                            <input class="insured" ng-if="xz.status==1"  type="number" min="0" step="0.01" num-format ng-model="xz.coverage">
+                            <!--车损-->
+                            <input type="number" ng-if="xz.typeId==64" id="chesun" ng-disabled="CheSunck!=1" class="bxxz" step="10000"
+                                   min="10000" max="300000"  ng-model="CheSun" style="width:80px">
+                            <!--三责-->
+                            <select class="insured" ng-if="xz.typeId==65"  id="sanzhe"  ng-model="SanZhe" ng-disabled="sanZheck!=1"  ng-options="x.value as x.site for x in SanZhes" style="width:80px" ng-click="sanzheCk()"/>
+                            <!--司机-->
+                            <input type="number" ng-if="xz.typeId==67" id="siji"  ng-disabled="siJick!=1" class="bxxz" step="10000"
+                                   min="10000" max="300000" ng-model="SiJick" style="width:80px"  ng-click="sijiCk()" />
+                            <!--乘客 bihubaojia.ChengKe-->
+                            <input type="number" ng-if="xz.typeId==76" ng-disabled="chengKeck!=1" class="bxxz" step="10000"
+                                   min="10000" max="300000" id="chengke" ng-model="ChengKe" style="width:80px"  ng-click="chengkeCk()" />
+                            <!--划痕-->
+                            <select class="bxxz" ng-if="xz.typeId==69" id="huahen" ng-model="HuaHen" ng-disabled="huaHenck!=1"  ng-options="x for x in HuaHens"  style="width:80px"  ng-change="huahenCk()"/>
+                            <!--玻璃-->
+                            <select ng-model="BoLi" ng-if="xz.typeId==70" id="boli" ng-disabled="boLick!=1" class="bxxz" ng-options="x.value as x.site for x in BoLis" style="width:80px"  ng-click="boliCk()"/>
+                            <!--货物-->
+                            <input type="number" ng-if="xz.typeId==79" id="huowu" min="0" class="bxxz" step="100" ng-disabled="hcHuock!=1" value="{{HcHuoWuZeRen}}" ng-model="HcHuoWuZeRen" style="width:80px"  ng-click="huowuCk()"/>
+                            <!--精神损失-->
+                            <input type="number" ng-if="xz.typeId==77" id="jingshen" min="0" class="bxxz" step="100" ng-disabled="hcJingShenck!=1" value="{{HcJingShenSunShi}}" ng-model="HcJingShenSunShi" style="width:80px"  ng-click="jingshenCk()"/>
+                            <!--费用补偿-->
+                            <input type="number" ng-if="xz.typeId==80" id="feiyong" min="0" class="bxxz" ng-disabled="hcFeiYongck!=1" value="{{hcFeiYongBuChang}}" ng-model="hcFeiYongBuChang" style="width:80px"  ng-click="feiyongbuchangCk()"/>
+                            <!--指定修理厂 -->
+                            <input type="number" ng-if="xz.typeId==74" id="zhiding" min="0" class="bxxz" step="100"  ng-disabled="hcXiuLick!=1" value="{{hcXiuLiBuChang}}" ng-model="hcXiuLiBuChang" style="width:80px"  ng-click="xiulibuchangCk()"/>
+
+                        </span>
+                    </div>
+                </div>
+                <div class="clear">
+                    <span style="width: 600px;"><label class="fl">备注</label> <textarea rows="3" cols="30" style="width: 406px;height: 50px;margin-left: 5px;" ng-model="searchPolicy.remark" maxlength="500"></textarea> </span>
+                </div>
+            </div>
+            <div class="carmsg">
+                <h3>财务信息</h3>
+                <span><label>保费合计</label> <input type="number" string-to-number="" ng-model="searchPolicy.premiumCount" disabled></span>
+                <span><label>现金优惠</label> <input type="number" min="0" step="0.01" num-format ng-model="searchPolicy.privilegeSum" ng-change="sjjejs()"></span>
+                <span><label>现金优惠点位</label> <input  type="number" min="0" step="0.01" num-format ng-change="xjyhdwjs()" ng-model="searchPolicy.xjyhdw"></span>
+                <span><label>储值卡金额</label> <input type="number" ng-model="searchPolicy.czkje" disabled></span>
+                <span><label>储值卡金额点位</label> <input type="number" ng-model="searchPolicy.czkjedw" disabled></span>
+                <span ng-if="accountModule==1"><label>赠送金额</label> <input type="number" min="0" step="0.01" num-format ng-model="searchPolicy.giftDiscount" disabled></span>
+                <span><label>实收金额</label> <input type="text" string-to-number="" ng-model="searchPolicy.realPay" disabled></span>
+            </div>
+            <div class="carmsg">
+                <h3>办理人员</h3>
+                <span><label>负责人</label>
+                    <select required="" ng-model="searchPolicy.principal" style="height: 20px;margin: 5px;margin-left: 2px"
+                            ng-options="vlaue as vlaue.userName for (key,vlaue) in kingdsUser.principal">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span><label>业务员</label>
+                    <select required="" ng-model="searchPolicy.clerk" style="height: 20px;margin: 5px;margin-left: 2px"
+                            ng-options="vlaue as vlaue.userName for (key,vlaue) in kingdsUser.salesman">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span><label>出单员</label><input type="text" ng-model="searchPolicy.insuranceWriter" disabled></span>
+                <span><label>收银员</label><input type="text" ng-model="searchPolicy.cashier"></span>
+                <span style="display: none"><label>招揽员</label>
+                    <select required="" ng-model="searchPolicy.solicitMember" style="height: 20px;margin: 5px;margin-left: 2px"
+                            ng-options="vlaue as vlaue.userName for (key,vlaue) in kingdsUser.spieler">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+            </div>
+            <div class="carmsg">
+                <h3>客户信息</h3>
+                <span><label>车主</label> <input type="text" ng-model="searchPolicy.carOwner"></span>
+                <span><label>被保险人</label> <input type="text" ng-model="searchPolicy.insured"></span>
+                <span><label>被保险人证件号</label> <input type="text" ng-model="searchPolicy.certificateNumber"></span>
+                <span>
+                    <label>联系人<em class="emphasis">*</em></label>
+                    <input type="text" ng-model="searchPolicy.contact" placeholder="联系人不能为空" required></span>
+                <span>
+                    <label>联系方式<em class="emphasis">*</em></label>
+                    <input type="text" ng-model="searchPolicy.contactWay" placeholder="联系方式不能为空" required></span>
+                <span><label>客户来源</label> <input type="text" ng-model="searchPolicy.customerSource"></span>
+                <span><label>客户性质</label> <input type="text" ng-model="searchPolicy.customerCharacter"></span>
+                <span style="width: 510px"><label>现住址</label> <input style="width: 405px" type="text" ng-model="searchPolicy.address"></span>
+                <br/><br/>
+                <div ui-grid="policyInfoTracePage" style="width: 1020px;height: 250px;"  ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+                </div>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input ng-click="saveUpdateSingle()" type="button" value="保存">
+            <input ng-click="savePolicyChangeBtn()" type="button" value="关闭">
+        </div>
+    </div>
+</div>
+<script>
+    $('.coverDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });
+    $('.carDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    });
+    $(function () { $("[data-toggle='tooltip']").tooltip(); });
+
+</script>

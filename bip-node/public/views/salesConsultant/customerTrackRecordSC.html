@@ -1,0 +1,261 @@
+<div id="genzcl" class="scmMaskWindow"  ng-init="detectcycle()">
+    <div class="scmWindow" style="height: 600px; width: 1100px; margin-left: -550px; margin-top: -300px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                跟踪处理
+            </i>
+            <span class="closeNewBtn glyphicon glyphicon-remove" ng-show="clickFlag!=0" ng-click="saveCustChangeBtn()"></span>
+            <span class="closeBtn glyphicon glyphicon-remove" ng-show="clickFlag==0" ng-click="changeClickFlag()"></span>
+        </div>
+        <div class="scmWindowContent ui-widget changeValue" style="height:500px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <h3>车辆信息</h3>
+                <span><label>车牌号</label> <input type="text" ng-model="genzcl.carLicenseNumber" maxlength="30" ng-disabled="genzcl.ifUpdate==1&&(bhDock==1||bhDock==2)"></span>
+                <span><label>车架号<em class="emphasis">*</em></label> <input type="text"  ng-model="genzcl.chassisNumber" ></span>
+                <span><label>发动机号</label> <input type="text" ng-model="genzcl.engineNumber" maxlength="50" ng-disabled="genzcl.ifUpdate==1&&(bhDock==1||bhDock==2)"></span>
+                <span><label>上牌日期</label> <input type="text" class="carDate"  ng-model="genzcl.registrationDate" readonly></span>
+                <span><label>品牌</label>
+                    <select required="" ng-model="genzcl.carBrand" style="height: 20px;margin: 5px;margin-left: 2px"
+                            ng-options="carBrand as carBrand.brandName for (key,carBrand) in carBrandsgz"
+                            ng-change="gzclVehicleModel()">
+                        <option value="">请选择品牌</option>
+                    </select>
+                </span>
+                <span><label>车型</label>
+                    <select id="clxhxz_gzcl" ng-model="genzcl.vehicleModel" style="height: 20px;margin: 5px;margin-left: 2px"
+                            ng-options="vehicleModel as vehicleModel.modelName for (key,vehicleModel) in genzcl.carBrand.carModelList">
+                        <option value="">请选择型号</option>
+                    </select>
+                     <input type="text" id="clxhsr_gzcl" ng-model="genzcl.vehicleModelInput" maxlength="50">
+                </span>
+                <span><label>车型号</label> <input type="text" ng-model="genzcl.factoryLicenseType" maxlength="50"></span>
+                <span><label>是否本店购买车辆</label>
+                    <select  ng-model="genzcl.buyfromThisStore" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span><label>车辆年审日期</label> <input type="text" class="carDate" ng-model="genzcl.carAnnualCheckUpDate" readonly></span>
+                <span><label>是否贷款</label>
+                    <select  ng-model="genzcl.ifLoan" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in loan">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+            </div>
+            <div class="carmsg">
+                <h3>保险信息
+                    <span ng-if="bhDock==1||bhDock==2" style="vertical-align: middle;margin-top: -4px;width: 15px;" class="glyphicon glyphicon-repeat cursor" title="点击请求获取潜客最新续险信息" ng-click="manual(1)"></span>
+                    <span ng-if="bhDock==4" style="vertical-align: middle;margin-top: -4px;width: 15px;" class="glyphicon glyphicon-repeat cursor" title="点击请求获取潜客最新续险信息" ng-click="manual(2)"></span>
+                </h3>
+                <span>
+                    <label>商业险日期结束</label>
+                    <input type="text" class="coverDate" ng-model="genzcl.syxrqEnd" readonly ng-disabled="genzcl.ifUpdate==1&&(bhDock==1||bhDock==2)">
+                </span>
+                 <span style="position: relative">
+                    <label>交强险日期结束<em class="emphasis">*</em></label>
+                    <input type="text" class="coverDate" ng-model="genzcl.jqxrqEnd" readonly  ng-disabled="genzcl.ifUpdate==1&&(bhDock==1||bhDock==2)">
+                    <span class="glyphicon glyphicon-exclamation-sign red jqxrqIcon" ng-click="changeJqxrqEnd()" title="{{genzcl.bhInsuranceEndDate}}" ng-if="genzcl.showNum>1000*60*60*24*dayNumber&&(bhDock==1||bhDock==2)"></span>
+                    <span class="glyphicon glyphicon-exclamation-sign blue jqxrqIcon" ng-click="changeJqxrqEnd()" title="{{genzcl.bhInsuranceEndDate}}" ng-if="0<genzcl.showNum&&genzcl.showNum<=1000*60*60*24*dayNumber&&(bhDock==1||bhDock==2)"></span>
+                </span>
+                <span><label>投保类型<em class="emphasis">*</em></label>
+                    <input type="text"  value="{{genzcl.renewalType | mapTBLX}}" readonly>
+                </span>
+                <span><label>续保渠道</label>
+                    <select ng-model="genzcl.renewalWay" ng-options="x for x in renewalWays">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span><label>当前负责人</label> <input class="disabledbg" type="text" ng-model="genzcl.principal" maxlength="20" readonly></span>
+                <span><label>去年招揽员</label> <input type="text" ng-model="genzcl.solicitMemberLY" maxlength="20"></span>
+                <span><label>本店投保次数</label> <input type="number" ng-model="genzcl.insurNumber" min="0" onkeyup="value=value.replace(/[^\d]/g,'')"></span>
+                <span><label>最低折扣</label> <input type="text" ng-model="genzcl.zdZheKou" maxlength="20"></span>
+                <span><label>去年投保日期</label> <input type="text" class="coverDate" ng-model="genzcl.insurDateLY" readonly></span>
+                <span><label>去年投保公司</label> <input type="text" ng-model="genzcl.insuranceCompLY" maxlength="50" ng-disabled="genzcl.ifUpdate==1&&(bhDock==1||bhDock==2)"></span>
+                <span><label>去年保费</label> <input type="number" num-format min="0" step="0.01" ng-model="genzcl.insuranceCoverageLY" maxlength="11"></span>
+                <span><label>去年优惠项目</label>
+                    <select ng-model="genzcl.privilegeProLY" ng-options="x for x in privilegePros">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span><label>去年被保险人</label> <input type="text" ng-model="genzcl.insuredLY" maxlength="30"></span>
+                <div>
+                    <span style="width: 506px;">
+                        <label class="fl">去年投保险种</label>
+                        <textarea rows="3" cols="30" style="width: 405px;height: 50px;margin-left: 6px" ng-model="genzcl.insuranceTypeLY" maxlength="200" ng-disabled="genzcl.ifUpdate==1&&(bhDock==1||bhDock==2)"></textarea>
+                    </span>
+                    <span style="width: 506px;">
+                        <label class="fl">备注</label>
+                        <textarea rows="3" cols="30" style="width: 405px;height: 50px;margin-left: 6px;" ng-model="genzcl.remark" maxlength="500"></textarea>
+                    </span>
+                </div>
+            </div>
+            <div class="carmsg">
+                <h3>客户信息</h3>
+                <span><label>车主</label> <input type="text" ng-model="genzcl.carOwner" maxlength="80" ng-disabled="genzcl.ifUpdate==1&&(bhDock==1||bhDock==2)"></span>
+                <span><label>被保险人<em class="emphasis">*</em></label> <input type="text" ng-model="genzcl.insured" maxlength="80" ng-disabled="genzcl.ifUpdate==1&&(bhDock==1||bhDock==2)"></span>
+                <span><label>被保险人证件号</label> <input type="text" ng-model="genzcl.certificateNumber" maxlength="80" ng-disabled="genzcl.ifUpdate==1&&(bhDock==1||bhDock==2)"></span>
+                <span ng-if="!(genzcl.customerLevel=='F'||genzcl.customerLevel=='O'||genzcl.customerLevel=='S') && lockLevel==0"><label>潜客级别</label>
+                     <select  ng-model="genzcl.customerLevel" ng-options="x for x in customerLevels">
+                     </select>
+                </span>
+                <span ng-if="(genzcl.customerLevel=='F'||genzcl.customerLevel=='O'||genzcl.customerLevel=='S')&& lockLevel==0"><label>潜客级别</label>
+                    <input type="text" ng-value="genzcl.customerLevel" readonly></span>
+                <span ng-if="lockLevel==1"><label>潜客级别</label>
+                    <input type="text" ng-value="genzcl.customerLevel" readonly></span>
+                <span ng-if="!(genzcl.customerLevel=='F'||genzcl.customerLevel=='O'||genzcl.customerLevel=='S') && lockLevel==2"><label>潜客级别</label>
+                     <select ng-if="thisRowData.remainLostInsurDay>60"  ng-model="genzcl.customerLevel" ng-options="x for x in customerLevels">
+                     </select>
+                     <select ng-if="thisRowData.remainLostInsurDay<=60 && thisRowData.remainLostInsurDay>30"  ng-model="genzcl.customerLevel" ng-options="x for x in customerLevelsB">
+                         <option ng-if="genzcl.customerLevel == 'D'" value="">{{genzcl.customerLevel}}</option>
+                     </select>
+                     <select ng-if="thisRowData.remainLostInsurDay<=30 && thisRowData.remainLostInsurDay>7"  ng-model="genzcl.customerLevel" ng-options="x for x in customerLevelsC">
+                         <option ng-if="genzcl.customerLevel == 'C'|| genzcl.customerLevel == 'D'" value="">{{genzcl.customerLevel}}</option>
+                     </select>
+                     <select ng-if="thisRowData.remainLostInsurDay<=7" ng-model="genzcl.customerLevel" ng-options="x for x in customerLevelsD">
+                         <option ng-if="genzcl.customerLevel != 'A'" value="">{{genzcl.customerLevel}}</option>
+                     </select>
+                </span>
+                <span ng-if="(genzcl.customerLevel=='F'||genzcl.customerLevel=='O'||genzcl.customerLevel=='S')&& lockLevel==2"><label>潜客级别</label>
+                    <input type="text" ng-value="genzcl.customerLevel" readonly></span>
+                <span><label>联系人<em class="emphasis">*</em></label> <input type="text" ng-model="genzcl.contact" maxlength="80"></span>
+                <span><label>联系方式<em class="emphasis">*</em></label> <input type="text" ng-model="genzcl.contactWay" maxlength="60"></span>
+                <span><label>联系方式（备）</label> <input type="text" ng-model="genzcl.contactWayReserve" maxlength="60"></span>
+                 <span><label>是否本店再修客户</label>
+                    <select  ng-model="genzcl.isMaintainAgain" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span style="width: 504px"><label>现住址</label> <input style="width: 403px" type="text" ng-model="genzcl.address" maxlength="100"></span>
+                <span><label>去年本店维修次数</label> <input type="number" ng-model="genzcl.maintainNumberLY" min="0" onkeyup="value=value.replace(/[^\d]/g,'')"></span>
+                <span><label>去年出险次数</label> <input type="number" ng-model="genzcl.accidentNumberLY" min="0" onkeyup="value=value.replace(/[^\d]/g,'')"></span>
+                <span><label>去年事故车产值</label> <input type="number" num-format min="0" step="0.01" ng-model="genzcl.accidentOutputValueLY" maxlength="11"></span>
+                <span><label>服务顾问</label>
+                    <select required="" ng-model="genzcl.serviceConsultant" style="height: 20px;margin: 5px;margin-left: 2px"
+                            ng-options="vlaue as vlaue.userName for (key,vlaue) in kingdsUser.servicer">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span><label>客户性质</label> <input type="text" ng-model="genzcl.customerCharacter" maxlength="20" ng-disabled="genzcl.ifUpdate==1"></span>
+                <span><label>是否高意向</label>
+                    <select  ng-model="genzcl.sfgyx" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span style="width: 506px;">
+                        <label class="fl">客户描述</label>
+                        <textarea rows="3" cols="30" style="width: 405px;height: 50px;margin-left: 6px;" ng-model="genzcl.customerDescription" maxlength="100"></textarea>
+                    </span>
+            </div>
+            <div class="progressContainer">
+                <div class="progressBar" style="width: 400px;">
+                    <div class="progressNow" ng-style="progressWidth" style="width: 0%">
+                    </div>
+                    <ul>
+                        <li class="progressDot progressStart" ng-class="{'emptyStart': isQuoteBol}"  style="left:0%;">
+                            报价
+                            <div>
+                            </div>
+                        </li>
+                        <li class="progressDot" ng-class="{'emptyDot': isInviteBol}" style="left:33%;">
+                            邀约
+                            <div>
+                            </div>
+                        </li>
+                        <li class="progressDot" ng-class="{'emptyDot': isComeStoreBol}"  style="left:66%;">
+                            进店
+                            <div>
+                            </div>
+                        </li>
+                        <li class="progressDot" ng-class="{'emptyDotEnd': lastYearIsDealBol}"  style="left:99%;">
+                            出单
+                            <div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <ul id="gz_tab" class="cartype_gz nav nav-tabs">
+                    <li class="active" id="gzjl_tab"  href="#genzong"  ng-click="" data-toggle="tab">
+                        跟踪记录
+                    </li>
+                    <li  href="#baojia"  ng-click="findListCustomerBJRecode()" data-toggle="tab">
+                        报价记录
+                    </li>
+                    <li  href="#weixiu" ng-click="findwxRecordByCondition()" data-toggle="tab">
+                        维修记录
+                    </li>
+                    <li  href="#tsx"  ng-click="findByConditionTSX()" data-toggle="tab">
+                        推送修记录
+                    </li>
+                    <!--<li  href="#spdjl" ng-click="findApprovalBillRecordList()" data-toggle="tab">-->
+                        <!--审批单记录-->
+                    <!--</li>-->
+                </ul>
+                <div class="tab-content mt10" id="gz_tab_grid" style="width: 1050px;height: 250px;" >
+                    <div class="tab-pane fade in active" id="genzong" style="position: relative;">
+                        <div ui-grid="tracelistPage" style="width: 1050px;height: 250px;"  ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+                        </div>
+                        <div class="trackConbox">
+                            <textarea class="trackCopybox"  rows="3" cols="30" readonly>{{traceContext}}</textarea>
+                            <div style="text-align:right"><button ng-click="trackConboxHide()">取消</button></div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="baojia">
+                        <div ui-grid="add_bj_Page" style="width: 1050px;height: 250px;"  ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="weixiu">
+                        <div ui-grid="maintainRecordPage" style="width: 1050px;height: 250px;"  ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tsx">
+                        <div ui-grid="pushRepairPage" style="width: 1050px;height: 250px;"  ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="spdjl">
+                        <div ui-grid="customerSpdjl" style="width: 1050px;height: 250px;"  ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="trackCust"  ng-click="addNewTraceInit()"  ng-show="pageType=='gz'||pageType=='qkcx'|| (pageType=='grxx' && clickFlag==1)|| (pageType=='tb' && pageStatus==1)" ng-disabled="acceptStatu==1" type="button" value="跟踪">
+            <input ng-click="traceReturn()" ng-show="pageType=='tb'|| pageType=='gz'||pageType=='qkcx'|| (pageType=='grxx' && clickFlag==1)" ng-disabled="acceptStatu==1" type="button" value="回退">
+            <input ng-click="updateAcceptStatu()" ng-show="pageType=='js'" type="button" value="接收">
+            <!--<input ng-show="pageType=='gz'||pageType=='qkcx'|| (pageType=='grxx' && clickFlag==1)|| (pageType=='tb' && pageStatus==1)" ng-disabled="acceptStatu==1" ng-click="traceFinishHandle()" type="button" value="跟踪完成">-->
+            <input type="button" ng-if="bhDock==1||bhDock==3||bhDock==4" ng-show="pageType=='gz'||pageType=='qkcx'|| (pageType=='grxx' && clickFlag==1)" ng-click="open_BJ()" value="报价">
+            <input  ng-show="clickFlag!=0" ng-click="saveCustChangeBtn()" type="button" value="关闭">
+            <input class="closeBtn" ng-show="clickFlag==0" ng-click="changeClickFlag()" type="button" value="关闭">
+        </div>
+
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#genzcl").hide();
+    });
+    $('.coverDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });
+    $('.carDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });;
+</script>

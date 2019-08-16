@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.InsuranceTraceRecodeMapper" >
+  <resultMap id="BaseResultMap" type="com.bofide.bip.po.InsuranceTraceRecode" >
+    <id column="insurTraceRecodeId" property="insurTraceRecodeId" jdbcType="INTEGER" />
+    <result column="insuranceId" property="insuranceId" jdbcType="INTEGER" />
+    <result column="nextTraceDate" property="nextTraceDate" jdbcType="DATE" />
+    <result column="renewalType" property="renewalType" jdbcType="VARCHAR" />
+    <result column="customerLevel" property="customerLevel" jdbcType="VARCHAR" />
+    <result column="traceContext" property="traceContext" jdbcType="VARCHAR" />
+    <result column="currentTraceDate" property="currentTraceDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    insurTraceRecodeId,insuranceId,nextTraceDate,renewalType,customerLevel,traceContext,currentTraceDate
+  </sql>
+  <select id="findRecode" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from bf_bip_insurance_trace_recode
+    where insuranceId = #{insuranceId,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insert" parameterType="com.bofide.bip.po.InsuranceTraceRecode" >
+    insert into bf_bip_insurance_trace_recode (insuranceId, nextTraceDate, 
+      renewalType, customerLevel, traceContext, currentTraceDate
+      )
+    values (#{insuranceId,jdbcType=INTEGER}, #{nextTraceDate,jdbcType=DATE}, 
+     #{renewalType,jdbcType=VARCHAR}, #{customerLevel,jdbcType=VARCHAR}, 
+     #{traceContext,jdbcType=VARCHAR}, #{currentTraceDate,jdbcType=DATE}
+      )
+  </insert>
+  
+  <delete id="deleteByStoreId" parameterType="java.lang.Integer">
+  	DELETE
+	FROM
+		bf_bip_insurance_trace_recode
+	WHERE
+		insuranceId IN (
+	SELECT
+		insuranceBillId
+	FROM
+		bf_bip_insurance_bill
+	WHERE
+		fourSStoreId = #{storeId}
+	)
+  </delete>
+  
+  <delete id="deleteByInsuranceBillId" parameterType="java.lang.Integer" >
+    delete from bf_bip_insurance_trace_recode
+    where insuranceId = #{insuranceBillId,jdbcType=INTEGER}
+  </delete>
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.CommonMapper" >
+	<resultMap type="com.bofide.bip.common.po.CoverType" id="resultCoverType">
+		<result property="coverType" column="coverType" />
+		<result property="coverTypeName" column="coverTypeName" />
+	</resultMap>
+
+  	<select id="findAllCoverType" resultMap="resultCoverType">
+  		select * from bf_bip_cover_type
+  	</select>
+  	
+  	<select id="findCoverTypeByName" resultType="Integer">
+  		select coverType from bf_bip_cover_type where coverTypeName = #{coverTypeName}
+  	</select>
+  	
+  	<select id="findCoverTypeNameById" resultType="String">
+  		select coverTypeName from bf_bip_cover_type where coverType = #{coverType}
+  	</select>
+  	
+  	<select id="findCoverTypeNoNewInsur" resultMap="resultCoverType">
+  		select * from bf_bip_cover_type where coverType not in (1)
+  	</select>
+</mapper>

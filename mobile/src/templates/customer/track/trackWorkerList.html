@@ -1,0 +1,23 @@
+<ion-view view-title="应跟踪" ng-init="ctrl.findYGZWorkCollection(1)">
+  <ion-nav-buttons side="left">
+    <button ng-if="ctrl.user.role.roleId!=7&&ctrl.user.role.roleId!=9" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('homePage.myHomePage')"></button>
+    <button ng-if="ctrl.user.role.roleId==7||ctrl.user.role.roleId==9" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('mgrHomePage.mgrMyHomePage')"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="bip-item-divider">
+      <div class="title">应跟踪潜客数：{{ctrl.allCustomerNum}}</div>
+    </div>
+    <div class="bip-row">
+      <div class="col bip-col-33" ng-repeat="worker in ctrl.workCollection">
+        <div class="bip-custbox">
+          <a class="bip-tel" ng-show="!worker.phone">{{worker.userName}}</a>
+          <a ng-show="worker.phone" class="bip-tel" href="tel:{{worker.phone}}">
+            <span class="worker-name">{{worker.userName}}</span>
+            <i class="icon ion-ios-telephone"></i>
+          </a>
+          <a class="bip-amount" ui-sref="trackCustomerList({userId:worker.userId,userName:worker.userName})">{{worker.customerNum}}</a>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

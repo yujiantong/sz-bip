@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.StoreMapper" >
+  <resultMap id="BaseResultMap" type="com.bofide.bip.po.Store" >
+    <id column="storeId" property="storeId" jdbcType="INTEGER" />
+    <result column="storeName" property="storeName" jdbcType="VARCHAR" />
+    <result column="shortStoreName" property="shortStoreName" jdbcType="VARCHAR" />
+    <result column="adminAccount" property="adminAccount" jdbcType="VARCHAR" />
+    <result column="adminPassword" property="adminPassword" jdbcType="VARCHAR" />
+    <result column="carBrand" property="carBrand" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="DATE" />
+    <result column="deleteDate" property="deleteDate" jdbcType="DATE" />
+    <result column="vaildDate" property="vaildDate" jdbcType="DATE" />
+    <result column="vaildDateStart" property="vaildDateStart" jdbcType="DATE" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="importStatus" property="importStatus" jdbcType="INTEGER" />
+    <result column="bspStoreId" property="bspStoreId" jdbcType="INTEGER" />
+	<result column="bangTime" property="bangTime" jdbcType="TIMESTAMP" />
+	<result column="bangStatu" property="bangStatu" jdbcType="INTEGER" />
+	<result column="bhDock" property="bhDock" jdbcType="INTEGER" />
+	<result column="agent" property="agent" jdbcType="VARCHAR" />
+	<result column="bihuKey" property="bihuKey" jdbcType="VARCHAR" />
+	<result column="cityCode" property="cityCode" jdbcType="VARCHAR" />
+	<result column="deviation" property="deviation" jdbcType="INTEGER" />
+	<result column="lockLevel" property="lockLevel" jdbcType="INTEGER" />
+	<result column="shopId" property="shopId" jdbcType="VARCHAR" />
+	<result column="token" property="token" jdbcType="VARCHAR" />
+	<result column="jtId" property="jtId" jdbcType="INTEGER" />
+	<result column="unitId" property="unitId" jdbcType="INTEGER" />
+	<result column="registName" property="registName" jdbcType="VARCHAR" />
+	<result column="taxNum" property="taxNum" jdbcType="VARCHAR" />
+	<result column="code" property="code" jdbcType="VARCHAR" />
+	<result column="fzr" property="fzr" jdbcType="VARCHAR" />
+	<result column="lxr" property="lxr" jdbcType="VARCHAR" />
+	<result column="phone" property="phone" jdbcType="VARCHAR" />
+	<result column="email" property="email" jdbcType="VARCHAR" />
+	<result column="address" property="address" jdbcType="VARCHAR" />
+	<result column="csModuleFlag" property="csModuleFlag" jdbcType="INTEGER" />
+	<result column="asmModuleFlag" property="asmModuleFlag" jdbcType="INTEGER" />
+	<result column="saleFlag" property="saleFlag" jdbcType="INTEGER" />
+	<result column="afterSaleFlag" property="afterSaleFlag" jdbcType="INTEGER" />
+	<result column="logo" property="logo" jdbcType="INTEGER" />
+	<result column="dataAnalystIds" property="dataAnalystIds" jdbcType="VARCHAR" />
+	<result column="updateSMS" property="updateSMS" jdbcType="INTEGER"/>
+	<result column="messageBalance" property="messageBalance" jdbcType="DOUBLE"/>
+	<collection property="bspStore" column="bspStoreId" ofType="com.bofide.bip.po.BspStore">
+		<result property="bspStoreId" column="bsp_storeId" jdbcType="INTEGER"/>
+		<result property="bspStoreName" column="bsp_storeName" jdbcType="VARCHAR"/>
+	</collection>
+	<collection property="bloc" column="jtId" ofType="com.bofide.bip.po.Bloc">
+		<result property="jtId" column="jtId" jdbcType="INTEGER"/>
+		<result property="jtName" column="jtName" jdbcType="VARCHAR"/>
+		<result property="jtYxqStart" column="jtYxqStart" jdbcType="DATE"/>
+		<result property="jtYxqEnd" column="jtYxqEnd" jdbcType="DATE"/>
+	</collection>
+  </resultMap>
+ 
+  <!-- 新增4S店 --> 
+ <insert id="insert" useGeneratedKeys="true" keyProperty="storeId" parameterType="com.bofide.bip.po.Store" >
+   	 insert into bf_bip_store 
+    	(storeName, shortStoreName, adminAccount ,adminPassword, carBrand ,createDate, deleted, deleteDate, vaildDate, remark, 
+    	bhDock,agent,bihuKey,cityCode,shopId,token,jtId,vaildDateStart,registName,taxNum,code,fzr,lxr,phone,email,address,unitId,
+    	logo)
+   	 values 
+    	(#{storeName,jdbcType=VARCHAR},#{shortStoreName,jdbcType=VARCHAR}, 
+    	#{adminAccount,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}, #{carBrand,jdbcType=VARCHAR}, 
+    	CURDATE(), 0, NULL, #{vaildDate,jdbcType=DATE},#{remark,jdbcType=VARCHAR},#{bhDock},#{agent},
+		#{bihuKey},#{cityCode},#{shopId},#{token},#{jtId},#{vaildDateStart},#{registName},#{taxNum},
+    	#{code},#{fzr},#{lxr},#{phone},#{email},#{address},#{unitId},#{logo})
+ </insert>
+ <!-- 删除4S店 -->  	
+ <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bf_bip_store
+    where storeId = #{storeId,jdbcType=INTEGER}
+ </delete>
+ <!-- 查询4S店 -->  
+ <select id="selectAll" resultMap="BaseResultMap">
+		select 
+			*
+		from bf_bip_store where deleted = 0
+		
+ </select>
+ 
+  <!-- 根据主键查询4S店 -->  
+ <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+		select 
+			*
+		from bf_bip_store
+		where storeId = #{storeId,jdbcType=INTEGER} and deleted = 0
+ </select>
+ <!-- 软删除4s店 -->
+ <update id="updateByPrimaryKey" parameterType="java.lang.Integer" >
+    update bf_bip_store
+   		set
+       		deleted = 1,deleteDate = CURDATE()
+    	where
+     		storeId = #{storeId,jdbcType=INTEGER}
+ </update>
+ 
+ <!-- 更新店的信息 -->
+   <update id="updateStoreInfoById"  parameterType="com.bofide.bip.po.Store">
+    update bf_bip_store
+   		set
+       		importStatus = #{importStatus}
+    	where
+     		storeId = #{storeId,jdbcType=INTEGER}
+ </update>
+ <!-- 根据店名缩写查询4s店记录 -->  
+ <select id="selectByShortName" resultMap="BaseResultMap">
+		select 
+			*
+		from bf_bip_store
+		where
+     		shortStoreName = #{shortStoreName,jdbcType=VARCHAR}
+     		and deleted = 0
+ </select>
+ 
+  <!-- 修改4S店 -->  	
+<update id="updateStore"  parameterType="com.bofide.bip.po.Store">
+    update bf_bip_store
+   		set
+       		carBrand = #{carBrand,jdbcType=VARCHAR},
+       		remark = #{remark,jdbcType=VARCHAR},
+       		vaildDate = #{vaildDate,jdbcType=DATE},
+       		bhDock = #{bhDock,jdbcType = INTEGER},
+       		agent = #{agent,jdbcType = VARCHAR},
+       		bihuKey = #{bihuKey,jdbcType = VARCHAR},
+       		cityCode = #{cityCode,jdbcType = VARCHAR},
+       		shopId = #{shopId,jdbcType = VARCHAR},
+       		token = #{token,jdbcType = VARCHAR},
+       		jtId = #{jtId,jdbcType = INTEGER},
+       		unitId = #{unitId,jdbcType = INTEGER},
+       		vaildDateStart = #{vaildDateStart,jdbcType = DATE},
+       		registName = #{registName,jdbcType = VARCHAR},
+       		taxNum = #{taxNum,jdbcType = VARCHAR},
+       		code = #{code,jdbcType = VARCHAR},
+       		fzr = #{fzr,jdbcType = VARCHAR},
+       		lxr = #{lxr,jdbcType = VARCHAR},
+       		phone = #{phone,jdbcType = VARCHAR},
+       		email = #{email,jdbcType = VARCHAR},
+       		address = #{address,jdbcType = VARCHAR},
+       		logo = #{logo,jdbcType = INTEGER},
+			updateSMS = #{updateSMS,jdbcType = INTEGER},
+			messageBalance = #{messageBalance,jdbcType = DOUBLE}
+    	where
+     		storeId = #{storeId,jdbcType=INTEGER}
+ </update>
+	<!-- tomcat启动时初始化店导入状态 -->
+	<update id="updateStoreImportStatu" >
+		update bf_bip_store set importStatus = 0
+	</update>
+	
+	<!-- 根据主键更新bf_bip_store  -->
+	<update id="updateByStoreId" parameterType="java.util.Map">
+		update bf_bip_store 
+		<set>
+			<if test="storeName != null and storeName != ''">
+				storeName = #{storeName},
+			</if>
+			<if test="shortStoreName != null and shortStoreName != ''">
+				shortStoreName = #{shortStoreName},
+			</if>
+			<if test="adminAccount != null and adminAccount != ''">
+				adminAccount = #{adminAccount},
+			</if>
+			<if test="adminPassword != null and adminPassword != ''">
+				adminPassword = #{adminPassword},
+			</if>
+			<if test="carBrand != null and carBrand != ''">
+				carBrand = #{carBrand},
+			</if>
+			<if test="createDate != null and createDate != ''">
+				createDate = #{createDate},
+			</if>
+			<if test="deleteDate != null and deleteDate != ''">
+				deleteDate = #{deleteDate},
+			</if>
+			<if test="vaildDate != null and vaildDate != ''">
+				vaildDate = #{vaildDate},
+			</if>
+			<if test="deleted != null and deleted != ''">
+				deleted = #{deleted},
+			</if>
+			<if test="remark != null and remark != ''">
+				remark = #{remark},
+			</if>
+			<if test="importStatus != null and importStatus != ''">
+				importStatus = #{importStatus},
+			</if>
+			<if test="bspStoreId != null and bspStoreId != ''">
+				bspStoreId = #{bspStoreId},
+			</if>
+			<if test="bangTime != null">
+				bangTime = #{bangTime},
+			</if>
+			<if test="bangStatu != null">
+				bangStatu = #{bangStatu},
+			</if>
+			<if test="bhDock != null and bhDock != ''">
+				bhDock = #{bhDock},
+			</if>
+			<if test="agent != null and agent != ''">
+				agent = #{agent},
+			</if>
+			<if test="bihuKey != null and bihuKey != ''">
+				bihuKey = #{bihuKey},
+			</if>
+			<if test="cityCode != null and cityCode != ''">
+				cityCode = #{cityCode}
+			</if>
+			<if test="deviation != null">
+				deviation = #{deviation},
+			</if>
+			<if test="lockLevel != null">
+				lockLevel = #{lockLevel},
+			</if>
+			<if test="unitId != null">
+				unitId = #{unitId},
+			</if>
+			<if test="shopId != null">
+				shopId = #{shopId},
+			</if>
+			<if test="token != null">
+				token = #{token},
+			</if>
+			<if test="jtId != null">
+				jtId = #{jtId},
+			</if>
+			<if test="vaildDateStart != null">
+				vaildDateStart = #{vaildDateStart},
+			</if>
+			<if test="registName != null">
+				registName = #{registName},
+			</if>
+			<if test="taxNum != null">
+				taxNum = #{taxNum},
+			</if>
+			<if test="code != null">
+				code = #{code},
+			</if>
+			<if test="fzr != null">
+				fzr = #{fzr},
+			</if>
+			<if test="lxr != null">
+				lxr = #{lxr},
+			</if>
+			<if test="phone != null">
+				phone = #{phone},
+			</if>
+			<if test="email != null">
+				email = #{email},
+			</if>
+			<if test="address != null">
+				address = #{address},
+			</if>
+			<if test="csModuleFlag != null">
+				csModuleFlag = #{csModuleFlag},
+			</if>
+			<if test="asmModuleFlag != null">
+				asmModuleFlag = #{asmModuleFlag},
+			</if>
+			<if test="saleFlag != null">
+				saleFlag = #{saleFlag},
+			</if>
+			<if test="afterSaleFlag != null">
+				afterSaleFlag = #{afterSaleFlag},
+			</if>
+			<if test="logo != null">
+				logo = #{logo},
+			</if>
+			<if test="crltj != null and crltj != ''">
+				dataAnalystIds = #{dataAnalystIds},
+			</if>
+		</set>
+		 where storeId = #{storeId}
+		
+	</update>
+	
+	<select id="findBandedStore" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_store bips
+		LEFT JOIN bf_bip_bspstore bsps ON (
+			bips.bspStoreId = bsps.bsp_storeId
+			AND bips.bangStatu = 1
+		)
+		LEFT JOIN bf_bip_bloc b ON b.jtId = bips.jtId and b.jtDeleted = 0
+		where bips.deleted = 0 
+		<if test="jtName != null and jtName != '' ">
+			and b.jtName like '%${jtName}%'
+		</if>
+		<if test="storeName != null and storeName != '' ">
+			and bips.storeName like '%${storeName}%'
+		</if>
+		<if test="jtId != null">
+			and bips.jtId = #{jtId}
+		</if>
+		<if test="unitId != null">
+			and bips.unitId = #{unitId}
+		</if>
+		<if test="dataAnalystId != null and dataAnalystId != ''">
+			and find_in_set(#{dataAnalystId}, dataAnalystIds)
+		</if>
+	</select>
+	
+	<select id="findBipStoreByBspStoreId" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_store
+		WHERE
+			bspStoreId = #{bspStoreId}
+		AND bangStatu = 1 
+	</select>
+	
+	<!-- 根据事业部门ID把店的事业部门的ID赋空 -->
+	<update id="updateByUnitId" parameterType="java.lang.Integer">
+		UPDATE bf_bip_store
+		SET unitId = NULL
+		WHERE
+			unitId = #{unitId}
+	</update>
+	
+	<!-- 根据条件查询4s店 -->
+	<select id="findStoreByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select * from bf_bip_store 
+		<where>
+			deleted = 0 
+			<if test="storeId != null and storeId != ''">and storeId = #{storeId}</if>
+			<if test="storeName != null and storeName != ''">and storeName = #{storeName}</if>
+			<if test="shortStoreName != null and shortStoreName != ''">and shortStoreName = #{shortStoreName}</if>
+			<if test="registName != null and registName != ''">and registName = #{registName}</if>
+			<if test="taxNum != null and taxNum != ''">and taxNum = #{taxNum}</if>
+			<if test="code != null and code != ''">and code = #{code}</if>
+			<if test="fzr != null and fzr != ''">and fzr = #{fzr}</if>
+			<if test="lxr != null and lxr != ''">and lxr = #{lxr}</if>
+			<if test="phone != null and phone != ''">and phone = #{phone}</if>
+			<if test="email != null and email != ''">and email = #{email}</if>
+			<if test="address != null and address != ''">and storeId = #{storeId}</if>
+			<if test="jtId != null and jtId != ''">and jtId = #{jtId}</if>
+			<if test="crl != null and crl != ''">and unitId is null</if>
+			<if test="unitId != null and unitId != ''">and unitId = #{unitId}</if>
+			<if test="logo != null and logo != ''">and logo = #{logo}</if>
+			<if test="dataAnalystId != null and dataAnalystId != ''">and find_in_set(#{dataAnalystId}, dataAnalystIds)</if>
+		</where> 
+	</select>
+	
+	 <!-- 营销短信充值 -->  	
+	<update id="messageRecharge"  parameterType="com.bofide.bip.po.Store">
+	    update bf_bip_store
+	   		set
+				messageBalance = #{messageBalance,jdbcType = DOUBLE}
+	    	where
+	     		storeId = #{storeId,jdbcType=INTEGER}
+	 </update>
+	 <!-- 修改4S店营销短信开启状态 -->
+	 <update id="updateStoreMessage"  parameterType="com.bofide.bip.po.Store">
+	    update bf_bip_store
+	   		set
+				updateSMS = #{updateSMS,jdbcType = INTEGER}
+	    	where
+	     		storeId = #{storeId,jdbcType=INTEGER}
+	 </update>
+</mapper>

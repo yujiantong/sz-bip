@@ -1,0 +1,53 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-hot-code-push-local-dev-addon": {
+            "PACKAGE_NAME": "cn.bofide.bip.app"
+        },
+        "cordova-hot-code-push-plugin": {
+            "PACKAGE_NAME": "cn.bofide.bip.app"
+        },
+        "cordova-plugin-app-version": {
+            "PACKAGE_NAME": "cn.bofide.bip.app"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "cn.bofide.bip.app"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "cn.bofide.bip.app"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "cn.bofide.bip.app"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "cn.bofide.bip.app"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "cn.bofide.bip.app"
+        },
+        "cordova-sms-plugin": {
+            "PACKAGE_NAME": "cn.bofide.bip.app"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "cn.bofide.bip.app"
+        },
+        "jpush-phonegap-plugin": {
+            "APP_KEY": "f0ee0251294e2e3113563905",
+            "PACKAGE_NAME": "cn.bofide.bip.app"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-badge": {
+            "PACKAGE_NAME": "cn.bofide.bip.app"
+        },
+        "cordova-plugin-jcore": {
+            "PACKAGE_NAME": "cn.bofide.bip.app"
+        }
+    }
+}

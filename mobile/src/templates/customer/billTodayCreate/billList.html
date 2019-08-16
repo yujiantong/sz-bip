@@ -1,0 +1,28 @@
+<ion-view view-title="今日创建保单" ng-init="ctrl.findBillTodayCreate()">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('xbzyHomePage.xbzyMyHomePage')"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doBillRefresh()"></ion-refresher>
+    <div class="bip-item-divider">
+      <div>今日创建保单数：{{ctrl.billCount}}</div>
+    </div>
+    <div class="list">
+      <a class="item billList item-icon-right" ng-repeat="bill in items" ui-sref="billDetails({insuranceBillId:bill.insuranceBillId})">
+        <div class="row">
+          <div class="col col-25 fcgreen fs16">{{bill.principal}}</div>
+          <div class="col col-67 fc6">投保类型：{{bill.coverTypeName}}</div>
+          <div class="col fc6">{{bill.insuranceCompName}}</div>
+        </div>
+        <div class="row">
+          <div class="col col-25 fc6">{{bill.clerk}}</div>
+          <div class="col col-67 fc6">保险开始日：{{bill.jqxrqStart | date:'yy/MM/dd'}}</div>
+          <div class="col fc6">{{bill.insurNumber}}</div>
+        </div>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </a>
+    </div>
+    <ion-infinite-scroll immediate-check="false" ng-if="!hasmore" on-infinite="ctrl.findBillTodayCreate()" distance="1%">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

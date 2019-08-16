@@ -1,0 +1,94 @@
+<div id="pushDetailAll" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 600px; width: 1100px; margin-left: -550px; margin-top: -300px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                推送记录明细
+            </i>
+            <span class="closeBtn closepushBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget" style="outline: 0px; position: relative;">
+            <div class="carmsg">
+                <span><label>报案号</label> <input type="text" ng-model="pushInfo.reportNumber" readonly></span>
+                <span><label>机构代码</label> <input type="text" ng-model="pushInfo.agencyCode" readonly></span>
+                <span><label>机构名称</label> <input type="text" ng-model="pushInfo.agencyName" readonly></span>
+                <span><label>业务员</label> <input type="text"  ng-model="pushInfo.clerk" readonly></span>
+                <span><label>行驶区域</label> <input type="text" ng-model="pushInfo.driveArea" readonly></span>
+                <span><label>报案时间</label> <input type="text" ng-model="pushInfo.reportTime" readonly></span>
+                <span><label>出险时间</label> <input type="text" ng-model="pushInfo.accidentTime" readonly></span>
+                <span><label>出险地点</label> <input type="text" ng-model="pushInfo.accidentPlace" readonly></span>
+                <span><label>个团类型</label> <input type="text" ng-model="pushInfo.groupType" readonly></span>
+                <span><label>客户标识</label> <input type="text" ng-model="pushInfo.customerFlag" readonly></span>
+                <span><label>保险起期</label> <input type="text" ng-model="pushInfo.insuranceDateStart" readonly></span>
+                <span><label>保险止期</label> <input type="text" ng-model="pushInfo.insuranceDateEnd" readonly></span>
+                <span><label>保单号</label> <input type="text" ng-model="pushInfo.insuranceNumber" readonly></span>
+                <span><label>保单渠道</label> <input type="text"  ng-model="pushInfo.channelSource" readonly></span>
+                <span><label>报案电话</label> <input type="text" ng-model="pushInfo.reporterPhone" readonly></span>
+                <span><label>报案人</label> <input type="text" ng-model="pushInfo.reporter" readonly></span>
+                <span><label>损失类型</label> <input type="text" ng-model="pushInfo.sslx" readonly></span>
+                <span><label>事故类型</label> <input type="text" ng-model="pushInfo.sglx" readonly></span>
+                <span><label>车损险保额</label> <input type="text" ng-model="pushInfo.csxbe" readonly></span>
+                <span><label>三者险保额</label> <input type="text" ng-model="pushInfo.syszxbe" readonly></span>
+                <span><label>报案驾驶员</label> <input type="text" ng-model="pushInfo.bajsy" readonly></span>
+                <span><label>是否电话查勘</label>
+                    <select  ng-model="pushInfo.pushMaintenanceChild.sfdhck" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span><label>案件状态</label> <input type="text" ng-model="pushInfo.ajzt" readonly></span>
+                <span><label>出险驾驶员</label> <input type="text"  ng-model="pushInfo.cxjsy" readonly></span>
+                <span><label>是否现场报案</label>
+                     <select  ng-model="pushInfo.sfxcba" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                         <option value="">请选择</option>
+                     </select>
+                </span>
+                <span><label>是否免现场</label>
+                    <select  ng-model="pushInfo.sfmxc" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span><label>报案处理意见</label> <input type="text" ng-model="pushInfo.baclyj" readonly></span>
+                <span><label>案件通道</label> <input type="text" ng-model="pushInfo.ajtd" readonly></span>
+                <span><label>车损立案金额</label> <input type="text" ng-model="pushInfo.cslaje" readonly></span>
+                <span><label>人伤立案金额</label> <input type="text" ng-model="pushInfo.rslaje" readonly></span>
+                <span><label>物损立案金额</label> <input type="text" ng-model="pushInfo.wslaje" readonly></span>
+                <span><label>责任系数</label> <input type="text" ng-model="pushInfo.zrxs" readonly></span>
+                <span><label>立案金额</label> <input type="text" ng-model="pushInfo.laje" readonly></span>
+                <span><label>理算开始时间</label> <input type="text" ng-model="pushInfo.pushMaintenanceChild.zalsTimeStart" readonly></span>
+                <span><label>理算结束时间</label> <input type="text" ng-model="pushInfo.pushMaintenanceChild.zalsTimeEnd" readonly></span>
+                <span><label>首次支付成功时间</label> <input type="text" ng-model="pushInfo.pushMaintenanceChild.sczfcgTime" readonly></span>
+                <span><label>结案时间</label> <input type="text" ng-model="pushInfo.jasj" readonly></span>
+                <span><label>结案金额</label> <input type="text" ng-model="pushInfo.jaje" readonly></span>
+                <span><label>首次查勘时间</label> <input type="text" ng-model="pushInfo.pushMaintenanceChild.scckTimeStart" readonly></span>
+                <span><label>末次查勘时间</label> <input type="text" ng-model="pushInfo.pushMaintenanceChild.mcckTimeEnd" readonly></span>
+                <span><label>末次支付成功时间</label> <input type="text" ng-model="pushInfo.pushMaintenanceChild.mczfcgTime" readonly></span>
+                <span><label>赔付次数</label> <input type="text" ng-model="pushInfo.pfcs" readonly></span>
+                <span><label>未决状态</label> <input type="text" ng-model="pushInfo.wjzt" readonly></span>
+                <span><label>车损结案金额</label> <input type="text" ng-model="pushInfo.csjaje" readonly></span>
+                <span><label>人伤结案金额</label> <input type="text" ng-model="pushInfo.rsjaje" readonly></span>
+                <span><label>物损结案金额</label> <input type="text" ng-model="pushInfo.wsjaje" readonly></span>
+                <span><label>未决金额</label> <input type="text" ng-model="pushInfo.wjje" readonly></span>
+                <span><label>整案金额</label> <input type="text" ng-model="pushInfo.zaje" readonly></span>
+                <span><label>大案初核时间</label> <input type="text" ng-model="pushInfo.pushMaintenanceChild.dachsj" readonly></span>
+                <span><label>报案来源</label> <input type="text" ng-model="pushInfo.baly" readonly></span>
+                <span><label>赔付结论</label> <input type="text" ng-model="pushInfo.pfjl" readonly></span>
+                <span><label>推送时间</label> <input type="text" ng-model="pushInfo.pushTime" readonly></span>
+                <span><label>是否回款</label>
+                    <select  ng-model="pushInfo.sfhk" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="closepushBtn" type="button" value="关闭">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closepushBtn").click(function(){
+        $("#pushDetailAll").hide();
+    });
+</script>

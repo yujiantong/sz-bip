@@ -1,0 +1,19 @@
+<ion-view view-title="回退待审批" ng-init="ctrl.findDHTWorkCollection()" >
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('homePage.myHomePage')"></button>
+  </ion-nav-buttons>
+  <ion-content>
+  <div class="bip-item-divider">
+    <div class="title">回退待审批潜客数：{{ctrl.sumDHTNum}}</div>
+  </div>
+  <div class="bip-row">
+    <div class="col bip-col-33" ng-repeat="a in ctrl.dhtWorkCollection">
+      <div class="bip-custbox">
+        <a class="bip-tel" ng-show="!a.phone">{{a.userName}}</a>
+        <a ng-show="a.phone" class="bip-tel" href="tel:{{a.phone}}"><span class="worker-name">{{a.userName}}</span><i class="icon ion-ios-telephone"></i></a>
+        <a class="bip-amount" ui-sref="customerList({userId:a.userId,userName:a.userName,returnStatu:3})">{{a.customerNum}}</a>
+      </div>
+    </div>
+  </div>
+</ion-content>
+</ion-view>

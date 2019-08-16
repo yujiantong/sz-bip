@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.GiftPackageDetailMapper" >
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.GiftPackageDetail" >
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="packageId" property="packageId" jdbcType="INTEGER"/>
+		<result column="giftCode" property="giftCode" jdbcType="VARCHAR"/>
+		<result column="giftName" property="giftName" jdbcType="VARCHAR"/>
+		<result column="giftType" property="giftType" jdbcType="INTEGER"/>
+		<result column="guidePrice" property="guidePrice" jdbcType="DOUBLE"/>
+		<result column="salePrice" property="salePrice" jdbcType="DOUBLE"/>
+		<result column="actualPrice" property="actualPrice" jdbcType="DOUBLE"/>
+		<result column="number" property="number" jdbcType="INTEGER"/>
+		<result column="createTime" property="createTime" jdbcType="DATE"/>
+		<result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<!-- 添加礼包明细表信息 -->
+	<insert id="insertPackageDetail" parameterType="com.bofide.bip.po.GiftPackageDetail">
+		insert into bf_bip_gift_package_detail (
+			packageId,giftCode,giftName,giftType,guidePrice,salePrice,actualPrice,number,createTime,updateTime
+		)values(
+			#{packageId},#{giftCode},#{giftName},#{giftType},#{guidePrice},#{salePrice},#{actualPrice},
+			#{number},now(),#{updateTime}
+		)
+	</insert>
+	
+	<!-- 查询礼包中的赠品明细 -->
+	<select id="findGiftDetailByPackageId" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_gift_package_detail a
+		WHERE
+			a.packageId = #{packageId}
+	</select>
+
+	<!-- 删除礼包明细 -->
+	<delete id="deleteGiftByPackageId" parameterType="Integer" >
+		delete from bf_bip_gift_package_detail where packageId = #{packageId} 
+	</delete>
+	
+</mapper>

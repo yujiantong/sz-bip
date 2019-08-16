@@ -1,0 +1,64 @@
+<div id="adduser_xtyh" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 380px; width: 400px; margin-left: -200px; margin-top: -190px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                新建用户
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+
+        <form name="myForm" novalidate="novalidate">
+            <div class="scmWindowContent ui-widget">
+                <div class="carmsg">
+                    <table class="adduser-table">
+                        <tr>
+                            <td width="130">用户名</td>
+                            <td><input type="text" name="loginName"  ng-model="addnewuser.loginName"
+                                      placeholder="由字母、数字或下划线组成" maxlength="40" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="">用户姓名</td>
+                            <td><input type="text" ng-model="addnewuser.userName" maxlength="40"></td>
+                        </tr>
+                        <tr>
+                            <td>初始密码</td>
+                            <td><input type="text"  value="123456" Fieldset disabled></td>
+                        </tr>
+                        <tr>
+                            <td width="">联系电话</td>
+                            <td><input type="text" ng-model="addnewuser.phone"></td>
+                        </tr>
+                        <tr>
+                            <td width="">角色选择</td>
+                            <td>
+                                <select style="margin-left: 0px;" ng-model="addnewuser.role" ng-options="y.roleName for (x,y) in roleIds">
+                                    <option value="">请选择角色</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="">邮箱</td>
+                            <td><input type="text"  name="email" ng-model="addnewuser.email" maxlength="40"></td>
+                        </tr>
+                        <tr>
+                            <td width="">备注</td>
+                            <td><input type="text" ng-model="addnewuser.remark" maxlength="500"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="scmWindowButton">
+                <input ng-click="addUsersubmit()" type="button" value="确认">
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#adduser_xtyh").hide();
+    });
+</script>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bofide.bip.mapper.VenderMapper">
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.Vender" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="venderName" property="venderName" jdbcType="VARCHAR" />
+    	<result column="venderEnglish" property="venderEnglish" jdbcType="VARCHAR" />
+    	<result column="venderRemark" property="venderRemark" jdbcType="VARCHAR" />
+    	<result column="amount" property="amount" jdbcType="INTEGER" />
+    	<result column="unitPrice" property="unitPrice" jdbcType="DOUBLE" />
+    	<result column="totalAmount" property="totalAmount" jdbcType="DOUBLE" />
+    	<result column="remark" property="remark" jdbcType="VARCHAR" />
+    	<result column="recordTime" property="recordTime" jdbcType="DATE" />
+	</resultMap>
+	
+	<!-- 新增厂家 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.bofide.bip.po.Vender" >
+		insert into bf_bip_vender (
+			venderName, venderEnglish, venderRemark, recordTime
+		) values (
+			#{venderName},#{venderEnglish},#{venderRemark},now()
+		)
+	</insert>
+	
+	<!-- 修改厂家 -->
+	<update id="update" parameterType="com.bofide.bip.po.Vender" >
+    	update bf_bip_vender
+			<trim prefix="SET" suffixOverrides=",">  
+	        <if test="venderName != null and venderName != '' ">  
+	            venderName = #{venderName},  
+	        </if>
+	        <if test="venderEnglish != null and venderEnglish != '' ">  
+	            venderEnglish = #{venderEnglish},  
+	        </if> 
+	        <if test="venderRemark != null and venderRemark != '' ">  
+	            venderRemark = #{venderRemark},
+	        </if>
+	      </trim>  
+	    where
+	     	id = #{id,jdbcType=INTEGER}
+ 	 </update>
+ 	 
+ 	 <!-- 按条件查询厂家 -->
+ 	 <select id="findVenderByCondition" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT
+			*
+		FROM
+			bf_bip_vender
+		<where>
+			<if test="venderName != null and venderName != ''">
+				AND venderName like '%${venderName}%'
+			</if>
+			<if test="venderEnglish != null and venderEnglish != ''">
+				AND venderEnglish like '%${venderEnglish}%'
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据厂家名字查询厂家 -->
+	<select id="selectByVenderName" resultMap="BaseResultMap">
+		select
+			*
+		from bf_bip_vender
+		where venderName = #{venderName,jdbcType=VARCHAR}
+	</select>
+	
+</mapper>

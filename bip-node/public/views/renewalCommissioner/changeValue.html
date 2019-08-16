@@ -1,0 +1,42 @@
+<div id="changevalue" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 150px; width: 250px; margin-left: -125px; margin-top: -70px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <span class="closeBtn glyphicon glyphicon-remove" id="qkxgBtn"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            潜客信息被修改是否保存
+        </div>
+        <div class="scmWindowButton">
+            <input ng-click="saveChange()" type="button" value="是">
+            <input class="fr" ng-click="cancelChange()" type="button" value="否">
+        </div>
+    </div>
+</div>
+<div id="defeatqd" class="scmMaskWindow" style="z-index: 1000;">
+    <div class="scmWindow" style="height: 150px; width: 250px; margin-left: -125px; margin-top: -70px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <span class="closeBtn glyphicon glyphicon-remove" id="defeatBtnClose"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            确定战败潜客？
+        </div>
+        <div class="scmWindowButton">
+            <input ng-click="defeatBtn(true)" type="button" value="是">
+            <input class="fr" ng-click="defeatBtn(false)" type="button" value="否">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $("#qkxgBtn").click(function(){
+        $("#changevalue").hide();
+    });
+    //关闭战败弹框
+    $("#defeatBtnClose").click(function(){
+        $("#defeatqd").hide();
+    });
+</script>

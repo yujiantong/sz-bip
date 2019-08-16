@@ -1,0 +1,56 @@
+<div class="scmContentTitle">
+    <ul id="myTab" class="cartype nav nav-tabs" style="border-bottom: none;">
+        <li class="active" href="#zpgl"  ng-click="findGiftByCondition(1)" data-toggle="tab">
+            服务管理
+        </li>
+        <li  href="#zpgl" ng-click="findGiftByCondition(2)" data-toggle="tab">
+            精品管理
+        </li>
+        <li  href="#zpgl" ng-click="findGiftByCondition(3)" data-toggle="tab">
+            礼包管理
+        </li>
+        <li  href="#zpgl" ng-click="findGiftByCondition(4)" data-toggle="tab">
+            储值卡管理
+        </li>
+        <li  href="#zpgl" ng-click="findGiftByCondition(5)" data-toggle="tab">
+            会员积分管理
+        </li>
+    </ul>
+</div>
+<div id="myTabContent" class="tab-content" style="padding: 10px 14px;">
+    <div class="tab-pane fade in active" id="zpgl" style="height:97%;padding-bottom: 3%;">
+        <div  class="condition-search">
+                <span style="display: inline-block">
+                    <label>赠品名称：</label><input  ng-model="zpSearch.giftName" style="width: 100px;">
+                </span>
+                <span style="display: inline-block">
+                    <label>编码：</label><input  ng-model="zpSearch.giftCode" style="width: 100px;">
+                </span>
+                <span style="display: inline-block"><label>状态：</label>
+                    <select required="" ng-model="zpSearch.status">
+                        <option value="">请选择</option>
+                        <option value="1">生效中</option>
+                        <option value="2">未生效</option>
+                    </select>
+                </span>
+            <button class="ml10" type="button" ng-click="findGiftByCondition(giftType)">查询</button>
+            <button type="button" ng-click="clearzpSearch()">清空</button>
+        </div>
+        <div ng-if="giftType==1" ui-grid="fuwugiftAllPage" ng-style="gridbox" class="gridbox"
+             ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+        </div>
+        <div ng-if="giftType==2" ui-grid="finegiftAllPage" ng-style="gridbox" class="gridbox"
+             ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+        </div>
+        <div ng-if="giftType==3" ui-grid="packsgiftAllPage" ng-style="gridbox" class="gridbox"
+             ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+        </div>
+        <div ng-if="giftType==4" ui-grid="giftcardAllPage" ng-style="gridbox" class="gridbox"
+             ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+        </div>
+        <div ng-if="giftType==5" ui-grid="integralAllPage" ng-style="gridbox" class="gridbox"
+             ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+        </div>
+    </div>
+</div>
+<div ng-include="'./views/informationOfficer/confirmPageIO.html'"></div>

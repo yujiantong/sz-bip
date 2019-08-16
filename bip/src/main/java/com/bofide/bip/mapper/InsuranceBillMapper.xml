@@ -1,0 +1,1238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.InsuranceBillMapper" >
+  <resultMap id="BaseResultMap" type="com.bofide.bip.po.InsuranceBill" >
+    <id column="insuranceBillId" property="insuranceBillId" jdbcType="INTEGER" />
+    <result column="fourSStoreId" property="fourSStoreId" jdbcType="INTEGER" />
+    <result column="foursStore" property="foursStore" jdbcType="VARCHAR" />
+    <result column="carLicenseNumber" property="carLicenseNumber" jdbcType="VARCHAR" />
+    <result column="chassisNumber" property="chassisNumber" jdbcType="VARCHAR" />
+    <result column="engineNumber" property="engineNumber" jdbcType="VARCHAR" />
+    <result column="registrationDate" property="registrationDate" jdbcType="DATE" />
+    <result column="carBrand" property="carBrand" jdbcType="VARCHAR" />
+    <result column="vehicleModel" property="vehicleModel" jdbcType="VARCHAR" />
+    <result column="binsuranceNumber" property="binsuranceNumber" jdbcType="VARCHAR" />
+    <result column="binsuranceCoverage" property="binsuranceCoverage" jdbcType="DOUBLE" />
+    <result column="vehicleTax" property="vehicleTax" jdbcType="DOUBLE" />
+    <result column="privilegePro" property="privilegePro" jdbcType="VARCHAR" />
+    <result column="renewalWay" property="renewalWay" jdbcType="VARCHAR" />
+    <result column="insurNumber" property="insurNumber" jdbcType="INTEGER" />
+    <result column="cinsuranceNumber" property="cinsuranceNumber" jdbcType="VARCHAR" />
+    <result column="cinsuranceCoverage" property="cinsuranceCoverage" jdbcType="DOUBLE" />
+    <result column="premiumCount" property="premiumCount" jdbcType="DOUBLE" />
+    <result column="privilegeSum" property="privilegeSum" jdbcType="DOUBLE" />
+    <result column="donateCostCount" property="donateCostCount" jdbcType="DOUBLE" />
+    <result column="factorageCount" property="factorageCount" jdbcType="DOUBLE" />
+    <result column="realPay" property="realPay" jdbcType="DOUBLE" />
+    <result column="payWay" property="payWay" jdbcType="VARCHAR" />
+    <result column="sdfs" property="sdfs" jdbcType="VARCHAR" />
+    <result column="profit" property="profit" jdbcType="DOUBLE" />
+    <result column="coverType" property="coverType" jdbcType="INTEGER" />
+    <result column="insurDate" property="insurDate" jdbcType="DATE" />
+    <result column="syxrqStart" property="syxrqStart" jdbcType="TIMESTAMP" />
+    <result column="syxrqEnd" property="syxrqEnd" jdbcType="TIMESTAMP" />
+    <result column="jqxrqStart" property="jqxrqStart" jdbcType="TIMESTAMP" />
+    <result column="jqxrqEnd" property="jqxrqEnd" jdbcType="TIMESTAMP" />
+    <result column="qnbe" property="qnbe" jdbcType="DOUBLE"/>
+    <result column="qnsyxje" property="qnsyxje" jdbcType="DOUBLE"/>
+    <result column="qnjqxje" property="qnjqxje" jdbcType="DOUBLE"/>
+    <result column="qnccsje" property="qnccsje" jdbcType="DOUBLE"/>
+    <result column="invoiceName" property="invoiceName" jdbcType="VARCHAR" />
+    <result column="insuranceCompName" property="insuranceCompName" jdbcType="VARCHAR" />
+    <result column="insuranceType" property="insuranceType" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="principalId" property="principalId" jdbcType="INTEGER" />
+    <result column="principal" property="principal" jdbcType="VARCHAR" />
+    <result column="clerkId" property="clerkId" jdbcType="INTEGER"/>
+    <result column="clerk" property="clerk" jdbcType="VARCHAR"/>
+    <result column="insuranceWriterId" property="insuranceWriterId" jdbcType="INTEGER" />
+    <result column="insuranceWriter" property="insuranceWriter" jdbcType="VARCHAR" />
+    <result column="cashier" property="cashier" jdbcType="VARCHAR" />
+    <result column="solicitMemberId" property="solicitMemberId" jdbcType="INTEGER" />
+    <result column="solicitMember" property="solicitMember" jdbcType="VARCHAR" />
+    <result column="carOwner" property="carOwner" jdbcType="VARCHAR" />
+    <result column="insured" property="insured" jdbcType="VARCHAR" />
+    <result column="certificateNumber" property="certificateNumber" jdbcType="VARCHAR"/>
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+    <result column="contactWay" property="contactWay" jdbcType="VARCHAR" />
+    <result column="customerSource" property="customerSource" jdbcType="VARCHAR"/>
+    <result column="customerCharacter" property="customerCharacter" jdbcType="VARCHAR"/>
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="cdrq" property="cdrq" jdbcType="DATE" />
+    <result column="approvalBillId" property="approvalBillId" jdbcType="INTEGER" />
+    <result column="foundDate" property="foundDate" jdbcType="TIMESTAMP" />
+    <result column="sfdk" property="sfdk" jdbcType="INTEGER" />
+    <result column="giftDiscount" property="giftDiscount" jdbcType="DOUBLE"/>
+    <result column="xjyhdw" property="xjyhdw" jdbcType="DOUBLE" />
+    <result column="czkje" property="czkje" jdbcType="DOUBLE" />
+    <result column="czkjedw" property="czkjedw" jdbcType="DOUBLE" />
+    <result column="syxsxfRate" property="syxsxfRate" jdbcType="FLOAT" />
+    <result column="jqxsxfRate" property="jqxsxfRate" jdbcType="FLOAT" />
+    <association property="coverTypeName" javaType="com.bofide.bip.common.po.CoverType">
+    	<result column="coverType" property="coverType" jdbcType="INTEGER"/>
+        <result column="coverTypeName" property="coverTypeName" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  
+  <select id="findDetail" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    *
+    from bf_bip_insurance_bill
+    where insuranceBillId = #{insuranceBillId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bf_bip_insurance_bill
+    where insuranceBillId = #{insuranceBillId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="insuranceBillId" parameterType="com.bofide.bip.po.InsuranceBill" >
+    insert into bf_bip_insurance_bill (fourSStoreId, foursStore, carLicenseNumber, chassisNumber, engineNumber, registrationDate, carBrand, 
+    vehicleModel, binsuranceNumber, binsuranceCoverage, vehicleTax, privilegePro, renewalWay, insurNumber, cinsuranceNumber, 
+    cinsuranceCoverage, premiumCount, privilegeSum, donateCostCount, factorageCount, realPay, payWay, sdfs, profit, 
+    coverType, insurDate, syxrqStart, syxrqEnd, jqxrqStart, jqxrqEnd, qnbe, qnsyxje, qnjqxje, qnccsje, invoiceName,
+    insuranceCompName, insuranceType, remark, principalId, principal, clerkId, clerk, insuranceWriterId, insuranceWriter,
+    cashier, solicitMemberId, solicitMember, carOwner, insured, certificateNumber, contact, contactWay, customerSource,
+    customerCharacter, address,cdrq,approvalBillId,foundDate,sfdk,giftDiscount,xjyhdw,czkje,czkjedw,syxsxfRate,jqxsxfRate)
+    values 
+    (#{fourSStoreId,jdbcType=INTEGER},#{foursStore,jdbcType=VARCHAR},#{carLicenseNumber,jdbcType=VARCHAR},
+    #{chassisNumber,jdbcType=VARCHAR},#{engineNumber,jdbcType=VARCHAR},#{registrationDate,jdbcType=DATE},
+    #{carBrand,jdbcType=VARCHAR}, #{vehicleModel,jdbcType=VARCHAR}, #{binsuranceNumber,jdbcType=VARCHAR}, 
+    #{binsuranceCoverage,jdbcType=INTEGER}, #{vehicleTax,jdbcType=INTEGER}, #{privilegePro,jdbcType=VARCHAR},     
+    #{renewalWay,jdbcType=VARCHAR},#{insurNumber,jdbcType=INTEGER}, #{cinsuranceNumber,jdbcType=VARCHAR},
+    #{cinsuranceCoverage,jdbcType=INTEGER}, #{premiumCount,jdbcType=INTEGER},#{privilegeSum,jdbcType=INTEGER},
+    #{donateCostCount,jdbcType=INTEGER},#{factorageCount,jdbcType=INTEGER},#{realPay,jdbcType=INTEGER},
+    #{payWay,jdbcType=VARCHAR},#{sdfs,jdbcType=VARCHAR},#{profit,jdbcType=INTEGER},
+    #{coverType,jdbcType=INTEGER},#{insurDate,jdbcType=DATE}, #{syxrqStart,jdbcType=TIMESTAMP},
+    #{syxrqEnd,jdbcType=TIMESTAMP},#{jqxrqStart,jdbcType=TIMESTAMP}, #{jqxrqEnd,jdbcType=TIMESTAMP},
+    #{qnbe,jdbcType=INTEGER}, #{qnsyxje,jdbcType=INTEGER}, #{qnjqxje,jdbcType=INTEGER},
+    #{qnccsje,jdbcType=INTEGER},#{invoiceName,jdbcType=VARCHAR}, #{insuranceCompName,jdbcType=VARCHAR},
+    #{insuranceType,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},#{principalId,jdbcType=INTEGER},
+    #{principal,jdbcType=VARCHAR},#{clerkId,jdbcType=INTEGER},#{clerk,jdbcType=VARCHAR},
+    #{insuranceWriterId,jdbcType=INTEGER}, #{insuranceWriter,jdbcType=VARCHAR}, #{cashier,jdbcType=VARCHAR},
+    #{solicitMemberId,jdbcType=INTEGER}, #{solicitMember,jdbcType=VARCHAR}, #{carOwner,jdbcType=VARCHAR},
+    #{insured,jdbcType=VARCHAR}, #{certificateNumber,jdbcType=DATE},#{contact,jdbcType=VARCHAR},
+    #{contactWay,jdbcType=VARCHAR}, #{customerSource,jdbcType=VARCHAR},#{customerCharacter,jdbcType=VARCHAR},
+    #{address,jdbcType=VARCHAR},  #{cdrq,jdbcType=DATE}, #{approvalBillId,jdbcType=INTEGER},now(),#{sfdk,jdbcType=INTEGER},
+    #{giftDiscount,jdbcType=DOUBLE},#{xjyhdw},#{czkje},#{czkjedw},#{syxsxfRate},#{jqxsxfRate})
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.bofide.bip.po.InsuranceBill" >
+    update bf_bip_insurance_bill
+    set carOwner = #{carowner,jdbcType=VARCHAR},
+      insured = #{insured,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
+      contactWay = #{contactway,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      chassisNumber = #{chassisnumber,jdbcType=VARCHAR},
+      engineNumber = #{enginenumber,jdbcType=VARCHAR},
+      insuranceCompName = #{insuranceCompName,jdbcType=VARCHAR},
+      insuranceEndDate = #{insuranceenddate,jdbcType=DATE},
+      insuranceWriter = #{insurancewriter,jdbcType=VARCHAR},
+      carBrand = #{carbrand,jdbcType=VARCHAR},
+      vehicleModel = #{vehiclemodel,jdbcType=VARCHAR},
+      carLicenseNumber = #{carlicensenumber,jdbcType=VARCHAR},
+      registrationDate = #{registrationdate,jdbcType=DATE},
+      coverType = #{covertype,jdbcType=INTEGER},
+      insurDate = #{insurDate,jdbcType=DATE},
+      solicitMember = #{solicitmember,jdbcType=VARCHAR},
+      binsuranceNumber = #{binsurancenumber,jdbcType=VARCHAR},
+      binsuranceCoverage = #{binsurancecoverage,jdbcType=INTEGER},
+      cinsuranceNumber = #{cinsurancenumber,jdbcType=VARCHAR},
+      cinsuranceCoverage = #{cinsurancecoverage,jdbcType=INTEGER},
+      VehicleTax = #{vehicletax,jdbcType=INTEGER},
+      privilegePro = #{privilegepro,jdbcType=VARCHAR},
+      renewalWay = #{renewalway,jdbcType=VARCHAR},
+      insurNumber = #{insurnumber,jdbcType=INTEGER},
+      premiumCount = #{premiumcount,jdbcType=INTEGER},
+      privilegeSum = #{privilegesum,jdbcType=INTEGER},
+      donateCostCount = #{donatecostcount,jdbcType=INTEGER},
+      factorageCount = #{factoragecount,jdbcType=INTEGER},
+      insuranceType = #{insurancetype,jdbcType=VARCHAR},
+      realPay = #{realpay,jdbcType=INTEGER},
+      cashier = #{cashier,jdbcType=VARCHAR},
+      payWay = #{payway,jdbcType=VARCHAR},
+      invoiceName = #{invoicename,jdbcType=VARCHAR},
+      profit = #{profit,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      sfdk = #{sfdk,jdbcType=INTEGER},
+      giftDiscount = #{giftDiscount,jdbcType=DOUBLE},
+      xjyhdw = #{xjyhdw,jdbcType=DOUBLE},
+      czkje = #{czkje,jdbcType=DOUBLE},
+      czkjedw = #{czkjedw,jdbcType=DOUBLE},
+    where insuranceBillId = #{insurancebillid,jdbcType=INTEGER}
+  </update>
+  <select id="findByCovertypeAndCdrq" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select a.*,b.coverTypeName
+    from bf_bip_insurance_bill a, bf_bip_cover_type b
+    where a.coverType = b.coverType and a.covertype = #{coverType,jdbcType=INTEGER} and a.fourSStoreId = #{fourSStoreId}
+    <if test="startTime != null and endTime != null" >
+    	and a.insurDate between #{startTime,jdbcType=DATE} and #{endTime,jdbcType=DATE}
+    </if>
+    <!-- ORDER BY a.insuranceBillId  -->
+    <!-- shortBd代表按某字段排序，shortmainBd 1：升序，2：降序 -->
+    	<if test="shortBd==null and shortmainBd==null">ORDER BY a.insuranceBillId </if>
+  	    <if test="shortBd==2 and shortmainBd==1"> ORDER BY a.principal ASC</if>
+  	    <if test="shortBd==2 and shortmainBd==2"> ORDER BY a.principal DESC</if>
+  	    <if test="shortBd==3 and shortmainBd==1"> ORDER BY a.clerk ASC</if>
+  	    <if test="shortBd==3 and shortmainBd==2"> ORDER BY a.clerk DESC</if>
+  	    <if test="shortBd==4 and shortmainBd==1"> ORDER BY a.contact ASC</if>
+  	    <if test="shortBd==4 and shortmainBd==2"> ORDER BY a.contact DESC</if>
+		<if test="shortBd==6 and shortmainBd==1"> ORDER BY a.chassisNumber ASC</if>
+  	    <if test="shortBd==6 and shortmainBd==2"> ORDER BY a.chassisNumber DESC</if>
+		<if test="shortBd==7 and shortmainBd==1"> ORDER BY a.carLicenseNumber ASC</if>
+  	    <if test="shortBd==7 and shortmainBd==2"> ORDER BY a.carLicenseNumber DESC</if>
+		<if test="shortBd==8 and shortmainBd==1"> ORDER BY b.coverTypeName ASC</if>
+  	    <if test="shortBd==8 and shortmainBd==2"> ORDER BY b.coverTypeName DESC</if>
+  	    <if test="shortBd==24 and shortmainBd==1"> ORDER BY a.insurDate ASC</if>
+  	    <if test="shortBd==24 and shortmainBd==2"> ORDER BY a.insurDate DESC</if>
+  	    <if test="shortBd==25 and shortmainBd==1"> ORDER BY a.insuranceCompName ASC</if>
+  	    <if test="shortBd==25 and shortmainBd==2"> ORDER BY a.insuranceCompName DESC</if>
+  	    <if test="shortBd==26 and shortmainBd==1"> ORDER BY a.insurNumber ASC</if>
+  	    <if test="shortBd==26 and shortmainBd==2"> ORDER BY a.insurNumber DESC</if>
+  	    <if test="shortBd==27 and shortmainBd==1"> ORDER BY a.jqxrqStart ASC</if>
+  	    <if test="shortBd==27 and shortmainBd==2"> ORDER BY a.jqxrqStart DESC</if>
+  	    <if test="shortBd==28 and shortmainBd==1"> ORDER BY a.insuranceWriter ASC</if>
+  	    <if test="shortBd==28 and shortmainBd==2"> ORDER BY a.insuranceWriter DESC</if>
+    LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <!-- 统计上个查询的总数 -->
+  <select id="countFindByCovertypeAndCdrq" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select 
+    	count(*)
+    from bf_bip_insurance_bill a, bf_bip_cover_type b
+    where a.coverType = b.coverType and a.covertype = #{coverType,jdbcType=INTEGER} and a.fourSStoreId = #{fourSStoreId}
+    <if test="startTime != null and endTime != null" >
+    	and a.insurDate between #{startTime,jdbcType=DATE} and #{endTime,jdbcType=DATE}
+    </if>
+  </select>
+  <!-- 续保专员按投保类型查询保单 -->
+  <select id="findRCInsuranceBill" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select a.*,b.coverTypeName
+    from bf_bip_insurance_bill a
+	left join bf_bip_cover_type b on b.coverType = a.coverType
+    where a.covertype = #{coverType,jdbcType=INTEGER} 
+    and a.principalId = #{principalId}
+    <if test="startTime != null and endTime != null" > 
+    	and a.insurDate between #{startTime,jdbcType=DATE} and #{endTime,jdbcType=DATE}
+    </if>
+    <!-- ORDER BY a.insuranceBillId  -->
+    <!-- shortBd代表按某字段排序，shortmainBd 1：升序，2：降序 -->
+    	<if test="shortBd==null and shortmainBd==null">ORDER BY a.insuranceBillId </if>
+  	    <if test="shortBd==2 and shortmainBd==1"> ORDER BY a.principal ASC</if>
+  	    <if test="shortBd==2 and shortmainBd==2"> ORDER BY a.principal DESC</if>
+  	    <if test="shortBd==3 and shortmainBd==1"> ORDER BY a.clerk ASC</if>
+  	    <if test="shortBd==3 and shortmainBd==2"> ORDER BY a.clerk DESC</if>
+  	    <if test="shortBd==4 and shortmainBd==1"> ORDER BY a.contact ASC</if>
+  	    <if test="shortBd==4 and shortmainBd==2"> ORDER BY a.contact DESC</if>
+		<if test="shortBd==6 and shortmainBd==1"> ORDER BY a.chassisNumber ASC</if>
+  	    <if test="shortBd==6 and shortmainBd==2"> ORDER BY a.chassisNumber DESC</if>
+		<if test="shortBd==7 and shortmainBd==1"> ORDER BY a.carLicenseNumber ASC</if>
+  	    <if test="shortBd==7 and shortmainBd==2"> ORDER BY a.carLicenseNumber DESC</if>
+		<if test="shortBd==8 and shortmainBd==1"> ORDER BY b.coverTypeName ASC</if>
+  	    <if test="shortBd==8 and shortmainBd==2"> ORDER BY b.coverTypeName DESC</if>
+  	    <if test="shortBd==24 and shortmainBd==1"> ORDER BY a.insurDate ASC</if>
+  	    <if test="shortBd==24 and shortmainBd==2"> ORDER BY a.insurDate DESC</if>
+  	    <if test="shortBd==25 and shortmainBd==1"> ORDER BY a.insuranceCompName ASC</if>
+  	    <if test="shortBd==25 and shortmainBd==2"> ORDER BY a.insuranceCompName DESC</if>
+  	    <if test="shortBd==26 and shortmainBd==1"> ORDER BY a.insurNumber ASC</if>
+  	    <if test="shortBd==26 and shortmainBd==2"> ORDER BY a.insurNumber DESC</if>
+  	    <if test="shortBd==27 and shortmainBd==1"> ORDER BY a.jqxrqStart ASC</if>
+  	    <if test="shortBd==27 and shortmainBd==2"> ORDER BY a.jqxrqStart DESC</if>
+  	    <if test="shortBd==28 and shortmainBd==1"> ORDER BY a.insuranceWriter ASC</if>
+  	    <if test="shortBd==28 and shortmainBd==2"> ORDER BY a.insuranceWriter DESC</if>
+    LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <!-- 统计上个查询的总数 -->
+  <select id="countFindRCInsuranceBill" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select 
+    	count(*)
+	from bf_bip_insurance_bill a
+	left join bf_bip_cover_type b on b.coverType = a.coverType
+    where a.covertype = #{coverType,jdbcType=INTEGER} 
+    and a.principalId = #{principalId}
+    <if test="startTime != null and endTime != null" > 
+    	and a.insurDate between #{startTime,jdbcType=DATE} and #{endTime,jdbcType=DATE}
+    </if>
+  </select>
+  <!-- 销售或者服务顾问按投保类型查询保单 -->
+  <select id="findSCOrSAInsuranceBill" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select a.*,b.coverTypeName
+    from bf_bip_insurance_bill a
+	left join bf_bip_cover_type b on b.coverType = a.coverType
+    where a.covertype = #{coverType,jdbcType=INTEGER} 
+    and a.clerkId = #{clerkId}
+    <if test="startTime != null and endTime != null" > 
+    	and a.insurDate between #{startTime,jdbcType=DATE} and #{endTime,jdbcType=DATE}
+    </if>
+    <!-- ORDER BY a.insuranceBillId  -->
+    <!-- shortBd代表按某字段排序，shortmainBd 1：升序，2：降序 -->
+    	<if test="shortBd==null and shortmainBd==null">ORDER BY a.insuranceBillId </if>
+  	    <if test="shortBd==2 and shortmainBd==1"> ORDER BY a.principal ASC</if>
+  	    <if test="shortBd==2 and shortmainBd==2"> ORDER BY a.principal DESC</if>
+  	    <if test="shortBd==3 and shortmainBd==1"> ORDER BY a.clerk ASC</if>
+  	    <if test="shortBd==3 and shortmainBd==2"> ORDER BY a.clerk DESC</if>
+  	    <if test="shortBd==4 and shortmainBd==1"> ORDER BY a.contact ASC</if>
+  	    <if test="shortBd==4 and shortmainBd==2"> ORDER BY a.contact DESC</if>
+		<if test="shortBd==6 and shortmainBd==1"> ORDER BY a.chassisNumber ASC</if>
+  	    <if test="shortBd==6 and shortmainBd==2"> ORDER BY a.chassisNumber DESC</if>
+		<if test="shortBd==7 and shortmainBd==1"> ORDER BY a.carLicenseNumber ASC</if>
+  	    <if test="shortBd==7 and shortmainBd==2"> ORDER BY a.carLicenseNumber DESC</if>
+		<if test="shortBd==8 and shortmainBd==1"> ORDER BY b.coverTypeName ASC</if>
+  	    <if test="shortBd==8 and shortmainBd==2"> ORDER BY b.coverTypeName DESC</if>
+  	    <if test="shortBd==24 and shortmainBd==1"> ORDER BY a.insurDate ASC</if>
+  	    <if test="shortBd==24 and shortmainBd==2"> ORDER BY a.insurDate DESC</if>
+  	    <if test="shortBd==25 and shortmainBd==1"> ORDER BY a.insuranceCompName ASC</if>
+  	    <if test="shortBd==25 and shortmainBd==2"> ORDER BY a.insuranceCompName DESC</if>
+  	    <if test="shortBd==26 and shortmainBd==1"> ORDER BY a.insurNumber ASC</if>
+  	    <if test="shortBd==26 and shortmainBd==2"> ORDER BY a.insurNumber DESC</if>
+  	    <if test="shortBd==27 and shortmainBd==1"> ORDER BY a.jqxrqStart ASC</if>
+  	    <if test="shortBd==27 and shortmainBd==2"> ORDER BY a.jqxrqStart DESC</if>
+  	    <if test="shortBd==28 and shortmainBd==1"> ORDER BY a.insuranceWriter ASC</if>
+  	    <if test="shortBd==28 and shortmainBd==2"> ORDER BY a.insuranceWriter DESC</if>
+    LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <!-- 统计上个查询的总数 -->
+  <select id="countFindSCOrSAInsuranceBill" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select 
+    	count(*)
+	from bf_bip_insurance_bill a
+	left join bf_bip_cover_type b on b.coverType = a.coverType
+    where a.covertype = #{coverType,jdbcType=INTEGER} 
+    and a.clerkId = #{clerkId}
+    <if test="startTime != null and endTime != null" > 
+    	and a.insurDate between #{startTime,jdbcType=DATE} and #{endTime,jdbcType=DATE}
+    </if>
+  </select>
+  <!-- 销售或者服务经理按投保类型查询保单 -->
+  <select id="findSeMOrSaMInsuranceBill" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select a.*,b.coverTypeName
+    from bf_bip_insurance_bill a
+	left join bf_bip_cover_type b on b.coverType = a.coverType
+	left join bf_bip_user u on u.id = a.clerkId
+    where a.covertype = #{coverType,jdbcType=INTEGER} 
+    and u.roleId = #{roleId} 
+    and a.fourSStoreId = #{storeId}
+    <if test="startTime != null and endTime != null" > 
+    	and a.insurDate between #{startTime,jdbcType=DATE} and #{endTime,jdbcType=DATE}
+    </if>
+    <!-- ORDER BY a.insuranceBillId  -->
+    <!-- shortBd代表按某字段排序，shortmainBd 1：升序，2：降序 -->
+    	<if test="shortBd==null and shortmainBd==null">ORDER BY a.insuranceBillId </if>
+  	    <if test="shortBd==2 and shortmainBd==1"> ORDER BY a.principal ASC</if>
+  	    <if test="shortBd==2 and shortmainBd==2"> ORDER BY a.principal DESC</if>
+  	    <if test="shortBd==3 and shortmainBd==1"> ORDER BY a.clerk ASC</if>
+  	    <if test="shortBd==3 and shortmainBd==2"> ORDER BY a.clerk DESC</if>
+  	    <if test="shortBd==4 and shortmainBd==1"> ORDER BY a.contact ASC</if>
+  	    <if test="shortBd==4 and shortmainBd==2"> ORDER BY a.contact DESC</if>
+		<if test="shortBd==6 and shortmainBd==1"> ORDER BY a.chassisNumber ASC</if>
+  	    <if test="shortBd==6 and shortmainBd==2"> ORDER BY a.chassisNumber DESC</if>
+		<if test="shortBd==7 and shortmainBd==1"> ORDER BY a.carLicenseNumber ASC</if>
+  	    <if test="shortBd==7 and shortmainBd==2"> ORDER BY a.carLicenseNumber DESC</if>
+		<if test="shortBd==8 and shortmainBd==1"> ORDER BY b.coverTypeName ASC</if>
+  	    <if test="shortBd==8 and shortmainBd==2"> ORDER BY b.coverTypeName DESC</if>
+  	    <if test="shortBd==24 and shortmainBd==1"> ORDER BY a.insurDate ASC</if>
+  	    <if test="shortBd==24 and shortmainBd==2"> ORDER BY a.insurDate DESC</if>
+  	    <if test="shortBd==25 and shortmainBd==1"> ORDER BY a.insuranceCompName ASC</if>
+  	    <if test="shortBd==25 and shortmainBd==2"> ORDER BY a.insuranceCompName DESC</if>
+  	    <if test="shortBd==26 and shortmainBd==1"> ORDER BY a.insurNumber ASC</if>
+  	    <if test="shortBd==26 and shortmainBd==2"> ORDER BY a.insurNumber DESC</if>
+  	    <if test="shortBd==27 and shortmainBd==1"> ORDER BY a.jqxrqStart ASC</if>
+  	    <if test="shortBd==27 and shortmainBd==2"> ORDER BY a.jqxrqStart DESC</if>
+  	    <if test="shortBd==28 and shortmainBd==1"> ORDER BY a.insuranceWriter ASC</if>
+  	    <if test="shortBd==28 and shortmainBd==2"> ORDER BY a.insuranceWriter DESC</if>
+    LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <!-- 统计上个查询的总数 -->
+  <select id="countFindSeMOrSaMInsuranceBill" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select 
+    	count(*)
+	from bf_bip_insurance_bill a
+	left join bf_bip_cover_type b on b.coverType = a.coverType
+	left join bf_bip_user u on u.id = a.clerkId
+    where a.covertype = #{coverType,jdbcType=INTEGER} 
+    and u.roleId = #{roleId}
+    and a.fourSStoreId = #{storeId}
+    <if test="startTime != null and endTime != null" > 
+    	and a.insurDate between #{startTime,jdbcType=DATE} and #{endTime,jdbcType=DATE}
+    </if>
+  </select>
+
+  <select id="findByMoreCondition" resultMap="BaseResultMap">
+    select a.*,b.coverTypeName 
+    from bf_bip_insurance_bill a
+    left join bf_bip_cover_type b on a.coverType = b.coverType 
+    <if test="roleId != null" >left join bf_bip_user u on u.id = a.clerkId </if>
+    where 
+    	<if test="fourSStoreId != null" >
+			a.fourSStoreId = #{fourSStoreId,jdbcType=INTEGER}
+    	</if>
+    	<if test="carBrand != null" >
+    		and carBrand = #{carBrand,jdbcType=VARCHAR}
+    	</if>
+    	<if test="vehicleModel != null" >
+			and vehicleModel = #{vehicleModel,jdbcType=VARCHAR}
+    	</if>
+    	<if test='insured != "" and insured != null' >
+			and insured = #{insured,jdbcType=VARCHAR}
+    	</if>
+    	<if test='contact != "" and contact != null' >
+			and contact = #{contact,jdbcType=VARCHAR}
+    	</if>
+		<if test='contactWay != "" and contactWay != null' >
+			and a.contactWay like '%${contactWay}%'
+    	</if>
+    	<if test="insuranceCompName != null" >
+			and insuranceCompName = #{insuranceCompName,jdbcType=VARCHAR}
+    	</if>
+    	<if test='carLicenseNumber != "" and carLicenseNumber != null' >
+			and a.carLicenseNumber like '%${carLicenseNumber}%'
+    	</if>
+    	<if test='chassisNumber != "" and chassisNumber != null' >
+			and a.chassisNumber like '%${chassisNumber}%'
+    	</if>
+		
+    	<!-- 投保类型可以多选 -->
+	 	<if test="coverTypes != null and coverTypes.size() > 0">
+  			and a.coverType in
+  			<foreach collection="coverTypes" item="coverType" open="(" separator="," close=")">
+  				#{coverType,jdbcType=INTEGER}
+  			</foreach> 
+  		</if>
+		<if test="insurNumber != null" >
+			and insurNumber = #{insurNumber,jdbcType=INTEGER}
+    	</if>
+		<if test="principal != null" >
+			and principal = #{principal,jdbcType=VARCHAR}
+    	</if>
+		<if test="insuranceWriter != null" >
+			and insuranceWriter = #{insuranceWriter,jdbcType=VARCHAR}
+    	</if>
+		<if test="insuranceWriterId != null" >
+			and insuranceWriterId = #{insuranceWriterId,jdbcType=VARCHAR}
+    	</if>
+  		<if test="cbrqStart != null and cbrqEnd != null" >
+			and a.insurDate between date_format(#{cbrqStart},'%Y-%m-%d') and date_format(#{cbrqEnd},'%Y-%m-%d')
+    	</if>
+    	<if test="cbrqStart != null and cbrqEnd == null" >
+			<![CDATA[ and a.insurDate >= date_format(#{cbrqStart},'%Y-%m-%d') ]]>
+    	</if>
+    	<if test="cbrqStart == null and cbrqEnd != null" >
+			<![CDATA[ and a.insurDate <= date_format(#{cbrqEnd},'%Y-%m-%d') ]]>
+    	</if> 
+
+  		<if test="syxrqStart != null and syxrqEnd != null" >
+			and date_format(syxrqEnd,'%Y-%m-%d') between date_format(#{syxrqStart},'%Y-%m-%d') and date_format(#{syxrqEnd},'%Y-%m-%d')
+    	</if>
+    	<if test="syxrqStart != null and syxrqEnd == null" >
+			<![CDATA[ and date_format(syxrqEnd,'%Y-%m-%d') >= date_format(#{syxrqStart},'%Y-%m-%d') ]]>
+    	</if>
+    	<if test="syxrqStart == null and syxrqEnd != null" >
+			<![CDATA[ and date_format(syxrqEnd,'%Y-%m-%d') <= date_format(#{syxrqEnd},'%Y-%m-%d') ]]>
+    	</if>
+  		
+  		<if test="jqxrqStart != null and jqxrqEnd != null" >
+			and date_format(jqxrqEnd,'%Y-%m-%d') between date_format(#{jqxrqStart},'%Y-%m-%d') and date_format(#{jqxrqEnd},'%Y-%m-%d')
+    	</if>
+    	<if test="jqxrqStart != null and jqxrqEnd == null" >
+			<![CDATA[ and date_format(jqxrqEnd,'%Y-%m-%d') >= date_format(#{jqxrqStart},'%Y-%m-%d') ]]>
+    	</if>
+    	<if test="jqxrqStart == null and jqxrqEnd != null" >
+			<![CDATA[ and date_format(jqxrqEnd,'%Y-%m-%d') <= date_format(#{jqxrqEnd},'%Y-%m-%d') ]]>
+    	</if>
+		<if test="binsuranceCoverage != null" >
+			and binsuranceCoverage = #{binsuranceCoverage,jdbcType=INTEGER}
+    	</if>
+		<if test="insuranceType != null" >
+			and insuranceType = #{insuranceType,jdbcType=VARCHAR}
+    	</if>
+		<if test="binsuranceCoverage != null" >
+			and binsuranceCoverage = #{binsuranceCoverage,jdbcType=INTEGER}
+    	</if>
+    	<if test="binsuranceNumber != null" >
+			and binsuranceNumber = #{binsuranceNumber,jdbcType=VARCHAR}
+    	</if>
+    	<!-- 当保单号查询字段为交强险保单号时 -->
+    	<if test='cinsuranceNumber != "" and cinsuranceNumber != null' >
+			and (cinsuranceNumber like '%${cinsuranceNumber}%' or binsuranceNumber like '%${cinsuranceNumber}%')
+    	</if>
+    	<if test="principalId != null" >
+			and principalId = #{principalId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="syxjeStart != null and syxjeEnd != null" >
+			and binsuranceCoverage between #{syxjeStart} and #{syxjeEnd}
+    	</if>
+    	<if test="syxjeStart != null and syxjeEnd == null" >
+			and binsuranceCoverage >= #{syxjeStart} 
+    	</if>
+    	<if test="syxjeStart == null and syxjeEnd != null" >
+			and binsuranceCoverage between 0 and #{syxjeEnd}
+    	</if>
+    	<if test="clerkId != null" >
+			and clerkId = #{clerkId}
+    	</if>
+    	<if test="roleId != null" >
+			and roleId = #{roleId}
+    	</if>
+    	<if test="sfdk != null" >
+			and sfdk = #{sfdk}
+		</if>
+    	<if test='certificateNumber != null and certificateNumber !=""'  >
+			and certificateNumber like '%${certificateNumber}%'
+    	</if>
+    	<if test='notExistCustomer != null '>
+    		<if test='notExistCustomer == 1'>
+				and a.chassisNumber not in (select chassisNumber from bf_bip_customer where fourSStoreId =#{fourSStoreId})
+    		</if>
+    	</if>
+    	<!-- ORDER BY a.insuranceBillId -->
+    	<!-- shortBd代表按某字段排序，shortmainBd 1：升序，2：降序 -->
+    	<if test="shortBd==null and shortmainBd==null">ORDER BY a.insuranceBillId </if>
+  	    <if test="shortBd==2 and shortmainBd==1">ORDER BY a.principal ASC</if>
+  	    <if test="shortBd==2 and shortmainBd==2">ORDER BY a.principal DESC</if>
+  	    <if test="shortBd==3 and shortmainBd==1">ORDER BY a.clerk ASC</if>
+  	    <if test="shortBd==3 and shortmainBd==2">ORDER BY a.clerk DESC</if>
+  	    <if test="shortBd==4 and shortmainBd==1">ORDER BY a.contact ASC</if>
+  	    <if test="shortBd==4 and shortmainBd==2">ORDER BY a.contact DESC</if>
+		<if test="shortBd==6 and shortmainBd==1">ORDER BY a.chassisNumber ASC</if>
+  	    <if test="shortBd==6 and shortmainBd==2">ORDER BY a.chassisNumber DESC</if>
+		<if test="shortBd==7 and shortmainBd==1">ORDER BY a.carLicenseNumber ASC</if>
+  	    <if test="shortBd==7 and shortmainBd==2">ORDER BY a.carLicenseNumber DESC</if>
+		<if test="shortBd==8 and shortmainBd==1">ORDER BY b.coverTypeName ASC</if>
+  	    <if test="shortBd==8 and shortmainBd==2">ORDER BY b.coverTypeName DESC</if>
+  	    <if test="shortBd==24 and shortmainBd==1">ORDER BY a.insurDate ASC</if>
+  	    <if test="shortBd==24 and shortmainBd==2">ORDER BY a.insurDate DESC</if>
+  	    <if test="shortBd==25 and shortmainBd==1">ORDER BY a.insuranceCompName ASC</if>
+  	    <if test="shortBd==25 and shortmainBd==2">ORDER BY a.insuranceCompName DESC</if>
+  	    <if test="shortBd==26 and shortmainBd==1"> ORDER BY a.insurNumber ASC</if>
+  	    <if test="shortBd==26 and shortmainBd==2"> ORDER BY a.insurNumber DESC</if>
+  	    <if test="shortBd==27 and shortmainBd==1"> ORDER BY a.jqxrqStart ASC</if>
+  	    <if test="shortBd==27 and shortmainBd==2"> ORDER BY a.jqxrqStart DESC</if>
+  	    <if test="shortBd==28 and shortmainBd==1"> ORDER BY a.insuranceWriter ASC</if>
+  	    <if test="shortBd==28 and shortmainBd==2"> ORDER BY a.insuranceWriter DESC</if>
+    	LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  	</select>
+  	<!-- 统计上个查询的总数 -->
+	<select id="countFindByMoreCondition" resultType="java.lang.Integer">
+   	 select 
+			count(*)
+    	from bf_bip_insurance_bill a
+    	left join bf_bip_cover_type b on a.coverType = b.coverType 
+    	<if test="roleId != null" >left join bf_bip_user u on u.id = a.clerkId </if>
+    	where 
+    	<if test="fourSStoreId != null" >
+			a.fourSStoreId = #{fourSStoreId,jdbcType=INTEGER}
+    	</if>
+    	<if test="carBrand != null" >
+    		and carBrand = #{carBrand,jdbcType=VARCHAR}
+    	</if>
+    	<if test="vehicleModel != null" >
+			and vehicleModel = #{vehicleModel,jdbcType=VARCHAR}
+    	</if>
+    	<if test='insured != "" and insured != null' >
+			and insured = #{insured,jdbcType=VARCHAR}
+    	</if>
+    	<if test='contact != "" and contact != null' >
+			and contact = #{contact,jdbcType=VARCHAR}
+    	</if>
+		<if test='contactWay != "" and contactWay != null' >
+			and a.contactWay like '%${contactWay}%'
+    	</if>
+    	<if test="insuranceCompName != null" >
+			and insuranceCompName = #{insuranceCompName,jdbcType=VARCHAR}
+    	</if>
+    	<if test='carLicenseNumber != "" and carLicenseNumber != null' >
+			and a.carLicenseNumber like '%${carLicenseNumber}%'
+    	</if>
+    	<if test='chassisNumber != "" and chassisNumber != null' >
+			and a.chassisNumber like '%${chassisNumber}%'
+    	</if>
+		<!-- 投保类型可以多选 -->
+	 	<if test="coverTypes != null and coverTypes.size() > 0">
+  			and a.coverType in
+  			<foreach collection="coverTypes" item="coverType" open="(" separator="," close=")">
+  				#{coverType,jdbcType=INTEGER}
+  			</foreach> 
+  		</if>
+		<if test="insurNumber != null" >
+			and insurNumber = #{insurNumber,jdbcType=INTEGER}
+    	</if>
+		<if test="principal != null" >
+			and principal = #{principal,jdbcType=VARCHAR}
+    	</if>
+		<if test="insuranceWriter != null" >
+			and insuranceWriter = #{insuranceWriter,jdbcType=VARCHAR}
+    	</if>
+		<if test="insuranceWriterId != null" >
+			and insuranceWriterId = #{insuranceWriterId,jdbcType=VARCHAR}
+    	</if>
+  		<if test="cbrqStart != null and cbrqEnd != null" >
+			and a.insurDate between date_format(#{cbrqStart},'%Y-%m-%d') and date_format(#{cbrqEnd},'%Y-%m-%d')
+    	</if>
+    	<if test="cbrqStart != null and cbrqEnd == null" >
+			<![CDATA[ and a.insurDate >= date_format(#{cbrqStart},'%Y-%m-%d') ]]>
+    	</if>
+    	<if test="cbrqStart == null and cbrqEnd != null" >
+			<![CDATA[ and a.insurDate <= date_format(#{cbrqEnd},'%Y-%m-%d') ]]>
+    	</if> 
+
+  		<if test="syxrqStart != null and syxrqEnd != null" >
+			and date_format(syxrqEnd,'%Y-%m-%d') between date_format(#{syxrqStart},'%Y-%m-%d') and date_format(#{syxrqEnd},'%Y-%m-%d')
+    	</if>
+    	<if test="syxrqStart != null and syxrqEnd == null" >
+			<![CDATA[ and date_format(syxrqEnd,'%Y-%m-%d') >= date_format(#{syxrqStart},'%Y-%m-%d') ]]>
+    	</if>
+    	<if test="syxrqStart == null and syxrqEnd != null" >
+			<![CDATA[ and date_format(syxrqEnd,'%Y-%m-%d') <= date_format(#{syxrqEnd},'%Y-%m-%d') ]]>
+    	</if>
+  		
+  		<if test="jqxrqStart != null and jqxrqEnd != null" >
+			and date_format(jqxrqEnd,'%Y-%m-%d') between date_format(#{jqxrqStart},'%Y-%m-%d') and date_format(#{jqxrqEnd},'%Y-%m-%d')
+    	</if>
+    	<if test="jqxrqStart != null and jqxrqEnd == null" >
+			<![CDATA[ and date_format(jqxrqEnd,'%Y-%m-%d') >= date_format(#{jqxrqStart},'%Y-%m-%d') ]]>
+    	</if>
+    	<if test="jqxrqStart == null and jqxrqEnd != null" >
+			<![CDATA[ and date_format(jqxrqEnd,'%Y-%m-%d') <= date_format(#{jqxrqEnd},'%Y-%m-%d') ]]>
+    	</if>
+		<if test="binsuranceCoverage != null" >
+			and binsuranceCoverage = #{binsuranceCoverage,jdbcType=INTEGER}
+    	</if>
+		<if test="insuranceType != null" >
+			and insuranceType = #{insuranceType,jdbcType=VARCHAR}
+    	</if>
+		<if test="binsuranceCoverage != null" >
+			and binsuranceCoverage = #{binsuranceCoverage,jdbcType=INTEGER}
+    	</if>
+    	<if test="binsuranceNumber != null" >
+			and binsuranceNumber = #{binsuranceNumber,jdbcType=VARCHAR}
+    	</if>
+    	<!-- 当保单号查询字段为交强险保单号时 -->
+    	<if test='cinsuranceNumber != "" and cinsuranceNumber != null' >
+			and (cinsuranceNumber like '%${cinsuranceNumber}%' or binsuranceNumber like '%${cinsuranceNumber}%')
+    	</if>
+    	<if test="principalId != null" >
+			and principalId = #{principalId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="syxjeStart != null and syxjeEnd != null" >
+			and binsuranceCoverage between #{syxjeStart} and #{syxjeEnd}
+    	</if>
+    	<if test="syxjeStart != null and syxjeEnd == null" >
+			and binsuranceCoverage >= #{syxjeStart} 
+    	</if>
+    	<if test="syxjeStart == null and syxjeEnd != null" >
+			and binsuranceCoverage between 0 and #{syxjeEnd}
+    	</if>
+    	<if test="clerkId != null" >
+			and clerkId = #{clerkId}
+    	</if>
+    	<if test="roleId != null" >
+			and u.roleId = #{roleId}
+    	</if>
+    	<if test="sfdk != null" >
+			and sfdk = #{sfdk}
+		</if>
+    	<if test='certificateNumber != null and certificateNumber !=""'  >
+			and certificateNumber like '%${certificateNumber}%'
+    	</if>
+    	<if test='notExistCustomer != null '>
+    		<if test='notExistCustomer == 1'>
+				and a.chassisNumber not in (select chassisNumber from bf_bip_customer where fourSStoreId =#{fourSStoreId})
+    		</if>
+    	</if>
+  </select>
+  	
+  <select id="findInsurBillByChassisNum" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select * from bf_bip_insurance_bill where chassisNumber = #{chassisNumber}
+  </select>
+  <select id="verifyInsuranceBill" resultMap="BaseResultMap" >
+    select 
+    	*
+    from bf_bip_insurance_bill
+    where chassisNumber = #{chassisNumber,jdbcType=VARCHAR}
+    <if test="dateFlag == 'JqxrqEnd'">and YEAR(jqxrqEnd)= #{year,jdbcType=DATE}</if>
+    <if test="dateFlag == 'SyxrqEnd'">and YEAR(syxrqEnd)= #{year,jdbcType=DATE}</if>
+    and fourSStoreId = #{fourSStoreId}
+  </select>
+  <!-- 校验交强险日期 -->
+  <select id="verifyInsuranceBill_jqxrq" resultMap="BaseResultMap" >
+    select 
+    	*
+    from bf_bip_insurance_bill
+    where chassisNumber = #{chassisNumber,jdbcType=VARCHAR}
+    <if test="jqxrqStart != null and jqxrqStart !=''">
+	 		  and (jqxrqStart BETWEEN  DATE_FORMAT(#{jqxrqStart,jdbcType=DATE},'%y-%m-%d %H:%i:%S')
+	 		  and DATE_FORMAT(#{jqxrqEnd,jdbcType=DATE},'%y-%m-%d %H:%i:%S')
+	</if>
+	<if test="jqxrqEnd != null and jqxrqEnd !=''">
+	 		  or jqxrqEnd BETWEEN  DATE_FORMAT(#{jqxrqStart,jdbcType=DATE},'%y-%m-%d %H:%i:%S')
+	 		  and DATE_FORMAT(#{jqxrqEnd,jdbcType=DATE},'%y-%m-%d %H:%i:%S'))
+	</if>
+    and fourSStoreId = #{fourSStoreId}
+  </select>
+  <!-- 校验商业险日期 -->
+  <select id="verifyInsuranceBill_syxrq" resultMap="BaseResultMap" >
+    select 
+    	*
+    from bf_bip_insurance_bill
+    where chassisNumber = #{chassisNumber,jdbcType=VARCHAR}
+    <if test="syxrqStart != null and syxrqStart !=''">
+             and (syxrqStart BETWEEN  DATE_FORMAT(#{syxrqStart,jdbcType=DATE},'%y-%m-%d %H:%i:%S')
+	 		 and DATE_FORMAT(#{syxrqEnd,jdbcType=DATE},'%y-%m-%d %H:%i:%S')
+    </if>
+    <if test="syxrqEnd != null and syxrqEnd !=''">
+             or syxrqEnd BETWEEN  DATE_FORMAT(#{syxrqStart,jdbcType=DATE},'%y-%m-%d %H:%i:%S')
+	 		 and DATE_FORMAT(#{syxrqEnd,jdbcType=DATE},'%y-%m-%d %H:%i:%S'))
+    </if>
+    and fourSStoreId = #{fourSStoreId}
+  </select>
+  <!-- 根据负责人和投保类型统计查询 -->
+	<select id="findNewInsurBillNum" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		select count(1) from bf_bip_insurance_bill 
+		<where>
+			<if test="coverType != null">
+				and coverType = #{coverType}
+			</if>
+			<if test="clerkId != null">
+				and clerkId = #{clerkId}
+			</if>
+			<if test="statisticTime != null">
+				and DATE_FORMAT(insurDate,'%Y-%m') = #{statisticTime} 
+			</if>
+			
+		</where>
+	</select>
+	
+	<!-- 根据负责人和投保类型查询出保单的信息 -->
+	<select id="findInsurBillByPrincipalId" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+		select * from bf_bip_insurance_bill 
+		<where>
+			<if test="coverType != null">
+				and coverType = #{coverType}
+			</if>
+			<if test="clerkId != -1">
+				and clerkId = #{clerkId}
+			</if>
+			<if test="statisticTime != null">
+				and DATE_FORMAT(insurDate,'%Y-%m') = #{statisticTime} 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据车架号去查询所有保单并从大到小排序 -->
+	<select id="findLastYearInsurBillInfo" resultMap="BaseResultMap">
+		select * from bf_bip_insurance_bill where chassisNumber = #{chassisNumber} 
+		and fourSStoreId = #{fourSStoreId}  ORDER BY insuranceBillId desc LIMIT 0,1
+	</select>
+	
+	<!-- 更新保单信息 -->
+	<update id="updateInsuranceBillInfo" parameterType="java.util.Map" >
+		update bf_bip_insurance_bill
+		<set>
+			<if test="fourSStoreId != null">fourSStoreId = #{fourSStoreId},</if>
+			<if test="foursStore != null">foursStore = #{foursStore},</if>
+			<if test="carLicenseNumber != null">carLicenseNumber = #{carLicenseNumber},</if>
+			<if test="chassisNumber != null">chassisNumber = #{chassisNumber},</if>
+			<if test="engineNumber != null">engineNumber = #{engineNumber},</if>
+			<if test="registrationDate != null">registrationDate = #{registrationDate},</if>
+			<if test="carBrand != null">carBrand = #{carBrand},</if>
+			<if test="vehicleModel != null">vehicleModel = #{vehicleModel},</if>
+			<if test="binsuranceNumber != null">binsuranceNumber = #{binsuranceNumber},</if>
+			<if test="binsuranceCoverage != null">binsuranceCoverage = #{binsuranceCoverage},</if>
+			<if test="vehicleTax != null">vehicleTax = #{vehicleTax},</if>
+			<if test="privilegePro != null">privilegePro = #{privilegePro},</if>
+			<if test="renewalWay != null">renewalWay = #{renewalWay},</if>
+			<if test="insurNumber != null">insurNumber = #{insurNumber},</if>
+			<if test="cinsuranceNumber != null">cinsuranceNumber = #{cinsuranceNumber},</if>
+			<if test="cinsuranceCoverage != null">cinsuranceCoverage = #{cinsuranceCoverage},</if>
+			<if test="premiumCount != null">premiumCount = #{premiumCount},</if>
+			<if test="privilegeSum != null">privilegeSum = #{privilegeSum},</if>
+			<if test="factorageCount != null">factorageCount = #{factorageCount},</if>
+			<if test="realPay != null">realPay = #{realPay},</if>
+			<if test="payWay != null">payWay = #{payWay},</if>
+			<if test="sdfs != null">sdfs = #{sdfs},</if>
+			<if test="profit != null">profit = #{profit},</if>
+			<if test="coverType != null">coverType = #{coverType},</if>
+			<if test="insurDate != null">insurDate = #{insurDate},</if>
+			<if test="syxrqStart != null">syxrqStart = #{syxrqStart},</if>
+			<if test="syxrqEnd != null">syxrqEnd = #{syxrqEnd},</if>
+			<if test="jqxrqStart != null">jqxrqStart = #{jqxrqStart},</if>
+			<if test="jqxrqEnd != null">jqxrqEnd = #{jqxrqEnd},</if>
+			<if test="qnbe != null">qnbe = #{qnbe},</if>
+			<if test="qnsyxje != null">qnsyxje = #{qnsyxje},</if>
+			<if test="qnjqxje != null">qnjqxje = #{qnjqxje},</if>
+			<if test="qnccsje != null">qnccsje = #{qnccsje},</if>
+			<if test="invoiceName != null">invoiceName = #{invoiceName},</if>
+			<if test="insuranceCompName != null">insuranceCompName = #{insuranceCompName},</if>
+			<if test="insuranceType != null">insuranceType = #{insuranceType},</if>
+			<if test="remark != null">remark = #{remark},</if>
+			<if test="principalId != null">principalId = #{principalId},</if>
+			<if test="principal != null">principal = #{principal},</if>
+			<if test="clerkId != null">clerkId = #{clerkId},</if>
+			<if test="clerk != null">clerk = #{clerk},</if>
+			<if test="insuranceWriterId != null">insuranceWriterId = #{insuranceWriterId},</if>
+			<if test="insuranceWriter != null">insuranceWriter = #{insuranceWriter},</if>
+			<if test="cashier != null">cashier = #{cashier},</if>
+			<if test="solicitMemberId != null">solicitMemberId = #{solicitMemberId},</if>
+			<if test="solicitMember != null">solicitMember = #{solicitMember},</if>
+			<if test="carOwner != null">carOwner = #{carOwner},</if>
+			<if test="insured != null">insured = #{insured},</if>
+			<if test="contact != null">contact = #{contact},</if>
+			<if test="contactWay != null">contactWay = #{contactWay},</if>
+			<if test="customerSource != null">customerSource = #{customerSource},</if>
+			<if test="customerCharacter != null">customerCharacter = #{customerCharacter},</if>
+			<if test="address != null">address = #{address},</if>
+			<if test="sfdk != null">sfdk = #{sfdk},</if>
+			<if test="certificateNumber != null">certificateNumber = #{certificateNumber},</if>
+			<if test="giftDiscount != null">giftDiscount = #{giftDiscount},</if>
+			<if test="xjyhdw != null">xjyhdw = #{xjyhdw},</if>
+			<if test="czkje != null">czkje = #{czkje},</if>
+			<if test="czkjedw != null">czkjedw = #{czkjedw},</if>
+			<if test="updateStatus != null">updateStatus = #{updateStatus},</if>	
+		</set>
+		where insuranceBillId = #{insuranceBillId,jdbcType=INTEGER}
+	</update>
+	
+	 <!-- 查询user下的潜客的商业险，交强险，车船税的合计 -->
+  <select id="coverageSumNoTime" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+  	SELECT
+		IFNULL(sum(binsuranceCoverage), 0) bInsurCoverageSumNoTime,
+		IFNULL(sum(premiumCount), 0) premiumCountNoTime
+	FROM
+		bf_bip_insurance_bill
+	<where>
+		<if test="storeId != null ">
+			and fourSStoreId = #{storeId}
+		</if>
+		<if test="renewalType != null and renewalType != ''">
+			and coverType = #{renewalType}
+		</if>
+		<if test="renewalType == null ">
+			and coverType != 1
+		</if>
+		<if test="userId != null and userId != ''">
+			AND principalId = #{userId}
+		</if>
+		<if test="startTime != null" >
+			<![CDATA[and insurDate >= #{startTime}]]> 
+		</if>
+		<if test="endTime != null">
+			<![CDATA[and insurDate <= #{endTime}]]>
+		</if>
+		<if test="statisticTime != null">
+			and DATE_FORMAT(insurDate,'%Y-%m') = #{statisticTime} 
+		</if>
+	</where>
+  </select>
+  
+   <!-- 查询该时间段，user下的潜客的商业险，交强险，车船税的合计 -->
+  <select id="coverageSum" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+  	select 
+  	ifnull(sum(binsuranceCoverage),0) bInsurCoverageSum,
+  	ifnull(sum(cinsuranceCoverage),0) cInsurCoverageSum,
+	ifnull(sum(vehicleTax),0) vehicleTaxSum 
+  	from 
+  	(select c.binsuranceCoverage binsuranceCoverage, 
+  	c.cinsuranceCoverage cinsuranceCoverage, 
+  	c.vehicleTax vehicleTax,
+  	c.insurDate 
+  	from 
+  	bf_bip_customer_assign a, 
+  	bf_bip_renewaling_customer b,
+  	bf_bip_insurance_bill c 
+  	where
+  	 a.customerId = b.customerId 
+  	 and b.chassisNumber = c.chassisNumber
+	 
+		<if test="userId != null and userId != ''">
+			and a.userId = #{userId} 
+		</if>
+		<if test="renewalType != null and renewalType != ''">
+			and c.coverType = #{renewalType}
+		</if>
+		<if test="acceptStatu != null">
+  			and a.acceptStatu != #{acceptStatu}
+		</if>
+		<if test="traceStatu != null">
+			and a.traceStatu != #{traceStatu}
+		</if>
+	)t 
+	<where>
+		<if test="startTime != null" >
+			<![CDATA[and t.insurDate >= #{startTime}]]> 
+		</if>
+		<if test="endTime != null">
+			<![CDATA[and t.insurDate <= #{endTime}]]>
+		</if>
+	</where>
+  </select>
+  
+  
+  <delete id="deleteByStoreId" parameterType="java.lang.Integer">
+  	DELETE
+	FROM
+		bf_bip_insurance_bill
+	WHERE
+		fourSStoreId = #{storeId}
+  </delete>
+  
+  <!-- 统计当期续保数 -->
+  <select id="countDqxbs" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	SELECT
+		count(DISTINCT c.chassisNumber )
+	FROM
+		(
+			SELECT
+				DISTINCT b.chassisNumber
+			FROM
+				bf_bip_operation_record a , bf_bip_renewaling_customer b 
+			<where>
+				a.customerId = b.customerId
+				AND a.operationFlag = 6
+				AND userId = #{userId}
+				<if test="renewalType != null">
+					AND a.coverType = #{renewalType}
+				</if>
+				<if test="renewalType == null">
+					AND a.coverType != 1
+				</if>
+				<if test="startTime != null">
+					<![CDATA[AND a.virtualJqxdqr >= #{startTime} ]]>
+				</if>
+				<if test="endTime != null">
+					<![CDATA[AND a.virtualJqxdqr <= #{endTime}]]>
+				</if>
+				<if test="statisticTime != null">
+					and DATE_FORMAT(a.virtualJqxdqr,'%Y-%m') = #{statisticTime} 
+				</if>
+			</where>
+			
+		) t2 inner join 
+		bf_bip_insurance_bill c on t2.chassisNumber = c.chassisNumber
+	<where>
+		<if test="storeId != null">
+			<![CDATA[c.fourSStoreId >= #{storeId}]]>
+		</if>
+		<if test="startTime != null">
+			<![CDATA[c.jqxrqStart >= #{startTime}]]>
+		</if>
+		<if test="startTime != null and endTime != null">
+			<![CDATA[AND c.jqxrqStart <= #{endTime}]]>
+		</if>
+		<if test="renewalType != null">
+				AND c.coverType = #{renewalType}
+		</if>
+		<if test="renewalType == null">
+				AND c.coverType != 1
+		</if>
+		<if test="statisticTime != null">
+			and DATE_FORMAT(c.jqxrqStart,'%Y-%m') = #{statisticTime} 
+		</if>
+		<if test="userId != null">
+			and c.principalId = #{userId} 
+		</if>
+	</where>
+  </select>
+  
+  <select id="findDealInsuranceNum" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	SELECT
+		c.chassisNumber,c.binsuranceCoverage
+	FROM
+		(
+			SELECT
+				DISTINCT b.chassisNumber
+			FROM
+				bf_bip_operation_record a , bf_bip_renewaling_customer b 
+			<where>
+				a.customerId = b.customerId
+				AND a.operationFlag = 6
+				AND userId = #{userId}
+				<if test="renewalType != null">
+					AND a.coverType = #{renewalType}
+				</if>
+				<if test="renewalType == null">
+					AND a.coverType != 1
+				</if>
+				<if test="startTime != null">
+					<![CDATA[AND a.virtualJqxdqr >= #{startTime} ]]>
+				</if>
+				<if test="endTime != null">
+					<![CDATA[AND a.virtualJqxdqr <= #{endTime}]]>
+				</if>
+				<if test="statisticTime != null">
+					and DATE_FORMAT(a.virtualJqxdqr,'%Y-%m') = #{statisticTime} 
+				</if>
+			</where>
+			
+		) t2 inner join 
+		bf_bip_insurance_bill c on t2.chassisNumber = c.chassisNumber
+	<where>
+		<if test="storeId != null">
+			<![CDATA[c.fourSStoreId >= #{storeId}]]>
+		</if>
+		<if test="startTime != null">
+			<![CDATA[c.jqxrqStart >= #{startTime}]]>
+		</if>
+		<if test="startTime != null and endTime != null">
+			<![CDATA[AND c.jqxrqStart <= #{endTime}]]>
+		</if>
+		<if test="renewalType != null">
+				AND c.coverType = #{renewalType}
+		</if>
+		<if test="renewalType == null">
+				AND c.coverType != 1
+		</if>
+	</where>
+  </select>
+  
+   <select id = "countZhxbs" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+  	SELECT
+		count(DISTINCT c.chassisNumber)
+	FROM
+		(
+			SELECT
+				b.chassisNumber
+			FROM
+				bf_bip_operation_record a , bf_bip_renewaling_customer b 
+			<where>
+				a.customerId = b.customerId
+				AND userId = #{userId}
+				<if test="renewalType != null">
+					AND a.coverType = #{renewalType}
+				</if>
+				<if test="startTime != null">
+					<![CDATA[AND a.virtualJqxdqr >= #{startTime} ]]>
+				</if>
+				<if test="endTime != null">
+					<![CDATA[AND a.virtualJqxdqr <= #{endTime}]]>
+				</if>
+				<if test="statisticTime != null">
+					and DATE_FORMAT(a.virtualJqxdqr,'%Y-%m') = #{statisticTime} 
+				</if>
+			</where>
+			
+		) t2 inner join 
+		bf_bip_insurance_bill c on t2.chassisNumber = c.chassisNumber
+	<where>
+		c.jqxrqStart is not null
+		<if test="startTime != null">
+			<![CDATA[AND c.insurDate >= #{startTime}]]>
+		</if>
+		<if test="endTime != null">
+			<![CDATA[AND c.insurDate <= #{endTime}]]>
+		</if>
+		<if test="statisticTime != null">
+			and DATE_FORMAT(c.insurDate,'%Y-%m') = #{statisticTime} 
+		</if>
+		<if test="storeId != null">
+			AND c.fourSStoreId = #{storeId}
+		</if>
+		<if test="userId != null">
+			AND c.principalId = #{userId}
+		</if>
+	</where> 
+  </select>
+	<!-- 计算去年统计周期内出单数 -->
+	<select id = "countQnZhxbs" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		select COUNT(distinct b.chassisnumber) AS qnzhxbs
+		FROM bf_bip_insurance_bill b 
+		<where>
+			<if test="storeId != null">
+				AND b.fourSStoreId = #{storeId}
+			</if>
+			<if test="startTime != null">
+				<![CDATA[AND DATE_ADD(b.insurDate,INTERVAL 1 YEAR) >= #{startTime}]]>
+			</if>
+			<if test="endTime != null">
+				<![CDATA[AND DATE_ADD(b.insurDate,INTERVAL 1 YEAR) <= #{endTime}]]>
+			</if>
+			<if test="statisticTime != null">
+				and DATE_FORMAT(DATE_ADD(b.insurDate,INTERVAL 1 YEAR),'%Y-%m') = #{statisticTime} 
+			</if>
+			<if test="renewalType != null">
+				AND b.coverType = #{renewalType}
+			</if>
+			<if test="renewalType == null">
+				AND b.coverType != 1
+			</if>
+			<if test="userId != null">
+				AND b.principalId = #{userId}
+			</if>
+		</where>
+	</select>
+  
+  
+	<select id="findBillCountToday" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		SELECT count(1) FROM bf_bip_insurance_bill b WHERE b.fourSStoreId = #{storeId} 
+		AND b.insurDate = DATE_FORMAT(now(),'%Y-%m-%d')
+	</select>
+	<!-- 按车架号校验本月是否已出单 -->
+	<select id="findExistBillThisMonth" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		SELECT count(1) FROM bf_bip_insurance_bill b WHERE b.fourSStoreId = #{storeId} 
+		AND b.chassisNumber = #{chassisNumber}
+		AND DATE_FORMAT(b.insurDate,'%Y-%m') = DATE_FORMAT(#{insurDate},'%Y-%m')
+	</select>
+	<!-- APP查询今日创建保单 -->
+	<select id="findBillTodayCreate" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select a.*,b.coverTypeName 
+		from bf_bip_insurance_bill a
+		inner join bf_bip_cover_type b on a.coverType = b.coverType 
+		where 
+			<if test="storeId != null" >
+				a.fourSStoreId = #{storeId}
+			</if>
+			<if test="principalId != null" >
+				and principalId = #{principalId}
+			</if>
+			<if test="clerkId != null" >
+				and clerkId = #{clerkId}
+			</if>
+			<if test="foundDate != null">
+				and date_format(a.foundDate,'%Y-%m-%d') = #{foundDate}
+			</if>
+		ORDER BY a.insuranceBillId LIMIT #{start},#{pageSize}
+	</select>
+	<!-- APP查询今日创建保单数 -->
+	<select id="findBillTodayCreateCount" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+		select count(1) from bf_bip_insurance_bill a
+		<where>
+			<if test="storeId != null" >
+				a.fourSStoreId = #{storeId}
+			</if>
+			<if test="principalId != null" >
+				and a.principalId = #{principalId}
+			</if>
+			<if test="clerkId != null" >
+				and a.clerkId = #{clerkId}
+			</if>
+			<if test="foundDate != null">
+				and date_format(a.foundDate,'%Y-%m-%d') = #{foundDate}
+			</if>
+		</where> 
+	</select>
+	
+	<!-- 根据条件统计保费总额度 -->
+	<select id="sumPremiumCount" resultType="java.lang.Double">
+		select sum(premiumCount) from bf_bip_insurance_bill a
+		<where>
+			<if test="fourSStoreId != null" >
+				a.fourSStoreId = #{fourSStoreId}
+			</if>
+			<if test="principal != null and principal != ''" >
+				and a.principal = #{principal}
+			</if>
+			<if test="principalId != null and principalId != ''" >
+				and a.principalId = #{principalId}
+			</if>
+			<if test="insuranceCompName != null and insuranceCompName != ''" >
+				and a.insuranceCompName = #{insuranceCompName}
+			</if>
+			<if test="carLicenseNumber != null and carLicenseNumber != ''">
+				and a.carLicenseNumber like '%${carLicenseNumber}%'
+			</if>
+			<if test="chassisNumber != null and chassisNumber != ''">
+				and a.chassisNumber like '%${chassisNumber}%'
+			</if>
+			<if test="insuranceWriter != null and insuranceWriter != ''">
+				and a.insuranceWriter = #{insuranceWriter}
+			</if>
+			<if test="insuranceWriterId != null and insuranceWriterId != ''">
+				and a.insuranceWriterId = #{insuranceWriterId}
+			</if>
+			<if test="cbrqStart != null and cbrqEnd != null" >
+				and a.insurDate between date_format(#{cbrqStart},'%Y-%m-%d') and date_format(#{cbrqEnd},'%Y-%m-%d')
+    		</if>
+    		<if test="cbrqStart != null and cbrqEnd == null" >
+				<![CDATA[ and a.insurDate >= date_format(#{cbrqStart},'%Y-%m-%d') ]]>
+    		</if>
+    		<if test="cbrqStart == null and cbrqEnd != null" >
+				<![CDATA[ and a.insurDate <= date_format(#{cbrqEnd},'%Y-%m-%d') ]]>
+    		</if>
+		</where> 
+	</select>
+	
+	<!--查询所有没有被迁移数据的保单 -->
+	<select id="findBillAll" resultType="java.util.HashMap">
+		SELECT
+			insuranceBillId,insuranceType,fourSStoreId
+		FROM
+			bf_bip_insurance_bill
+		WHERE
+			updateStatus = 0 and insuranceType is not null
+		LIMIT 0,500;
+	</select>
+	<!-- 查询重复保单 -->
+	<select id="findRepeatBill" resultMap="BaseResultMap">
+	   SELECT 
+	       a.insuranceBillId,COUNT(*) AS COUNT 
+	   FROM 
+	       bf_bip_insurance_bill a
+	   WHERE 
+	       a.fourSStoreId = #{fourSStoreId}
+	   GROUP BY 
+	        a.fourSStoreId,
+            a.foursStore,
+			a.carLicenseNumber,
+			a.chassisNumber,
+			a.engineNumber,
+			a.registrationDate,
+			a.carBrand,
+			a.vehicleModel,
+			a.binsuranceNumber,
+			a.binsuranceCoverage,
+			a.vehicleTax,
+			a.privilegePro,
+			a.renewalWay,
+			a.insurNumber,
+			a.cinsuranceNumber,
+			a.cinsuranceCoverage,
+			a.premiumCount,
+			a.privilegeSum,
+			a.donateCostCount,
+			a.factorageCount,
+			a.realPay,
+			a.payWay,
+			a.sdfs,
+			a.profit,
+			a.coverType,
+			a.insurDate,
+			a.syxrqStart,
+			a.syxrqEnd,
+			a.jqxrqStart,
+			a.jqxrqEnd,
+			a.qnbe,
+			a.qnsyxje,
+			a.qnjqxje,
+			a.qnccsje,
+			a.invoiceName,
+			a.insuranceCompName,
+			a.insuranceType,
+			a.remark,
+			a.principalId,
+			a.principal,
+			a.clerkId,
+			a.clerk,
+			a.insuranceWriterId,
+			a.insuranceWriter,
+			a.cashier,
+			a.solicitMemberId,
+			a.solicitMember,
+			a.carOwner,
+			a.insured,
+			a.certificateNumber,
+			a.contact,
+			a.contactWay,
+			a.customerSource,
+			a.customerCharacter,
+			a.address,
+			a.cdrq,
+			a.approvalBillId,
+			a.foundDate,
+			a.sfdk,
+			a.giftDiscount,
+			a.updateStatus,
+			a.xjyhdw,
+			a.czkje,
+			a.czkjedw,
+			a.jqxsxfRate  
+       HAVING COUNT >1
+	</select>
+</mapper>

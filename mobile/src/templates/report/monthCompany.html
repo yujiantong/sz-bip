@@ -1,0 +1,47 @@
+<ion-view view-title="月报-分保险公司" ng-init="ctrl.findCountMonthKpiInsurComp();" >
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('homePage.report',{ReportTabNO:2})"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="padding">
+       <span>月份：<select ng-model="ctrl.report.mouthDate" ng-options="x for x in ctrl.selectTimes" ng-change="ctrl.findCountMonthKpiInsurComp()">
+         <option value="">请选择保险到期月</option>
+       </select></span>
+    </div>
+    <div class="row bg-eee">
+      <div class="col col-25 text-center">保险公司</div>
+      <div class="col col-25 text-center">交强/商业</div>
+      <div class="col col-25 text-center">出单数</div>
+      <div class="col col-25 text-center">签单保费</div>
+    </div>
+    <div class="list border-bottom fs12" style="margin-bottom: 0px;" ng-repeat="KpiInsurComp in ctrl.MonthKpiInsurComp">
+      <div class="col col-25 text-center">
+        <span class="border-bottom company" ng-if="KpiInsurComp.insuranceCompName=='合计'">本月</span>
+        <span class="border-bottom company" ng-if="KpiInsurComp.insuranceCompName!='合计'">{{KpiInsurComp.insuranceCompName}}</span>
+      </div>
+      <div ng-repeat="insurance in KpiInsurComp.shuju">
+          <div class="row">
+            <!--<div class="col col-25 text-center">
+              <span ng-if="KpiInsurComp.insuranceCompName=='合计'">本月</span>
+              <span ng-if="KpiInsurComp.insuranceCompName!='合计'">{{KpiInsurComp.insuranceCompName}}</span>
+            </div>-->
+              <div class="col col-25 text-center">{{insurance.name}}</div>
+              <div class="col col-25 text-center"></div>
+             <!-- <div class="col col-25 text-center">合计</div>-->
+              <div class="col col-25 text-center">{{insurance.cdsSum}}</div>
+              <div class="col col-25 text-center">{{insurance.bfSum | number:2}}</div>
+            </div>
+          <div class="row">
+            <div class="col col-25 col-offset-25 text-center">交强</div>
+            <div class="col col-25 text-center">{{insurance.jqxcds}}</div>
+            <div class="col col-25 text-center">{{insurance.jqxbf | number:2}}</div>
+          </div>
+          <div class="row">
+            <div class="col col-25 col-offset-25 text-center">商业</div>
+            <div class="col col-25 text-center">{{insurance.syxcds}}</div>
+            <div class="col col-25 text-center">{{insurance.syxbf | number:2}}</div>
+          </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

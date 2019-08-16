@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.CustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.bofide.bip.po.Customer" >
+    <id column="customerId" property="customerId" jdbcType="INTEGER" />
+    <result column="fourSStoreId" property="fourSStoreId" jdbcType="VARCHAR" />
+    <result column="fourSStore" property="fourSStore" jdbcType="VARCHAR" />
+    <result column="carOwner" property="carOwner" jdbcType="VARCHAR" />
+    <result column="insured" property="insured" jdbcType="VARCHAR" />
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+    <result column="contactWay" property="contactWay" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="chassisNumber" property="chassisNumber" jdbcType="VARCHAR" />
+    <result column="engineNumber" property="engineNumber" jdbcType="VARCHAR" />
+    <result column="insuranceCompLY" property="insuranceCompLY" jdbcType="VARCHAR" />
+    <result column="insuranceEndDate" property="jqxrqEnd" jdbcType="DATE" />
+    <result column="zdZheKou" property="zdZheKou" jdbcType="DOUBLE"/>
+    <result column="carBrand" property="carBrand" jdbcType="VARCHAR" />
+    <result column="vehicleModel" property="vehicleModel" jdbcType="VARCHAR" />
+    <result column="carLicenseNumber" property="carLicenseNumber" jdbcType="VARCHAR" />
+    <result column="registrationDate" property="registrationDate" jdbcType="DATE" />
+    <result column="renewalType" property="renewalType" jdbcType="INTEGER" />
+    <result column="solicitMemberLY" property="solicitMemberLY" jdbcType="VARCHAR" />
+    <result column="insuranceTypeLY" property="insuranceTypeLY" jdbcType="VARCHAR" />
+    <result column="renewalWay" property="renewalWay" jdbcType="VARCHAR" />
+    <result column="insurNumber" property="insurNumber" jdbcType="INTEGER" />
+    <result column="insurDateLY" property="insurDateLY" jdbcType="DATE" />
+    <result column="insuranceCoverageLY" property="insuranceCoverageLY" jdbcType="DOUBLE" />
+    <result column="isMaintainAgain" property="isMaintainAgain" jdbcType="INTEGER" />
+    <result column="maintainNumberLY" property="maintainNumberLY" jdbcType="INTEGER" />
+    <result column="accidentNumberLY" property="accidentNumberLY" jdbcType="INTEGER" />
+    <result column="accidentOutputValueLY" property="accidentOutputValueLY" jdbcType="INTEGER" />
+    <result column="serviceConsultant" property="serviceConsultant" jdbcType="VARCHAR" />
+    <result column="customerLevel" property="customerLevel" jdbcType="VARCHAR" />
+    <result column="principalId" property="principalId" jdbcType="VARCHAR" />
+    <result column="principal" property="principal" jdbcType="VARCHAR" />
+    <result column="privilegeProLY" property="privilegeProLY" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="insuranceNumber" property="insuranceNumber" jdbcType="VARCHAR" />
+    <result column="syxrqEnd" property="syxrqEnd" jdbcType="DATE"/>
+    <result column="certificateNumber" property="certificateNumber" jdbcType="VARCHAR"/>
+    <result column="serviceConsultantId" property="serviceConsultantId" jdbcType="INTEGER"/>
+    <result column="customerSource" property="customerSource" jdbcType="VARCHAR"/>
+    <result column="customerCharacter" property="customerCharacter" jdbcType="VARCHAR"/>
+    <result column="sfgyx" property="sfgyx" jdbcType="INTEGER"/>
+    <result column="virtualJqxdqr" property="virtualJqxdqr" jdbcType="DATE"/>
+    <result column="clerkId" property="clerkId" jdbcType="INTEGER" />
+ 	<result column="clerk" property="clerk" jdbcType="VARCHAR" />
+ 	<result column="lastYearIsDeal" property="lastYearIsDeal" jdbcType="INTEGER"/>
+ 	<result column="cusLostInsurStatu" property="cusLostInsurStatu" jdbcType="INTEGER"/>
+ 	<result column="bhInsuranceEndDate" property="bhInsuranceEndDate" jdbcType="DATE"/>
+ 	<result column="ifUpdate" property="ifUpdate" jdbcType="INTEGER"/>
+ 	<result column="ifLoan" property="ifLoan" jdbcType="INTEGER"/>
+ 	<result column="createrId" property="createrId" jdbcType="INTEGER"/>
+ 	<result column="factoryLicenseType" property="factoryLicenseType" jdbcType="VARCHAR"/>
+ 	<result column="carAnnualCheckUpDate" property="carAnnualCheckUpDate" jdbcType="DATE"/>
+ 	<result column="insuredLY" property="insuredLY" jdbcType="VARCHAR"/>
+ 	<result column="buyfromThisStore" property="buyfromThisStore" jdbcType="INTEGER"/>
+ 	<result column="gotThroughNum" property="gotThroughNum" jdbcType="INTEGER"/>
+ 	<result column="contactWayReserve" property="contactWayReserve" jdbcType="VARCHAR"/>
+ 	<result column="bxInfo" property="bxInfo" jdbcType="VARCHAR"/>
+ 	<result column="bhUpdateTime" property="bhUpdateTime" jdbcType="TIMESTAMP"/>
+ 	<result column="updateStatus" property="updateStatus" jdbcType="INTEGER"/>
+ 	<result column="defeatFlag" property="defeatFlag" jdbcType="INTEGER"/>
+ 	<result column="importFlag" property="importFlag" jdbcType="INTEGER"/>
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from bf_bip_customer
+    where customerId = #{customerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bf_bip_customer
+    where customerId = #{customerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="customerId" parameterType="com.bofide.bip.po.Customer" >
+    insert into bf_bip_customer (
+    fourSStoreId, 
+    fourSStore, 
+    carOwner, 
+    insured, 
+    contact, 
+    contactWay, 
+    address, 
+    chassisNumber, 
+    engineNumber, 
+    insuranceCompLY, 
+    insuranceEndDate, 
+    carBrand, 
+    vehicleModel, 
+    carLicenseNumber, 
+    registrationDate, 
+    renewalType, 
+    solicitMemberLY, 
+    insuranceTypeLY,
+    renewalWay, 
+    insurNumber, 
+    insurDateLY, 
+    insuranceCoverageLY, 
+    isMaintainAgain, 
+    maintainNumberLY, 
+    accidentNumberLY, 
+    accidentOutputValueLY, 
+    serviceConsultant,
+    remark, 
+    principal, 
+    principalId, 
+    privilegeProLY, 
+    insuranceNumber, 
+    certificateNumber, 
+    serviceConsultantId, 
+    customerSource, 
+    customerCharacter, 
+    sfgyx, 
+    status, 
+    syxrqEnd,
+    virtualJqxdqr,
+    clerkId,
+    clerk,
+    lastYearIsDeal,
+    cusLostInsurStatu,
+    customerLevel,
+    createrId,
+    factoryLicenseType,
+    carAnnualCheckUpDate,
+    insuredLY,
+    buyfromThisStore,
+    contactWayReserve,
+    ifLoan,
+    bxInfo,
+    defeatFlag,
+    importFlag)
+    values (
+    	#{fourSStoreId}, 
+    	  #{fourSStore}, 
+		  #{carOwner}, 
+	      #{insured}, 
+	      #{contact}, 
+	      #{contactWay}, 
+	      #{address}, 
+	      #{chassisNumber}, 
+	      #{engineNumber}, 
+	      #{insuranceCompLY}, 
+	      #{jqxrqEnd}, 
+	      #{carBrand}, 
+	      #{vehicleModel}, 
+	      #{carLicenseNumber}, 
+	      #{registrationDate}, 
+	      #{renewalType},
+	      #{solicitMemberLY}, 
+	      #{insuranceTypeLY}, 
+	      #{renewalWay}, 
+	      #{insurNumber}, 
+	      #{insurDateLY}, 
+	      #{insuranceCoverageLY}, 
+	      #{isMaintainAgain}, 
+	      #{maintainNumberLY}, 
+	      #{accidentNumberLY}, 
+	      #{accidentOutputValueLY}, 
+	      #{serviceConsultant}, 
+	      #{remark},
+	      #{principal},
+	      #{principalId}, 
+	      #{privilegeProLY}, 
+	      #{insuranceNumber},
+	      #{certificateNumber},
+	      #{serviceConsultantId},
+	      #{customerSource},
+	      #{customerCharacter},
+	      #{sfgyx},
+	      #{status},
+	      #{syxrqEnd},
+	      #{virtualJqxdqr},
+	      #{clerkId},
+	      #{clerk},
+	      #{lastYearIsDeal},
+	      #{cusLostInsurStatu},
+	      #{customerLevel},
+	      #{createrId},
+	      #{factoryLicenseType},
+    	  #{carAnnualCheckUpDate},
+    	  #{insuredLY},
+      	  #{buyfromThisStore},
+      	  #{contactWayReserve},
+      	  #{ifLoan},
+      	  #{bxInfo},
+      	  #{defeatFlag},
+      	  #{importFlag})
+  </insert>
+  
+  <!-- 查询该4S店的所有的潜客 -->
+  <select id="findRenewalCustomer" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+  	<![CDATA[select * from bf_bip_customer where 
+  				 CURDATE() >= date_add(virtualJqxdqr,interval #{nextGetCusDayNum} day) 
+  				and CURDATE() <= date_add(virtualJqxdqr,interval 1 year) 
+  				and fourSStoreId = #{fourSStoreId}]]>
+  </select>  
+  <select id="findRenewalCustomer2" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+  	<![CDATA[select * from bf_bip_customer where 
+  				status = #{status}
+  				and customerLevel = "F"
+  				and CURDATE() >= date_add(virtualJqxdqr,interval #{dayNumber} day) 
+  				and CURDATE() <= virtualJqxdqr
+  				and fourSStoreId = #{fourSStoreId}
+	]]>
+  </select>  
+  
+  <!-- 更新潜客状态为分配 -->
+  <update id="updateStatu" parameterType="java.util.ArrayList">
+  	update bf_bip_customer set status = 2 where customerId in 
+  	<foreach collection="list" item="customer" open="(" separator="," close=")" > 
+        #{customer.customerId}
+    </foreach>
+  </update>
+  
+
+  <update id="updateToUnAssignStatu" parameterType="java.util.HashMap">
+	update bf_bip_customer set status = #{status} where customerId = #{customerId} 
+  </update>
+  
+
+  <!-- 根据车架号查询潜客 -->
+  <select id="findCustomerByCarNum" resultMap="BaseResultMap">
+  	select 
+  	 * 
+  	from bf_bip_customer 
+  	where chassisNumber = #{chassisNumber,jdbcType=VARCHAR}
+  	and fourSStoreId = #{storeId}
+  </select>
+  <!-- 修改本店投保次数 -->
+  <update id="updateInsurNumber">
+  	UPDATE bf_bip_customer c
+	SET c.insurNumber = #{insurNumber},
+		c.renewalType = #{renewalType}
+	WHERE
+		c.fourSStoreId = #{storeId}
+	AND c.chassisNumber = #{chassisNumber};
+  </update>
+
+  <!-- 根据投保类型查询潜客 -->
+  <select id="findLostInsurCustomer"  resultMap="BaseResultMap">
+  	 <![CDATA[ select * from bf_bip_customer where virtualJqxdqr < CURDATE()]]>
+  </select>
+  
+   <update id="reSetCustomer" parameterType="java.util.HashMap" >
+   	update bf_bip_customer 
+   	set 
+   	virtualJqxdqr = #{newVirtualJqxdqr},
+   	status = #{status},
+   	cusLostInsurStatu = #{cusLostInsurStatu}
+   	where customerId = #{customerId}
+   </update>
+   
+   <!-- 更新虚拟保险到期日 -->
+    <update id="updateVirtualJqxdqr" parameterType="java.util.HashMap" >
+   	update bf_bip_customer 
+   	set 
+   	virtualJqxdqr = #{newVirtualJqxdqr}
+   	where customerId = #{customerId}
+   </update>
+   
+	<update id="updateCustomerInfo" parameterType="java.util.Map">
+		update bf_bip_customer
+		<set>
+			<if test="customerDescription != null">customerDescription = #{customerDescription},</if>
+			<if test="sfgyx != null">sfgyx = #{sfgyx},</if>
+			<if test="customerCharacter != null">customerCharacter = #{customerCharacter},</if>
+			<if test="customerSource != null">customerSource = #{customerSource},</if>
+			<if test="certificateNumber != null">certificateNumber = #{certificateNumber},</if>
+			<if test="privilegeProLY != null">privilegeProLY = #{privilegeProLY},</if>
+			<if test="syxrqEnd != null">syxrqEnd = #{syxrqEnd},</if>
+			<if test="carOwner != null">carOwner = #{carOwner},</if>
+			<if test="insured != null">insured = #{insured},</if>
+			<if test="contact != null">contact = #{contact},</if>
+			<if test="contactWay != null">contactWay = #{contactWay},</if>
+			<if test="address != null">address = #{address},</if>
+			<if test="chassisNumber != null">chassisNumber = #{chassisNumber},</if>
+			<if test="engineNumber != null">engineNumber = #{engineNumber},</if>
+			<if test="insuranceCompLY != null">insuranceCompLY = #{insuranceCompLY},</if>
+			<if test="jqxrqEnd != null">insuranceEndDate = #{jqxrqEnd},</if>
+			<if test="zdZheKou != null" >zdZheKou = #{zdZheKou},</if>
+			<if test="carBrand != null">carBrand = #{carBrand},</if>
+			<if test="vehicleModel != null">vehicleModel = #{vehicleModel},</if>
+			<if test="carLicenseNumber != null">carLicenseNumber = #{carLicenseNumber},</if>
+			<if test="registrationDate != null">
+				<if test="registrationDate.trim() != ''">registrationDate = #{registrationDate},</if>
+				<if test="registrationDate.trim() == ''">registrationDate = null,</if>
+			</if>
+			<if test="renewalType != null">renewalType = #{renewalType},</if>
+			<if test="solicitMemberLY != null">solicitMemberLY = #{solicitMemberLY},</if>
+			<if test="insuranceTypeLY != null">insuranceTypeLY = #{insuranceTypeLY},</if>
+			<if test="renewalWay != null">renewalWay = #{renewalWay},</if>
+			<if test="insurNumber != null">insurNumber = #{insurNumber},</if>
+			<if test="insurDateLY != null">
+				<if test="insurDateLY.trim() != ''">insurDateLY = #{insurDateLY},</if>
+				<if test="insurDateLY.trim() == ''">insurDateLY = null,</if>
+			</if>
+			<if test="insuranceCoverageLY != null">insuranceCoverageLY = #{insuranceCoverageLY},</if>
+			<if test="isMaintainAgain != null">isMaintainAgain = #{isMaintainAgain},</if>
+			<if test="maintainNumberLY != null">maintainNumberLY = #{maintainNumberLY},</if>
+			<if test="accidentNumberLY != null">accidentNumberLY = #{accidentNumberLY},</if>
+			<if test="accidentOutputValueLY != null">accidentOutputValueLY = #{accidentOutputValueLY},</if>
+			<if test="serviceConsultantId != null">serviceConsultantId = #{serviceConsultantId},</if>
+			<if test="serviceConsultant != null">serviceConsultant = #{serviceConsultant},</if>
+			<if test="customerLevel != null">customerLevel = #{customerLevel},</if>
+			<if test="remark != null">remark = #{remark},</if>
+			<if test="isInvite != null">isInvite = #{isInvite},</if>
+			<if test="inviteDate != null">inviteDate = #{inviteDate},</if>
+			<if test="isComeStore != null">isComeStore = #{isComeStore},</if>
+			<if test="comeStoreDate != null">comeStoreDate = #{comeStoreDate},</if>
+			<if test="fourSStoreId != null">fourSStoreId = #{fourSStoreId},</if>
+			<if test="fourSStore != null">fourSStore = #{fourSStore},</if>
+			<if test="principalId != null">principalId = #{principalId},</if>
+			<if test="principal != null">principal = #{principal},</if>
+			<if test="clerkId != null">clerkId = #{clerkId},</if>
+			<if test="clerk != null">clerk = #{clerk},</if>
+			<if test="lastYearIsDeal != null">lastYearIsDeal = #{lastYearIsDeal},</if>
+			<if test="cusLostInsurStatu != null">cusLostInsurStatu = #{cusLostInsurStatu},</if>
+			<if test="newVirtualJqxdqr != null">virtualJqxdqr = #{newVirtualJqxdqr},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="bhInsuranceEndDate != null">bhInsuranceEndDate = #{bhInsuranceEndDate},</if>
+			<if test="ifUpdate != null">ifUpdate = #{ifUpdate},</if>
+			<if test="factoryLicenseType != null">factoryLicenseType = #{factoryLicenseType},</if>
+			<if test="carAnnualCheckUpDate != null and carAnnualCheckUpDate != ''">carAnnualCheckUpDate = #{carAnnualCheckUpDate},</if>
+			<if test="insuredLY != null">insuredLY = #{insuredLY},</if>
+			<if test="buyfromThisStore != null">buyfromThisStore = #{buyfromThisStore},</if>
+			<if test="gotThroughNum != null">gotThroughNum = #{gotThroughNum},</if>
+			<if test="contactWayReserve != null">contactWayReserve = #{contactWayReserve},</if>
+			<if test="ifLoan != null">ifLoan = #{ifLoan},</if>
+			<if test="bxInfo != null and bxInfo!= ''">bxInfo = #{bxInfo},</if>
+			<if test="updateStatus != null">updateStatus = #{updateStatus},</if>
+			<if test="bhUpdateTime != null">bhUpdateTime = now(),</if>
+			<if test="nicheng != null">nicheng = #{nicheng},</if>
+		</set>
+		where customerId = #{customerId,jdbcType=INTEGER}
+	</update>
+	
+	 <!-- 更新当前负责人 -->
+  <update id="updatePrincipal" >
+    update bf_bip_customer
+    set principalId = #{principalId,jdbcType=INTEGER},principal = #{principal,jdbcType=VARCHAR}
+    where customerId = #{customerId,jdbcType=INTEGER}
+  </update>
+   <!-- 更新当前业务员 -->
+  <update id="updateClerk" >
+    update bf_bip_customer
+    set clerkId = #{clerkId,jdbcType=INTEGER},clerk = #{clerk,jdbcType=VARCHAR}
+    where customerId = #{customerId,jdbcType=INTEGER}
+  </update>
+  <!-- 更新潜客的上年是否成交的状态 -->
+  <update id="updateLastYearIsDeal" >
+  	update bf_bip_customer 
+  	set lastYearIsDeal = #{lastYearIsDeal} where customerId = #{customerId} 
+  </update>
+	<!-- 定时更新潜客脱保状态 -->
+	<update id="updateInsuracneDateStatuOnTime" parameterType="java.util.HashMap">
+		update bf_bip_customer set cusLostInsurStatu = #{cusLostInsurStatu} where customerId = #{customerId}
+	</update>
+	<!-- 更新客户级别 -->
+	<update id="updateCustomerLevel" parameterType="java.util.HashMap">
+		update bf_bip_customer set customerLevel = #{customerLevel} where customerId = #{customerId}
+	</update>
+	
+	<select id="findCustomerById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select * from bf_bip_customer where customerId = #{customerId}
+	</select>
+	
+	<delete id="deleteByStoreId" parameterType="java.lang.Integer">
+		DELETE
+		FROM
+			bf_bip_customer
+		WHERE
+			fourSStoreId = #{storeId}
+	</delete>
+	
+	<update id="updateCustomerByImport" parameterType="com.bofide.bip.po.Customer">
+		update bf_bip_customer
+		<set>
+			customerCharacter = #{customerCharacter},
+			certificateNumber = #{certificateNumber},
+			syxrqEnd = #{syxrqEnd},
+			carOwner = #{carOwner},
+			insured = #{insured},
+			contact = #{contact},
+			contactWay = #{contactWay},
+			chassisNumber = #{chassisNumber},
+			engineNumber = #{engineNumber},
+			insuranceCompLY = #{insuranceCompLY},
+			insuranceEndDate = #{jqxrqEnd},
+			carBrand = #{carBrand},
+			vehicleModel = #{vehicleModel},
+			carLicenseNumber = #{carLicenseNumber},
+			registrationDate = #{registrationDate},
+			renewalType = #{renewalType},
+			insurNumber = #{insurNumber},
+			insurDateLY = #{insurDateLY},
+			maintainNumberLY = #{maintainNumberLY},
+			accidentNumberLY = #{accidentNumberLY},
+			accidentOutputValueLY = #{accidentOutputValueLY},
+			remark = #{remark},
+			principalId = #{principalId},
+			principal = #{principal},
+			clerkId = #{clerkId},
+			clerk = #{clerk},
+			factoryLicenseType = #{factoryLicenseType},
+			ifLoan = #{ifLoan},
+			serviceConsultantId = #{serviceConsultantId},
+			serviceConsultant = #{serviceConsultant},
+			lastYearIsDeal = #{lastYearIsDeal},
+			virtualJqxdqr = #{virtualJqxdqr},
+			<if test="status != null">status = #{status},</if>
+			<if test="importFlag != null">importFlag = #{importFlag},</if>
+		</set>
+		where customerId = #{customerId,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 存放根据壁虎信息修改过的潜客修改前的数据 -->
+	<insert id="insertCustomerToBihu" parameterType="com.bofide.bip.po.Customer" useGeneratedKeys="true" keyProperty="id" >
+    insert into bf_bip_customer_update_bihu (
+    customerId,
+    fourSStoreId, 
+    fourSStore, 
+    carOwner, 
+    insured, 
+    contact, 
+    contactWay, 
+    address, 
+    chassisNumber, 
+    engineNumber, 
+    insuranceCompLY, 
+    insuranceEndDate, 
+    carBrand, 
+    vehicleModel, 
+    carLicenseNumber, 
+    registrationDate, 
+    renewalType, 
+    solicitMemberLY, 
+    insuranceTypeLY,
+    renewalWay, 
+    insurNumber, 
+    insurDateLY, 
+    insuranceCoverageLY, 
+    isMaintainAgain, 
+    maintainNumberLY, 
+    accidentNumberLY, 
+    accidentOutputValueLY, 
+    serviceConsultant,
+    remark, 
+    principal, 
+    principalId, 
+    privilegeProLY, 
+    insuranceNumber, 
+    certificateNumber, 
+    serviceConsultantId, 
+    customerSource, 
+    customerCharacter, 
+    sfgyx, 
+    status, 
+    syxrqEnd,
+    virtualJqxdqr,
+    clerkId,
+    clerk,
+    lastYearIsDeal,
+    cusLostInsurStatu,
+    customerLevel,
+    bhInsuranceEndDate,
+    updateDate,
+    factoryLicenseType,
+    carAnnualCheckUpDate,
+    insuredLY,
+    buyfromThisStore,
+    contactWayReserve
+    )
+    values (
+    	#{customerId},
+    	#{fourSStoreId}, 
+    	  #{fourSStore}, 
+		  #{carOwner}, 
+	      #{insured}, 
+	      #{contact}, 
+	      #{contactWay}, 
+	      #{address}, 
+	      #{chassisNumber}, 
+	      #{engineNumber}, 
+	      #{insuranceCompLY}, 
+	      #{jqxrqEnd}, 
+	      #{carBrand}, 
+	      #{vehicleModel}, 
+	      #{carLicenseNumber}, 
+	      #{registrationDate}, 
+	      #{renewalType},
+	      #{solicitMemberLY}, 
+	      #{insuranceTypeLY}, 
+	      #{renewalWay}, 
+	      #{insurNumber}, 
+	      #{insurDateLY}, 
+	      #{insuranceCoverageLY}, 
+	      #{isMaintainAgain}, 
+	      #{maintainNumberLY}, 
+	      #{accidentNumberLY}, 
+	      #{accidentOutputValueLY}, 
+	      #{serviceConsultant}, 
+	      #{remark},
+	      #{principal},
+	      #{principalId}, 
+	      #{privilegeProLY}, 
+	      #{insuranceNumber},
+	      #{certificateNumber},
+	      #{serviceConsultantId},
+	      #{customerSource},
+	      #{customerCharacter},
+	      #{sfgyx},
+	      #{status},
+	      #{syxrqEnd},
+	      #{virtualJqxdqr},
+	      #{clerkId},
+	      #{clerk},
+	      #{lastYearIsDeal},
+	      #{cusLostInsurStatu},
+	      #{customerLevel},
+	      #{bhInsuranceEndDate},
+	      now(),
+	      #{factoryLicenseType},
+    	  #{carAnnualCheckUpDate},
+    	  #{insuredLY},
+    	  #{buyfromThisStore},
+    	  #{contactWayReserve}
+	      )
+  </insert>
+  	<!-- 根据店ID查询有持有人的所有潜客 -->
+  	<select id="findAllCustomerByStoreIdYes" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT
+			a.*
+		FROM
+			bf_bip_customer a
+			JOIN bf_bip_customer_assign b ON a.customerId = b.customerId
+			AND b.traceStatu != 3
+			WHERE
+				a.fourSStoreId = #{storeId,jdbcType=INTEGER}
+				AND a.updateStatus = 0
+				LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	<!-- 根据店ID查询没有持有人的所有潜客（不包括分配未接受的） -->
+  	<select id="findAllCustomerByStoreIdNo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT
+			a.*
+		FROM
+			bf_bip_customer a
+		LEFT JOIN bf_bip_customer_assign c ON c.customerId = a.customerId
+		AND IFNULL(c.traceStatu, 0) != 3
+		WHERE 
+			a.fourSStoreId = #{storeId,jdbcType=INTEGER}
+			AND a.customerLevel != 'O'
+			AND a.customerLevel != 'F'
+			AND a.customerLevel != 'S'
+			AND a.updateStatus = 0
+			AND c.customerId IS NULL 
+			LIMIT #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	<!-- 修改壁虎的更新状态 -->
+	<update id="updateCustomerByUpdateStatus" parameterType="com.bofide.bip.po.Customer">
+		update bf_bip_customer
+		<set>
+			updateStatus = 0
+		</set>
+		where fourSStoreId = #{storeId,jdbcType=INTEGER} AND updateStatus !=0
+	</update>
+	<!-- 根据车牌号查询潜客信息 -->
+	<select id="selectByCLNumber" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    	select * from bf_bip_customer where carLicenseNumber = #{carLicenseNumber} and fourSStoreId = #{storeId}
+  	</select>
+	<!-- 每次执行夜间定时任务分配的时候,修复失销后修改保险到期日导致来年不自动分配的潜客数据,但是本年度距离当前150以内的失销暂不考虑 -->
+	<update id="updateCustomerByRepairData" parameterType="java.lang.Integer">
+		UPDATE bf_bip_customer a 
+		INNER JOIN bf_bip_store t ON t.storeId =a.fourSStoreId
+		INNER JOIN bf_bip_traceday_setting s ON s.fourSStoreId = a.fourSStoreId and s.customerLevel = 'Z'
+		SET a.status = 1 
+		where a.fourSStoreId = #{storeId} and a.status =2 and a.customerLevel ='F' 
+			<![CDATA[ and DATEDIFF(a.virtualJqxdqr,CURDATE()) <= s.dayNumber ]]>
+			<![CDATA[ and DATEDIFF(a.virtualJqxdqr,CURDATE()) >0]]>
+			and a.customerId not in(
+				select customerId from bf_bip_operation_record r where r.operationFlag =10 
+					<![CDATA[ and DATEDIFF(CURDATE(),r.operationDate)<=150]]>
+			)
+	</update>
+	<!-- 修复正常状态的潜客进入到已脱保页面的数据 -->
+	<update id="updateYtbCustomerByRepairData">
+		update bf_bip_customer a set a.cusLostInsurStatu =0 
+		where a.cusLostInsurStatu =2 and a.status = 2 and DATEDIFF(a.virtualJqxdqr,CURDATE())>7
+	</update>
+	<!-- 修复正常状态的潜客进入到将脱保页面的数据 -->
+	<update id="updateJtbCustomerByRepairData">
+		update bf_bip_customer a set a.cusLostInsurStatu =0 
+		where a.cusLostInsurStatu =1 and a.status = 2 and DATEDIFF(a.virtualJqxdqr,CURDATE())>7
+	</update>
+	<!-- 查询刚导入的潜客，需要更新保险信息的潜客(大池子) -->
+	<select id="selectByImportFlag" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    	select cu.customerId,cu.fourSStoreId,cu.carLicenseNumber,cu.chassisNumber,cu.insuranceCompLY,cu.engineNumber,
+    	cu.insuranceEndDate,cu.customerLevel,
+    	ca.userId,cu.virtualJqxdqr,
+    	s.shopId shopId ,s.token token 
+    	from bf_bip_customer cu 
+    	LEFT JOIN bf_bip_store s ON cu.fourSStoreId=s.storeId 
+    	LEFT JOIN bf_bip_customer_assign ca on ca.customerId=cu.customerId
+    	where cu.importFlag = #{importFlag}
+  	</select>
+  	<!-- 更新刚导入的潜客，需要更新保险信息的潜客(大池子) 批量-->
+  	<update id="updateBxMessageList" parameterType = "java.util.List">
+  		<foreach item="item"  collection="list" separator=";">
+  		 update bf_bip_customer
+  		 <set>
+	  		 <if test="item.jqxrqEnd != null">
+	  		     insuranceEndDate = #{item.jqxrqEnd,jdbcType=DATE},
+	  		 </if>
+	  		 <if test="item.virtualJqxdqr != null">
+	  		     virtualJqxdqr = #{item.virtualJqxdqr,jdbcType=DATE},
+	  		 </if>
+	  		 <if test="item.syxrqEnd != null">
+	  		     syxrqEnd = #{item.syxrqEnd,jdbcType=DATE},
+	  		 </if>
+	  		 <if test="item.registrationDate != null">
+	  		     registrationDate = #{item.registrationDate,jdbcType=DATE},
+	  		 </if>
+	  		 <if test="item.insuranceCompLY != null">
+	  		     insuranceCompLY = #{item.insuranceCompLY,jdbcType=VARCHAR},
+	  		 </if>
+	  		 <if test="item.engineNumber != null">
+	  		     engineNumber = #{item.engineNumber,jdbcType=VARCHAR},
+	  		 </if>
+	  		 <if test="item.factoryLicenseType != null">
+	  		     factoryLicenseType = #{item.factoryLicenseType,jdbcType=VARCHAR},
+	  		 </if>
+	  		 <if test="item.carOwner != null">
+	  		     carOwner =#{item.carOwner,jdbcType=VARCHAR},
+	  		 </if>
+	  		 <if test="item.insured != null">
+	  		     insured =#{item.insured,jdbcType=VARCHAR},
+	  		 </if>
+	  		 <if test="item.customerCharacter != null">
+	  		     customerCharacter =#{item.customerCharacter,jdbcType=VARCHAR},
+	  		 </if>
+	  		 <if test="item.insuranceTypeLY != null">
+	  		     insuranceTypeLY =#{item.insuranceTypeLY,jdbcType=VARCHAR},
+	  		 </if>
+	  		 <if test="item.certificateNumber != null">
+	  		     certificateNumber =#{item.certificateNumber,jdbcType=VARCHAR},
+	  		 </if>
+	  		 <if test="item.importFlag != null">
+	  		     importFlag =#{item.importFlag,jdbcType=INTEGER}
+	  		 </if>
+  		  </set>
+  		   where customerId = #{item.customerId,jdbcType=INTEGER}
+  		</foreach>
+  	</update>
+  	<!-- 更新刚导入的潜客，需要更新保险信息的潜客(大池子) 单个-->
+  	<!-- <update id="updateBxMessage" parameterType = "java.lang.Integer">
+  		 update bf_bip_customer
+  		 <set>
+	  		 <if test="jqxrqEnd != null">
+	  		     insuranceEndDate = #{jqxrqEnd,jdbcType=DATE},
+	  		 </if>
+	  		 <if test="syxrqEnd != null">
+	  		     syxrqEnd = #{syxrqEnd,jdbcType=DATE},
+	  		 </if>
+	  		 <if test="importFlag != null">
+	  		     importFlag =#{importFlag,jdbcType=INTEGER}
+	  		 </if>
+  		  </set>
+  		   where customerId = #{customerId,jdbcType=INTEGER}
+  	</update>  -->
+</mapper>

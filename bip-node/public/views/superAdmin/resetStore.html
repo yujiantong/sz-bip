@@ -1,0 +1,46 @@
+<div id="resetStoreTip" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 150px; width: 250px; margin-left: -125px; margin-top: -70px;">
+        <div class="scmWindowTitle">
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            是否确认初始化该4S店数据？
+        </div>
+        <div class="scmWindowButton">
+            <input id="resetBtn" type="button" value="确认">
+            <input class="fr closeBtn" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="resetStorebox" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 195px; width: 400px; margin-left: -200px; margin-top: -100px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                初始化4S店数据
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget">
+            <div>
+                <p>用户名：<input style="width: 300px;" type="text" ng-model="resetStore.loginName"></p>
+                <p>密码：<input style="width: 300px;margin-left: 17px;" type="password" ng-model="resetStore.password"></p>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="fr" ng-click="resetStoreSubmit()" type="button" value="确认">
+        </div>
+    </div>
+</div>
+<script>
+    $(".closeBtn").click(function(){
+        $("#resetStoreTip").hide();
+        $("#resetStorebox").hide();
+    });
+
+    $("#resetBtn").click(function(){
+        $("#resetStoreTip").hide();
+        $("#resetStorebox").show();
+    });
+</script>

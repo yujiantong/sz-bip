@@ -1,0 +1,43 @@
+<div id="storeCheckBox" class="scmMaskWindow" style="z-index: 1001;">
+    <div class="scmWindow" style="height: 430px; width: 650px; margin-left: -325px; margin-top: -215px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                选店
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget">
+            <div class="brandleft">
+                <p>可选店：</p>
+                <div class="brands_box">
+                    <ul>
+                        <li ng-repeat="addStore in addStoreAll" ng-show="addStore.state==0" ng-click="chooseStore(addStore)">{{addStore.storeName}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="brandcenter">
+                ↔
+            </div>
+            <div class="brandright">
+                <p>已选店：</p>
+                <div class="brands_box">
+                    <ul>
+                        <li ng-repeat="addedStore in checkedStores" ng-click="deleteStore(addedStore)">{{addedStore.storeName}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="fr closeBtn" type="button" value="取消">
+            <input class="fr" ng-click="makesureStore()" type="button" value="确认">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#storeCheckBox").hide();
+    });
+</script>

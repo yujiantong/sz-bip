@@ -1,0 +1,849 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bofide.bip.mapper.UserMapper">
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.User" >
+    	<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="storeId" property="storeId" jdbcType="INTEGER" />
+    	<result column="jtId" property="jtId" jdbcType="INTEGER" />
+    	<result column="loginName" property="loginName" jdbcType="VARCHAR" />
+    	<result column="userName" property="userName" jdbcType="VARCHAR" />
+    	<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<!-- <result column="password" property="password" jdbcType="VARCHAR" /> -->   
+ 		<result column="roleId" property="roleId" jdbcType="INTEGER" />
+    	<result column="superiorId" property="superiorId" jdbcType="INTEGER" />
+    	<result column="createDate" property="createDate" jdbcType="DATE" />
+    	<result column="deleteDate" property="deleteDate" jdbcType="DATE" />
+    	<result column="deleted" property="deleted" jdbcType="INTEGER" />
+    	<result column="remark" property="remark" jdbcType="VARCHAR" />
+    	<result column="status" property="status" jdbcType="INTEGER" />
+    	<result column="sysMessageId" property="sysMessageId" jdbcType="INTEGER" />
+    	<result column="loginUuId" property="loginUuId" jdbcType="VARCHAR" />
+    	<result column="bspUserId" property="bspUserId" jdbcType="INTEGER" />
+    	<result column="bangTime" property="bangTime" jdbcType="TIMESTAMP" />
+		<result column="bangStatu" property="bangStatu" jdbcType="INTEGER" />
+		<result column="firstLogin" property="firstLogin" jdbcType="INTEGER" />
+		<result column="loginAppUuId" property="loginAppUuId" jdbcType="VARCHAR" />
+		<result column="xinzhuanxu" property="xinzhuanxu" jdbcType="INTEGER" />
+		<result column="xuzhuanxu" property="xuzhuanxu" jdbcType="INTEGER" />
+		<result column="jianzhuanxu" property="jianzhuanxu" jdbcType="INTEGER" />
+		<result column="qianzhuanxu" property="qianzhuanxu" jdbcType="INTEGER" />
+		<result column="shouci" property="shouci" jdbcType="INTEGER" />
+		<result column="unitId" property="unitId" jdbcType="INTEGER" />
+		<result column="defeatClue" property="defeatClue" jdbcType="INTEGER" />
+    	<collection property="role" ofType="com.bofide.bip.po.Role" column="roleId">
+    		<result column="roleId" property="roleId" jdbcType="INTEGER" />
+    		<result column="roleName" property="roleName" jdbcType="VARCHAR" />
+    	</collection>
+    	<collection property="bspUser" ofType="com.bofide.bip.po.BspUser" column="bspUserId">
+    		<result column="bsp_userId" property="bspUserId" jdbcType="INTEGER" />
+	    	<result column="bsp_userName" property="bspUserName" jdbcType="VARCHAR" />
+	    	<result column="bsp_loginName" property="bspLoginName" jdbcType="VARCHAR" />
+	    	<result column="bsp_userPosition" property="bspUserPosition" jdbcType="VARCHAR" />
+	    	<result column="bsp_storeId" property="bspStoreId" jdbcType="INTEGER" />
+    	</collection>
+    	<collection property="storeList" ofType="com.bofide.bip.po.Store" column="storeId">
+    		<result column="storeId" property="storeId" jdbcType="INTEGER" />
+    		<result column="storeName" property="storeName" jdbcType="VARCHAR" />
+    	</collection>
+  	</resultMap>
+  	<resultMap id="userCookieResultMap" type="com.bofide.bip.vo.UserVo" >
+    	<id column="id" property="userId" jdbcType="INTEGER" />
+    	<result column="userName" property="userName" jdbcType="VARCHAR" />
+    	<result column="superiorId" property="superiorId" jdbcType="INTEGER" />
+    	<result column="status" property="status" jdbcType="INTEGER" />
+    	<result column="firstLogin" property="firstLogin" jdbcType="INTEGER" />
+    	<result column="phone" property="phone" jdbcType="VARCHAR" />
+    	<result column="dayNumber" property="dayNumber" jdbcType="INTEGER" />
+    	<result column="jtId" property="jtId" jdbcType="INTEGER" />
+    	<result column="unitId" property="unitId" jdbcType="INTEGER" />
+    	<result column="jtShortName" property="jtShortName" jdbcType="VARCHAR" />
+    	<result column="jtYxqStart" property="jtYxqStart" jdbcType="DATE" />
+    	<result column="jtYxqEnd" property="jtYxqEnd" jdbcType="DATE" />
+    	<collection property="role" ofType="com.bofide.bip.po.Role" column="roleId">
+    		<result column="roleId" property="roleId" jdbcType="INTEGER" />
+    		<result column="roleName" property="roleName" jdbcType="VARCHAR" />
+    	</collection>
+    	<collection property="store" ofType="com.bofide.bip.po.Store" column="storeId">
+    		<result column="storeId" property="storeId" jdbcType="INTEGER" />
+    		<result column="storeName" property="storeName" jdbcType="VARCHAR" />
+    		<result column="shortStoreName" property="shortStoreName" jdbcType="VARCHAR" />
+    		<result column="vaildDate" property="vaildDate" jdbcType="DATE" />
+    		<result column="vaildDateStart" property="vaildDateStart" jdbcType="DATE" />
+    		<result column="bspStoreId" property="bspStoreId" jdbcType="INTEGER" />
+    		<result column="bhDock" property="bhDock" jdbcType="INTEGER" />
+    		<result column="storeBangStatu" property="bangStatu" jdbcType="INTEGER" />
+    		<result column="lockLevel" property="lockLevel" jdbcType="INTEGER" />
+    		<result column="csModuleFlag" property="csModuleFlag" jdbcType="INTEGER" />
+    		<result column="asmModuleFlag" property="asmModuleFlag" jdbcType="INTEGER" />
+    		<result column="saleFlag" property="saleFlag" jdbcType="INTEGER" />
+    		<result column="afterSaleFlag" property="afterSaleFlag" jdbcType="INTEGER" />
+    		<result column="logo" property="logo" jdbcType="INTEGER" />
+    		<result column="cityCode" property="cityCode" jdbcType="VARCHAR" />
+    		<result column="messageBalance" property="messageBalance" jdbcType="DOUBLE"/>
+    	</collection>
+  	</resultMap>
+ 
+	<select id="findAllSubordinate" resultMap="BaseResultMap">
+		select 
+			id,userName 
+		from bf_bip_user 
+		where 
+			superiorId =  #{userId} 
+			<if test="principalId != null">  
+				and id != #{principalId} 
+			</if>  
+			and storeId = #{storeId} 
+			and status != 2
+			and deleted = 0
+	</select>
+	
+	<select id="findSubordinate" resultMap="BaseResultMap">
+		select 
+			id,userName 
+		from bf_bip_user 
+		where 
+			superiorId =  #{userId} 
+			and storeId = #{storeId} 
+			and status != 2
+			and deleted = 0
+	</select>
+	
+	<select id="selectByStoreId" resultMap="BaseResultMap">
+		select
+		 a.*,b.* ,bu.*
+		from bf_bip_user a LEFT JOIN bf_bip_bspUser bu on (a.bspUserId = bu.bsp_userId and a.bangStatu = 1),bf_bip_role b
+		where a.storeId = #{storeId}
+		and a.deleted = 0
+		and a.roleId = b.roleId
+		and b.roleId != 14
+		and b.roleId != 15
+		and b.roleId != 16
+		and b.roleId != 17
+		and b.roleId != 18
+		
+	</select>
+	<select id="findUser_xtyh" resultMap="BaseResultMap">
+		select
+		 a.*,b.* 
+		from bf_bip_user a,bf_bip_role b
+		where a.storeId = 1
+		and a.deleted = 0
+		and a.roleId = b.roleId
+		and b.roleId in (16,17,18)
+		
+	</select>
+	<!-- 行政建店人员可以查询的用户 -->
+	<select id="findUser_xzjd" resultMap="BaseResultMap">
+		select
+		 a.*,b.* 
+		from bf_bip_user a,bf_bip_role b
+		where a.storeId = 1
+		and a.deleted = 0
+		and a.roleId = b.roleId
+		and b.roleId in (16,18,23)
+		
+	</select>
+	<select id="selectUserByStoreId" resultMap="BaseResultMap">
+		select
+		 * 
+		from bf_bip_user 
+		where storeId =  #{storeId,jdbcType=INTEGER}
+		and loginName = #{loginName,jdbcType=VARCHAR}
+		and deleted = 0
+	</select>
+	<!--根据4s店id和roleId查询用户 -->
+	<select id="selectUserByroleId" resultMap="BaseResultMap">
+		select
+		 * 
+		from bf_bip_user 
+		where storeId =  #{storeId,jdbcType=INTEGER}
+		and roleId = #{roleId,jdbcType=INTEGER}
+		and deleted = 0
+	</select>
+	
+	<!-- 软删除用户 -->
+	<update id="updateById" parameterType="java.lang.Integer" >
+    	UPDATE bf_bip_user
+			SET bspUserId = NULL,
+			 bangTime = NULL,
+			 bangStatu = 0,
+			 deleted = 1,
+			 deleteDate =CURDATE()
+			WHERE
+			 id = #{id}
+ 	 </update>
+  
+  	<!-- 修改用户密码 -->
+	<update id="updatePassword" parameterType="java.util.Map" >
+	    update bf_bip_user
+	   	 set
+	        password = #{password,jdbcType=VARCHAR},firstLogin = 0
+	    where
+	     	id = #{id,jdbcType=INTEGER}
+  	</update>
+  	<update id="resetUpdatePassword" parameterType="java.util.Map" >
+	    update bf_bip_user
+	   	 set
+	        password = #{password,jdbcType=VARCHAR},firstLogin = 1
+	    where
+	     	id = #{id,jdbcType=INTEGER}
+  	</update>
+  	<!-- 修改用户密码Ajax -->
+	<update id="updatePwd" parameterType="java.util.Map" >
+	    update bf_bip_user
+	   	 set
+	        password = #{password,jdbcType=VARCHAR},firstLogin = 0
+	    where
+	     	id = #{id,jdbcType=INTEGER}
+  	</update>
+  	<!-- 根据用户名修改用户密码 -->
+	<update id="updatePasswordByLoginName" parameterType="java.util.Map" >
+	    update bf_bip_user
+	   	 set
+	        password = #{password,jdbcType=VARCHAR},firstLogin = 0
+	    where
+	     	loginName = #{loginName}
+  	</update>
+  	
+  	<!-- 修改用户信息 -->
+	<update id="updateUser" parameterType="com.bofide.bip.po.User" >
+	    update bf_bip_user
+	   	  <trim prefix="SET" suffixOverrides=",">  
+	        <if test="loginName != null and loginName != '' ">  
+	            loginName = #{loginName},  
+	        </if>  
+	        <if test="userName != null and userName != '' ">  
+	            userName = #{userName},  
+	        </if>  
+	        <if test="phone != null and phone != '' ">  
+	            phone = #{phone},
+	        </if>  
+	        <if test="email != null and email != '' ">  
+	            email = #{email},
+	        </if>  
+	        <if test="remark != null and remark != '' ">  
+	            remark = #{remark},
+	        </if>
+	        <if test="loginUuId != null and loginUuId != ''">  
+	            loginUuId = #{loginUuId},
+	        </if>
+	        <if test="bspUserId != null and bspUserId != '' ">  
+	            bspUserId = #{bspUserId},
+	        </if>  
+	        <if test="bangStatu != null">  
+	            bangStatu = #{bangStatu},
+	        </if>
+	        <if test="bangTime != null">  
+	            bangTime = #{bangTime},
+	        </if>
+	        <if test="loginAppUuId != null and loginAppUuId != ''">  
+	            loginAppUuId = #{loginAppUuId},
+	        </if>
+	      </trim>  
+	    where
+	     	id = #{id,jdbcType=INTEGER}
+  	</update>
+  	
+  	<!-- 根据4S店Id解除绑定4S店中的有绑定用户 -->
+	<update id="updateUnbindUserbyStoreId" parameterType="java.util.Map" >
+	    update bf_bip_user
+	   	  <trim prefix="SET" suffixOverrides=",">  
+	        <if test="bangStatu != null">  
+	            bangStatu = #{bangStatu},
+	        </if>
+	        <if test="bangTime != null">  
+	            bangTime = #{bangTime},
+	        </if>
+    	  </trim>  
+	    where
+	     	storeId = #{storeId}
+  	</update>
+  	
+  	<!-- 设置用户上级id -->
+	<update id="updateSuperiorId" parameterType="java.util.Map" >
+	    update bf_bip_user
+	   	 set
+	        superiorId = #{superiorId,jdbcType=INTEGER}
+	    where
+	     	id = #{id,jdbcType=INTEGER}
+  	</update>
+  
+  <!-- 重置用户密码 -->
+	<update id="resetPassword" parameterType="java.util.Map" >
+    update bf_bip_user
+   	 set
+        password = "123456"
+    where
+     	id = #{userId,jdbcType=INTEGER}
+  </update>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.bofide.bip.po.User" >
+    insert into bf_bip_user 
+    	(storeId, jtId, loginName, userName, phone, email, password, 
+    	roleId, superiorId, createDate, deleteDate, deleted, remark, status,sysMessageId,unitId)
+    values 
+    	(#{storeId,jdbcType=INTEGER},#{jtId,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR},
+    	#{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+    	#{roleId,jdbcType=INTEGER}, #{superiorId,jdbcType=INTEGER}, CURDATE(),
+    	#{deleteDate,jdbcType=DATE}, #{deleted,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 0,null,#{unitId,jdbcType=INTEGER})
+  </insert>
+
+  
+  <select id="findByRoleId"  resultMap="BaseResultMap">
+  	select * 
+  	from bf_bip_user a, bf_bip_role b 
+  	where a.roleId = b.roleId 
+  	and a.roleId = #{roleId} 
+  	and a.storeId = #{fourSStoreId}
+  	and a.deleted = 0 
+  	and a.status != 2
+  </select>
+  
+   <!-- 禁用出单员是查询店里是否存在出单员 -->
+  <select id="findCountByUserCdy"  resultType="Integer">
+  	select count(*) 
+  	from bf_bip_user a
+    where a.roleId = 1 
+  	and a.storeId = #{storeId}
+  	and a.deleted = 0 
+  	and a.status != 2
+  </select>
+  <!-- 根据登录名和密码查询用户信息 -->
+  <select id="selectUserInfo" resultMap="userCookieResultMap">
+		select
+		 a.*,b.*,s.storeId,s.storeName,s.shortStoreName,s.vaildDate,s.bspStoreId,s.bhDock,s.bangStatu as storeBangStatu,
+		 s.lockLevel,s.csModuleFlag,s.asmModuleFlag,s.saleFlag,s.afterSaleFlag,s.logo,s.cityCode,s.messageBalance,
+		 t.dayNumber,s.vaildDateStart,bl.jtShortName,bl.jtYxqStart,bl.jtYxqEnd
+		from bf_bip_user a inner join bf_bip_role b on a.roleId = b.roleId
+		left join bf_bip_store s on s.storeId = a.storeId 
+		left join bf_bip_traceday_setting t on s.storeId = t.fourSStoreId and t.customerLevel = 'Z'
+		left join bf_bip_bloc bl on a.jtId = bl.jtId 
+		where a.loginName = #{loginName,jdbcType=VARCHAR}
+		and a.password = #{password,jdbcType=VARCHAR}
+		and a.deleted = 0
+		and ifnull(s.deleted,0) != 1
+		and ifnull(bl.jtDeleted,0) != 1
+   </select>
+   
+   <select id="selectUserInfoByBipUserId" parameterType="java.util.Map" resultMap="userCookieResultMap">
+   		select
+		 a.*,b.*,s.storeId,s.storeName,s.shortStoreName,s.vaildDate,s.bspStoreId,s.bhDock,s.bangStatu as storeBangStatu,
+		 s.lockLevel, s.csModuleFlag,s.asmModuleFlag,s.saleFlag,s.afterSaleFlag,s.messageBalance, s.logo, s.vaildDateStart ,s.cityCode 
+		from bf_bip_user a inner join bf_bip_role b on a.roleId = b.roleId
+		left join bf_bip_store s on s.storeId = a.storeId 
+		where a.id = #{bipUserId}
+		and a.deleted = 0
+		and ifnull(s.deleted,0) != 1
+   </select>
+   
+   <!-- 根据登录名查询,验证用户名是否存在 -->
+   <select id="selectByLoginName" resultType="Integer">
+		select
+		 count(*)  
+		from bf_bip_user 
+		where loginName = #{loginName,jdbcType=VARCHAR}
+		and deleted = 0
+	</select>
+	
+	
+	 <!-- 校验密码是否正确 -->
+	<select id="verifyPassword" resultMap="BaseResultMap">
+		select
+		 * 
+		from bf_bip_user 
+		where id =  #{id,jdbcType=INTEGER}
+		and password = #{password,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 查询直属上级 -->
+	<select id="findSuperiorBySuperiorId" parameterType="com.bofide.bip.po.User" resultMap="BaseResultMap">
+		select * from bf_bip_user a,bf_bip_role b where a.roleId = b.roleId and a.id = #{superiorId}
+	</select>
+	
+	 <!-- 查询所有上级用户 -->
+	<select id="selectSuperUser" resultMap="BaseResultMap">
+		select
+		  a.*,b.* 
+		from bf_bip_user a,bf_bip_role b 
+		where a.storeId =  #{storeId,jdbcType=INTEGER} 
+		and a.roleId = b.roleId
+		and a.deleted = 0
+		and a.status = 0
+		and a.roleId in (#{roleId,jdbcType=INTEGER},3,10,11) 
+	</select>
+	 <!-- 根据主键查询用户 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap">
+		<![CDATA[select
+		 * 
+		from bf_bip_user a JOIN  bf_bip_role b 
+		ON a.roleId = b.roleId 
+		WHERE
+		a.status = 0
+		and a.deleted = 0
+		and a.id = #{id,jdbcType=INTEGER} 
+		and a.storeId = #{fourSStoreId,jdbcType=INTEGER}
+		]]>
+	</select>
+	<select id="findRoleByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select * from bf_bip_user a,bf_bip_role b where a.roleId = b.roleId and id = #{workId} and status = 0 and deleted = 0
+	</select>
+	
+	<select id="findRoleByUserId2" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select * from bf_bip_user a,bf_bip_role b where a.roleId = b.roleId and id = #{workId} and status != 2 and deleted = 0
+	</select> 
+	
+	<select id="findFirstAllAssign" resultMap="BaseResultMap">
+		select * from bf_bip_user a,bf_bip_role b where a.roleId = b.roleId  and a.roleId = #{roleId} and a.storeId = #{fourSStoreId} and deleted = 0 and a.status = 0
+	</select>
+	
+	<select id="findPrincipal" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select * from bf_bip_user a, bf_bip_role b 
+		where a.roleId = b.roleId and a.roleId = 2 and a.storeId = #{storeId}
+	</select>
+	
+	 <!-- 更改用户状态0正常1暂停2禁用 -->
+	<update id="updateUserStatus" parameterType="java.util.Map" >
+    update bf_bip_user
+   	 set
+        status = #{status,jdbcType=INTEGER}
+    where
+     	id = #{userId,jdbcType=INTEGER}
+  </update>
+  
+   <!-- 根据4s店id和角色id查询记录 -->
+	<select id="selectByStoreIdAndRoleId" resultMap="BaseResultMap">
+		select
+		 * 
+		from bf_bip_user u
+		inner join bf_bip_role r on u.roleId = r.roleId
+		where u.storeId =  #{storeId,jdbcType=INTEGER}
+		and u.roleId =  #{roleId,jdbcType=INTEGER}
+		and u.deleted = 0
+	</select>
+	
+	 <!-- 根据4s店id查询所有销售顾问和服务顾问 -->
+	<select id="selectAdivserByStoreId" resultMap="BaseResultMap">
+		select
+		 * 
+		from bf_bip_user 
+		where storeId =  #{storeId,jdbcType=INTEGER}
+		and deleted = 0
+		and (roleId = 6
+		or roleId = 8)
+	</select>
+	
+	<select id="findUserByUserIds" parameterType="java.util.ArrayList" resultMap="BaseResultMap">
+		select * from bf_bip_user where id in
+		<foreach collection="list" item="userId" open="(" separator="," close=")">
+  		#{userId}
+  	</foreach>
+	</select>
+	
+	<!-- 根据4s店id和用户id查询用户名 -->
+	<select id="findUserNameByStoreIdAndUserId" resultType="String">
+		select userName from bf_bip_user where storeId = #{storeId} and id = #{userId} and status = 0 and deleted = 0
+	</select>
+	<!-- 根据4s店id和用户名及角色查找用户id -->
+	<select id="findUserIdByUserName" resultMap="BaseResultMap">
+		select * from bf_bip_user u 
+		where u.storeId = #{storeId} and u.userName = #{userName} and u.roleId = #{roleId}
+		and u.deleted = 0;
+	</select>
+	<!-- 根据4s店id和用户名查找业务员id -->
+	<select id="findClerkIdByUserName" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_user u
+		WHERE
+			u.storeId = #{storeId}
+		AND u.userName = #{userName}
+		AND u.roleId IN (6, 8)
+		and u.deleted = 0;
+	</select>
+	
+	<select id="findSuperiorByRoleId" resultMap="BaseResultMap">
+		select * from bf_bip_user c where c.roleId = (
+			select roleId from bf_bip_user a where a.id = (
+				select b.superiorId from bf_bip_user b where b.roleId = #{roleId} group by b.roleId)) 
+				or c.roleId = 3 
+				or c.roleId = 10 
+				or c.roleId= 11 
+				and storeid = #{storeId} 
+	</select>
+	
+	<select id="findAllPrincipal" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+		select * from bf_bip_user where storeId = #{storeId}
+		and deleted = 0 
+		and status != 2
+		and roleId in
+		<foreach item="roleId" index="index" collection="roleIds" open="(" separator="," close=")">  
+  			#{roleId}  
+ 		</foreach>  
+	</select>
+	
+	<select id="findUndering" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+			bf_bip_user a,
+			bf_bip_role c
+		WHERE
+			a.roleId = c.roleId
+		AND deleted = 0
+		AND STATUS != 2
+		AND a.superiorId IN (
+		SELECT
+			id
+		FROM
+			bf_bip_user b
+		WHERE
+			b.roleId = #{roleId}
+		AND b.storeId = #{storeId}
+		)
+	</select>
+	
+	<select id="findStatisticaUndering" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+			bf_bip_user a,
+			bf_bip_role c
+		WHERE
+			a.roleId = c.roleId
+		AND deleted = 0
+		AND a.superiorId IN (
+		SELECT
+			id
+		FROM
+			bf_bip_user b
+		WHERE
+			b.roleId = #{roleId}
+		AND b.storeId = #{storeId}
+		)
+	</select>
+	
+	<select id="findUsersByStoreIdAndRoleId2" resultMap="BaseResultMap">
+		select 
+		*
+		 from bf_bip_user u,bf_bip_role r 
+		 where 
+		 u.roleId = r.roleId
+		 and u.deleted = 0
+		 and u.status != 2 
+		 and u.storeId = #{storeId} 
+		 and u.roleId = #{roleId}
+	</select>
+	
+	<!-- 根据4s店id及角色查找用户 -->
+	<select id="findUsersByStoreIdAndRoleId" resultMap="BaseResultMap">
+		select 
+		*
+		 from bf_bip_user u,bf_bip_role r 
+		 where 
+		 u.roleId = r.roleId
+		 and u.deleted = 0
+		 and u.status = 0
+		 and u.storeId = #{storeId} 
+		 and u.roleId = #{roleId}
+	</select>
+	 <!-- 更改用户系统消息id -->
+	<update id="updateSysMessageId" >
+    update bf_bip_user
+   	 set
+        sysMessageId = #{sysMessageId,jdbcType=INTEGER}
+    where
+     	id = #{userId,jdbcType=INTEGER}
+  </update>
+	<select id="findUserById" resultMap="BaseResultMap">
+		select * from bf_bip_user where id = #{userId}
+	</select>
+	
+	<select id="findUserByIdIsNoDel" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_user
+		WHERE
+			id = #{userId}
+		AND deleted = 0
+		AND storeId = #{storeId}
+	</select>
+	<select id="findBangedUser" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_user u,
+			bf_bip_bspuser bu
+		WHERE
+			u.bspUserId = bu.bsp_userId
+		AND u.storeId = #{storeId}
+		AND u.bangStatu = #{bangStatu}
+	</select>
+	
+	<select id="findBipUser" parameterType="java.util.Map" resultMap="BaseResultMap">
+		<![CDATA[SELECT
+			*
+		FROM
+			bf_bip_user u, bf_bip_role r
+		WHERE
+			u.roleId = r.roleId 
+		AND	storeId = #{bipStoreId}
+		AND u.roleId IN (#{xsgwRole}, #{xsjlRole})
+		AND u.deleted = 0
+		group by userName having count(u.userName) < 2]]>
+	</select>
+	
+	
+	
+	
+	<select id="findBindUserById" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_user u
+		LEFT JOIN bf_bip_bspuser bu ON (u.bspUserId = bu.bsp_userId)
+		WHERE
+			u.id = #{userId}
+		AND u.storeId = #{storeId}
+		AND u.deleted = 0
+		AND u. STATUS != 2
+	</select>
+	
+	
+	<select id="findBindUserByBspUserId" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_user u
+		WHERE
+			u.bspUserId = #{bspUserId}
+		AND u.deleted = 0
+		AND u.bangStatu = 1
+	</select>
+	
+	<select id="findSubordinates" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_user u
+		WHERE
+			u.superiorId = (
+				SELECT
+					id
+				FROM
+					bf_bip_user
+				WHERE
+					roleId = #{roleId}
+				AND storeId = #{storeId}
+			)
+	</select>
+	
+	<select id="findFixData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select * from bf_bip_user where userName = #{principal} and storeId = #{fourSStoreId}
+			and deleted = 0 and status = 0
+	</select>
+	
+	<!-- 根据4s店id和角色id查询用户, 作为持有人下拉框查询条件数据源 -->
+	<select id="selectUserForHolderSearch" resultMap="BaseResultMap">
+		select
+		 * 
+		from bf_bip_user 
+		where storeId =  #{storeId,jdbcType=INTEGER}
+		<if test="roleId != null">and roleId = #{roleId}</if>
+		<if test="roleId == null">and roleId in (2,5,6,8)</if>
+		and deleted = 0
+		and status !=2
+		order by roleId
+	</select>
+	<!-- 根据4s店id查询续保主管 -->
+	<select id="findXBZGByStoreId" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_user u
+		WHERE
+			 storeId = #{storeId}
+			and deleted=0
+			and roleId=3		
+	</select>
+	
+	<!-- 根据潜客id查询持有人 -->
+	<select id="findHolderByCustomerId" resultMap="BaseResultMap">
+		SELECT
+			u.*
+		FROM
+			bf_bip_customer_assign ca JOIN bf_bip_user u ON 
+			ca.userId = u.id AND ifnull(traceStatu, 0) != 3
+		WHERE
+			 ca.customerId = #{customerId}		
+	</select>
+	
+	<select id="findUserHoldCustomerNum" resultType = "java.util.HashMap">
+		SELECT
+			u.id as userId,
+			ifnull(t.countValues, 0) as holdNum
+		FROM
+			bf_bip_user u
+		LEFT JOIN (
+			SELECT
+				ifnull(count(1), 0) AS countValues,
+				userId AS userId
+			FROM
+				bf_bip_customer_assign ca,
+				bf_bip_customer c
+			WHERE
+				c.customerId = ca.customerId
+			AND ifnull(traceStatu, 0) != 3
+			AND c.fourSStoreId = #{fourSStoreId}
+			AND c.renewalType = #{renewalType}
+			GROUP BY
+				ca.userId
+		) t ON u.id = t.userId
+		WHERE
+			u.deleted = 0
+		AND u. STATUS = 0
+		AND storeId = #{fourSStoreId}
+		AND roleId = #{roleId}
+		ORDER BY t.countValues
+	</select>
+	
+	
+	<select id="findUsersByStoreId" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_user
+		WHERE
+			storeId = #{storeId}
+		AND deleted = 0
+		AND STATUS = 0
+		AND roleId = 2
+	</select>
+	
+	<!-- 用于平均分配查询用户 -->
+	<select id="findUserByDistribution" resultType = "java.util.HashMap" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_user u
+		WHERE
+			u.deleted = 0
+		AND u.STATUS = 0
+		AND u.storeId = #{fourSStoreId}
+		AND u.roleId = #{roleId}
+		<if test="renewalType != null and renewalType == 2">AND u.xinzhuanxu = 0</if>
+		<if test="renewalType != null and renewalType == 3">AND u.xuzhuanxu = 0</if>
+		<if test="renewalType != null and renewalType == 4">AND u.jianzhuanxu = 0</if>
+		<if test="renewalType != null and renewalType == 5">AND u.qianzhuanxu = 0</if>
+		<if test="renewalType != null and renewalType == 6">AND u.shouci = 0</if>
+		<if test="renewalType != null and renewalType == 7">AND u.defeatClue = 0</if>
+		ORDER BY u.userName
+	</select>
+	
+	<!-- 用于平均分配修改用户 -->
+	<update id="updateUserByDistribution" parameterType="java.util.Map" >
+	    update bf_bip_user u
+		    <trim prefix="SET" suffixOverrides=",">
+		        <if test="renewalType != null and renewalType == 2">u.xinzhuanxu = #{num},</if>
+		        <if test="renewalType != null and renewalType == 3">u.xuzhuanxu = #{num},</if>
+		        <if test="renewalType != null and renewalType == 4">u.jianzhuanxu = #{num},</if>
+		        <if test="renewalType != null and renewalType == 5">u.qianzhuanxu = #{num},</if>
+		        <if test="renewalType != null and renewalType == 6">u.shouci = #{num},</if>
+		        <if test="renewalType != null and renewalType == 7">u.defeatClue = #{num},</if>
+	    	 </trim>  
+		    <where>
+		    	<if test="userId != null">and u.id = #{userId}</if>
+		    	<if test="storeId != null">and u.storeId = #{storeId}</if>
+		    	<if test="roleId != null">and u.roleId = #{roleId}</if>
+		    </where>
+  	</update>
+  	<!-- 用于解决死锁先查询后更新(查询) -->
+  	<select id="findUserByResolveDeadlock"  resultType = "java.util.HashMap" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_user u
+		WHERE
+			u.deleted = 0
+		AND u.STATUS = 0
+		<if test="storeId != null and storeId !='' ">AND u.storeId = #{storeId}</if>
+		<if test="roleId != null and roleId !='' ">AND u.roleId = #{roleId}</if>
+		<if test="userId != null and userId !='' ">AND u.id = #{userId}</if>
+		ORDER BY u.userName
+	</select>
+	<!-- 用于解决死锁先查询后更新(更新) -->
+	<update id="updateUserByResolveDeadlock" parameterType="java.util.Map" >
+	    update bf_bip_user u
+		    <trim prefix="SET" suffixOverrides=",">
+		        <if test="renewalType != null and renewalType == 2">u.xinzhuanxu = #{num},</if>
+		        <if test="renewalType != null and renewalType == 3">u.xuzhuanxu = #{num},</if>
+		        <if test="renewalType != null and renewalType == 4">u.jianzhuanxu = #{num},</if>
+		        <if test="renewalType != null and renewalType == 5">u.qianzhuanxu = #{num},</if>
+		        <if test="renewalType != null and renewalType == 6">u.shouci = #{num},</if>
+		        <if test="renewalType != null and renewalType == 7">u.defeatClue = #{num},</if>
+	    	 </trim>  
+		    <where>
+		    	<if test="userId != null and userId !='' ">and u.id = #{userId}</if>
+		    </where>
+  	</update>
+  	
+  	<!-- 集团管理员能查到的用户 -->
+	<select id="findUser_jtgl" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+			a.*, b.*
+		FROM
+			bf_bip_user a
+		LEFT JOIN bf_bip_role b ON a.roleId = b.roleId
+		WHERE
+			a.deleted = 0
+		AND a.roleId != 40
+		AND a.jtId = #{jtId}
+		<if test="loginName != null and loginName !=''">AND a.loginName like '%${loginName}%'</if>
+		<if test="userName != null and userName !=''">AND a.userName like '%${userName}%'</if>
+	</select>
+	
+	<!-- 根据电话号码查询 -->
+	<select id="selectUserByPhone" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_user
+		WHERE
+			deleted = 0
+		AND phone = #{phone,jdbcType=INTEGER}
+	</select>
+	<!-- 根据用户名查询 -->
+	<select id="selectByLoginNameAjax" resultMap="BaseResultMap">
+		select
+		  *
+		from bf_bip_user 
+		where loginName = #{loginName,jdbcType=VARCHAR}
+		and deleted = 0 and roleId = 14
+	</select>
+	<!-- 删除集团下面的所有潜客,软删除 -->
+	<update id="deleteUserByJtid" parameterType="java.util.Map" >
+		update bf_bip_user u
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="deleted != null">u.deleted = #{deleted},</if>
+			<if test="deleteDate != null ">u.deleteDate = #{deleteDate},</if>
+		</trim>  
+		<where>
+			<if test="jtId != null">and u.jtId = #{jtId}</if>
+		</where>
+	</update>
+	
+	<!-- 查询区域分析师和店的关系-行政建店 -->
+ 	 <select id="findUser_xzjd_store" resultMap="BaseResultMap">
+		SELECT
+			a.*, b.storeId,
+			b.storeName
+		FROM
+			bf_bip_user a
+		LEFT JOIN bf_bip_store b ON find_in_set(a.id,b.dataAnalystIds)
+		WHERE a.roleId = 23 and a.deleted = 0
+		ORDER BY a.id
+	</select>
+</mapper>

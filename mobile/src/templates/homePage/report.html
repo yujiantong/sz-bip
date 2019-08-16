@@ -1,0 +1,53 @@
+<ion-view view-title="保险报表" >
+  <ion-nav-buttons side="left">
+    <img ng-if="ctrl.storeLogo==1||ctrl.storeLogo==null" class="titleImg" src="img/LOGO-WHITE.png">
+    <img ng-if="ctrl.storeLogo==2" class="titleImg" src="img/chipLOGO-WHITE.png">
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="bip-nav">
+      <ul class="bip-nav-tabs row">
+        <li class="col col-50" ng-class="{'active':ctrl.dailyReport}" ng-click="ctrl.ReportTab(1)">日报</li>
+        <li class="col col-50"ng-class="{'active':ctrl.monthReport}" ng-click="ctrl.ReportTab(2)">月报</li>
+      </ul>
+    </div>
+    <div class="bip-tab-content">
+      <div class="bip-tab-pane" ng-class="{'active':ctrl.dailyReport}">
+        <div class="list">
+          <a class="item item-icon-right"  ng-click="ctrl.stateChange('dailyWorker')">
+            日报-分工作人员
+            <i class="icon ion-chevron-right icon-accessory"></i>
+          </a>
+          <a class="item item-icon-right" ng-click="ctrl.stateChange('dailyCompany')">
+            日报-分保险公司
+            <i class="icon ion-chevron-right icon-accessory"></i>
+          </a>
+        </div>
+      </div>
+      <div class="bip-tab-pane" ng-class="{'active':ctrl.monthReport}">
+        <div class="list">
+          <a class="item item-icon-right" ng-click="ctrl.stateChange('monthRenewal')">
+            月报-当期续保数
+            <i class="icon ion-chevron-right icon-accessory"></i>
+          </a>
+          <a class="item item-icon-right" ng-click="ctrl.stateChange('monthZhxbs')">
+            月报-综合续保数
+            <i class="icon ion-chevron-right icon-accessory"></i>
+          </a>
+          <a class="item item-icon-right" ng-click="ctrl.stateChange('monthCompany')">
+            月报-分保险公司
+            <i class="icon ion-chevron-right icon-accessory"></i>
+          </a>
+          <a class="item item-icon-right" ng-click="ctrl.stateChange('monthXbzy')">
+            月报-续保专员
+            <i class="icon ion-chevron-right icon-accessory"></i>
+          </a>
+          <a class="item item-icon-right" ng-click="ctrl.stateChange('monthCdy')">
+            月报-出单员
+            <i class="icon ion-chevron-right icon-accessory"></i>
+          </a>
+        </div>
+       <!-- <div class="padding text-center">此功能正在开发中，敬请期待！</div>-->
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

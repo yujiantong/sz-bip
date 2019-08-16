@@ -1,0 +1,57 @@
+<div id="bindStorebox" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 410px; width: 700px; margin-left: -350px; margin-top: -200px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                绑定4S店
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget">
+            <div style="height:285px ">
+                <table class="addstore-table" style="text-align: left;">
+                    <tr>
+                        <td width="100">BIP店名：</td>
+                        <td><input type="text" style="width: 550px;" ng-model="bindStore.storeName" readonly></td>
+                    </tr>
+                    <tr>
+                        <td width="100">待绑定4S店：</td>
+                        <td><input type="text" style="width: 550px;" ng-model="bindStore.bspStoreName" readonly></td>
+                    </tr>
+                    <tr>
+                        <td width="" >搜索4S店：</td>
+                        <td>
+                            <input type="text" style="width: 550px;" ng-model="SearchBspStore" autocomplete="off">
+                            <ul class="bind_bsp_store">
+                                <li ng-repeat="bsp_store in bsp_stores | filter:SearchBspStore | orderBy:'bsp_store.bspStoreName'"
+                                    ng-click="select_bsp_store(bsp_store)">{{bsp_store.bspStoreName}}</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <b>提示：</b>1.对于已经绑定过的4S店将不会出现在此列表。
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="fr" ng-click="bip_bind_bsp_store()" type="button" value="确认">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#bindStorebox").hide();
+    });
+    $('.coverDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN'
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });
+</script>

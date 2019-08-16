@@ -1,0 +1,12 @@
+<div id="exportReportData">
+    <table id="targetTable" border="1">
+        <thead>
+        <tr align="center">
+            <th style="width: 100px" ng-repeat="th in exportReportData.title">{{th}}</th>
+        </tr> </thead><tbody>
+    <tr align="center" ng-repeat="exportCus in exportReportData.content">
+        <td>{{$index+1}}</td>
+        <td ng-repeat="td in exportCus">{{td.value}}</td>
+    </tr></tbody>
+    </table>
+</div>

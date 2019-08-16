@@ -1,0 +1,294 @@
+<div id="add_bj" class="scmMaskWindow">
+    <div id="bihuRequest"  ng-show="bhDock==1||bhDock==3||bhDock==4" class="scmWindow" style="height: 480px; width: 880px; margin-left: -440px; margin-top: -250px;" ng-click="closeBrandList()">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                报价信息
+            </i>
+            <span class="trackcloseBtn glyphicon glyphicon-remove" ng-click="closeNew_bj()"></span>
+        </div>
+        <div class="scmWindowContent ui-widget" style="height:390px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <h3>行驶证信息：</h3>
+                <span><label>车牌号</label> <input type="text" ng-model="bihubaojia.LicenseNo"></span>
+                <span><label>车架号</label> <input type="text" ng-model="bihubaojia.CarVin"></span>
+                <span><label>发动机号</label> <input type="text" ng-model="bihubaojia.EngineNo"></span>
+                <span><label>注册日期</label> <input type="text" class="coverDate" ng-model="bihubaojia.RegisterDate" readonly></span>
+                <span ng-show="bhDock==4||cityCode==6"><label>品牌型号</label> <input type="text" ng-model="bihubaojia.MoldName"></span>
+                <span style="width: 504px;" class="bfBrand" ng-show="bhDock!=4&&cityCode!=6"><label>品牌型号</label>
+                    <input style="width:380px;margin-right: 0px;" id="moldName" type="text" ng-model="bihubaojia.MoldName" ng-change="">
+                    <button type="button" style="width: 24px;height: 20px;">
+                       <span class="glyphicon glyphicon-search" style="width: 20px;height: 20px;margin-top:0px;" ng-click="searchMoldName();$event.stopPropagation()"></span>
+                    </button>
+                     <ul id="brandList">
+                         <li ng-repeat="car in carModelAll" title="{{car.models}}" ng-click="chooseModel(car)">{{car.models}}</li>
+                     </ul>
+                </span>
+                <span><label>车辆使用性质</label>
+                    <select  ng-model="bihubaojia.CarUsedType" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in carUsedTypes"
+                             ng-change="changeCarUsedType()">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span ng-show="bhDock==4"><label>新车购买价格</label> <input type="text" ng-model="bihubaojia.newCarPrice"></span>
+               <span><label ng-show="bhDock!=4">交强险起保</label><label ng-show="bhDock==4">交强险结束日期</label>
+                    <input type="text" class="coverDate" ng-model="bihubaojia.ForceTimeStamp" readonly>
+                </span>
+                <span><label ng-show="bhDock!=4">商业险起保</label><label ng-show="bhDock==4">商业险结束日期</label>
+                    <input type="text" class="coverDate" ng-model="bihubaojia.BizTimeStamp" readonly>
+                </span>
+                <span ng-show="bihubaojia.CarUsedType==2||bihubaojia.CarUsedType==3"><label>车主证件类型</label>
+                    <select  ng-model="bihubaojia.OwnerIdCardType" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in ownerIdCardTypes">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span ng-show="bihubaojia.CarUsedType==2||bihubaojia.CarUsedType==3"><label>车主姓名</label> <input type="text" ng-model="bihubaojia.CarOwnersName"></span>
+                <span ng-show="bihubaojia.CarUsedType==2||bihubaojia.CarUsedType==3"><label>车主证件号</label> <input type="text" ng-model="bihubaojia.IdCard"></span>
+            </div>
+            <div class="carmsg newBj">
+                <h3>保险公司：</h3>
+                <div class="newBj_box">
+                    <span class="companyBj" ng-repeat="insuranceCompName in insuranceCompNames">
+                        <label class="bjInsuranceComp">{{insuranceCompName.insuranceCompName}}</label>
+                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="insuranceCompName.sfbj">报价
+                    </span>
+                </div>
+            </div>
+            <div class="carmsg newBj">
+                <h3>投保险种：</h3>
+                <div class="newBj_box">
+                    <label class="checkbox-inline"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.ForceTax">交强+车船</label>
+                    <label class="checkbox-inline"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.CheSun">机动车损失保险</label>
+                    <label class="checkbox-inline"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.BuJiMianCheSun">不计免赔险(车损)</label>
+                    <div class="newBj_qt">
+                        <label class="checkbox-inline namexz"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.SanZheck">第三者责任保险</label>
+                        <select class="bxxz" ng-model="bihubaojia.SanZhe" ng-disabled="bihubaojia.SanZheck!=1"  ng-options="x.value as x.site for x in SanZhes">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                    <label class="checkbox-inline"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.BuJiMianSanZhe">不计免赔险(三者)</label>
+                    <div class="newBj_qt">
+                        <label class="checkbox-inline namexz" >
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-change="sjCheck()"
+                                   ng-model="bihubaojia.SiJick">车上人员责任险(司机)
+                        </label>
+                        <input type="number"  ng-disabled="bihubaojia.SiJick!=1" class="bxxz" step="10000"
+                               min="10000" max="300000" ng-model="bihubaojia.SiJi">
+                    </div>
+                    <label class="checkbox-inline"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.BuJiMianSiJi">不计免司机</label>
+                    <div class="newBj_qt">
+                        <label class="checkbox-inline namexz">
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-change="ckCheck()"
+                                   ng-model="bihubaojia.ChengKeck">车上人员责任险(乘客)
+                        </label>
+                        <input type="number" ng-disabled="bihubaojia.ChengKeck!=1" class="bxxz" step="10000"
+                               min="10000" max="300000" ng-model="bihubaojia.ChengKe">
+                    </div>
+                    <label class="checkbox-inline"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.BuJiMianChengKe">不计免乘客</label>
+                    <label class="checkbox-inline"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.DaoQiang">全车盗抢保险</label>
+                    <label class="checkbox-inline"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.BuJiMianDaoQiang">不计免赔险(盗抢)</label>
+                    <div class="newBj_qt">
+                        <label class="checkbox-inline namexz"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.BoLick">玻璃单独破碎险</label>
+                        <select ng-model="bihubaojia.BoLi" ng-disabled="bihubaojia.BoLick!=1" class="bxxz" ng-options="x.value as x.site for x in BoLis">
+                        </select>
+                    </div>
+                    <div class="pd5 mt10"></div>
+                    <div class="newBj_qt">
+                        <label class="checkbox-inline namexz"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.HuaHenck">车身划痕损失险</label>
+                        <select class="bxxz" ng-model="bihubaojia.HuaHen" ng-disabled="bihubaojia.HuaHenck!=1"  ng-options="x for x in HuaHens">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                    <label class="checkbox-inline"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.BuJiMianHuaHen">不计免划痕</label>
+                    <label class="checkbox-inline"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.ZiRan">自燃损失险</label>
+                    <label class="checkbox-inline"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.BuJiMianZiRan">不计免自燃</label>
+                    <label class="checkbox-inline"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.SheShui">涉水行驶损失险</label>
+                    <label class="checkbox-inline"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.BuJiMianSheShui">不计免涉水</label>
+                    <label class="checkbox-inline"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.HcSanFangTeYue">机动车损失保险无法找到第三方特约险</label>
+                    <div class="newBj_qt">
+                        <label class="checkbox-inline namexz"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.HcHuock">车上货物责任险</label>
+                        <input type="number" class="bxxz" ng-disabled="bihubaojia.HcHuock!=1"  ng-model="bihubaojia.HcHuoWuZeRen">
+                    </div>
+                    <label ng-show=" bhDock!=4" class="checkbox-inline"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.HcSheBeiSunshi">新增设备损失险</label>
+                    <div class="newBj_qt">
+                        <label class="checkbox-inline namexz"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.HcJingShenck" ng-disabled="!(bihubaojia.SiJick==1||bihubaojia.ChengKeck==1||bihubaojia.SanZheck==1)">精神损失抚慰金责任险</label>
+                        <input type="number" class="bxxz"  ng-disabled="bihubaojia.HcJingShenck!=1"  ng-model="bihubaojia.HcJingShenSunShi">
+                    </div>
+                    <label class="checkbox-inline"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.BuJiMianJingShenSunShi">不计免精神损失</label>
+                    <div class="newBj_qt">
+                        <label class="checkbox-inline namexz"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.HcFeiYongck">修理期间费用补偿险</label>
+                        <input type="number" class="bxxz" ng-disabled="bihubaojia.HcFeiYongck!=1"  ng-model="bihubaojia.HcFeiYongBuChang">
+                    </div>
+                    <div class="newBj_qt">
+                        <label class="checkbox-inline namexz"><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="bihubaojia.HcXiuLick">指定修理厂险</label>
+                        <input type="number" class="bxxz"  ng-disabled="bihubaojia.HcXiuLick!=1"  ng-model="bihubaojia.HcXiuLiChang">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input ng-show="bhDock==4" class="surebtn" ng-click="bofideQuote(1)" type="button" value="申请报价">
+            <input ng-show="bhDock==4" class="surebtn" ng-click="bofideQuote(2)" type="button" value="申请报价(行驶证)">
+            <input ng-show="bhDock!=4" class="surebtn" ng-click="bihuQuote_b(1)" type="button" value="申请报价">
+            <input ng-show="bhDock!=4" class="surebtn" ng-click="bihuQuote_b(2)" type="button" value="申请报价(行驶证)">
+            <input class="trackcloseBtn" ng-click="closeNew_bj()" type="button" value="关闭">
+        </div>
+    </div>
+    <div id="bihubaojia" class="scmWindow" style="height: 500px; width: 880px; margin-left: -440px; margin-top: -250px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                报价信息
+            </i>
+            <span class="trackcloseBtn closeBjResult glyphicon glyphicon-remove" ></span>
+        </div>
+        <div class="scmWindowContent ui-widget" style="height:410px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <span><label>车牌号：</label> <input type="text" ng-model="bihuquote.xbInfo.UserInfo.LicenseNo"></span>
+                <span><label>车架号：</label> <input type="text" ng-model="bihuquote.xbInfo.UserInfo.CarVin" readonly></span>
+                <span><label>车型号：</label> <input type="text" ng-model="bihuquote.xbInfo.UserInfo.ModleName"></span>
+                <span><label>出险：</label> <input type="text" ng-model="bihuquote.accidentNumberLY"></span>
+                <span><label>理赔：</label> <input type="text" ng-model="bihuquote.PayAmount"></span>
+                <span><label>交强险起保：</label> <input type="text" class="coverDate" ng-model="bihuquote.xbInfo.UserInfo.NextForceStartDate" readonly></span>
+                <span><label>商业险起保：</label> <input type="text" class="coverDate" ng-model="bihuquote.xbInfo.UserInfo.NextBusinessStartDate" readonly></span>
+            </div>
+            <div class="carmsg">
+                <table id="BjTab">
+                    <tr>
+                        <td  ng-class="{'active':$index==0}" ng-repeat="bihuComp in bihuComps">
+                            <span>{{bihuComp.insuranceCompName}}{{bihuComp.shijize | number:2}}元{{bihuComp.quotationNo}}</span>
+                            <span ng-if="bihuComp.bJinfo.Item.QuoteStatus==1" class="glyphicon glyphicon-ok green">
+                            
+                            </span>
+                            <span ng-if="bihuComp.bJinfo.Item.QuoteStatus!=1 && bihuComp.source!=0" class="glyphicon glyphicon-remove red"></span>
+                            <span ng-if="bihuComp.source==0" class="red">无法获取</span>
+                        </td>
+                    </tr>
+                </table>
+                <div id="BjTabContent" >
+                    <div class="Bjconbox"  ng-class="{'none':$index!=0}" ng-repeat="bihuComp in bihuComps" ng-init="BjTab()">
+                        <div class="red pd5" ng-if="bihuComp.applyBJ.BusinessStatus!=1">{{bihuComp.applyBJ.StatusMessage}}</div>
+                        <div class="red pd5" ng-if="bihuComp.applyBJ.BusinessStatus==1 && bihuComp.bJinfo.BusinessStatus!=1">{{bihuComp.bJinfo.StatusMessage}}</div>
+                        <div class="red pd5" ng-if="bihuComp.applyBJ.BusinessStatus==1 && bihuComp.bJinfo.BusinessStatus==1 &&  bihuComp.bJinfo.Item.QuoteStatus!=1">{{bihuComp.bJinfo.Item.QuoteResult}}</div>
+                        <table class="Bjtable">
+                            <tr>
+                                <td class="text-right">无赔款优惠系数：</td>
+                                <td><input type="number" ng-model="bihuComp.bJinfo.Item.RateFactor1"></td>
+                                <td class="text-right">自主渠道系数：</td>
+                                <td><input type="number" ng-model="bihuComp.bJinfo.Item.RateFactor2"></td>
+                                <td class="text-right">自主核保系数：</td>
+                                <td><input type="number" ng-model="bihuComp.bJinfo.Item.RateFactor3"></td>
+                                <td class="text-right">交通违法系数：</td>
+                                <td><input type="number" ng-model="bihuComp.bJinfo.Item.RateFactor4"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">综合优惠系数：</td>
+                                <td>
+                                    <span style="display: none">{{bihuComp.bJinfo.Item.allFactor=bihuComp.bJinfo.Item.RateFactor1*bihuComp.bJinfo.Item.RateFactor2*bihuComp.bJinfo.Item.RateFactor3*bihuComp.bJinfo.Item.RateFactor4}}</span>
+                                    <span class="inputtype">{{bihuComp.bJinfo.Item.allFactor | number:4}}</span>
+                                </td>
+                                <td class="text-right">标准保费：</td>
+                                <td><input type="number" ng-model="bihuComp.bJinfo.Item.standardPremium"></td>
+                                <td class="text-right">商业险保费：</td>
+                                <td><input type="number" ng-model="bihuComp.bJinfo.Item.BizTotal"></td>
+                                <td class="text-right">交强险保费：</td>
+                                <td><input type="number" ng-model="bihuComp.bJinfo.Item.ForceTotal"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">车船税：</td>
+                                <td><input type="number" ng-model="bihuComp.bJinfo.Item.TaxTotal"></td>
+
+                                <td class="text-right">保费合计(含车船税)：</td>
+                                <td>
+                                    <span style="display: none">{{bihuComp.yj=bihuComp.bJinfo.Item.BizTotal+bihuComp.bJinfo.Item.ForceTotal+bihuComp.bJinfo.Item.TaxTotal||0}}</span>
+                                    <span class="inputtype">{{bihuComp.yj | number:2}}</span>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="Bjxianzhong"style="border-top: 1px solid silver;border-bottom: 1px solid silver">
+                            <span style="font-weight: bold">商业险明细：</span><br>
+                            <span ng-if="bihubaojia.BuJiMianCheSun==1"><label>不计免赔险(车损)：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.BuJiMianCheSun.BaoFei">元</span>
+                            <span ng-if="bihubaojia.BuJiMianDaoQiang==1"><label>不计免赔险(盗抢)：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.BuJiMianDaoQiang.BaoFei">元</span>
+                            <span ng-if="bihubaojia.BuJiMianSanZhe==1"><label>不计免赔险(三者)：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.BuJiMianSanZhe.BaoFei">元</span>
+                            <span ng-if="bihubaojia.BuJiMianChengKe==1"><label>不计免乘客：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.BuJiMianChengKe.BaoFei">元</span>
+                            <span ng-if="bihubaojia.BuJiMianSiJi==1"><label>不计免司机：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.BuJiMianSiJi.BaoFei">元</span>
+                            <span ng-if="bihubaojia.BuJiMianHuaHen==1"><label>不计免划痕：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.BuJiMianHuaHen.BaoFei">元</span>
+                            <span ng-if="bihubaojia.BuJiMianSheShui==1"><label>不计免涉水：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.BuJiMianSheShui.BaoFei">元</span>
+                            <span ng-if="bihubaojia.BuJiMianZiRan==1"><label>不计免自燃：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.BuJiMianZiRan.BaoFei">元</span>
+                            <span ng-if="bihubaojia.BuJiMianJingShenSunShi==1"><label>不计免精神损失：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.BuJiMianJingShenSunShi.BaoFei">元</span>
+                            <span ng-if="bihubaojia.SheShui==1"><label>涉水行驶损失险：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.SheShui.BaoFei">元</span>
+                            <span ng-if="bihubaojia.CheSun==1"><label>机动车损失保险({{bihuComp.bJinfo.Item.CheSun.BaoE || 0}})：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.CheSun.BaoFei">元</span>
+                            <span ng-if="bihubaojia.DaoQiang==1"><label>全车盗抢保险：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.DaoQiang.BaoFei">元</span>
+                            <span ng-if="bihubaojia.ZiRan==1"><label>自燃损失险：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.ZiRan.BaoFei">元</span>
+                            <span ng-if="bihubaojia.HcSheBeiSunshi==1"><label>新增设备损失险：</label><input type="number"num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.HcSheBeiSunshi.BaoFei">元</span>
+                            <span ng-if="bihubaojia.HcSanFangTeYue==1"><label>机动车损失保险无法找到第三方特约险：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.HcSanFangTeYue.BaoFei">元</span>
+                            <span ng-if="bihubaojia.BoLick==1"><label>玻璃单独破碎险：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.BoLi.BaoFei">元</span>
+                            <span ng-if="bihubaojia.SiJick==1"><label>车上人员责任险(司机)({{bihubaojia.SiJi}})：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.SiJi.BaoFei">元</span>
+                            <span ng-if="bihubaojia.SanZheck==1"><label>第三者责任保险({{bihubaojia.SanZhe}})：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.SanZhe.BaoFei">元</span>
+                            <span ng-if="bihubaojia.ChengKeck==1"><label>车上人员责任险(乘客)({{bihubaojia.ChengKe}})：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.ChengKe.BaoFei">元</span>
+                            <span ng-if="bihubaojia.HcHuock==1"><label>车上货物责任险({{bihubaojia.HcHuoWuZeRen}})：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.HcHuoWuZeRen.BaoFei">元</span>
+                            <span ng-if="bihubaojia.HcFeiYongck==1"><label>修理期间费用补偿险({{bihubaojia.HcFeiYongBuChang}})：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.HcFeiYongBuChang.BaoFei">元</span>
+                            <span ng-if="bihubaojia.HuaHenck==1"><label>车身划痕损失险({{bihubaojia.HuaHen}})：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.HuaHen.BaoFei">元</span>
+                            <span ng-if="bihubaojia.HcJingShenck==1"><label>精神损失抚慰金责任险({{bihubaojia.HcJingShenSunShi}})：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.HcJingShenSunShi.BaoFei">元</span>
+                            <span ng-if="bihubaojia.HcXiuLick==1"><label>指定修理厂险({{bihubaojia.HcXiuLiChang}})：</label><input type="number" num-format min="0" step="0.01" ng-model="bihuComp.bJinfo.Item.HcXiuLiChang.BaoFei">元</span>
+                            <span style="font-weight: bold;margin-top: 10px">
+                                <label style="font-weight: bold">不计免合计：</label>
+                                <span style="display: none">{{bihuComp.bJinfo.Item.BuJiMianHeJi.BaoFei =
+                                        bihuComp.bJinfo.Item.BuJiMianCheSun.BaoFei+
+                                        bihuComp.bJinfo.Item.BuJiMianDaoQiang.BaoFei+
+                                        bihuComp.bJinfo.Item.BuJiMianSanZhe.BaoFei+
+                                        bihuComp.bJinfo.Item.BuJiMianChengKe.BaoFei+
+                                        bihuComp.bJinfo.Item.BuJiMianSiJi.BaoFei+
+                                        bihuComp.bJinfo.Item.BuJiMianHuaHen.BaoFei+
+                                        bihuComp.bJinfo.Item.BuJiMianSheShui.BaoFei+
+                                        bihuComp.bJinfo.Item.BuJiMianZiRan.BaoFei+
+                                        bihuComp.bJinfo.Item.BuJiMianJingShenSunShi.BaoFei||0}}</span>
+                                       {{bihuComp.bJinfo.Item.BuJiMianHeJi.BaoFei | number:2}}&nbsp;&nbsp;&nbsp;元
+                            </span>
+                        </div>
+                        <div>
+                            <table class="Bjtable">
+                                <tr><td class="text-center" style="font-weight: bold">店端优惠：</td></tr>
+                                <tr>
+                                    <td class="text-right">商业险折扣：</td>
+                                    <td><input type="number" ng-init="bihuComp.zhekou =1" min="0" step="0.01" ng-model="bihuComp.zhekou" ng-blur="checkZhekou(bihuComp.zhekou)"></td>
+                                    <td class="text-right">现金优惠：</td>
+                                    <td><input type="number" ng-init="bihuComp.youhui =0" min="0" step="0.01" ng-model="bihuComp.youhui"></td>
+                                    <td class="text-right">折后商业险：</td>
+                                    <td><span style="display: none">{{bihuComp.zhehousyx = bihuComp.bJinfo.Item.BizTotal*bihuComp.zhekou-bihuComp.youhui||0}}</span><span class="inputtype">{{bihuComp.zhehousyx | number:2}}</span></td>
+                                    <td class="text-right">应交保费：</td>
+                                    <td><span style="display: none">{{bihuComp.shijize = bihuComp.bJinfo.Item.ForceTotal+bihuComp.bJinfo.Item.TaxTotal+bihuComp.zhehousyx||0}}</span><span class="inputtype">{{bihuComp.shijize | number:2}}</span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="surebtn" ng-click="saveQuote()" type="button" value="保存报价">
+            <input class="surebtn" ng-if="crlboo" ng-click="saveQuote(1)" type="button" value="保存并发送">
+            <input class="trackcloseBtn closeBjResult" type="button" value="关闭">
+        </div>
+
+    </div>
+</div>
+<script>
+    $(".closeBjResult").click(function(){
+        $("#bihubaojia").hide();
+    });
+    $('.coverDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });
+
+
+</script>

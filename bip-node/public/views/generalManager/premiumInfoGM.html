@@ -1,0 +1,47 @@
+<div id="bfdetail" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 500px; width: 1100px; margin-left: -550px; margin-top: -250px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                查看明细
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget changeValue" style="height:405px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <h3>车辆信息</h3>
+                <span><label>车牌号</label> <input type="text" ng-model="custInfo.carLicenseNumber" readonly></span>
+                <span><label>车架号</label> <input type="text" ng-model="custInfo.chassisNumber" readonly></span>
+                <span><label>发动机号</label> <input type="text" ng-model="custInfo.engineNumber" readonly></span>
+                <span><label>品牌</label> <input type="text" ng-model="custInfo.carBrand" readonly></span>
+                <span><label>车型</label> <input type="text" ng-model="custInfo.vehicleModel"readonly></span>
+            </div>
+            <div class="carmsg">
+                <h3>保费信息</h3>
+                <span><label>投保日期</label> <input type="text" ng-model="custInfo.insurDate" readonly></span>
+                <span><label>保费额度</label> <input type="text" ng-model="custInfo.premiumCount" readonly></span>
+                <span><label>手续费金额</label> <input type="text" ng-model="custInfo.factorageCount" readonly></span>
+                <span><label>综合优惠</label> <input type="text" ng-model="custInfo.comprehensiveDiscount" readonly></span>
+                <span><label>优惠现金</label> <input type="text" ng-model="custInfo.privilegeSum" readonly></span>
+                <span><label>赠送成本</label> <input type="text" ng-model="custInfo.giftDiscount"readonly></span>
+                <span><label>实收金额</label> <input type="text" ng-model="custInfo.realPay" readonly></span>
+            </div>
+            <div class="carmsg">
+                <div class="hxtitle"><span class="fs14">赠送信息</span><span class="fs14 fw5" style="width: 150px;margin-left: 600px;">总金额：{{giftInfoAmount | number:2}}</span></div>
+                <div ui-grid="giftInfoPage" style="width: 1031px;height: 250px;"  ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+                </div>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="closeBtn" type="button" value="关闭">
+        </div>
+
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#bfdetail").hide();
+    });
+</script>

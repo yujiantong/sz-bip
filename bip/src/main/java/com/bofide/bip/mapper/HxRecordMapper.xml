@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.HxRecordMapper" >
+	<!-- 添加核销记录 -->
+	<insert id="insert" parameterType="java.util.Map">
+		insert into bf_bip_hx_record(
+			storeId,approvalBillId,giftCode,giftName,giftType,amount,bcxfDetail,surplusNum,thisUseNum,hxTime,hxr,hxrId
+		)values(
+			#{storeId},#{approvalBillId},#{giftCode},#{giftName},#{giftType},#{amount},#{bcxfDetail},
+			#{surplusNum},#{thisUseNum},now(),#{hxr},#{hxrId}
+		)
+	</insert>
+	
+	<!-- 查询所有核销记录 -->
+	<select id="findAllHxRecordByApprovalBillId" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM bf_bip_hx_record r
+		<where>
+			<if test="approvalBillId != null and approvalBillId != ''">
+				AND r.approvalBillId= #{approvalBillId}
+			</if>
+			<if test="storeId != null and storeId != ''">
+				AND r.storeId = #{storeId}
+			</if>
+		</where>
+	</select>
+
+</mapper>

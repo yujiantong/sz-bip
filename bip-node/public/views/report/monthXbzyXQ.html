@@ -1,0 +1,63 @@
+<div id="monthXbzyXQ" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 570px; width: 1100px; margin-left: -550px; margin-top: -280px;">
+        <div class="scmWindowTitle">
+            <span ng-click="hideMonthXbzy()" class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div style="height:500px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <table class="table table-bordered" border="1">
+                <tbody>
+                <tr class="gray">
+                    <td>续保专员</td>
+                    <td>项目</td>
+                    <td>合计</td>
+                    <td>新转续</td>
+                    <td>续转续</td>
+                    <td>间转续</td>
+                    <td>潜转续</td>
+                    <td>首次</td>
+                </tr>
+                </tbody>
+                <tbody ng-repeat="tc in monthXbzyDetail">
+                <tr>
+                    <td rowspan="4" style="vertical-align: middle;">{{tc.userName}}</td>
+                    <td>跟踪人数</td>
+                    <td>{{tc.sum1}}</td>
+                    <td>{{tc.newgzrs}}</td>
+                    <td>{{tc.renewgzrs}}</td>
+                    <td>{{tc.jzxgzrs}}</td>
+                    <td>{{tc.qzxgzrs}}</td>
+                    <td>{{tc.scgzrs}}</td>
+                </tr>
+                <tr>
+                    <td>邀约人数</td>
+                    <td>{{tc.sum2}}</td>
+                    <td>{{tc.newyyrs}}</td>
+                    <td>{{tc.renewyyrs}}</td>
+                    <td>{{tc.jzxyyrs}}</td>
+                    <td>{{tc.qzxyyrs}}</td>
+                    <td>{{tc.scyyrs}}</td>
+                </tr>
+                <tr>
+                    <td>邀约到店人数</td>
+                    <td>{{tc.sum3}}</td>
+                    <td>{{tc.newyyddrs}}</td>
+                    <td>{{tc.renewyyddrs}}</td>
+                    <td>{{tc.jzxyyddrs}}</td>
+                    <td>{{tc.qzxyyddrs}}</td>
+                    <td>{{tc.scyyddrs}}</td>
+                </tr>
+                <tr>
+                    <td>续保车数</td>
+                    <td>{{tc.sum4}}</td>
+                    <td>{{tc.newxbcs}}</td>
+                    <td>{{tc.renewxbcs}}</td>
+                    <td>{{tc.jzxxbcs}}</td>
+                    <td>{{tc.qzxxbcs}}</td>
+                    <td>{{tc.scxbcs}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+</div>

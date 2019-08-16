@@ -1,0 +1,93 @@
+<div class="scmContentTitle">
+   <ul id="myTab" class="cartype nav nav-tabs" style="border-bottom: none;">
+      <li class="active"  href="#jibie"  ng-click="" data-toggle="tab">
+         级别跟踪天数
+      </li>
+      <li  href="#mokuai" data-toggle="tab">
+         模块开启设置
+      </li>
+   </ul>
+</div>
+<div id="myTabContent" class="tab-content" style="padding: 10px 14px;">
+   <div class="tab-pane fade in active" id="jibie" style="overflow-x: auto;overflow-y: hidden;">
+      <table class="mintable">
+         <tbody>
+            <tr>
+               <td colspan="2">级别跟踪天数设置</td>
+            </tr>
+            <tr>
+               <td width="120">级别</td>
+               <td>天数</td>
+            </tr>
+            <tr>
+               <td>A</td>
+               <td><input type="text" value="3">天</td>
+            </tr>
+            <tr>
+               <td>B</td>
+               <td><input type="text" value="7">天</td>
+            </tr>
+            <tr>
+               <td>C</td>
+               <td><input type="text" value="14">天</td>
+            </tr>
+            <tr>
+               <td>D</td>
+               <td><input type="text" value="30">天</td>
+            </tr>
+            <tr>
+               <td>F</td>
+               <td><input type="text" value="3">天</td>
+            </tr>
+            <tr>
+               <td>O</td>
+               <td><input type="text" value="0">天</td>
+            </tr>
+            <tr>
+               <td colspan="2"><input type="button" value="确认"></td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+   <div class="tab-pane fade" id="mokuai">
+      <table class="mintable">
+         <tbody>
+         <tr>
+            <td colspan="3">模块开启设置</td>
+         </tr>
+         <tr>
+            <td width="200">是否启用财务模块</td>
+            <td>
+               <span><input name="caiw" type="radio" value="" />是</span>
+               <span><input name="caiw" type="radio" value="" />否</span>
+            </td>
+
+         </tr>
+         <tr>
+            <td>是否启用返利模块</td>
+            <td>
+               <span><input name="fanli" type="radio" value="" />是</span>
+               <span><input name="fanli" type="radio" value="" />否</span>
+            </td>
+         </tr>
+         <tr>
+            <td>是否启用销售模块</td>
+            <td>
+               <span><input name="xiaos" type="radio" value="" />是</span>
+               <span><input name="xiaos" type="radio" value="" />否</span>
+            </td>
+         </tr>
+         <tr>
+            <td>是否启用售后模块</td>
+            <td>
+               <span><input name="shouh" type="radio" value="" />是</span>
+               <span><input name="shouh" type="radio" value="" />否</span>
+            </td>
+         </tr>
+         <tr>
+            <td colspan="2"><input type="button" value="确认"></td>
+         </tr>
+         </tbody>
+      </table>
+   </div>
+</div>

@@ -1,0 +1,37 @@
+<div style="float:right;font-size:12px;margin-right:5px;" ng-show="!$ctrl.listIsEmpty && $ctrl.dataIsBack">
+  <div style="display:inline-block;">
+    <div class="rectangle" ng-click="$ctrl.chooseDealCountType('deal',!$ctrl.dealType.deal)" ng-class="{'bsp-exceed':$ctrl.dealType.deal}"></div>
+    <span ng-bind="$ctrl.transmit.name[0]"></span>
+  </div>
+  <div style="display:inline-block;margin-left:8px;">
+    <div class="rectangle" ng-click="$ctrl.chooseDealCountType('shouldDeal',!$ctrl.dealType.shouldDeal)" ng-class="{'bsp-blue':$ctrl.dealType.shouldDeal}"></div>
+    <span ng-bind="$ctrl.transmit.name[1]"></span>
+  </div>
+</div>
+<div style="clear:both;padding-bottom:5px;"></div>
+
+<div class="bsp-bars2" ng-repeat="list in $ctrl.transmit.achieve" ng-click="$ctrl.pathTo(list)">
+   <!-- ng-class-odd="'f3f3f3'" -->
+   <!-- ng-class-odd="'odd'" ng-class-even="'even'" -->
+  <div class="bsp-bars-title" ng-bind="list.title"></div>
+  <div style="float:left;width:60%;">
+    <div class="bsp-bar purple" ng-show="$ctrl.dealType.deal">
+      <div class="bsp-bar-inner" ng-style="{width:list.dealPercentage}"></div>
+      <!-- <div class="bsp-bar-numer" ng-style="{left:list.dealPercentage}" ng-bind="list.deal || 0"></div> -->
+    </div>
+    <div class="bsp-bar" ng-show="$ctrl.dealType.shouldDeal" style="margin-top:2px">
+      <!-- <div class="bsp-bar-inner" ng-style="{width:list.shouldDealPercentage}"></div> -->
+      <div class="bsp-bar-inner" ng-style="{width:list.shouldDealPercentage}"></div>
+      <!-- <div class="bsp-bar-numer" ng-style="{left:list.shouldDealPercentage}" ng-bind="list.shouldDeal || 0"></div> -->
+    </div>
+  </div>
+  <div style="float:left;padding-left:6px;width:20%">
+    <span ng-bind="(list.deal || 0) + '/' + (list.shouldDeal || 0)"></span>
+    <span style="float:right;margin-right:10px;" class="light-grey-color icon ion-ios-arrow-right"></span>
+  </div>
+</div>
+<div style="clear:both"></div>
+
+<div ng-if="$ctrl.listIsEmpty" style="text-align:center;margin-top:20px;">
+  无数据
+</div>

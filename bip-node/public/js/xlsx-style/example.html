@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+
+</head>
+<body>
+<h1>XLSX Workbook Example</h1>
+This should automatically download an XLSX file  generated in the browser.
+
+<script
+        src="http://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="./jszip.js"></script>
+<script type="text/javascript" src="./xlsx.full.min.js"></script>
+<script type="text/javascript" src="./workbook.js"></script>
+
+<script type="text/javascript" src="http://sheetjs.com/demos/FileSaver.js"></script>
+
+<script type="text/javascript">
+  console.log('hello');
+
+  var wb = new Workbook_Bip()
+          .addRowsToSheet("Main", [
+            [{v :"This is a merged cell","s": {fill: { fgColor: { rgb: "FFFF0000"}},alignment:{horizontal:"center"}}}],
+            [
+              {"v": "Blank"},
+              {"v": "Red", "s": {fill: { fgColor: { rgb: "FFFF0000"}},alignment:{horizontal:"center"}}},
+              {"v": "Green", "s": {fill: { fgColor: { rgb: "FF00FF00"}}}},
+              {"v": "Blue", "s": {fill: { fgColor: { rgb: "FF0000FF"}}}}
+            ],
+            [
+              {"v": "Normal"},
+              {"v": "Bold", "s": {font: {bold: true}, fill: { fgColor: { rgb: "FFFF0000"}}}},
+              {"v": "Italic", "s": {font: {italic: true}, fill: { fgColor: { rgb: "FF00FF00"}}}},
+              {"v": "Underline", "s": {underline: {bold: true}, fill: { fgColor: { rgb: "FF0000FF"}}}},
+              {"v": "All", "s": {font: {bold: true ,italic: true, underline: true}, fill: { fgColor: { rgb: "FF0000FF"}}}}
+            ],
+            [
+              {"v": "Default"},
+              {"v": "Arial", "s": {font: {name: "Arial", sz: 24}}},
+              {"v": "Times New Roman", "s": {font: {name: "Times New Roman", sz: 16}}},
+              {"v": "Courier New", "s": {font: {name: "Courier New", sz: 14}}}
+            ],
+            [
+              0.618033989,
+              {"v": 0.618033989},
+              {"v": 0.618033989, "t": "n"},
+              {"v": 0.618033989, "t": "n", "s": { "numFmt": "0.00%"}},
+              {"v": 0.618033989, "t": "n", "s": { "numFmt": "0.00%"}, fill: { fgColor: { rgb: "FFFFCC00"}}}
+            ],
+            [
+              {"v": 0.618033989, "t": "n", "s": { "numFmt": "0%"}},
+              {"v": 0.618033989, "t": "n", "s": { "numFmt": "0.0%"}},
+              {"v": 0.618033989, "t": "n", "s": { "numFmt": "0.00%"}},
+              {"v": 0.618033989, "t": "n", "s": { "numFmt": "0.000%"}},
+              {"v": 0.618033989, "t": "n", "s": { "numFmt": "0.0000%"}},
+              {"v": 0, "t": "n", "s": { numFmt: "0.00%;\\(0.00%\\);\\-;@"}, fill: { fgColor: { rgb: "FFFFCC00"}}}
+            ],
+            [
+              {v: (new Date()).toLocaleString()},
+              {v: '323456', t: 'd'},
+              {v: '323456',  s: {numFmt: 'd-mmm-yy'}}
+            ]
+            ,
+            [
+              {v: "left", "s": { alignment: {horizontal: "left"}}},
+              {v: "left", "s": { alignment: {horizontal: "center"}}},
+              {v: "left", "s": { alignment: {horizontal: "right"}}}
+            ],[
+              {v: "vertical", "s": { alignment: {vertical: "top"}}},
+              {v: "vertical", "s": { alignment: {vertical: "center"}}},
+              {v: "vertical", "s": { alignment: {vertical: "bottom"}}}
+            ],[
+              {v: "indent", "s": { alignment: {indent: "1"}}},
+              {v: "indent", "s": { alignment: {indent: "2"}}},
+              {v: "indent", "s": { alignment: {indent: "3"}}}
+            ],
+            [{
+              v: "In publishing and graphic design, lorem ipsum is a filler text commonly used to demonstrate the graphic elements of a document or visual presentation. ",
+              s: { alignment: { wrapText: 1, alignment: 'right', vertical: 'center', indent: 1}}
+            }
+            ],
+
+          ]).mergeCells("Main", {
+            "s": {"c": 0, "r": 0 },
+            "e": {"c": 2, "r": 0 }
+          }).finalize();
+
+  //  $("#out").text(JSON.stringify(wb,null,4));
+  var wopts = { bookType:'xlsx', bookSST:false, type:'binary' ,cellStyles: true};
+
+  var wbout = XLSX.write(wb,wopts);
+
+  function s2ab(s) {
+    var buf = new ArrayBuffer(s.length);
+    var view = new Uint8Array(buf);
+    for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+    return buf;
+  }
+
+  /* the saveAs call downloads a file on the local machine */
+  saveAs(new Blob([s2ab(wbout)],{type:""}), "test.xlsx")
+
+  //
+  //
+  //  var sb = new StyleBuilder()
+  //  sb.addStyle({"numFmt": "0.00", font: {name: 'Calibri', sz: '36'}})
+  //  var xml = sb.toXml()
+  //  console.log(xml)
+  //  $("#out").text(xml.replace(/> /g, '>\n '))
+</script>
+
+</body>
+</html>

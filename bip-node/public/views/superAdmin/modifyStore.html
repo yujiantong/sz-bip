@@ -1,0 +1,264 @@
+<div id="modifyStorebox" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 500px; width: 800px; margin-left: -400px; margin-top: -250px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                修改4S店信息
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget" style="max-height: 415px;overflow-y: auto;">
+            <div class="bloc_box">
+                <table class="bloc-table" style="text-align: left;">
+                    <tr>
+                        <td width="100" class="text-right">店名称：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="modifyStore.storeName" Fieldset disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">工商注册名称：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="modifyStore.registName" maxlength="40" ng-blur="ExistStoreMsg(2)">
+                            <span ng-show="modType2==1" class="glyphicon glyphicon-ok-sign green fs14"></span>
+                            <span ng-show="modType2==0" class="glyphicon glyphicon-remove-sign red fs14"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"><span ng-show="modType2==0">该工商注册名称已存在，不可重复新增</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">店名缩写：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="modifyStore.shortStoreName" Fieldset disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">税号：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="modifyStore.taxNum" maxlength="40"  ng-blur="ExistStoreMsg(4)">
+                            <span ng-show="modType4==1" class="glyphicon glyphicon-ok-sign green fs14"></span>
+                            <span ng-show="modType4==0" class="glyphicon glyphicon-remove-sign red fs14"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"><span ng-show="modType4==0">该税号已存在，不可重复新增</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">店代号：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="modifyStore.code" maxlength="40"  ng-blur="ExistStoreMsg(5)">
+                            <span ng-show="modType5==1" class="glyphicon glyphicon-ok-sign green fs14"></span>
+                            <span ng-show="modType5==0" class="glyphicon glyphicon-remove-sign red fs14"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"><span ng-show="modType5==0">该店代号存在，不可重复新增</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">所属集团：</td>
+                        <td>
+                            <select style="width: 240px;" ng-model="modifyStore.blocId" ng-options="x.jtId as x.jtName for (key,x) in blocSearchAll">
+                                <option value="">请选择</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td width="100" class="text-right">AM账号：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="modifyStore.adminAccount" disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">AM账号密码：</td>
+                        <td><input type="text" style="width: 240px;" value="******" maxlength="128" disabled></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">负责人：</td>
+                        <td><input type="text" style="width: 240px;" ng-model="modifyStore.fzr" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">联系人：</td>
+                        <td><input type="text" style="width: 240px;" ng-model="modifyStore.lxr" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">电话：</td>
+                        <td>
+                            <input type="text" style="width: 240px;" ng-model="modifyStore.phone" maxlength="40" ng-blur="ExistStoreMsg(6)">
+                            <span ng-show="modType6==1" class="glyphicon glyphicon-ok-sign green fs14"></span>
+                            <span ng-show="modType6==0" class="glyphicon glyphicon-remove-sign red fs14"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"><span ng-show="modType6==0">该电话已存在，不可重复新增</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">邮箱：</td>
+                        <td><input type="text" style="width: 240px;" ng-model="modifyStore.email" maxlength="40"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">地址：</td>
+                        <td><input type="text" style="width: 240px;" ng-model="modifyStore.address" maxlength="100"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">页面logo显示：</td>
+                        <td>
+                            <select style="margin-left: 0px;width: 240px;" ng-model="modifyStore.logo"
+                                    ng-options="value.id as value.value for (key,value) in logos">
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div  class="bloc_box">
+                <table class="bloc-table" style="text-align: left;">
+                    <tr>
+                        <td class="text-right">有效使用期：</td>
+                        <td>
+                            <input type="text" style="width: 115px;" ng-model="modifyStore.vaildDateStart" ng-change="nextyear(4)" class="coverDate" readonly>-
+                            <input type="text" style="width: 115px;" ng-model="modifyStore.vaildDate"  class="coverDate" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">车险对接：</td>
+                        <td><label><input type="radio" value="0" name="dockType" ng-model="modifyStore.dockType" ng-click="bjTypeChoose('update',1)">无</label></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right"></td>
+                        <td><label style="margin-top: 10px;"><input type="radio" name="dockType" value="4" ng-model="modifyStore.dockType" ng-click="bjTypeChoose('update',2)">博福续险和报价查询</label></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right"></td>
+                        <td>店ID：<input type="text"  ng-disabled="modifyStore.dockType!=4" style="width: 203px;margin-top: 10px;" ng-model="modifyStore.shopId" maxlength="100"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right"></td>
+                        <td>密钥：<input type="text" ng-disabled="modifyStore.dockType!=4" style="width: 203px;margin-top: 10px;" ng-model="modifyStore.token" maxlength="100"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right"></td>
+                        <td><label style="margin-top: 10px;"><input type="radio" name="dockType" value="5" ng-model="modifyStore.dockType" ng-click="bjTypeChoose('update',3)">其他续险和报价查询</label></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right"></td>
+                        <td>
+                            <label style="margin-top: 10px;"><input type="checkbox" ng-disabled="modifyStore.dockType!=5" ng-true-value="1" ng-false-value="0" ng-model="modifyStore.bhxx">续险查询</label>
+                            <label style="margin-left: 10px;margin-top: 10px;"><input type="checkbox" ng-disabled="modifyStore.dockType!=5" ng-true-value="1" ng-false-value="0" ng-model="modifyStore.bhbj">报价查询</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">车险对接渠道码：</td>
+                        <td><input type="text" style="width: 240px;margin-top: 10px;" ng-disabled="modifyStore.dockType!=5" ng-model="modifyStore.agent" maxlength="100"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">车险对接密钥：</td>
+                        <td><input type="text" style="width: 240px;margin-top: 10px;" ng-disabled="modifyStore.dockType!=5" ng-model="modifyStore.bihuKey" maxlength="100"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">车险对接城市码：</td>
+                        <td><input type="text" style="width: 240px;margin-top: 10px;" ng-disabled="modifyStore.dockType!=5" ng-model="modifyStore.cityCode" maxlength="100"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">短信管理：</td>
+                        <td><label><input type="radio" name="updateSMS" value="0" ng-model="modifyStore.updateSMS">禁用</label></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right"></td>
+                        <td>
+                            <label style="margin-top: 10px;"><input type="radio" name="updateSMS" value="1" ng-model="modifyStore.updateSMS">启用</label>
+                            <label style="margin-top: 10px;">&nbsp;&nbsp;&nbsp;余额：
+                                <label ng-if="modifyStore.messageBalance<=50" style="width: 40px;color: red">{{modifyStore.messageBalance | number:2}}</label>
+                                <label ng-if="modifyStore.messageBalance>50" style="width: 40px;">{{modifyStore.messageBalance | number:2}}</label>
+                                元</label>
+                            <label><button class="rechargeBtn" ng-click="recharge()">充值</button></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right fr">备注：</td>
+                        <td><textarea rows="3" cols="20" style="width: 240px;height: 80px;" ng-model="modifyStore.remark" maxlength="500"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkBloc"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right fr">品牌选定：</td>
+                        <td><textarea rows="3" cols="20" style="width: 240px;height: 60px;" ng-model="modifyStore.carBrand" maxlength="500" readonly></textarea></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button class="brandBtn" style="margin-bottom: 4px" ng-click="checkbrank(2)">选择</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="fr" ng-click="modifyStoreSubmit()" type="button" value="确认">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#modifyStorebox").hide();
+    });
+    $('.coverDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });
+</script>

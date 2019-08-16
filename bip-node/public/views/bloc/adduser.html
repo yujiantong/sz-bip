@@ -1,0 +1,121 @@
+<div id="adduserbox" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 440px; width: 400px; margin-left: -200px; margin-top: -220px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                新建用户
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+
+        <form name="myForm" novalidate="novalidate">
+            <div class="scmWindowContent ui-widget">
+                <div class="carmsg" style="width: 370px; height: 320px;">
+                    <table class="adduser-table" style="line-height: 28px;">
+                        <tr>
+                            <td width="120">所属</td>
+                            <td>
+                                <select style="margin-left: 0px;" ng-init="addnewuser.suoshu = '0'" ng-change="ResetType()" ng-model="addnewuser.suoshu">
+                                    <option value="0">请选择</option>
+                                    <option value="1">集团</option>
+                                    <option value="2">事业部</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr ng-show="addnewuser.suoshu==2">
+                            <td>事业部名称</td>
+                            <td>
+                                <select style="margin-left: 0px;width: 160px" ng-model="addnewuser.division" ng-change="findRole()" ng-options="y.unitName for (x,y) in divisionList">
+                                    <option value="">请选择事业部</option>
+                                </select>
+                                <span class="addsign" ng-click="divisionShow()">+</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>角色分类</td>
+                            <td>
+                                <select style="margin-left: 0px;" ng-init="addnewuser.type = '0'"  ng-change="findRole()" ng-model="addnewuser.type">
+                                    <option value="0">请选择角色分类</option>
+                                    <option ng-show="addnewuser.suoshu!=2" value="集团总">集团总</option>
+                                    <option ng-show="addnewuser.suoshu!=2" value="运营部">运营部</option>
+                                    <option ng-show="addnewuser.suoshu==2" value="事业部总经理">事业部总经理</option>
+                                    <option ng-show="addnewuser.suoshu==2" value="销售部">销售部</option>
+                                    <option ng-show="addnewuser.suoshu==2" value="售后部">售后部</option>
+                                    <option value="市场部">市场部</option>
+                                    <option value="衍生部">衍生部</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>角色选择</td>
+                            <td>
+                                <select style="margin-left: 0px;" ng-model="addnewuser.role" ng-options="y.roleName for (x,y) in BlocRoles">
+                                    <option value="">请选择角色</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>用户姓名</td>
+                            <td><input type="text" ng-model="addnewuser.userName" maxlength="40"></td>
+                        </tr>
+                        <tr>
+                            <td>用户名</td>
+                            <td><input type="text" name="loginName"  ng-model="addnewuser.loginName"
+                                      placeholder="由字母、数字或下划线组成" maxlength="40" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>初始密码</td>
+                            <td><input type="text"  value="123456" Fieldset disabled></td>
+                        </tr>
+                        <tr>
+                            <td>联系电话</td>
+                            <td><input type="text" ng-model="addnewuser.phone"></td>
+                        </tr>
+                        <tr>
+                            <td>邮箱</td>
+                            <td><input type="text"  name="email" ng-model="addnewuser.email" maxlength="40"></td>
+                        </tr>
+                        <tr>
+                            <td>备注</td>
+                            <td><input type="text" ng-model="addnewuser.remark" maxlength="500"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="scmWindowButton">
+                <input class="fr closeBtn"  type="button" value="取消">
+                <input class="fr" ng-click="addUsersubmit()" type="button" value="确认">
+            </div>
+        </form>
+    </div>
+</div>
+<div id="addDivisionBox" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 150px; width: 300px; margin-left: -150px; margin-top: -70px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                添加事业部
+            </i>
+            <span class="closeNewBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            <span class="red">*</span> 事业部名称：<input type="text" style="width:170px;" name="email" ng-model="addnewuser.unitName" >
+        </div>
+        <div class="scmWindowButton">
+            <input ng-click="addDivision()" type="button" value="确认">
+            <input class="fr closeNewBtn" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#adduserbox").hide();
+    });
+    $(".closeNewBtn").click(function(){
+        $("#addDivisionBox").hide();
+    });
+</script>

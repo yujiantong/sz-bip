@@ -1,0 +1,28 @@
+<div id="notice" class="scmMaskWindow" style="z-index: 990;">
+    <div class="scmWindow" style="height: 400px; width: 710px; margin-left: -355px; margin-top: -200px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                个人通知内容
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmUpdateContent" style="height: 310px;">
+            <ul class="noticeUl">
+                <li ng-repeat="topMessage in topMessages">
+                    <span class="noticeTime">{{topMessage.messageDate | date:'yyyy-MM-dd HH:mm'}}</span>
+                    <span class="noticeContant" id="messageCount">{{topMessage.content}}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="scmWindowButton">
+            <input class="closeBtn" type="button" value="关闭">
+        </div>
+    </div>
+</div>
+<script>
+    $(".closeBtn").click(function(){
+        $("#notice").hide();
+    });
+</script>

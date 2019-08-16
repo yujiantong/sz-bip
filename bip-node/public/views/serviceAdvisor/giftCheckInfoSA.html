@@ -1,0 +1,82 @@
+<div id="hxdetail" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 500px; width: 1100px; margin-left: -550px; margin-top: -250px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                赠送核销
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget changeValue" style="height:500px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <h3>车辆信息</h3>
+                <span><label>车牌号</label> <input type="text" ng-model="custInfo.carLicenseNumber" readonly></span>
+                <span><label>车架号<em class="emphasis">*</em></label> <input type="text" ng-model="custInfo.chassisNumber" readonly></span>
+                <span><label>发动机号</label> <input type="text" ng-model="custInfo.engineNumber" readonly></span>
+                <span><label>上牌日期</label> <input type="text" ng-model="custInfo.registrationDate" readonly></span>
+            </div>
+            <div class="carmsg">
+                <ul id="gz_tab" class="cartype_gz nav nav-tabs">
+                    <li class="active text-center" ng-click="tabBtnShow(1)" style="width: 80px;" href="#zshx" data-toggle="tab">
+                        赠送核销
+                    </li>
+                    <li class="text-center"ng-click="tabBtnShow(2)" href="#hxjl" style="width: 80px;" data-toggle="tab">
+                        核销记录
+                    </li>
+                    <li ng-click="findAllHxRecord(3)" class="text-center" href="#zpall" style="width: 80px;" data-toggle="tab">
+                        全部
+                    </li>
+                </ul>
+                <div class="tab-content mt10" id="gz_tab_grid" style="width: 1050px;height: 250px;" >
+                    <div class="tab-pane fade in active" id="zshx">
+                        <div ui-grid="giftInfoPage" style="width: 1050px;height: 250px;"  ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="hxjl">
+                        <div ui-grid="giftdyInfoPage" style="width: 1050px;height: 250px;"  ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="zpall">
+                        <div ui-grid="giftAllInfoPage" style="width: 1050px;height: 250px;"  ui-grid-pinning  ui-grid-resize-columns ui-grid-selection>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input id="hxbc" type="button" ng-click="updateGiftInfo()" value="保存">
+            <input id="hxdy" ng-click="printHxPdf()" type="button" value="打印">
+            <input class="closeBtn" type="button" value="关闭">
+        </div>
+    </div>
+</div>
+<div>
+    <iframe onload=""  id="iframe"> </iframe>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#hxdetail").hide();
+    });
+    $('.coverDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });
+    $('.carDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });;
+</script>

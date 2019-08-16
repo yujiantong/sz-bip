@@ -1,0 +1,51 @@
+<ion-view view-title="{{ctrl.contact}} 跟踪记录" >
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios-arrow-left fcf" ui-sref="csnbCustomerDetails({userId:ctrl.userId,userName:ctrl.userName,customerId:ctrl.customerId})"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="bip-nav">
+      <ul class="bip-nav-tabs row">
+        <li class="col col-50" ng-class="{'active':ctrl.trackRecord}" ng-click="ctrl.trackRecordTab(1)">跟踪记录</li>
+        <li class="col col-50"ng-class="{'active':ctrl.quotesRecord}" ng-click="ctrl.trackRecordTab(2)">报价记录</li>
+      </ul>
+    </div>
+    <div class="bip-tab-content">
+      <div class="bip-tab-pane bip-minHeight" ng-class="{'active':ctrl.trackRecord}">
+        <div class="list">
+          <div class="item item-icon-right" ng-repeat="customerTraceRecode in ctrl.customerTraceRecodes" ng-click="customerTraceRecode.hideStatus = !customerTraceRecode.hideStatus">
+            <div class="row trackRecord">
+              <div class="col col-50 fs12">跟踪日期：{{customerTraceRecode.currentTraceDate | date:'yy/MM/dd'}}</div>
+              <div class="col col-50 fs12">预计到店日期：{{customerTraceRecode.inviteDate | date:'yy/MM/dd'}}</div>
+            </div>
+            <div class="pdlr5" ng-hide="customerTraceRecode.hideStatus"><p style="font-size: 12px;">跟踪结果：{{customerTraceRecode.traceContext}}</p></div>
+            <div class="pdlr5 insuranceDetails" ng-hide="!customerTraceRecode.hideStatus">
+              <div class="trackCon">跟踪结果：{{customerTraceRecode.traceContext}}</div>
+            </div>
+            <i ng-hide="customerTraceRecode.hideStatus" class="icon ion-ios-arrow-up" style="font-size: 20px"></i>
+            <i ng-hide="!customerTraceRecode.hideStatus" class="icon ion-ios-arrow-down" style="font-size: 20px"></i>
+          </div>
+        </div>
+      </div>
+      <div class="bip-tab-pane bip-minHeight" ng-class="{'active':ctrl.quotesRecord}">
+        <div class="list">
+          <div class="item item-icon-right" ng-repeat="bjRecode in ctrl.bjRecodes" ng-click="bjRecode.hideStatus = !bjRecode.hideStatus">
+            <div class="pdlr5 fs12">报价时间：{{bjRecode.dcbjrq | date:'yy/MM/dd'}}</div>
+            <div class="row quoteRecord">
+              <div class="col col-50 fs12">原价总额：{{bjRecode.bfhj}}</div>
+              <div class="col col-50 fs12">折后总额：{{bjRecode.shijize}}</div>
+            </div>
+            <div class="pdlr5" ng-hide="bjRecode.hideStatus"><p style="font-size: 12px;"><span>交强险：{{bjRecode.jqxje}}</span><span>车船税：{{bjRecode.ccsje}}</span><span>折后商业险：{{bjRecode.syxje * bjRecode.jncdzk - bjRecode.yhje}}</span>
+              <span>商业险总额：{{bjRecode.syxje}}</span>
+            </p></div>
+            <div class="pdlr5 insuranceDetails" ng-hide="!bjRecode.hideStatus">
+              <span>交强险：{{bjRecode.jqxje}}</span><span>车船税：{{bjRecode.ccsje}}</span><span>折后商业险：{{bjRecode.syxje * bjRecode.jncdzk - bjRecode.yhje}}</span>
+              <span>商业险总额：{{bjRecode.syxje}}</span><span>险种：{{bjRecode.xz | mapTH}}</span>
+            </div>
+            <i ng-hide="bjRecode.hideStatus" class="icon ion-ios-arrow-up" style="font-size: 20px"></i>
+            <i ng-hide="!bjRecode.hideStatus" class="icon ion-ios-arrow-down" style="font-size: 20px"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

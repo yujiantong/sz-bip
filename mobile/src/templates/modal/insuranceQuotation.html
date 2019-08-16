@@ -1,0 +1,277 @@
+<ion-view>
+  <ion-nav-title>
+    报价
+  </ion-nav-title>
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios-arrow-left fcf" ui-sref="tracekCustomerDetails({userId:ctrl.userId,userName:ctrl.userName,customerId:ctrl.customerId,returnStatu:ctrl.returnStatu,gzcxdata:ctrl.gzcxdata})"></button>
+  </ion-nav-buttons>
+  <div id="bihuRequest"  >
+    <ion-content>
+      <div class="bip-item-divider">
+        <div class="title">行驶证信息</div>
+      </div>
+      <div class="row fs12">
+        <div class="col col-25">车牌号:</div>
+        <div class="col col-50"><input type="text" class="bxQuotation" ng-model="ctrl.customerDetails.carLicenseNumber" /></div>
+      </div>
+      <div class="row fs12">
+        <div class="col col-25">车架号：</div>
+        <div class="col col-50"><input type="text" class="bxQuotation" ng-model="ctrl.customerDetails.chassisNumber" /></div>
+      </div>
+      <div class="row fs12">
+        <div class="col col-25">发动机号：</div>
+        <div class="col col-50"><input type="text" class="bxQuotation" ng-model="ctrl.customerDetails.engineNumber" /></div>
+      </div>
+      <div class="row fs12">
+        <div class="col col-25">品牌型号：</div>
+        <div class="col col-50"><input type="text" class="bxQuotation" ng-model="ctrl.customerDetails.factoryLicenseType" /></div>
+      </div>
+      <div class="row fs12">
+        <div class="col col-25">新车价格：</div>
+        <div class="col col-50"><input type="text" class="bxQuotation" ng-model="ctrl.customerDetails.newCarPrice" /></div>
+      </div>
+      <div class="row fs12">
+        <div class="col col-25">上牌日期：</div>
+        <div class="inputDate" ion-datetime-picker ng-model="ctrl.customerDetails.registrationDate" title="ctrl.dateTrackOption.title" button-ok="ctrl.dateTrackOption.buttonOk"  button-cancel="ctrl.dateTrackOption.buttonCancel" date="'false'">
+          <span ng-bind="(ctrl.customerDetails.registrationDate | date: 'yyyy-MM-dd') || '请选择'"></span>
+        </div>
+      </div>
+      <div class="row fs12">
+        <div class="col col-25">车辆性质：</div>
+        <div class="col col-50">
+          <select  ng-model="ctrl.customerDetails.customerCharacter" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in ctrl.carUsedTypes"
+                   ng-change="changeCarUsedType()" style="width: 210px;height: 19.8px!important;">
+            <option value="">请选择</option>
+          </select>
+        </div>
+      </div>
+      <div class="row fs12">
+        <div class="col col-25">交险止期：</div>
+        <div class="inputDate" ion-datetime-picker ng-model="ctrl.customerDetails.jqxrqEnd" title="ctrl.dateTrackOption.title" button-ok="ctrl.dateTrackOption.buttonOk"  button-cancel="ctrl.dateTrackOption.buttonCancel" date="'false'">
+          <span ng-bind="(ctrl.customerDetails.jqxrqEnd | date: 'yyyy-MM-dd') || '请选择'"></span>
+        </div>
+      </div>
+      <div class="row fs12">
+        <div class="col col-25">商险止期：</div>
+        <div class="inputDate" ion-datetime-picker ng-model="ctrl.customerDetails.syxrqEnd" title="ctrl.dateTrackOption.title" button-ok="ctrl.dateTrackOption.buttonOk"  button-cancel="ctrl.dateTrackOption.buttonCancel" date="'false'">
+          <span ng-bind="(ctrl.customerDetails.syxrqEnd | date: 'yyyy-MM-dd') || '请选择'"></span>
+        </div>
+      </div>
+      <div class="bip-item-divider">
+        <div class="title">保险公司</div>
+      </div>
+      <div class="row fs12" style="display:block;" id="insuranceCompLYs">
+        <span ng-click="ctrl.bxInsurance($event)" class="quotation" ng-repeat="insuranceCompName in ctrl.insuranceCompNames">{{insuranceCompName.insuranceCompName}}</span>
+      </div>
+      <div class="bip-item-divider item-icon-right" ng-click="ctrl.insuranceStatus =!ctrl.insuranceStatus">
+        <div class="title">保险信息</div>
+        <i ng-hide="!ctrl.insuranceStatus" class="icon ion-ios-arrow-up" style="font-size: 20px"></i>
+        <i ng-hide="ctrl.insuranceStatus" class="icon ion-ios-arrow-down" style="font-size: 20px"></i>
+      </div>
+      <div class="row fs12 bxDiv2" ng-hide="ctrl.insuranceStatus">
+        <div class="col col-50"><input type="checkbox" class="bxCheckbox" ng-true-value="1" ng-false-value="0" ng-model="ctrl.ForceTax" >交强险+车船税</div>
+      </div>
+      <div class="row fs12 bxDiv2" ng-hide="ctrl.insuranceStatus">
+        <div class="col col-75"><input type="checkbox" class="bxCheckbox" ng-model="ctrl.shangye" id="commercialInput"  ng-true-value="1" ng-false-value="0">商业险</div>
+      </div>
+      <div class="row fs12 bxDiv2" ng-hide="ctrl.insuranceStatus">
+        <div class="bxDiv"><input type="checkbox" class="bxCheckbox" ng-true-value="1" ng-false-value="0" ng-model="ctrl.DaoQiang" name="checkbox">全车盗抢保险</div>
+        <div class="col bxBJM"><input type="checkbox" class="bxCheckbox" ng-true-value="1" ng-false-value="0" ng-model="ctrl.BuJiMianDaoQiang" name="checkbox1">免赔</div>
+      </div>
+      <div class="row fs12 bxDiv2" ng-hide="ctrl.insuranceStatus">
+        <div class="bxDiv" ><input type="checkbox" class="bxCheckbox" ng-true-value="1" ng-false-value="0" ng-model="ctrl.CheSun" name="checkbox">机动车损失保险</div>
+        <div class="col bxBJM"><input type="checkbox" class="bxCheckbox" ng-true-value="1" ng-false-value="0"  ng-model="ctrl.BuJiMianCheSun" name="checkbox1">免赔</div>
+      </div>
+      <div class="row fs12 bxDiv2" ng-hide="ctrl.insuranceStatus">
+        <div class="bxDiv">
+          <input type="checkbox" class="bxCheckbox" ng-model="ctrl.SanZheck" name="checkbox" ng-true-value="1" ng-false-value="0">第三者责任保险
+        </div>
+        <div class="col bxDiv1" style="margin-right: 5px;">
+          <select ng-model="ctrl.SanZhe" ng-disabled="ctrl.SanZheck!=1"  ng-options='x.value as x.site for x in ctrl.SanZhes' class="bxSelect">
+            <option value="">请选择</option>
+          </select>
+        </div>
+        <div class="col bxBJM"><input type="checkbox"  class="bxCheckbox" ng-model="ctrl.BuJiMianSanZhe" name="checkbox1" ng-true-value="1" ng-false-value="0">免赔</div>
+      </div>
+      <div class="row fs12 bxDiv2" ng-hide="ctrl.insuranceStatus">
+        <div class="bxDiv">
+          <input type="checkbox" class="bxCheckbox"  ng-model="ctrl.SiJick" name="checkbox" ng-true-value="1" ng-false-value="0" ng-change="ctrl.sjCheck()">司机人员责任险
+        </div>
+        <div class="col bxDiv1" >
+          <input type="number" class="bxQuotation bxInputNumber"  step="10000" min="10000" max="300000" ng-model="ctrl.SiJi" ng-disabled="ctrl.SiJick!=1">
+        </div>
+        <div class="col bxBJM"><input type="checkbox"  class="bxCheckbox" ng-model="ctrl.BuJiMianSiJi" name="checkbox1" ng-true-value="1" ng-false-value="0">免赔</div>
+      </div>
+      <div class="row fs12 bxDiv2" ng-hide="ctrl.insuranceStatus">
+        <div class="bxDiv">
+          <input type="checkbox" class="bxCheckbox"  ng-model="ctrl.ChengKeck" name="checkbox" ng-true-value="1" ng-false-value="0" ng-change="ctrl.ckCheck()">乘客人员责任险
+        </div>
+        <div class="col bxDiv1" >
+          <input type="number" class="bxQuotation bxInputNumber"  step="10000" min="10000" max="300000" ng-model="ctrl.ChengKe" ng-disabled="ctrl.ChengKeck!=1">
+        </div>
+        <div class="col bxBJM"><input type="checkbox"  class="bxCheckbox" ng-model="ctrl.BuJiMianChengKe" name="checkbox1" ng-true-value="1" ng-false-value="0">免赔</div>
+      </div>
+      <div class="row fs12 bxDiv2" ng-hide="ctrl.insuranceStatus">
+        <div class="bxDiv" ><input type="checkbox" class="bxCheckbox" ng-model="ctrl.SheShui" name="checkbox" ng-true-value="1" ng-false-value="0">涉水行驶损失险</div>
+        <div class="col bxBJM"><input type="checkbox" class="bxCheckbox" ng-model="ctrl.BuJiMianSheShui" name="checkbox1" ng-true-value="1" ng-false-value="0">免赔</div>
+      </div>
+      <div class="row fs12 bxDiv2" ng-hide="ctrl.insuranceStatus">
+        <div class="bxDiv" ><input type="checkbox" class="bxCheckbox" ng-model="ctrl.ZiRan" name="checkbox" ng-true-value="1" ng-false-value="0">自燃损失险</div>
+        <div class="col bxBJM"><input type="checkbox" class="bxCheckbox" ng-model="ctrl.BuJiMianZiRan" name="checkbox1" ng-true-value="1" ng-false-value="0">免赔</div>
+      </div>
+      <div class="row fs12 bxDiv2" ng-hide="ctrl.insuranceStatus">
+        <div class="bxDiv" ><input type="checkbox" class="bxCheckbox" ng-model="ctrl.HcSanFangTeYue" name="checkbox" ng-true-value="1" ng-false-value="0">第三方特约险</div>
+      </div>
+      <div class="row fs12 bxDiv2" ng-hide="ctrl.insuranceStatus">
+        <div class="bxDiv">
+          <input type="checkbox" class="bxCheckbox"  ng-model="ctrl.BoLick" name="checkbox" ng-true-value="1" ng-false-value="0">玻璃单独破碎险
+        </div>
+        <div class="col bxDiv1" >
+          <select ng-model="ctrl.BoLi" ng-disabled="ctrl.BoLick!=1" ng-options="x.value as x.site for x in ctrl.BoLis" class="bxSelect">
+          </select>
+        </div>
+        <div class="col bxBJM"></div>
+      </div>
+      <div class="row fs12 bxDiv2" ng-hide="ctrl.insuranceStatus">
+        <div class="bxDiv">
+          <input type="checkbox" class="bxCheckbox" ng-model="ctrl.HuaHenck" name="checkbox" ng-true-value="1" ng-false-value="0">车身划痕损失险
+        </div>
+        <div class="col bxDiv1" style="margin-right: 5px;">
+          <select ng-model="ctrl.HuaHen" ng-disabled="ctrl.HuaHenck!=1"  ng-options='x for x in ctrl.HuaHens' class="bxSelect">
+            <option value="">请选择</option>
+          </select>
+        </div>
+        <div class="col bxBJM"><input type="checkbox"  class="bxCheckbox" ng-model="ctrl.BuJiMianHuaHen" name="checkbox1" ng-true-value="1" ng-false-value="0">免赔</div>
+      </div>
+      <div class="row fs12 bxDiv2" ng-hide="ctrl.insuranceStatus">
+        <div class="bxDiv">
+          <input type="checkbox" class="bxCheckbox"  ng-model="ctrl.HcHuock" name="checkbox" ng-true-value="1" ng-false-value="0" >车上货物责任险
+        </div>
+        <div class="col bxDiv1" >
+          <input type="number" class="bxQuotation bxInputNumber"   ng-model="ctrl.HcHuoWuZeRen" ng-disabled="ctrl.HcHuock!=1">
+        </div>
+        <div class="col bxBJM"></div>
+      </div>
+      <div class="row fs12 bxDiv2" ng-hide="ctrl.insuranceStatus">
+        <div class="bxDiv">
+          <input type="checkbox" class="bxCheckbox" ng-model="ctrl.HcJingShenck" name="checkbox" ng-true-value="1" ng-false-value="0">精神损失责任险
+        </div>
+        <div class="col bxDiv1" >
+          <input type="number" ng-disabled="ctrl.HcJingShenck!=1"  ng-model="ctrl.HcJingShenSunShi" class="bxQuotation bxInputNumber" >
+        </div>
+        <div class="col bxBJM"><input type="checkbox"  class="bxCheckbox" ng-model="ctrl.BuJiMianJingShenSunShi" name="checkbox1" ng-true-value="1" ng-false-value="0">免赔</div>
+      </div>
+      <div class="row fs12 bxDiv2" ng-hide="ctrl.insuranceStatus">
+        <div class="bxDiv">
+          <input type="checkbox" class="bxCheckbox"  ng-model="ctrl.HcFeiYongck" name="checkbox" ng-true-value="1" ng-false-value="0">修理期间补偿险
+        </div>
+        <div class="col bxDiv1" >
+          <input type="number" class="bxQuotation bxInputNumber"   min="0"  ng-model="ctrl.HcFeiYongBuChang" ng-disabled="ctrl.HcFeiYongck!=1">
+        </div>
+        <div class="col bxBJM"></div>
+      </div>
+      <div class="row fs12 bxDiv2" ng-hide="ctrl.insuranceStatus">
+        <div class="bxDiv">
+          <input type="checkbox" class="bxCheckbox"  ng-model="ctrl.HcXiuLick" name="checkbox" ng-true-value="1" ng-false-value="0">指定的修理厂险
+        </div>
+        <div class="col bxDiv1" >
+          <input type="number" class="bxQuotation bxInputNumber"   min="0"  ng-model="ctrl.HcXiuLiChang" ng-disabled="ctrl.HcXiuLick!=1">
+        </div>
+        <div class="col bxBJM"></div>
+      </div>
+      <div class="row fs12 bxDiv2" ng-hide="ctrl.insuranceStatus">
+
+      </div>
+    </ion-content>
+    <ion-footer-bar  align-title="center" class="dark-border">
+      <div class="button-bar" >
+        <button class="button button-bip" ng-click="ctrl.bofideQuote(1)" >申请报价</button>
+        <button class="button button-bip" ng-click="ctrl.bofideQuote(2)">申请报价（行驶证）</button>
+      </div>
+    </ion-footer-bar>
+  </div>
+  <div id="bihubaojia" style="display: none">
+    <ion-content>
+      <div class="row fs12" style="border-top:0.5px solid rgba(204, 204, 204, 1)">
+        <div class="col col-50">车牌号：{{ctrl.bihuquote.xbInfo.UserInfo.LicenseNo}}</div>
+        <div class="col col-50" readonly>车架号：{{ctrl.bihuquote.xbInfo.UserInfo.CarVin|limitTo:-6}}</div>
+      </div>
+      <div class="row fs12">
+        <div class="col col-90">车型：{{ctrl.bihuquote.xbInfo.UserInfo.ModleName}}</div>
+      </div>
+      <div class="row fs12">
+        <div class="col col-50">理赔：</div>
+        <div class="col col-50">出险：</div>
+      </div>
+      <div class="row fs12">
+        <div class="col col-50" readonly>交强险起保：{{ctrl.bihuquote.xbInfo.UserInfo.NextForceStartDate}}</div>
+        <div class="col col-50" readonly>商业险起保：{{ctrl.bihuquote.xbInfo.UserInfo.NextBusinessStartDate}}</div>
+      </div>
+      <div ng-repeat="bihuComp in ctrl.bihuCompsTwo">
+        <div class="bip-item-divider item-icon-right" ng-click="ctrl.insuranceS =!ctrl.insuranceS">
+          <div class="title" style="display: block;font-size: 16px;" ng-if="bihuComp.applyBJ.BusinessStatus==1">{{bihuComp.insuranceCompName}}<span style="float: right;margin-right: 15%">{{bihuComp.shijize | number:2}}元</span></div>
+          <div class="title" style="display: block;font-size: 16px;" ng-if="bihuComp.applyBJ.BusinessStatus!=1">{{bihuComp.insuranceCompName}}<span style="float: right;margin-right: 15%;color: red">报价失败</span></div>
+          <i ng-hide="!ctrl.insuranceS" class="icon ion-ios-arrow-up" style="font-size: 20px"></i>
+          <i ng-hide="ctrl.insuranceS" class="icon ion-ios-arrow-down" style="font-size: 20px"></i>
+        </div>
+        <div ng-hide="ctrl.insuranceS" ng-if="bihuComp.applyBJ.BusinessStatus==1">
+          <div class="row fs12 bxDiv2" >
+            <div class="col col-40 bxDiv3">原价总额：</div>
+            <div class="col col-50"><input type="text" class="bxQuotation1" ng-model="(bihuComp.shijize |number:2)+'元'" /></div>
+          </div>
+          <div class="row fs12 bxDiv2" >
+            <div class="col col-40 bxDiv3">综合优惠比率：</div>
+            <div class="col col-50"><input type="text" class="bxQuotation1" ng-model="bihuComp.bJinfo.Item.zhekou" /></div>
+          </div>
+          <div class="row fs12 bxDiv2">
+            <div class="col col-40 bxDiv3">交强险：</div>
+            <div class="col col-50"><input type="text" class="bxQuotation1" ng-model="(bihuComp.bJinfo.Item.ForceTotal |number:2)+'元'" /></div>
+          </div>
+          <div class="row fs12 bxDiv2" >
+            <div class="col col-40 bxDiv3">车船税：</div>
+            <div class="col col-50"><input type="text" class="bxQuotation1" ng-model="(bihuComp.bJinfo.Item.TaxTotal |number:2)+'元'" /></div>
+          </div>
+          <div ng-if="ctrl.commercial==true">
+            <div class="bip-item-divider item-icon-right bxDiv2"  ng-click="ctrl.hideStatus = !ctrl.hideStatus">
+              <div style="display: block;margin-left: 5%" >商业险：<span style="float: right;margin-right: 15%">{{bihuComp.bJinfo.Item.BizTotal-bihuComp.youhui | number:2}}元</span></div>
+              <i ng-hide="!ctrl.insuranceS" class="icon ion-ios-arrow-up" style="font-size: 20px"></i>
+              <i ng-hide="ctrl.insuranceS" class="icon ion-ios-arrow-down" style="font-size: 20px"></i>
+            </div>
+            <div>
+              <p ng-hide="!ctrl.hideStatus" ng-repeat="surance in bihuComp.insurance" class="bxP">{{surance}}</p>
+            </div>
+            <div class="row fs12 bxDiv2">
+              <div class="col col-40 bxDiv3" >店优惠金额：</div>
+              <div class="col col-50">
+                <input type="number"  ng-init="bihuComp.youhui=0" min="0" step="0.01" class="bxInputNumber2"  ng-model="bihuComp.youhui" id="youhui" ng-change="ctrl.bxYouHui()" >
+              </div>
+            </div>
+            <div class="row fs12 bxDiv2">
+              <div class="col col-40 bxDiv3">商业险折扣：</div>
+              <div class="col col-50">
+                <input type="number"  ng-init="bihuComp.zhekou=1" min="0" step="0.01"  class="bxInputNumber2" ng-model="bihuComp.zhekou" id="zhekou" ng-change="ctrl.bxZheKou()">
+                <div hidden>应交保费：{{bihuComp.shijize = bihuComp.bJinfo.Item.ForceTotal+bihuComp.bJinfo.Item.TaxTotal+bihuComp.zhehousyx||0}}
+                            折后商业险：{{bihuComp.zhehousyx = bihuComp.bJinfo.Item.BizTotal*bihuComp.zhekou-bihuComp.youhui||0}}
+                   <input type="number" ng-model="bihuComp.shijize">
+                   <input type="number" ng-model="bihuComp.zhehousyx">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div ng-hide="ctrl.insuranceS" ng-if="bihuComp.applyBJ.BusinessStatus!=1">
+          <div class="row fs12" >
+            <div class="col ">{{bihuComp.applyBJ.StatusMessage}}</div>
+          </div>
+        </div>
+
+      </div>
+    </ion-content>
+    <ion-footer-bar  align-title="center" class="dark-border">
+      <div class="button-bar" >
+        <button class="button button-bip closeBjResult">取消</button>
+        <button class="button button-bip " ng-click="ctrl.saveQuote()" >保存报价</button>
+      </div>
+    </ion-footer-bar>
+  </div>
+</ion-view>

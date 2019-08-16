@@ -1,0 +1,35 @@
+<div id="bhmsg" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 320px; width: 850px; margin-left: -425px; margin-top: -125px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                可更新潜客信息
+            </i>
+            <span ng-click="bhclose()" class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget changeValue" style="height:235px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <h3>可更新潜客信息</h3>
+                <span><label>车架号</label> <input type="text" ng-model="bhInfo.chejiahao" readonly></span>
+                <span><label>保险公司</label> <input type="text" ng-model="bhInfo.insuranceCompLY" maxlength="30"  readonly></span>
+                <span><label>投保险种</label> <input type="text" ng-model="bhInfo.insuranceTypeLY" readonly title="{{bhInfo.insuranceTypeLY}}"></span>
+                <span><label>车牌号</label> <input type="text" ng-model="bhInfo.carLicenseNumber"  readonly></span>
+                <span><label>发动机号</label> <input type="text" ng-model="bhInfo.engineNumber" readonly></span>
+                <span><label>商业险到期日</label> <input type="text" ng-model="bhInfo.syxrqEndDate" readonly></span>
+                <span><label>交强险到期日</label> <input type="text" ng-model="bhInfo.bhInsuranceEndDate" readonly></span>
+                <span><label>车主</label> <input type="text" ng-model="bhInfo.carOwner" readonly></span>
+                <span><label>被保险人</label> <input type="text" ng-model="bhInfo.insured" readonly></span>
+                <span><label>客户性质</label> <input type="text" ng-model="bhInfo.customerCharacter" readonly></span>
+                <span><label>车型号</label> <input type="text" ng-model="bhInfo.modleName" readonly></span>
+                <span><label>上牌日期</label> <input type="text" ng-model="bhInfo.registerDate" readonly></span>
+                <span><label>被保险人证件号</label> <input type="text" value="{{bhInfo.certificateNumber | mapZJ}}" maxlength="40"></span>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input ng-click="bhCoverNew()" type="button" ng-if="bhInfo.panduan==1" value="确认覆盖">
+            <input ng-click="bhCover()" type="button" ng-if="bhInfo.panduan==2" value="确认覆盖">
+            <input ng-click="bhclose()" type="button" value="取消覆盖">
+        </div>
+    </div>
+</div>

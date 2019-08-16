@@ -1,0 +1,60 @@
+<div class="scmContentTitle">
+    <ul id="myTab" class="cartype nav nav-tabs" style="border-bottom: none;">
+        <li class="active" href="#yingxiao" ng-click="findSMSByCondition()" data-toggle="tab">
+            营销管理模块
+        </li>
+        <li href="#duanxin" data-toggle="tab" ng-click="findPhoneMessage('duanxin')">
+            短信发送记录
+        </li>
+    </ul>
+    <table class="amountPre" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+            <td class="amountPreTd">余额：
+                <span style="color: red" ng-if="user.store.messageBalance<50">{{user.store.messageBalance | number:2}}</span>
+                <span ng-if="user.store.messageBalance>=50">{{user.store.messageBalance | number:2}}</span>元
+            </td>
+            <td class="amountPreTd2"><span style="font-size: 11px;color: red" ng-if="user.store.messageBalance>0 && user.store.messageBalance<50">短信余额已不足50元，请及时充值，以保证该功能正常使用！</span>
+                <span style="font-size: 11px;color: red" ng-if="user.store.messageBalance<=0">短信余额已用完，请及时充值，以保证该功能正常使用！</span>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="myTabContent" class="tab-content" style="padding: 10px 14px;">
+    <div class="tab-pane fade in active" id="yingxiao" style="height:97%;padding-bottom: 3%;">
+        <div ui-grid="messageAllPage" ng-style="gridbox" class="gridbox"
+             ui-grid-pinning  ui-grid-resize-columns ui-grid-selection ui-grid-infinite-scroll>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="duanxin" style="height:97%;padding-bottom: 3%;">
+        <div>
+            <span>
+                <label>模板名称：</label>
+                <select style="width: 100px" ng-model="search.smsTemplateId"  ng-options="vlaue    .id as vlaue.templateName for (key,vlaue) in messageAllPage.data">
+                    <option value="">请选择</option>
+                </select>
+            </span>
+            <span style="width: 292px;display: inline-block;">
+                <label>发送日期：</label>
+                <input type="text" style="width:80px;" ng-model="search.sendTimeStart" class="starttime">-
+                <input type="text" style="width:80px;" ng-model="search.sendTimeEnd" class="endtime">
+            </span>
+            <span>
+                <label>是否高意向：</label>
+                <select ng-model="search.sfgyx"  ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                    <option value="">请选择</option>
+                </select>
+            </span>
+            <button class="ml10" type="button" ng-click="findPhoneMessage('duanxin')">查询</button>
+            <button type="button" ng-click="clearMessageSearch()">清空</button>
+        </div>
+        <div ui-grid="smsListPage" ng-style="gridSMSbox" class="gridbox" ui-grid-pinning  ui-grid-resize-columns ui-grid-selection ui-grid-infinite-scroll>
+        </div>
+        <div class="gridbox-footer" ng-if="loadStatus==0" ng-click="searchMore()">加载更多(<span>{{messageCount}}</span>)</div>
+        <div class="gridbox-footernone"  ng-if="loadStatus==1" >正在加载中...</div>
+        <div class="gridbox-footernone" ng-if="loadStatus==2" >全部加载完成(<span>{{messageCount}}</span>)</div>
+    </div>
+</div>
+<div ng-include="'./views/renewalDirector/smsBox.html'"></div>
+<div ng-include="'./views/renewalDirector/modifySMS.html'"></div>
+<div ng-include="'./views/renewalDirector/updateSMSState.html'"></div>
+<div ng-include="'./views/renewalDirector/previewSMS.html'"></div>

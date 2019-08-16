@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bofide.bip.mapper.UnitMapper">
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.Unit" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="jtId" property="jtId" jdbcType="INTEGER" />
+    	<result column="unitName" property="unitName" jdbcType="VARCHAR" />
+    	<result column="recordTime" property="recordTime" jdbcType="DATE" />
+    	<result column="userName" property="userName" jdbcType="VARCHAR" />
+    	
+    	<collection property="storeList" ofType="com.bofide.bip.po.Store" column="storeId">
+    		<result column="storeId" property="storeId" jdbcType="INTEGER" />
+    		<result column="storeName" property="storeName" jdbcType="VARCHAR" />
+    	</collection>
+	</resultMap>
+	
+	<!-- 新增事业部门 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.bofide.bip.po.Unit" >
+		insert into bf_bip_unit (
+			jtId, unitName, recordTime
+		) values (
+			#{jtId},#{unitName},now()
+		)
+	</insert>
+ 	 
+ 	 <!-- 按条件查询事业部门 -->
+ 	 <select id="findUnitByCondition" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+		SELECT
+			a.*, b.storeId,
+			b.storeName,
+			c.userName
+		FROM
+			bf_bip_unit a
+		LEFT JOIN bf_bip_store b ON a.id = b.unitId
+		LEFT JOIN bf_bip_user c ON a.id = c.unitId AND c.roleId = 51
+		<where>
+			<if test="jtId != null and jtId != ''">
+				AND a.jtId = #{jtId}
+			</if>
+			<if test="unitId != null and unitId != ''">
+				AND a.id = #{unitId}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据事业部门名字和集团ID查询部门 -->
+	<select id="selectByUnitName" resultMap="BaseResultMap">
+		select
+			*
+		from bf_bip_unit
+		where unitName = #{unitName}
+		AND jtId = #{jtId}
+	</select>
+</mapper>

@@ -1,0 +1,36 @@
+<div id="suggestHtml" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 260px; width: 350px; margin-left: -175px; margin-top: -130px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                意见反馈
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget">
+            <div>
+                <table class="addstore-table" style="text-align: left;">
+                    <tr>
+                        <td width="">标题：</td>
+                        <td><input style="width: 270px;" ng-model="newSuggest.title" maxlength="100"></td>
+                    </tr>
+                    <tr>
+                        <td width=""> 内容：</td>
+                        <td><textarea rows="3" cols="24" style="width: 270px;height: 120px;margin-left: 6px" ng-model="newSuggest.content" maxlength="500"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input type="button" ng-click="addSuggestbtn()" value="确认">
+            <input class="closeBtn" type="button" value="关闭">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#suggestHtml").hide();
+    });
+</script>

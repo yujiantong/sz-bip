@@ -1,0 +1,16 @@
+<div class="dealBox">
+  <ion-modal-view style="margin-top: 0px;">
+    <ion-content class="padding">
+      <div class="searchTable" style="width: 100%;margin: 0 auto">
+        <p>删除邀约原因<span class="red">*</span>：</p>
+        <textarea rows="3" cols="30" style="width: 80%;height: 100px;margin-top: 5px;" ng-model="ctrl.confirmData.scyyyy" maxlength="500"></textarea>
+      </div>
+    </ion-content>
+    <ion-footer-bar align-title="center" class="dark-border">
+      <div class="button-bar">
+        <button class="button button-bip" ng-click="modalYY.hide()">取消</button>
+        <button class="button button-bip" ng-click="ctrl.deleteInvite()">确认</button>
+      </div>
+    </ion-footer-bar>
+  </ion-modal-view>
+</div>

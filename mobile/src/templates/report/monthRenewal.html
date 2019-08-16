@@ -1,0 +1,17 @@
+<ion-view view-title="月报-当期续保数" ng-init="ctrl.monthRenewalCount()">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('homePage.report',{ReportTabNO:2})"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="padding" style="padding-bottom: 0px;">
+       <span>月份：<select ng-model="ctrl.report.mouthDate" ng-options="x for x in ctrl.selectTimes" ng-change="ctrl.monthRenewalCount()">
+         <option value="">请选择保险到期月</option>
+       </select></span>
+    </div>
+    <div class="barGroup">
+      <div class="barmenu"><span class="barBox barBg1"></span>全部潜客数{{ctrl.numQbqks}}</div>
+      <div class="barmenu"><span class="barBox barBg2"></span>当期续保数{{ctrl.numDqxbs}}</div>
+    </div>
+   <div id="renewalRoport"></div>
+  </ion-content>
+</ion-view>

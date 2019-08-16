@@ -1,0 +1,997 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.StatisticMapper" >
+	<resultMap type="java.util.Map" id="insuranceStatisticsResultMap">
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="userName" property="userName" jdbcType="VARCHAR" />
+		<result column="userStatus" property="userStatus" jdbcType="INTEGER" />
+		<result column="jtbCount" property="jtbCount" jdbcType="INTEGER" />
+		<result column="ytbCount" property="ytbCount" jdbcType="INTEGER" />
+		<result column="awakenCount" property="awakenCount" jdbcType="INTEGER" />
+		<result column="delayCount" property="delayCount" jdbcType="INTEGER" />
+		<result column="moveIntoCount" property="moveIntoCount" jdbcType="INTEGER" />
+		<result column="moveOutCount" property="moveOutCount" jdbcType="INTEGER" />
+		<result column="returnCount" property="returnCount" jdbcType="INTEGER" />
+		<result column="traceCount" property="traceCount" jdbcType="INTEGER" />
+		<result column="lostCount" property="lostCount" jdbcType="INTEGER" />
+		<result column="sleepCount" property="sleepCount" jdbcType="INTEGER" />
+		<result column="generateCount" property="generateCount" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="serviceStatisticsResultMap">
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="userName" property="userName" jdbcType="VARCHAR" />
+		<result column="userStatus" property="userStatus" jdbcType="INTEGER" />
+		<result column="moveIntoCount" property="moveIntoCount" jdbcType="INTEGER" />
+		<result column="moveOutCount" property="moveOutCount" jdbcType="INTEGER" />
+		<result column="returnCount" property="returnCount" jdbcType="INTEGER" />
+		<result column="traceCount" property="traceCount" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="saleStatisticsResultMap">
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="userName" property="userName" jdbcType="VARCHAR" />
+		<result column="userStatus" property="userStatus" jdbcType="INTEGER" />
+		<result column="moveIntoCount" property="moveIntoCount" jdbcType="INTEGER" />
+		<result column="moveOutCount" property="moveOutCount" jdbcType="INTEGER" />
+		<result column="returnCount" property="returnCount" jdbcType="INTEGER" />
+		<result column="traceCount" property="traceCount" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="cscStatisticsResultMap">
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="userName" property="userName" jdbcType="VARCHAR" />
+		<result column="userStatus" property="userStatus" jdbcType="INTEGER" />
+		<result column="lostCount" property="lostCount" jdbcType="INTEGER" />
+		<result column="sleepCount" property="sleepCount" jdbcType="INTEGER" />
+		<result column="awakenCount" property="awakenCount" jdbcType="INTEGER" />
+		<result column="generateCount" property="generateCount" jdbcType="INTEGER" />
+	</resultMap>
+	<!-- 保险信息统计查询    跟踪次数有问题，将原来的traceCount改为traceCounts，这个值不用到，通过其他地方加-->
+	<select id="findInsuranceStatistics" resultMap="insuranceStatisticsResultMap">
+		SELECT
+			u.id userId,MAX(u.userName) userName,MAX(u.status) userStatus,
+			SUM(IF(o.operationFlag = 9, 1, 0)) traceCount,
+			CASE WHEN max(x.delayCount) is null THEN 0 ELSE max(x.delayCount) END delayCount,
+			SUM(IF(o.operationFlag = 2, 1, 0)) returnCount,
+			SUM(IF(o.operationFlag = 3, 1, 0)) awakenCount,
+			SUM(IF(o.operationFlag = 4, 1, 0)) moveIntoCount,
+			SUM(IF(o.operationFlag = 5, 1, 0)) moveOutCount,
+			SUM(IF(o.operationFlag = 7, 1, 0)) jtbCount,
+			SUM(IF(o.operationFlag = 8, 1, 0)) ytbCount,
+			SUM(IF(o.operationFlag = 10, 1, 0)) lostCount,
+			SUM(IF(o.operationFlag = 11, 1, 0)) sleepCount,
+			SUM(IF(o.operationFlag = 13, 1, 0)) generateCount
+		FROM bf_bip_user u
+		LEFT JOIN bf_bip_operation_record o ON o.userId = u.id 
+			<if test="startDate != null and endDate != null">
+				AND o.operationDate BETWEEN #{startDate} AND #{endDate}
+			</if>
+		LEFT JOIN (
+			select t.userId,count(t.customerId) delayCount from(
+				select distinct customerId,userId from bf_bip_operation_record o1 
+				where o1.operationFlag = 1 
+				<if test="startDate != null and endDate != null">
+					AND o1.operationDate BETWEEN #{startDate} AND #{endDate}
+				</if>
+			) t GROUP BY t.userId 
+		) x on x.userId = u.id
+		WHERE u.roleId = 2 AND u.deleted = 0 AND u.storeId = #{storeId}
+		GROUP BY u.id;
+	</select>
+	<!-- 核实保险信息中的跟踪次数有误，保留原来的计算方式，通过新的计算方式代替跟踪次数 2018-07-06 yujiantong-->
+	<!-- <select id="findTrceCount" resultType="Integer">
+		SELECT COUNT(t.customerTraceId) traceCount
+		FROM bf_bip_customer_trace_recode t
+		INNER JOIN bf_bip_user u ON u.id = t.principalId
+		INNER JOIN bf_bip_store s ON s.storeId = u.storeId
+		WHERE t.nexttracedate IS NOT NULL
+		   <if test="startDate != null and endDate != null">
+				AND t.currenttracedate BETWEEN #{startDate} AND #{endDate}
+		   </if>
+		   <if test="userId != null and userId != null">
+		        AND u.id = #{userId}
+           </if>
+	</select> -->
+	
+	<!-- 售后信息统计查询 -->
+	<select id="findServiceStatistics" resultMap="serviceStatisticsResultMap">
+		SELECT u.id userId,MAX(u.userName) userName,MAX(u.status) userStatus,
+			SUM(IF(o.operationFlag = 9, 1, 0)) traceCount,
+			SUM(IF(o.operationFlag = 2, 1, 0)) returnCount,
+			SUM(IF(o.operationFlag = 4, 1, 0)) moveIntoCount,
+			SUM(IF(o.operationFlag = 5, 1, 0)) moveOutCount
+		FROM bf_bip_user u
+		LEFT JOIN bf_bip_operation_record o ON o.userId = u.id 
+			<if test="startDate != null and endDate != null">
+				AND o.operationDate BETWEEN #{startDate} AND #{endDate}
+			</if>
+		WHERE u.roleId = 8 AND u.deleted = 0 AND u.storeId = #{storeId}
+		GROUP BY u.id;
+	</select>
+	<!-- 销售信息统计查询 -->
+	<select id="findSaleStatistics" resultMap="saleStatisticsResultMap">
+		SELECT
+			u.id userId,MAX(u.userName) userName,MAX(u.status) userStatus,
+			SUM(IF(o.operationFlag = 9, 1, 0)) traceCount,
+			SUM(IF(o.operationFlag = 2, 1, 0)) returnCount,
+			SUM(IF(o.operationFlag = 4, 1, 0)) moveIntoCount,
+			SUM(IF(o.operationFlag = 5, 1, 0)) moveOutCount
+		FROM bf_bip_user u
+		LEFT JOIN bf_bip_operation_record o ON o.userId = u.id 
+			<if test="startDate != null and endDate != null">
+				AND o.operationDate BETWEEN #{startDate} AND #{endDate}
+			</if>
+		WHERE u.roleId = 6 AND u.deleted = 0 AND u.storeId = #{storeId}
+		GROUP BY u.id;
+	</select>
+	
+	<!-- 续保专员的保险信息统计查询 -->
+	<select id="findRCInsuranceStatistics" resultMap="insuranceStatisticsResultMap">
+		SELECT
+			u.id userId,MAX(u.userName) userName,MAX(u.status) userStatus,
+			SUM(IF(o.operationFlag = 9, 1, 0)) traceCount,
+			<!-- SUM(IF(o.operationFlag = 1, 1, 0)) delayCount, -->
+			case when max(x.delayCount) is null then 0
+			else max(x.delayCount) 
+			end delayCount,
+			SUM(IF(o.operationFlag = 2, 1, 0)) returnCount,
+			SUM(IF(o.operationFlag = 3, 1, 0)) awakenCount,
+			SUM(IF(o.operationFlag = 4, 1, 0)) moveIntoCount,
+			SUM(IF(o.operationFlag = 5, 1, 0)) moveOutCount,
+			SUM(IF(o.operationFlag = 7, 1, 0)) jtbCount,
+			SUM(IF(o.operationFlag = 8, 1, 0)) ytbCount,
+			SUM(IF(o.operationFlag = 10, 1, 0)) lostCount,
+			SUM(IF(o.operationFlag = 11, 1, 0)) sleepCount,
+			SUM(IF(o.operationFlag = 13, 1, 0)) generateCount
+		FROM bf_bip_user u
+		LEFT JOIN bf_bip_operation_record o ON o.userId = u.id 
+			<if test="startDate != null and endDate != null">
+				AND o.operationDate BETWEEN #{startDate} AND #{endDate}
+			</if>
+		LEFT JOIN (
+			select t.userId,count(t.customerId) delayCount from(
+				select distinct customerId,userId from bf_bip_operation_record o1 
+				where o1.operationFlag = 1 
+				<if test="startDate != null and endDate != null">
+					AND o1.operationDate BETWEEN #{startDate} AND #{endDate}
+				</if>
+			) t GROUP BY t.userId 
+		) x on x.userId = u.id
+		WHERE u.id = #{userId} AND u.deleted = 0 AND u.storeId = #{storeId}
+		GROUP BY u.id;
+	</select>
+	
+	<!-- 服务顾问的售后信息统计查询 -->
+	<select id="findSAServiceStatistics" resultMap="serviceStatisticsResultMap">
+		SELECT
+			u.id userId,MAX(u.userName) userName,MAX(u.status) userStatus,
+			SUM(IF(o.operationFlag = 9, 1, 0)) traceCount,
+			SUM(IF(o.operationFlag = 2, 1, 0)) returnCount,
+			SUM(IF(o.operationFlag = 4, 1, 0)) moveIntoCount,
+			SUM(IF(o.operationFlag = 5, 1, 0)) moveOutCount
+		FROM bf_bip_user u
+		LEFT JOIN bf_bip_operation_record o ON o.userId = u.id 
+			<if test="startDate != null and endDate != null">
+				AND o.operationDate BETWEEN #{startDate} AND #{endDate}
+			</if>
+		WHERE u.id = #{userId} AND u.deleted = 0 AND u.storeId = #{storeId}
+		GROUP BY u.id;
+	</select>
+	
+	<!-- 销售顾问的销售信息统计查询 -->
+	<select id="findSCSaleStatistics" resultMap="saleStatisticsResultMap">
+		SELECT
+			u.id userId,MAX(u.userName) userName,MAX(u.status) userStatus,
+			SUM(IF(o.operationFlag = 9, 1, 0)) traceCount,
+			SUM(IF(o.operationFlag = 2, 1, 0)) returnCount,
+			SUM(IF(o.operationFlag = 4, 1, 0)) moveIntoCount,
+			SUM(IF(o.operationFlag = 5, 1, 0)) moveOutCount
+		FROM bf_bip_user u
+		LEFT JOIN bf_bip_operation_record o ON o.userId = u.id 
+			<if test="startDate != null and endDate != null">
+				AND o.operationDate BETWEEN #{startDate} AND #{endDate}
+			</if>
+		WHERE u.id = #{userId} AND u.deleted = 0 AND u.storeId = #{storeId}
+		GROUP BY u.id;
+	</select>
+	
+	<select id="findBillCount" resultType="Integer">
+		select count(b.insuranceBillId) from bf_bip_user u left join bf_bip_insurance_bill b on 
+			<if test="roleId == 2">b.principalId = u.id AND b.coverType != 1</if>
+			<if test="roleId == 6 or roleId == 8">b.clerkId = u.id </if>	
+			<if test="startDate != null and endDate != null">AND b.cdrq BETWEEN #{startDate} AND #{endDate}</if>
+			<if test="coverType != null">AND b.coverType = #{coverType}</if>
+		WHERE u.id = #{userId} GROUP BY u.id
+	</select>
+	<select id="findMonthCustomer" resultType="Integer">
+		select count(a.customerId) from bf_bip_user u 
+		left join bf_bip_customer_assign a on a.userId = u.id and ifnull(traceStatu,0) != 3 
+			<if test="startDate != null and endDate != null">AND assignDate BETWEEN #{startDate} AND #{endDate}</if>
+		where u.id = #{userId} GROUP BY u.id 
+	</select>
+	<select id="findAllCustomer" resultType="Integer">
+		select COUNT(x.customerId) from bf_bip_user u 
+		LEFT JOIN (
+			select distinct customerId,userId from bf_bip_operation_record o 
+			where o.operationFlag = 6 
+			<if test="startDate != null and endDate != null">
+				AND o.operationDate BETWEEN #{startDate} AND #{endDate}
+			</if>
+			<if test="statisticTime != null">
+				and DATE_FORMAT(o.operationDate,'%Y-%m') = #{statisticTime} 
+			</if>
+			<if test="coverType != null">
+				AND o.coverType = #{coverType}
+			</if>
+			<if test="userId != null">
+				AND o.userId = #{userId}
+			</if>
+		) x on x.userId = u.id where u.id = #{userId} GROUP BY u.id;
+	</select>
+	
+	<select id="statistic" resultType="java.util.HashMap">
+		SELECT
+			ifnull(SUM(invite),0) inviteNum,
+			ifnull(SUM(comeStore),0) comeStoreNum,
+			ifnull(SUM(dealInsur),0) dealInsur
+		FROM
+			bf_bip_customer_trace_recode
+		<where>
+			<if test="renewalTypeStr != null">
+				and renewalType = #{renewalTypeStr}
+			</if>
+			<if test="principalId != null">
+				and principalId = #{principalId}
+			</if>
+			<if test="customerId != null">
+				and customerId = #{customerId}
+			</if>
+			<if test="traceYear != null">
+				and DATE_FORMAT(bxdqr, '%Y') = #{traceYear} 
+			</if>
+		</where>
+	</select>
+	<!-- 客服统计查询 -->
+	<select id="findCSCStatistics" resultMap="cscStatisticsResultMap">
+		SELECT
+			u.id userId,MAX(u.userName) userName,MAX(u.status) userStatus,
+			SUM(IF(o.operationFlag = 10, 1, 0)) lostCount,
+			SUM(IF(o.operationFlag = 11, 1, 0)) sleepCount,
+			SUM(IF(o.operationFlag = 12, 1, 0)) awakenCount,
+			SUM(IF(o.operationFlag = 13, 1, 0)) generateCount
+		FROM bf_bip_user u
+		LEFT JOIN bf_bip_operation_record o ON o.userId = u.id 
+			<if test="startDate != null and endDate != null">
+				AND o.operationDate BETWEEN #{startDate} AND #{endDate}
+			</if>
+		WHERE u.roleId = 5 AND u.deleted = 0 AND u.storeId = #{storeId}
+		GROUP BY u.id;
+	</select>
+	
+	<!-- 客服专员的信息统计查询 -->
+	<select id="findCSCUserStatistics" resultMap="cscStatisticsResultMap">
+		SELECT
+			u.id userId,MAX(u.userName) userName,MAX(u.status) userStatus,
+			SUM(IF(o.operationFlag = 10, 1, 0)) lostCount,
+			SUM(IF(o.operationFlag = 11, 1, 0)) sleepCount,
+			SUM(IF(o.operationFlag = 12, 1, 0)) awakenCount,
+			SUM(IF(o.operationFlag = 13, 1, 0)) generateCount
+		FROM bf_bip_user u
+		LEFT JOIN bf_bip_operation_record o ON o.userId = u.id 
+			<if test="startDate != null and endDate != null">
+				AND o.operationDate BETWEEN #{startDate} AND #{endDate}
+			</if>
+		WHERE u.id = #{userId} AND u.deleted = 0 
+		GROUP BY u.id;
+	</select>
+	
+	<select id="countTraceCusNum" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+			count(DISTINCT a.customerId) AS countValues
+		FROM
+			bf_bip_operation_record a 
+		<where>
+		    a.operationFlag = 6
+			AND a.userId = #{userId}
+			<if test="renewalType != null">
+				AND a.coverType = #{renewalType}
+			</if>
+			<if test="startTime != null">
+				<![CDATA[AND a.operationDate >= #{startTime}]]>
+			</if>
+			<if test="endTime != null">
+				<![CDATA[AND a.operationDate <= #{endTime}]]>
+			</if>
+		</where>
+	</select>
+	
+	<select id="countInviteSuccessCusNum" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+			count(DISTINCT customerId)
+		FROM
+			bf_bip_customer_trace_recode a 
+		<where>
+			a.nexttracedate is not null
+			and invite = 1
+			<![CDATA[and a.inviteDate >= DATE_FORMAT(a.currentTraceDate,'%Y-%m-%d')]]>
+			<if test="userId != null and userId != ''">
+				and principalId = #{userId}
+			</if>
+			<if test="renewalTypeStr != null and renewalTypeStr != ''">
+				and renewalType = #{renewalTypeStr}
+			</if>
+			<if test="statisticTime != null">
+				and DATE_FORMAT(a.currentTraceDate,'%Y-%m') = #{statisticTime} 
+			</if>
+		</where>
+	</select>
+	<!-- 统计上月留存潜客 -->
+	<select id="countSylcqk" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+			count(DISTINCT customerId)
+		FROM
+			bf_bip_report_sylcqk 
+		<where>
+			<if test="storeId != null and storeId != ''">
+				and storeId = #{storeId}
+			</if>
+			<if test="userId != null and userId != ''">
+				and userId = #{userId}
+			</if>
+			<if test="renewalType != null and renewalType != ''">
+				and renewalType = #{renewalType}
+			</if>
+			<if test="statisticTime != null">
+				and DATE_FORMAT(date_add(recordTime,interval 1 month),'%Y-%m') = #{statisticTime} 
+			</if>
+		</where>
+	</select>
+	<!-- 统计本月新下发潜客数 -->
+	<select id="countXxfqks"  parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(DISTINCT o.customerId) 
+		from bf_bip_operation_record o 
+		inner join bf_bip_user u on u.id = o.userId
+		where o.operationFlag = 6 
+			and o.customerId not in (
+				SELECT customerId
+				FROM bf_bip_report_sylcqk 
+				<where>
+					<if test="storeId != null and storeId != ''">
+						and storeId = #{storeId}
+					</if>
+					<if test="userId != null and userId != ''">
+						and userId = #{userId}
+					</if>
+					<if test="renewalType != null and renewalType != ''">
+						and renewalType = #{renewalType}
+					</if>
+					<if test="statisticTime != null">
+						and DATE_FORMAT(date_add(recordTime,interval 1 month),'%Y-%m') = #{statisticTime} 
+					</if>
+				</where>
+			)
+			<if test="statisticTime != null">
+				and DATE_FORMAT(o.operationDate,'%Y-%m') = #{statisticTime}
+			</if>
+			<if test="renewalType != null">
+				AND o.coverType = #{renewalType}
+			</if>
+			<if test="userId != null and userId != ''">
+				and o.userId = #{userId}
+			</if>
+	</select>
+	
+	<select id="countYjddrs" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+			count(DISTINCT customerId)
+		FROM
+			bf_bip_customer_trace_recode a 
+		<where>
+			invite = 1
+			<if test="userId != null and userId != ''">
+				and principalId = #{userId}
+			</if>
+			<if test="renewalTypeStr != null and renewalTypeStr != ''">
+				and renewalType = #{renewalTypeStr}
+			</if>
+			<if test="statisticTime != null">
+				and DATE_FORMAT(a.inviteDate,'%Y-%m') = #{statisticTime} 
+			</if>
+		</where>
+	</select>
+	
+	<select id="countComeStoreCusNum" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+			count(DISTINCT customerId)
+		FROM
+			bf_bip_customer_trace_recode a 
+		<where>
+			a.nexttracedate is not null
+			and invite = 1
+			and comeStore = 1
+			and inviteDate = DATE_FORMAT(comeStoreDate,'%Y-%m-%d')
+			<if test="userId != null and userId != ''">
+				and principalId = #{userId}
+			</if>
+			<if test="renewalTypeStr != null and renewalTypeStr != ''">
+				and renewalType = #{renewalTypeStr}
+			</if>
+			<if test="statisticTime != null">
+				and DATE_FORMAT(a.comeStoreDate,'%Y-%m') = #{statisticTime} 
+			</if>
+		</where>
+	</select>
+	
+	<select id="countComeStoreDealCusesNum" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select COUNT(DISTINCT customerId) from bf_bip_customer_trace_recode where customerId in (	
+			SELECT
+				DISTINCT customerId
+			FROM
+				bf_bip_customer_trace_recode a 
+			<where>
+				a.nexttracedate is not null
+				and invite = 1
+				and comeStore = 1
+				and inviteDate = DATE_FORMAT(comeStoreDate, '%Y-%m-%d')
+				<if test="userId != null and userId != ''">
+					and principalId = #{userId}
+				</if>
+				<if test="renewalTypeStr != null and renewalTypeStr != ''">
+					and renewalType = #{renewalTypeStr}
+				</if>
+				<if test="statisticTime != null">
+					and DATE_FORMAT(a.comeStoreDate,'%Y-%m') = #{statisticTime} 
+				</if>
+			</where>
+		) and dealInsur = 1
+	</select>
+	<!-- 绩效统计到店成交数 -->
+	<select id="getJxDdcjs" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select COUNT(DISTINCT customerId) from bf_bip_customer_trace_recode where customerId in (	
+			SELECT
+				DISTINCT customerId
+			FROM
+				bf_bip_customer_trace_recode a 
+			<where>
+				comeStore = 1
+				<if test="userId != null and userId != ''">
+					and principalId = #{userId}
+				</if>
+				<if test="renewalTypeStr != null and renewalTypeStr != ''">
+					and renewalType = #{renewalTypeStr}
+				</if>
+				<if test="startDate != null">
+					<![CDATA[and comeStoreDate >= #{startDate}]]>
+				</if>
+				<if test="endDate != null">
+					<![CDATA[and comeStoreDate <= #{endDate}]]>
+				</if>
+				<if test="statisticTime != null">
+					and DATE_FORMAT(a.comeStoreDate,'%Y-%m') = #{statisticTime} 
+				</if>
+			</where>
+		) and dealInsur = 1
+	</select>
+	<!-- 绩效统计到店数 -->
+	<select id="getJxDds" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT COUNT(DISTINCT customerId) 
+		FROM bf_bip_customer_trace_recode a 
+		<where>
+			comeStore = 1
+			<if test="userId != null and userId != ''">
+				and principalId = #{userId}
+			</if>
+			<if test="renewalTypeStr != null and renewalTypeStr != ''">
+				and renewalType = #{renewalTypeStr}
+			</if>
+			<if test="startDate != null">
+				<![CDATA[and comeStoreDate >= #{startDate}]]>
+			</if>
+			<if test="endDate != null">
+				<![CDATA[and comeStoreDate <= #{endDate}]]>
+			</if>
+			<if test="statisticTime != null">
+					and DATE_FORMAT(a.comeStoreDate,'%Y-%m') = #{statisticTime} 
+			</if>
+		</where>
+	</select>
+	
+	<select id="countEntryInranceNumById" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+			count(b.chassisNumber)
+		FROM
+			bf_bip_user a,
+			bf_bip_insurance_bill b
+		
+		<where>
+			a.id = b.insuranceWriterId
+			<if test="userId != null">
+				AND a.id = #{userId}
+			</if>
+			<if test="startDate != null">
+				<![CDATA[and b.cdrq >= #{startDate}]]>
+			</if>
+			<if test="endDate != null">
+				<![CDATA[and b.cdrq <= #{endDate}]]>
+			</if>
+		</where>
+	</select>
+	
+	<select id="countQuotedPriceNumById" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+			count(b.customerId)
+		FROM
+			bf_bip_user a,
+			bf_bip_customer_bj_recode b
+		
+		<where>
+			a.id = b.bjrId
+			<if test="userId != null">
+				AND a.id = #{userId}
+			</if>
+			<if test="startDate != null">
+				<![CDATA[and DATE_FORMAT(dcbjrq,'%Y-%m-%d') >= #{startDate}]]>
+			</if>
+			<if test="endDate != null">
+				<![CDATA[and DATE_FORMAT(dcbjrq,'%Y-%m-%d') <= #{endDate}]]>
+			</if>
+		</where>
+	</select>
+	
+	<select id="countAllWorkNumByStatus" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			count(DISTINCT a.customerId) customerNum,
+			a.userId,
+			b.userName,
+			b.roleId,
+			b.phone
+		FROM bf_bip_customer_assign a
+		LEFT JOIN bf_bip_renewaling_customer c ON c.customerId = a.customerId
+		LEFT JOIN bf_bip_user b on a.userId = b.id 
+		<where>
+		 	IFNULL(a.traceStatu,0) != 3
+			<if test="returnStatu != null">AND a.returnStatu = #{returnStatu}</if>
+			<if test="applyStatu != null">AND a.applyStatu = #{applyStatu}</if>
+			<if test="acceptStatu != null">AND a.acceptStatu = #{acceptStatu}</if>
+			<if test="traceStatu != null">
+				AND (a.traceStatu = #{traceStatu} OR a.traceStatu = 4)
+				AND (IFNULL(c.cusLostInsurStatu,0) != 2 or (a.delayDate is not null and a.delayDate >= CURDATE()))
+				AND b.roleId != 5
+			</if>
+			<if test="cusLostInsurStatu != null and cusLostInsurStatu != ''">
+				AND c.cusLostInsurStatu = #{cusLostInsurStatu}
+				AND b.roleId != 5
+			</if> 
+			<if test="storeId != null">AND b.storeId = #{storeId}</if>
+			<if test="roleId != null">AND b.roleId = #{roleId}</if>
+			<if test="nowDate != null and nowDate !=''">
+				<![CDATA[and a.traceDate >=  #{nowDate}]]>
+			</if>
+			GROUP BY
+				a.userId
+		</where>	
+	</select>
+	
+	<select id="countWorkJRYYNum" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			count(DISTINCT a.customerId) customerNum,
+			b.userId,
+			u.userName,
+			u.phone,
+			u.roleId
+		FROM
+			bf_bip_renewaling_customer a,
+			bf_bip_customer_assign b
+		LEFT JOIN bf_bip_user u ON (b.userId = u.id)
+		<where>
+			a.customerId = b.customerId
+			AND b.inviteStatu = 2
+			AND b.inviteDate = CURDATE()
+			<if test="storeId != null">AND a.fourSStoreId = #{storeId}</if>
+			GROUP BY
+				b.userId
+		</where>
+	</select>
+	<!-- 查询到店未出单员工列表 -->
+	<select id="findDDWCDWorkCollection" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			count(DISTINCT a.customerId) customerNum,
+			b.userId,
+			u.userName,
+			u.phone,
+			u.roleId
+		FROM
+			bf_bip_renewaling_customer a,
+			bf_bip_customer_assign b
+			LEFT JOIN bf_bip_user u ON (b.userId = u.id)
+		<where>
+			a.customerId = b.customerId
+			AND a.comeStoreDate = CURDATE()
+			AND a.customerLevel != 'O'
+			AND IFNULL(b.traceStatu,0) != 3
+			<if test="storeId != null">AND a.fourSStoreId = #{storeId}</if>
+			<if test="roleId != null">AND u.roleId = #{roleId}</if>
+			GROUP BY b.userId
+		</where>
+	</select>
+	<!-- 查询到店未出单潜客列表 -->
+	<select id="findDDWCDCustomer" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			a.customerId,
+			a.contact,
+			a.carLicenseNumber,
+			a.chassisNumber,
+			a.contactWay,
+			a.sfgyx,
+			a.lastTraceResult,
+			a.insuranceEndDate,
+			a.customerLevel,
+			a.principalId,
+			a.principal,
+			a.clerkId,
+			a.clerk,
+			b.userId holderId,
+			b.returnStatu,
+			b.delayDate
+		FROM
+			bf_bip_renewaling_customer a,
+			bf_bip_customer_assign b
+			LEFT JOIN bf_bip_user u ON (b.userId = u.id)
+		<where>
+			a.customerId = b.customerId
+			AND a.comeStoreDate = CURDATE()
+			AND a.customerLevel != 'O'
+			AND IFNULL(b.traceStatu,0) != 3
+			<if test="userId != null">AND b.userId = #{userId}</if>
+			<if test="roleId != null">AND u.roleId = #{roleId}</if>
+			<if test="storeId != null">AND a.fourSStoreId = #{storeId}</if>
+			<if test="renewalType != null and renewalType != ''">
+					and a.renewalType = #{renewalType}
+			</if>
+			<if test="insuranceCompLY != null and insuranceCompLY !=''">
+				and a.insuranceCompLY = #{insuranceCompLY}
+			</if>
+			<if test="customerLevel != null and customerLevel !=''">
+				and a.customerLevel = #{customerLevel}
+			</if>
+			<if test="insuranceEndDateStart != null and insuranceEndDateStart !=''">
+				<![CDATA[and a.insuranceEndDate >=  #{insuranceEndDateStart}]]>
+			</if>
+			<if test="insuranceEndDateEnd != null and insuranceEndDateEnd !=''">
+				<![CDATA[and a.insuranceEndDate <=  #{insuranceEndDateEnd}]]>
+			</if>
+			<if test="contact != null and contact !=''">
+				and a.contact = #{contact}
+			</if>
+			<if test="contactWay != null and contactWay !=''">
+				and a.contactWay like '%${contactWay}%'
+			</if>
+			<if test="carBrand != null and carBrand !=''">
+				and a.carBrand = #{carBrand}
+			</if>
+			<if test="vehicleModel != null and vehicleModel !=''">
+				and a.vehicleModel = #{vehicleModel}
+			</if>
+			<if test="chassisNumber != null and chassisNumber !=''">
+				and a.chassisNumber like '%${chassisNumber}%'
+			</if>
+			<if test="carLicenseNumber != null and carLicenseNumber !=''">
+				and a.carLicenseNumber like '%${carLicenseNumber}%'
+			</if>
+			<if test="insured != null and insured != ''">
+				and a.insured = #{insured}
+			</if>
+			<if test="carOwner != null and carOwner !=''">
+				and a.carOwner like '%${carOwner}%' 
+			</if>
+			limit #{start},#{pageSize}
+		</where>
+	</select>
+	<!-- 查询到店未出单潜客列表的总记录数 -->
+	<select id="findDDWCDCustomerCount" parameterType="java.util.Map" resultType="Integer">
+		SELECT
+			count(1)
+		FROM
+			bf_bip_renewaling_customer a,
+			bf_bip_customer_assign b
+			LEFT JOIN bf_bip_user u ON (b.userId = u.id)
+		<where>
+			a.customerId = b.customerId
+			AND a.comeStoreDate = CURDATE()
+			AND a.customerLevel != 'O'
+			AND IFNULL(b.traceStatu,0) != 3
+			<if test="userId != null">AND b.userId = #{userId}</if>
+			<if test="roleId != null">AND u.roleId = #{roleId}</if>
+			<if test="storeId != null">AND a.fourSStoreId = #{storeId}</if>
+			<if test="renewalType != null and renewalType != ''">
+					and a.renewalType = #{renewalType}
+			</if>
+			<if test="insuranceCompLY != null and insuranceCompLY !=''">
+				and a.insuranceCompLY = #{insuranceCompLY}
+			</if>
+			<if test="customerLevel != null and customerLevel !=''">
+				and a.customerLevel = #{customerLevel}
+			</if>
+			<if test="insuranceEndDateStart != null and insuranceEndDateStart !=''">
+				<![CDATA[and a.insuranceEndDate >=  #{insuranceEndDateStart}]]>
+			</if>
+			<if test="insuranceEndDateEnd != null and insuranceEndDateEnd !=''">
+				<![CDATA[and a.insuranceEndDate <=  #{insuranceEndDateEnd}]]>
+			</if>
+			<if test="contact != null and contact !=''">
+				and a.contact = #{contact}
+			</if>
+			<if test="contactWay != null and contactWay !=''">
+				and a.contactWay like '%${contactWay}%'
+			</if>
+			<if test="carBrand != null and carBrand !=''">
+				and a.carBrand = #{carBrand}
+			</if>
+			<if test="vehicleModel != null and vehicleModel !=''">
+				and a.vehicleModel = #{vehicleModel}
+			</if>
+			<if test="chassisNumber != null and chassisNumber !=''">
+				and a.chassisNumber like '%${chassisNumber}%'
+			</if>
+			<if test="carLicenseNumber != null and carLicenseNumber !=''">
+				and a.carLicenseNumber like '%${carLicenseNumber}%'
+			</if>
+			<if test="insured != null and insured != ''">
+				and a.insured = #{insured}
+			</if>
+			<if test="carOwner != null and carOwner !=''">
+				and a.carOwner like '%${carOwner}%' 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 查询已激活潜客记录列表 -->
+	<select id="findByJiHuoMap" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			a.customerId,
+			a.contact,
+			a.carLicenseNumber,
+			a.contactWay,
+			a.chassisNumber,
+			a.sfgyx,
+			a.insuranceEndDate,
+			a.customerLevel,
+			e.userId holderId,
+			e.returnStatu,
+			e.delayDate
+		FROM
+			bf_bip_operation_record c,
+			bf_bip_user d,
+			bf_bip_customer a
+		LEFT JOIN bf_bip_customer_assign e ON a.customerId = e.customerId AND IFNULL(e.traceStatu, 0) != 3
+		<where>
+			a.customerId = c.customerId
+			AND c.operationFlag = 3
+			AND c.userId = d.id
+		  	<if test="storeId != null and storeId != ''">
+		  		and a.fourSStoreId = #{storeId}
+		  	</if>
+		  	<if test="userId != null and userId != ''">
+		  		and c.userId = #{userId}
+		  	</if>
+		  	<if test="roleId != null and roleId != ''">
+		  		and d.roleId = #{roleId}
+		  	</if>
+		  	<if test="startTime != null and startTime != ''">
+		  		<![CDATA[and c.operationDate >= #{startTime,jdbcType=DATE}]]>
+		  	</if> 
+		  	<if test="endTime != null and endTime != ''">
+		  		<![CDATA[and c.operationDate <= #{endTime,jdbcType=DATE}]]>
+		  	</if>
+		  	<if test="renewalType != null and renewalType != ''">
+					and a.renewalType = #{renewalType}
+			</if>
+			<if test="insuranceCompLY != null and insuranceCompLY !=''">
+				and a.insuranceCompLY = #{insuranceCompLY}
+			</if>
+			<if test="customerLevel != null and customerLevel !=''">
+				and a.customerLevel = #{customerLevel}
+			</if>
+			<if test="insuranceEndDateStart != null and insuranceEndDateStart !=''">
+				<![CDATA[and a.insuranceEndDate >=  #{insuranceEndDateStart}]]>
+			</if>
+			<if test="insuranceEndDateEnd != null and insuranceEndDateEnd !=''">
+				<![CDATA[and a.insuranceEndDate <=  #{insuranceEndDateEnd}]]>
+			</if>
+			<if test="contact != null and contact !=''">
+				and a.contact = #{contact}
+			</if>
+			<if test="contactWay != null and contactWay !=''">
+				and a.contactWay like '%${contactWay}%'
+			</if>
+			<if test="carBrand != null and carBrand !=''">
+				and a.carBrand = #{carBrand}
+			</if>
+			<if test="vehicleModel != null and vehicleModel !=''">
+				and a.vehicleModel = #{vehicleModel}
+			</if>
+			<if test="chassisNumber != null and chassisNumber !=''">
+				and a.chassisNumber like '%${chassisNumber}%'
+			</if>
+			<if test="carLicenseNumber != null and carLicenseNumber !=''">
+				and a.carLicenseNumber like '%${carLicenseNumber}%'
+			</if>
+			<if test="insured != null and insured != ''">
+				and a.insured = #{insured}
+			</if>
+			<if test="carOwner != null and carOwner !=''">
+				and a.carOwner like '%${carOwner}%' 
+			</if>
+			limit #{start},#{pageSize}
+		</where>
+	</select>
+	<!-- 查询已激活潜客记录列表总数 -->
+	<select id="findByJiHuocount" parameterType="java.util.Map" resultType="Integer">
+		SELECT
+			count(a.customerId)
+		FROM
+			bf_bip_operation_record c,
+			bf_bip_user d,
+			bf_bip_customer a
+		LEFT JOIN bf_bip_customer_assign e ON a.customerId = e.customerId AND IFNULL(e.traceStatu, 0) != 3
+		<where>
+			a.customerId = c.customerId
+			AND c.operationFlag = 3
+			AND c.userId = d.id
+		  	<if test="storeId != null and storeId != ''">
+		  		and a.fourSStoreId = #{storeId}
+		  	</if>
+		  	<if test="userId != null and userId != ''">
+		  		and c.userId = #{userId}
+		  	</if>
+		  	<if test="roleId != null and roleId != ''">
+		  		and d.roleId = #{roleId}
+		  	</if>
+		  	<if test="startTime != null and startTime != ''">
+		  		<![CDATA[and c.operationDate >= #{startTime,jdbcType=DATE}]]>
+		  	</if> 
+		  	<if test="endTime != null and endTime != ''">
+		  		<![CDATA[and c.operationDate <= #{endTime,jdbcType=DATE}]]>
+		  	</if>
+		  	<if test="renewalType != null and renewalType != ''">
+					and a.renewalType = #{renewalType}
+			</if>
+			<if test="insuranceCompLY != null and insuranceCompLY !=''">
+				and a.insuranceCompLY = #{insuranceCompLY}
+			</if>
+			<if test="customerLevel != null and customerLevel !=''">
+				and a.customerLevel = #{customerLevel}
+			</if>
+			<if test="insuranceEndDateStart != null and insuranceEndDateStart !=''">
+				<![CDATA[and a.insuranceEndDate >=  #{insuranceEndDateStart}]]>
+			</if>
+			<if test="insuranceEndDateEnd != null and insuranceEndDateEnd !=''">
+				<![CDATA[and a.insuranceEndDate <=  #{insuranceEndDateEnd}]]>
+			</if>
+			<if test="contact != null and contact !=''">
+				and a.contact = #{contact}
+			</if>
+			<if test="contactWay != null and contactWay !=''">
+				and a.contactWay like '%${contactWay}%'
+			</if>
+			<if test="carBrand != null and carBrand !=''">
+				and a.carBrand = #{carBrand}
+			</if>
+			<if test="vehicleModel != null and vehicleModel !=''">
+				and a.vehicleModel = #{vehicleModel}
+			</if>
+			<if test="chassisNumber != null and chassisNumber !=''">
+				and a.chassisNumber like '%${chassisNumber}%'
+			</if>
+			<if test="carLicenseNumber != null and carLicenseNumber !=''">
+				and a.carLicenseNumber like '%${carLicenseNumber}%'
+			</if>
+			<if test="insured != null and insured != ''">
+				and a.insured = #{insured}
+			</if>
+			<if test="carOwner != null and carOwner !=''">
+				and a.carOwner like '%${carOwner}%' 
+			</if>
+		</where>
+	</select>
+	<!--可删除邀约  -->
+	<select id="selectKSCYY" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT
+			b.*
+		FROM
+			bf_bip_customer a,
+			bf_bip_customer_trace_recode b
+		WHERE
+			a.customerId = b.customerId
+		AND a.customerLevel != 'O'
+		AND a.customerLevel != 'F'
+		AND a.customerLevel != 'S'
+		AND IFNULL(b.invite, 0) = 1
+		AND IFNULL(b.comeStore, 0) = 0
+		AND b.inviteDate >= CURDATE()
+		AND b.operatorID = #{userId,jdbcType=INTEGER}
+		AND a.customerId = #{customerId,jdbcType=INTEGER}
+		limit #{start},#{pageSize}
+  	</select>
+  	<!-- 查询跟踪完成员工列表 -->
+	<select id="findGZWCWorkCollection" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			count(DISTINCT t.customerId) customerNum,
+			t.userId,
+			t.userName,
+			t.roleId,
+			t.phone
+		FROM
+			(
+				SELECT
+					rc.customerId,
+					ca.userId,
+					u.*
+				FROM
+					bf_bip_renewaling_customer rc,
+					bf_bip_customer_assign ca
+				JOIN bf_bip_user u ON (ca.userId = u.id)
+				WHERE
+					rc.customerId = ca.customerId
+					AND rc.customerLevel != "O"
+					<if test="storeId != null and storeId != ''">
+						AND u.storeId = #{storeId}
+					</if>
+					<if test="roleId != null and roleId != ''">
+						AND u.roleId = #{roleId}
+					</if>
+					AND ca.returnStatu = 11
+			) AS t
+		LEFT JOIN bf_bip_customer_assign ca2 ON t.customerId = ca2.customerId
+		AND ifnull(ca2.traceStatu, 0) != 3
+		LEFT JOIN bf_bip_user u ON ca2.userId = u.id
+		GROUP BY
+			t.userId	
+	</select>
+	
+	<!-- 查询已回退员工列表 -->
+	<select id="findYHTWorkCollection" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			count(a.customerId) customerNum,
+			c.userId,
+			d.userName,
+			d.roleId,
+			d.phone
+		FROM
+			bf_bip_operation_record c,
+			bf_bip_user d,
+			bf_bip_renewaling_customer a
+		LEFT JOIN bf_bip_customer_assign e ON a.customerId = e.customerId
+		WHERE
+			a.customerId = c.customerId
+			AND c.operationFlag = 2
+			AND c.userId = d.id
+			AND c.userId = e.userId
+			<if test="storeId != null and storeId != ''">
+				AND d.storeId = #{storeId}
+			</if>
+			<if test="roleId != null and roleId != ''">
+				AND d.roleId = #{roleId}
+			</if>
+		GROUP BY
+			c.userId	
+	</select>
+	
+	<!-- 查询战败线索员工列表 -->
+	<select id="findZBXSWorkCollection" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			count(r.contactWay) customerNum,
+			r.userId,
+			b.userName,
+			b.roleId,
+			b.phone
+		FROM bf_bip_defeat_customer_relate r
+		INNER JOIN bf_bip_user b on r.userId = b.id 
+		<where>
+			r.deleted = 0 AND r.defeated = 0 
+			<if test="bsp_storeId != null" >AND r.bsp_storeId = #{bsp_storeId}</if>
+			<if test="bip_storeId != null" >AND r.bip_storeId = #{bip_storeId}</if>
+			<if test="roleId != null">AND b.roleId = #{roleId}</if>
+			<if test="storeId != null">AND r.storeId = #{storeId}</if>
+		</where>
+		GROUP BY r.userId
+	</select>
+</mapper>

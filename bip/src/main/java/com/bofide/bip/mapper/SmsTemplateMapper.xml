@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.SmsTemplateMapper" >
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.SmsTemplate" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="storeId" property="storeId" jdbcType="INTEGER" />
+		<result column="templateName" property="templateName" jdbcType="VARCHAR" />
+		<result column="details" property="details" jdbcType="VARCHAR" />
+		<result column="startTime" property="startTime" jdbcType="TIMESTAMP" />
+		<result column="endTime" property="endTime" jdbcType="TIMESTAMP" />
+		<result column="establishName" property="establishName" jdbcType="VARCHAR" />
+		<result column="establishTime" property="establishTime" jdbcType="TIMESTAMP" />
+		<result column="enabledState" property="enabledState" jdbcType="INTEGER" />
+		<result column="endOperationName" property="endOperationName" jdbcType="VARCHAR" />
+		<result column="endOperationTime" property="endOperationTime" jdbcType="TIMESTAMP" />
+		<result column="deleted" property="deleted" jdbcType="INTEGER" />
+		
+		<collection property="store" column="store" ofType="com.bofide.bip.po.Store">
+			<result property="storeName" column="storeName" jdbcType="VARCHAR"/>
+		</collection>
+	</resultMap>
+
+	<insert id="insert" parameterType="java.util.Map" >
+		insert into bf_bip_sms_template (
+			storeId,templateName,details,startTime,endTime,establishName,establishTime,
+			enabledState,endOperationName,endOperationTime
+		)values(
+			#{storeId},#{templateName},#{details},#{startTime},#{endTime},#{establishName},now(),
+			#{enabledState},#{endOperationName},#{endOperationTime}
+		)
+	</insert>
+	
+	<select id="findByStoreId" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM bf_bip_sms_template a where a.deleted =0 and a.storeId = #{storeId} 
+	</select>
+	
+	<select id="findById" parameterType="Integer" resultType="java.util.Map">
+		SELECT * FROM bf_bip_sms_template a where a.id = #{id} 
+	</select>
+	
+	<update id="updateById" parameterType="java.util.Map" >
+		update bf_bip_sms_template
+		<set >
+			<if test="templateName != null" >templateName = #{templateName},</if>
+			<if test="details != null" >details = #{details},</if>
+			<if test="startTime != null" >startTime = #{startTime},</if>
+			<if test="endTime != null" >endTime = #{endTime},</if>
+			<if test="establishName != null" >establishName = #{establishName},</if>
+			<if test="establishTime != null" >establishTime = #{establishTime},</if>
+			<if test="enabledState != null" >enabledState = #{enabledState},</if>
+			<if test="endOperationName != null" >endOperationName = #{endOperationName},</if>
+			<if test="endOperationTime != null" >endOperationTime = #{endOperationTime},</if>
+			<if test="deleted != null" >deleted = #{deleted},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 根据店ID查询启用状态是1的模板 -->
+	<select id="findByStoreIdAndState" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			a.*,b.storeName
+		FROM
+			bf_bip_sms_template a
+		LEFT JOIN bf_bip_store b ON a.storeId = b.storeId
+		WHERE
+			a.deleted = 0
+		AND a.enabledState = 1
+		AND a.storeId = #{storeId}
+	</select>
+	<!-- 查询已启用模板数 -->
+	<select id="findEnableCount" parameterType="Integer" resultType="Integer">
+		SELECT count(1) FROM bf_bip_sms_template a where a.deleted =0 and a.storeId = #{storeId} and enabledState = 1;
+	</select>
+</mapper>

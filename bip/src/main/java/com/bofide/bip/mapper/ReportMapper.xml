@@ -1,0 +1,973 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bofide.bip.mapper.ReportMapper">
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.ReportData" >
+    	<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="xId" property="xId" jdbcType="INTEGER" />
+		<result column="xName" property="xName" jdbcType="VARCHAR" />
+		<result column="yId" property="yId" jdbcType="INTEGER" />
+		<result column="yName" property="yName" jdbcType="VARCHAR" />
+		<result column="stack" property="stack" jdbcType="INTEGER" />
+		<result column="stackName" property="stackName" jdbcType="VARCHAR" />
+		<result column="countValues" property="value" jdbcType="DOUBLE" />
+		<result column="recordTime" property="recordTime" jdbcType="DATE" />
+		<result column="storeId" property="storeId" jdbcType="INTEGER" />
+  	</resultMap>
+	<select id="findInviteReportData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_report_day_invite
+		<where>
+			<if test="storeId != null and storeId != ''">
+				storeId = #{storeId}
+			</if>
+			<if test="selectTime != null and selectTime != ''">
+				<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m') = #{selectTime}]]>
+			</if>
+		</where>	
+		
+	</select>
+	<select id="findComeStoreReportData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			xId,xName,yId,yName,stack,stackName,SUM(countValues) as countValues,recordTime,storeId
+		FROM
+			bf_bip_report_day_comeStore
+		<where>
+			<if test="storeId != null and storeId != ''">
+				storeId = #{storeId}
+			</if>
+			<if test="startTime != null and endTime != ''">
+				<![CDATA[AND recordTime >= #{startTime}]]>
+			</if>
+			<if test="endTime != null and endTime != ''">
+				<![CDATA[AND recordTime <= #{endTime}]]>
+			</if>
+			group by yId,xId,stack
+		</where>	
+		
+	</select>
+	
+	
+	<select id="findReportSearchTime" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT
+			DISTINCT DATE_FORMAT(recordTime,'%Y-%m')
+		FROM
+			${tableName} 
+		WHERE
+			storeId = #{storeId}
+		GROUP BY
+			recordTime
+		ORDER BY 
+			recordTime
+			DESC
+	</select>
+
+	<select id="findCustomerHolder" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_report_month_customer_holder
+		WHERE
+			storeId = #{storeId} and roleId = #{roleId}
+		<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m') = #{searchTime}]]>
+		ORDER BY xName,yName; 
+	</select>
+	
+	<select id="findReturnReasonCount" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			MAX(a.storeId) AS storeId,
+			MAX(a.xId) AS xId,
+			a.xName AS xName,
+			MAX(a.yId) AS yId,
+			MAX(a.yName) AS yName,
+			SUM(a.countValues) countValues,
+			NULL AS stack,
+			NULL AS stackName,
+			NOW()
+		FROM
+			bf_bip_report_return_reason a
+		WHERE
+			a.storeId = #{storeId}
+		AND a.recordTime BETWEEN #{startTime} AND #{endTime}
+		GROUP BY a.xName ORDER BY a.xName DESC;
+	</select>
+
+	<select id="findLossReasonCount" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			MAX(a.storeId) AS storeId,
+			MAX(a.xId) AS xId,
+			a.xName AS xName,
+			MAX(a.yId) AS yId,
+			MAX(a.yName) AS yName,
+			SUM(a.countValues) countValues,
+			NULL AS stack,
+			NULL AS stackName,
+			NOW()
+		FROM
+			bf_bip_report_loss_reason a
+		WHERE
+			a.storeId = #{storeId}
+		AND a.recordTime BETWEEN #{startTime} AND #{endTime}
+		GROUP BY a.xName ORDER BY a.xName DESC;
+	</select>
+	
+	<!-- 保险公司业务占比查询 -->
+	<select id="countInsuranceBill" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			a.storeId,
+			a.xId,
+			a.xName,
+			a.yId,
+			a.yName,
+			SUM(a.countValues) countValues,
+			stack,
+			stackName,
+			NOW()
+		FROM
+			bf_bip_report_day_insurance a
+		WHERE
+			a.storeId = #{storeId}
+		AND a.recordTime BETWEEN #{startTime} and #{endTime}
+		GROUP BY a.xName,a.yName ORDER BY a.xName DESC;
+	</select>
+	<!-- 查询当期续保率数据 -->
+	<select id="xbltjbbDqxbl" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_report_day_xbltjbb_dqxbl
+		WHERE
+			storeId = #{storeId} 
+		<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m') = #{time}]]>
+		ORDER BY xName
+	</select>
+	
+	<select id="findTraceCountByDay" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			*
+		FROM
+			bf_bip_report_month_customer_holder
+		WHERE
+			storeId = #{storeId} 
+		<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{searchTime}]]>; 
+	</select>
+	
+	<select id="findInviteAndComeStoreByDay" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			*
+		FROM
+			bf_bip_report_day_invite_comestore
+		WHERE
+			storeId = #{storeId} 
+		<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{searchTime}]]>; 
+	</select>
+	
+	<!-- 查询综合续保率数据 -->
+	<select id="xbltjbbZhxbl" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_report_day_xbltjbb_zhxbl
+		WHERE
+			storeId = #{storeId} 
+		<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m') = #{time}]]>
+	</select>
+	
+	<!-- 查询跟踪统计数据 -->
+	<select id="traceCount" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			'合计' as userName,IFNULL(sum(traceCount),0) as traceCount,IFNULL(sum(inviteCount),0) as inviteCount
+		FROM
+			bf_bip_report_day_trace_count
+		WHERE
+			storeId = #{storeId} and userId is not null
+		<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{time}]]>
+		UNION ALL
+		select * from (
+			SELECT
+				userName,traceCount,inviteCount
+			FROM
+				bf_bip_report_day_trace_count
+			WHERE
+				storeId = #{storeId} and userId is not null
+			<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{time}]]>
+			order by userName
+		) t
+	</select>
+	
+	<!-- 查询到店统计数据 -->
+	<select id="inviteComestore" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			'合计' as userName,IFNULL(sum(inviteCount),0) as inviteCount,IFNULL(sum(comeStoreCount),0) as comeStoreCount,IFNULL(sum(tomorrowInviteCount),0) as tomorrowInviteCount
+		FROM
+			bf_bip_report_day_invite_comestore
+		WHERE
+			storeId = #{storeId} and userId is not null
+		<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{time}]]>
+		UNION ALL
+		select * from (
+			SELECT
+				userName,inviteCount,comeStoreCount,tomorrowInviteCount
+			FROM
+				bf_bip_report_day_invite_comestore
+			WHERE
+				storeId = #{storeId} and userId is not null
+			<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{time}]]>
+			order by userName
+		) t
+	</select>
+	
+	<!-- 查询出单统计数据 -->
+	<select id="insurancebillCount" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			insuranceCompName,jqxNewBillCount,syxNewBillCount,sumNewBillCount,
+			jqxRenewalBillCount,syxRenewalBillCount,sumRenewalBillCount,jqxNewBillPremium,
+			syxNewBillPremium,sumNewBillPremium,jqxRenewalBillPremium,syxRenewalBillPremium,
+			sumRenewalBillPremium,jqxNewBillHandlingRate,syxNewBillHandlingRate,jqxRenewalBillHandlingRate,
+			syxRenewalBillHandlingRate,jqxNewBillHandlingAmount,syxNewBillHandlingAmount,sumNewBillHandlingAmount,
+			jqxRenewalBillHandlingAmount,syxRenewalBillHandlingAmount,sumRenewalBillHandlingAmount
+		FROM
+			bf_bip_report_day_insurancebill_count
+		WHERE
+			storeId = #{storeId} 
+		<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{time}]]>
+		order by insuranceCompName
+	</select>
+	<!-- 查询出单统计的保险公司名 -->
+	<select id="insurancebillCountCompName" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			insuranceCompName
+		FROM
+			bf_bip_report_day_insurancebill_count
+		WHERE
+			storeId = #{storeId} 
+		<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{time}]]>
+		order by insuranceCompName
+	</select>
+	
+	<select id="findDataFromComeStoreReportData"  parameterType="java.util.Map" resultMap="BaseResultMap">
+		
+		SELECT
+			xId,
+			xName,
+			yId,
+			yName,
+			stack,
+			stackName,
+			sum(countValues) AS countvalues,
+			storeId
+		FROM
+			bf_bip_report_day_comestore
+		WHERE
+			yId = #{yId}
+		AND storeId = #{storeId}
+		<if test="startTime != null and startTime != ''">
+			<![CDATA[AND recordTime >= #{startTime}]]>
+		</if>
+		<if test="endTime != null and endTime != ''">
+			<![CDATA[AND recordTime <= #{endTime}]]>
+		</if>
+		GROUP BY
+			xId,
+			yId,
+			yName,
+			stack,
+			stackName
+	</select>
+	
+	<select id="findDataTemplate" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			${tableName}
+		WHERE
+		    storeId = #{storeId}
+		GROUP BY
+			yId
+	</select>
+	
+	<!-- 保险KPI日报-续保专员 -->
+	<select id="countXbzyKPI" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			'日合计' as userName,IFNULL(sum(traceCount),0) as traceCount,IFNULL(sum(inviteCount),0) as inviteCount,
+			IFNULL(sum(comeStoreCount),0) as comeStoreCount,IFNULL(sum(xbcs),0) as xbcs,IFNULL(sum(syxcds),0) as syxcds
+		FROM
+			bf_bip_report_day_kpi_xbzy
+		WHERE
+			storeId = #{storeId} and userId is not null
+		<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{time}]]>
+		UNION ALL
+		select * from (
+			SELECT
+				userName,traceCount,inviteCount,comeStoreCount,xbcs,syxcds
+			FROM
+				bf_bip_report_day_kpi_xbzy
+			WHERE
+				storeId = #{storeId} and userId is not null
+			<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{time}]]>
+			order by userName
+		) t
+	</select>
+	
+	<!-- 保险KPI日报-销售顾问 -->
+	<select id="countXsgwKPI" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			'日合计' as userName,IFNULL(sum(gzrs),0) as gzrs,IFNULL(sum(gzwcrs),0) as gzwcrs,IFNULL(sum(htrs),0) as htrs
+		FROM
+			bf_bip_report_day_kpi_xsgw
+		WHERE
+			storeId = #{storeId} and userId is not null
+		<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{time}]]>
+		UNION ALL
+		select * from (
+			SELECT
+				userName,gzrs,gzwcrs,htrs
+			FROM
+				bf_bip_report_day_kpi_xsgw
+			WHERE
+				storeId = #{storeId} and userId is not null
+			<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{time}]]>
+			order by userName
+		) t
+	</select>
+	
+	<!-- 保险KPI日报-服务顾问 -->
+	<select id="countFwgwKPI" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			'日合计' as userName,IFNULL(sum(gzrs),0) as gzrs,IFNULL(sum(gzwcrs),0) as gzwcrs,IFNULL(sum(htrs),0) as htrs
+		FROM
+			bf_bip_report_day_kpi_fwgw
+		WHERE
+			storeId = #{storeId} and userId is not null
+		<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{time}]]>
+		UNION ALL
+		select * from (
+			SELECT
+				userName,gzrs,gzwcrs,htrs
+			FROM
+				bf_bip_report_day_kpi_fwgw
+			WHERE
+				storeId = #{storeId} and userId is not null
+			<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{time}]]>
+			order by userName
+		) t
+	</select>
+	
+	<!-- 保险KPI日报-出单员 -->
+	<select id="countCdyKPI" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			'日合计' as userName,IFNULL(sum(jdrs),0) as jdrs,IFNULL(sum(xbcs),0) as xbcs,IFNULL(sum(cds),0) as cds,
+			IFNULL(sum(syxcds),0) as syxcds,IFNULL(sum(bfhj),0) as bfhj,IFNULL(sum(syxbfhj),0) as syxbfhj,
+			IFNULL(sum(syxdjbf),0) as syxdjbf
+		FROM
+			bf_bip_report_day_kpi_cdy
+		WHERE
+			storeId = #{storeId} and userId is not null
+		<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{time}]]>
+		UNION ALL
+		select * from (
+			SELECT
+				userName,jdrs,xbcs,cds,syxcds,bfhj,syxbfhj,syxdjbf
+			FROM
+				bf_bip_report_day_kpi_cdy
+			WHERE
+				storeId = #{storeId} and userId is not null
+			<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{time}]]>
+			order by userName
+		) t
+	</select>
+	
+	<!-- 保险KPI日报-续保专员详情 -->
+	<select id="countXbzyKPIDetail" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			'日合计' AS userName,
+			sum(
+				newgzrs + renewgzrs + jzxgzrs + qzxgzrs + scgzrs
+			) AS sum1,
+			sum(newgzrs) AS newgzrs,
+			sum(renewgzrs) AS renewgzrs,
+			sum(jzxgzrs) AS jzxgzrs,
+			sum(qzxgzrs) AS qzxgzrs,
+			sum(scgzrs) AS scgzrs,
+			sum(
+				newyyrs + renewyyrs + jzxyyrs + qzxyyrs + scyyrs
+			) AS sum2,
+			sum(newyyrs) AS newyyrs,
+			sum(renewyyrs) AS renewyyrs,
+			sum(jzxyyrs) AS jzxyyrs,
+			sum(qzxyyrs) AS qzxyyrs,
+			sum(scyyrs) AS scyyrs,
+			sum(
+				newyyddrs + renewyyddrs + jzxyyddrs + qzxyyddrs + scyyddrs
+			) AS sum3,
+			sum(newyyddrs) AS newyyddrs,
+			sum(renewyyddrs) AS renewyyddrs,
+			sum(jzxyyddrs) AS jzxyyddrs,
+			sum(qzxyyddrs) AS qzxyyddrs,
+			sum(scyyddrs) AS scyyddrs,
+			sum(
+				newxbcs + renewxbcs + jzxxbcs + qzxxbcs + scxbcs
+			) AS sum4,
+			sum(newxbcs) AS newxbcs,
+			sum(renewxbcs) AS renewxbcs,
+			sum(jzxxbcs) AS jzxxbcs,
+			sum(qzxxbcs) AS qzxxbcs,
+			sum(scxbcs) AS scxbcs
+		FROM
+			bf_bip_report_day_kpi_xbzy_detail
+		WHERE
+			storeId = #{storeId} and userId is not null
+			<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{time}]]>
+		AND userId IS NOT NULL
+		UNION ALL
+			SELECT
+				*
+			FROM
+				(
+					SELECT
+						userName,
+						sum(
+							newgzrs + renewgzrs + jzxgzrs + qzxgzrs + scgzrs
+						) AS sum1,
+						newgzrs,
+						renewgzrs,
+						jzxgzrs,
+						qzxgzrs,
+						scgzrs,
+						sum(
+							newyyrs + renewyyrs + jzxyyrs + qzxyyrs + scyyrs
+						) AS sum2,
+						newyyrs,
+						renewyyrs,
+						jzxyyrs,
+						qzxyyrs,
+						scyyrs,
+						sum(
+							newyyddrs + renewyyddrs + jzxyyddrs + qzxyyddrs + scyyddrs
+						) AS sum3,
+						newyyddrs,
+						renewyyddrs,
+						jzxyyddrs,
+						qzxyyddrs,
+						scyyddrs,
+						sum(
+							newxbcs + renewxbcs + jzxxbcs + qzxxbcs + scxbcs
+						) AS sum4,
+						newxbcs,
+						renewxbcs,
+						jzxxbcs,
+						qzxxbcs,
+						scxbcs
+					FROM
+						bf_bip_report_day_kpi_xbzy_detail
+					WHERE
+						storeId = #{storeId} and userId is not null
+						<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{time}]]>
+					AND userId IS NOT NULL
+					GROUP BY
+						userName
+					ORDER BY
+						userName
+				) t
+	</select>
+	
+	<!-- 保险KPI日报-分续保类型 -->
+	<select id="countXbzyKPICoverType" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+				*
+			FROM
+				bf_bip_report_day_kpi_cover_type
+			WHERE
+				storeId = #{storeId}
+			<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{time}]]>
+	</select>
+	<!-- KPI月报按出单员 -->
+	<select id="countMonthKpiCdy" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT userName,jdrs,xbcs,cds,ddcds,ddcdl,syxcds,bfhj,syxbfhj,syxdjbf
+		FROM bf_bip_report_month_kpi_cdy
+		WHERE storeId = #{storeId} AND DATE_FORMAT(recordTime, '%Y-%m') = #{time}
+	</select>
+	
+	<!-- KPI月报按续保专员 -->
+	<select id="countMonthKpiXbzy" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT userName,traceCount,zsgzcs,needTraceCount,zsgjl,inviteCount,yylInviteCount,cyqks,qkyyl,yjddrs,comeStoreCount,yyddl,xbcs,syxcds
+		FROM bf_bip_report_month_kpi_xbzy
+		WHERE storeId = #{storeId} AND DATE_FORMAT(recordTime, '%Y-%m') = #{time}
+	</select>
+	
+	<!-- 保险KPI月报续保专员详情 -->
+	<select id="countMonthKpiXbzyDetail" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT '月合计' AS userName,
+			sum(newgzrs + renewgzrs + jzxgzrs + qzxgzrs + scgzrs) AS sum1, 
+			sum(newgzrs) AS newgzrs,
+			sum(renewgzrs) AS renewgzrs,
+			sum(jzxgzrs) AS jzxgzrs,
+			sum(qzxgzrs) AS qzxgzrs,
+			sum(scgzrs) AS scgzrs,
+			sum(newyyrs + renewyyrs + jzxyyrs + qzxyyrs + scyyrs) AS sum2,
+			sum(newyyrs) AS newyyrs,
+			sum(renewyyrs) AS renewyyrs,
+			sum(jzxyyrs) AS jzxyyrs,
+			sum(qzxyyrs) AS qzxyyrs,
+			sum(scyyrs) AS scyyrs,
+			sum(newyyddrs + renewyyddrs + jzxyyddrs + qzxyyddrs + scyyddrs) AS sum3,
+			sum(newyyddrs) AS newyyddrs,
+			sum(renewyyddrs) AS renewyyddrs,
+			sum(jzxyyddrs) AS jzxyyddrs,
+			sum(qzxyyddrs) AS qzxyyddrs,
+			sum(scyyddrs) AS scyyddrs,
+			sum(newxbcs + renewxbcs + jzxxbcs + qzxxbcs + scxbcs) AS sum4,
+			sum(newxbcs) AS newxbcs,
+			sum(renewxbcs) AS renewxbcs,
+			sum(jzxxbcs) AS jzxxbcs,
+			sum(qzxxbcs) AS qzxxbcs,
+			sum(scxbcs) AS scxbcs
+		FROM bf_bip_report_month_kpi_xbzy_detail
+		WHERE storeId = #{storeId} AND DATE_FORMAT(recordTime, '%Y-%m') = #{time}
+		UNION ALL
+		select * from (
+		SELECT userName,
+			sum(newgzrs + renewgzrs + jzxgzrs + qzxgzrs + scgzrs) AS sum1,
+			newgzrs,renewgzrs,jzxgzrs,qzxgzrs,scgzrs,
+			sum(newyyrs + renewyyrs + jzxyyrs + qzxyyrs + scyyrs) AS sum2,
+			newyyrs,renewyyrs,jzxyyrs,qzxyyrs,scyyrs,
+			sum(newyyddrs + renewyyddrs + jzxyyddrs + qzxyyddrs + scyyddrs) AS sum3,
+			newyyddrs,renewyyddrs,jzxyyddrs,qzxyyddrs,scyyddrs,
+			sum(newxbcs + renewxbcs + jzxxbcs + qzxxbcs + scxbcs) AS sum4,
+			newxbcs,renewxbcs,jzxxbcs,qzxxbcs,scxbcs 
+			FROM bf_bip_report_month_kpi_xbzy_detail
+			WHERE storeId = #{storeId} AND DATE_FORMAT(recordTime, '%Y-%m') = #{time}
+			GROUP BY userName
+			ORDER BY userName) t
+	</select>
+	<!-- KPI月报分保险公司 -->
+	<select id="countMonthKpiInsurComp" parameterType="java.util.Map" resultType="java.util.Map">
+		select '合计' insuranceCompName,
+			sum(a.sumNewBillCountQk + a.sumNewBillCountDk + a.sumRenewalBillCount) sumCds,
+			sum(a.jqxNewBillCountQk + a.jqxNewBillCountDk + a.jqxRenewalBillCount) sumCdsJqx,
+			sum(a.syxNewBillCountQk + a.syxNewBillCountDk + a.syxRenewalBillCount) sumCdsSyx,
+			sum(a.jqxNewBillCountQk) jqxNewBillCountQk,
+			sum(a.syxNewBillCountQk) syxNewBillCountQk,
+			sum(a.sumNewBillCountQk) sumNewBillCountQk,
+			sum(a.jqxNewBillCountDk) jqxNewBillCountDk,
+			sum(a.syxNewBillCountDk) syxNewBillCountDk,
+			sum(a.sumNewBillCountDk) sumNewBillCountDk,
+			sum(a.jqxRenewalBillCount) jqxRenewalBillCount,
+			sum(a.syxRenewalBillCount) syxRenewalBillCount,
+			sum(a.sumRenewalBillCount) sumRenewalBillCount,
+			sum(a.sumNewBillPremiumQk + a.sumNewBillPremiumDk + a.sumRenewalBillPremium) sumQdbf,
+			sum(a.jqxNewBillPremiumQk + a.jqxNewBillPremiumDk + a.jqxRenewalBillPremium) sumQdbfJqx,
+			sum(a.syxNewBillPremiumQk + a.syxNewBillPremiumDk + a.syxRenewalBillPremium) sumQdbfSyx,
+			sum(a.jqxNewBillPremiumQk) jqxNewBillPremiumQk,
+			sum(a.syxNewBillPremiumQk) syxNewBillPremiumQk,
+			sum(a.sumNewBillPremiumQk) sumNewBillPremiumQk,
+			sum(a.jqxNewBillPremiumDk) jqxNewBillPremiumDk,
+			sum(a.syxNewBillPremiumDk) syxNewBillPremiumDk,
+			sum(a.sumNewBillPremiumDk) sumNewBillPremiumDk,
+			sum(a.jqxRenewalBillPremium) jqxRenewalBillPremium,
+			sum(a.syxRenewalBillPremium) syxRenewalBillPremium,
+			sum(a.sumRenewalBillPremium) sumRenewalBillPremium,
+			sum(a.jqxNewBillHandlingRateQk + a.jqxNewBillHandlingRateDk + a.jqxRenewalBillHandlingRate) sumSxflJqx,
+			sum(a.syxNewBillHandlingRateQk + a.syxNewBillHandlingRateDk + a.syxRenewalBillHandlingRate) sumSxflSyx,
+			sum(a.jqxNewBillHandlingRateQk) jqxNewBillHandlingRateQk,
+			sum(a.syxNewBillHandlingRateQk) syxNewBillHandlingRateQk,
+			sum(a.jqxNewBillHandlingRateDk) jqxNewBillHandlingRateDk,
+			sum(a.syxNewBillHandlingRateDk) syxNewBillHandlingRateDk,
+			sum(a.jqxRenewalBillHandlingRate) jqxRenewalBillHandlingRate,
+			sum(a.syxRenewalBillHandlingRate) syxRenewalBillHandlingRate,
+			sum(a.sumNewBillHandlingAmountQk + a.sumNewBillHandlingAmountDk + a.sumRenewalBillHandlingAmount) sumSxfje,
+			sum(a.jqxNewBillHandlingAmountQk + a.jqxNewBillHandlingAmountDk + a.jqxRenewalBillHandlingAmount) sumSxfjeJqx,
+			sum(a.syxNewBillHandlingAmountQk + a.syxNewBillHandlingAmountDk + a.syxRenewalBillHandlingAmount) sumSxfjeSyx,
+			sum(a.jqxNewBillHandlingAmountQk) jqxNewBillHandlingAmountQk,
+			sum(a.syxNewBillHandlingAmountQk) syxNewBillHandlingAmountQk,
+			sum(a.sumNewBillHandlingAmountQk) sumNewBillHandlingAmountQk,
+			sum(a.jqxNewBillHandlingAmountDk) jqxNewBillHandlingAmountDk,
+			sum(a.syxNewBillHandlingAmountDk) syxNewBillHandlingAmountDk,
+			sum(a.sumNewBillHandlingAmountDk) sumNewBillHandlingAmountDk,
+			sum(a.jqxRenewalBillHandlingAmount) jqxRenewalBillHandlingAmount,
+			sum(a.syxRenewalBillHandlingAmount) syxRenewalBillHandlingAmount,
+			sum(a.sumRenewalBillHandlingAmount) sumRenewalBillHandlingAmount
+		from bf_bip_report_month_kpi_bill_count a  
+		where a.storeId = #{storeId} and DATE_FORMAT(a.recordTime, '%Y-%m') = #{time}
+		union all
+		select * from (
+		select a.insuranceCompName,
+			sum(a.sumNewBillCountQk + a.sumNewBillCountDk + a.sumRenewalBillCount) sumCds,
+			sum(a.jqxNewBillCountQk + a.jqxNewBillCountDk + a.jqxRenewalBillCount) sumCdsJqx,
+			sum(a.syxNewBillCountQk + a.syxNewBillCountDk + a.syxRenewalBillCount) sumCdsSyx,
+			max(a.jqxNewBillCountQk) jqxNewBillCountQk,
+			max(a.syxNewBillCountQk) syxNewBillCountQk,
+			max(a.sumNewBillCountQk) sumNewBillCountQk,
+			max(a.jqxNewBillCountDk) jqxNewBillCountDk,
+			max(a.syxNewBillCountDk) syxNewBillCountDk,
+			max(a.sumNewBillCountDk) sumNewBillCountDk,
+			max(a.jqxRenewalBillCount) jqxRenewalBillCount,
+			max(a.syxRenewalBillCount) syxRenewalBillCount,
+			max(a.sumRenewalBillCount) sumRenewalBillCount,
+			sum(a.sumNewBillPremiumQk + a.sumNewBillPremiumDk + a.sumRenewalBillPremium) sumQdbf,
+			sum(a.jqxNewBillPremiumQk + a.jqxNewBillPremiumDk + a.jqxRenewalBillPremium) sumQdbfJqx,
+			sum(a.syxNewBillPremiumQk + a.syxNewBillPremiumDk + a.syxRenewalBillPremium) sumQdbfSyx,
+			max(a.jqxNewBillPremiumQk) jqxNewBillPremiumQk,
+			max(a.syxNewBillPremiumQk) syxNewBillPremiumQk,
+			max(a.sumNewBillPremiumQk) sumNewBillPremiumQk,
+			max(a.jqxNewBillPremiumDk) jqxNewBillPremiumDk,
+			max(a.syxNewBillPremiumDk) syxNewBillPremiumDk,
+			max(a.sumNewBillPremiumDk) sumNewBillPremiumDk,
+			max(a.jqxRenewalBillPremium) jqxRenewalBillPremium,
+			max(a.syxRenewalBillPremium) syxRenewalBillPremium,
+			max(a.sumRenewalBillPremium) sumRenewalBillPremium,
+			sum(a.jqxNewBillHandlingRateQk + a.jqxNewBillHandlingRateDk + a.jqxRenewalBillHandlingRate) sumSxflJqx,
+			sum(a.syxNewBillHandlingRateQk + a.syxNewBillHandlingRateDk + a.syxRenewalBillHandlingRate) sumSxflSyx,
+			max(a.jqxNewBillHandlingRateQk) jqxNewBillHandlingRateQk,
+			max(a.syxNewBillHandlingRateQk) syxNewBillHandlingRateQk,
+			max(a.jqxNewBillHandlingRateDk) jqxNewBillHandlingRateDk,
+			max(a.syxNewBillHandlingRateDk) syxNewBillHandlingRateDk,
+			max(a.jqxRenewalBillHandlingRate) jqxRenewalBillHandlingRate,
+			max(a.syxRenewalBillHandlingRate) syxRenewalBillHandlingRate,
+			sum(a.sumNewBillHandlingAmountQk + a.sumNewBillHandlingAmountDk + a.sumRenewalBillHandlingAmount) sumSxfje,
+			sum(a.jqxNewBillHandlingAmountQk + a.jqxNewBillHandlingAmountDk + a.jqxRenewalBillHandlingAmount) sumSxfjeJqx,
+			sum(a.syxNewBillHandlingAmountQk + a.syxNewBillHandlingAmountDk + a.syxRenewalBillHandlingAmount) sumSxfjeSyx,
+			max(a.jqxNewBillHandlingAmountQk) jqxNewBillHandlingAmountQk,
+			max(a.syxNewBillHandlingAmountQk) syxNewBillHandlingAmountQk,
+			max(a.sumNewBillHandlingAmountQk) sumNewBillHandlingAmountQk,
+			max(a.jqxNewBillHandlingAmountDk) jqxNewBillHandlingAmountDk,
+			max(a.syxNewBillHandlingAmountDk) syxNewBillHandlingAmountDk,
+			max(a.sumNewBillHandlingAmountDk) sumNewBillHandlingAmountDk,
+			max(a.jqxRenewalBillHandlingAmount) jqxRenewalBillHandlingAmount,
+			max(a.syxRenewalBillHandlingAmount) syxRenewalBillHandlingAmount,
+			max(a.sumRenewalBillHandlingAmount) sumRenewalBillHandlingAmount
+		from bf_bip_report_month_kpi_bill_count a  
+		where a.storeId = #{storeId} and DATE_FORMAT(a.recordTime, '%Y-%m') = #{time}
+		GROUP BY a.insuranceCompName
+		) t
+	</select>
+	<!-- KPI日报按保险公司 -->
+	<select id="countDayKpiInsurComp" parameterType="java.util.Map" resultType="java.util.Map">
+		select '合计' insuranceCompName,
+			sum(a.sumNewBillCount+ a.sumRenewalBillCount) sumCds,
+			sum(a.jqxNewBillCount + a.jqxRenewalBillCount) sumCdsJqx,
+			sum(a.syxNewBillCount + a.syxRenewalBillCount) sumCdsSyx,
+			sum(a.jqxNewBillCount) jqxNewBillCount,
+			sum(a.syxNewBillCount) syxNewBillCount,
+			sum(a.sumNewBillCount) sumNewBillCount,
+			sum(a.jqxRenewalBillCount) jqxRenewalBillCount,
+			sum(a.syxRenewalBillCount) syxRenewalBillCount,
+			sum(a.sumRenewalBillCount) sumRenewalBillCount,
+			sum(a.sumNewBillPremium + a.sumRenewalBillPremium) sumQdbf,
+			sum(a.jqxNewBillPremium + a.jqxRenewalBillPremium) sumQdbfJqx,
+			sum(a.syxNewBillPremium + a.syxRenewalBillPremium) sumQdbfSyx,
+			sum(a.jqxNewBillPremium) jqxNewBillPremium,
+			sum(a.syxNewBillPremium) syxNewBillPremium,
+			sum(a.sumNewBillPremium) sumNewBillPremium,
+			sum(a.jqxRenewalBillPremium) jqxRenewalBillPremium,
+			sum(a.syxRenewalBillPremium) syxRenewalBillPremium,
+			sum(a.sumRenewalBillPremium) sumRenewalBillPremium
+		from bf_bip_report_day_insurancebill_count a  
+		where a.storeId = #{storeId} and DATE_FORMAT(a.recordTime, '%Y-%m-%d') = #{time}
+		union all
+		select * from (
+		select a.insuranceCompName,
+			sum(a.sumNewBillCount + a.sumRenewalBillCount) sumCds,
+			sum(a.jqxNewBillCount + a.jqxRenewalBillCount) sumCdsJqx,
+			sum(a.syxNewBillCount + a.syxRenewalBillCount) sumCdsSyx,
+			max(a.jqxNewBillCount) jqxNewBillCount,
+			max(a.syxNewBillCount) syxNewBillCount,
+			max(a.sumNewBillCount) sumNewBillCount,
+			max(a.jqxRenewalBillCount) jqxRenewalBillCount,
+			max(a.syxRenewalBillCount) syxRenewalBillCount,
+			max(a.sumRenewalBillCount) sumRenewalBillCount,
+			sum(a.sumNewBillPremium + a.sumRenewalBillPremium) sumQdbf,
+			sum(a.jqxNewBillPremium + a.jqxRenewalBillPremium) sumQdbfJqx,
+			sum(a.syxNewBillPremium + a.syxRenewalBillPremium) sumQdbfSyx,
+			max(a.jqxNewBillPremium) jqxNewBillPremium,
+			max(a.syxNewBillPremium) syxNewBillPremium,
+			max(a.sumNewBillPremium) sumNewBillPremium,
+			max(a.jqxRenewalBillPremium) jqxRenewalBillPremium,
+			max(a.syxRenewalBillPremium) syxRenewalBillPremium,
+			max(a.sumRenewalBillPremium) sumRenewalBillPremium
+		from bf_bip_report_day_insurancebill_count a  
+		where a.storeId = #{storeId} and DATE_FORMAT(a.recordTime, '%Y-%m-%d') = #{time}
+		GROUP BY a.insuranceCompName
+		) t
+	</select>
+	
+	<!-- KPI月报按投保类型-资源 -->
+	<select id="countMonthKpiCoverTypeResource" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM bf_bip_report_month_kpi_cover_type_resource
+		WHERE storeId = #{storeId} AND DATE_FORMAT(recordTime, '%Y-%m') = #{time}
+		ORDER BY itemType 
+	</select>
+	<!-- KPI月报按投保类型-跟踪邀约 -->
+	<select id="countMonthKpiCoverTypeGzyy" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM bf_bip_report_month_kpi_cover_type_gzyy
+		WHERE storeId = #{storeId} AND DATE_FORMAT(recordTime, '%Y-%m') = #{time}
+		ORDER BY itemType 
+	</select>
+	<!-- KPI月报按投保类型-到店出单 -->
+	<select id="countMonthKpiCoverTypeDdcd" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM bf_bip_report_month_kpi_cover_type_ddcd
+		WHERE storeId = #{storeId} AND DATE_FORMAT(recordTime, '%Y-%m') = #{time}
+		ORDER BY itemType 
+	</select>
+	<!-- KPI月报按投保类型-续保完成率 -->
+	<select id="countMonthKpiCoverTypeXbwcl" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM bf_bip_report_month_kpi_cover_type_xbwcl
+		WHERE storeId = #{storeId} AND DATE_FORMAT(recordTime, '%Y-%m') = #{time}
+	</select>
+	<!-- KPI月报按投保类型-综合续保 -->
+	<select id="countMonthKpiCoverTypeZhxb" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM bf_bip_report_month_kpi_cover_type_zhxb
+		WHERE storeId = #{storeId} AND DATE_FORMAT(recordTime, '%Y-%m') = #{time}
+	</select>
+	<!-- KPI月报按投保类型-当期续保 -->
+	<select id="countMonthKpiCoverTypeDqxb" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM bf_bip_report_month_kpi_cover_type_dqxb
+		WHERE storeId = #{storeId} AND DATE_FORMAT(recordTime, '%Y-%m') = #{time}
+		ORDER BY itemType 
+	</select>
+	<!-- APP月报-当期续保数 -->
+	<select id="countAppMonthDqxbs" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT r.newN newQbqks,r.renewN renewQbqks,r.jzxN jzxQbqks,r.qzxN qzxQbqks,r.scN scQbqks,
+			d.newN newDqxbs,d.renewN renewDqxbs,d.jzxN jzxDqxbs,d.qzxN qzxDqxbs,d.scN scDqxbs
+		FROM bf_bip_report_month_kpi_cover_type_resource r 
+		INNER JOIN bf_bip_report_month_kpi_cover_type_dqxb d on d.storeId = r.storeId 
+			and d.itemType = 1 and DATE_FORMAT(d.recordTime,'%Y-%m') = #{time} 
+		WHERE r.itemType = 1 and DATE_FORMAT(r.recordTime,'%Y-%m') = #{time}
+			and r.storeId =#{storeId}
+	</select>
+	
+	<!-- APP月报-综合续保数 -->
+	<select id="countAppMonthZhxbs" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT r.newN + r.newN1 + r.newN2 + r.newN3 newBykcxbs
+			,r.renewN + r.renewN1 + r.renewN2 + r.renewN3 renewBykcxbs
+			,r.jzxN + r.jzxN1 + r.jzxN2 + r.jzxN3 jzxBykcxbs
+			,r.qzxN + r.qzxN1 + r.qzxN2 + r.qzxN3 qzxBykcxbs
+			,r.scN + r.scN1 + r.scN2 + r.scN3 scBykcxbs
+			,d.newN + d.newN1 + d.newN2 + d.newN3 newZhxbs
+			,d.renewN + d.renewN1 + d.renewN2 + d.renewN3 renewZhxbs
+			,d.jzxN + d.jzxN1 + d.jzxN2 + d.jzxN3 jzxZhxbs
+			,d.qzxN + d.qzxN1 + d.qzxN2 + d.qzxN3 qzxZhxbs
+			,d.scN + d.scN1 + d.scN2 + d.scN3 scZhxbs
+			,d.newN1 + d.newN2 + d.newN3 newBytqxbs
+			,d.renewN1 + d.renewN2 + d.renewN3 renewBytqxbs
+			,d.jzxN1 + d.jzxN2 + d.jzxN3 jzxBytqxbs
+			,d.qzxN1 + d.qzxN2 + d.qzxN3 qzxBytqxbs
+			,d.scN1 + d.scN2 + d.scN3 scBytqxbs
+		FROM bf_bip_report_month_kpi_cover_type_resource r 
+		INNER JOIN bf_bip_report_month_kpi_cover_type_ddcd d on d.storeId = r.storeId 
+			and d.itemType = 3 and DATE_FORMAT(d.recordTime,'%Y-%m') = #{time} 
+		WHERE r.itemType = 4 and DATE_FORMAT(r.recordTime,'%Y-%m') = #{time}
+			and r.storeId =#{storeId}
+	</select>
+	
+	<!-- 根据表名和4s店id删除报表数据 -->
+	<delete id="deleteReportDataByStoreId" >
+		DELETE FROM ${tableName} WHERE storeId = #{storeId}
+	</delete>
+	
+	<!-- 续保专员客户流转报表 -->
+	<select id="findCustomerTrendData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_report_month_customer_trend
+		<where>
+			<if test="storeId != null and storeId != ''">
+				storeId = #{storeId}
+			</if>
+			<if test="recordTime != null and recordTime != ''">
+				<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m') = #{recordTime}]]>
+			</if>
+		</where>	
+		order by xId
+	</select>
+	
+	<!-- 续保专员客户流转报表明细 -->
+	<select id="findCustomerTrendDetail" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			*
+		FROM
+			bf_bip_report_month_customer_trend_detail
+		<where>
+			<if test="storeId != null and storeId != ''">
+				storeId = #{storeId}
+			</if>
+			<if test="recordTime != null and recordTime != ''">
+				<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m') = #{recordTime}]]>
+			</if>
+			<if test="stackName != null and stackName != ''">
+				AND stackName = #{stackName}
+			</if>
+			<if test="userId != null and userId != ''">
+				AND userId = #{userId}
+			</if>
+		</where>	
+		LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 查询当期续保率数据(趋势图) -->
+	<select id="xbltjbbDqxbl_qushi" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			yId AS xId,
+			yName AS xName,
+			xId AS yId,
+			xName AS yName,
+			stack,
+			stackName,
+			countValues,
+			recordTime,
+			storeId
+		FROM
+			bf_bip_report_day_xbltjbb_dqxbl
+		WHERE
+			storeId = #{storeId}
+		AND stack != 1
+		<![CDATA[AND DATE_FORMAT(recordTime, '%Y') = #{time}]]>
+		ORDER BY
+			recordTime
+	</select>
+	
+	<!-- 查询综合续保率数据(趋势图) -->
+	<select id="xbltjbbZhxbl_qushi" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			yId AS xId,
+			yName AS xName,
+			xId AS yId,
+			xName AS stackName,
+			stack,
+			stackName AS yName,
+			countValues,
+			recordTime,
+			storeId 
+		FROM
+			bf_bip_report_day_xbltjbb_zhxbl
+		WHERE
+			storeId = #{storeId}
+		<![CDATA[AND DATE_FORMAT(recordTime, '%Y') = #{time}]]>
+		ORDER BY
+			recordTime
+	</select>
+	
+	<!-- 异常数据报表 -->
+	<select id="findExceptionData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_report_day_exception
+		<where>
+			<if test="storeId != null and storeId != ''">
+				and storeId = #{storeId}
+			</if>
+			<if test="roleId != null and roleId != ''">
+				and roleId = #{roleId}
+			</if>
+			<if test="recordTime != null and recordTime != ''">
+				<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{recordTime}]]>
+			</if>
+		</where>	
+		order by xId
+	</select>
+	
+	<!-- 异常数据报表明细 -->
+	<select id="findExceptionDataDetail" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			*
+		FROM
+			bf_bip_report_day_exception_detail
+		<where>
+			<if test="storeId != null and storeId != ''">
+				and storeId = #{storeId}
+			</if>
+			<if test="recordTime != null and recordTime != ''">
+				<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{recordTime}]]>
+			</if>
+			<if test="stackName != null and stackName != ''">
+				AND stackName = #{stackName}
+			</if>
+			<if test="userId != null and userId != ''">
+				AND userId = #{userId}
+			</if>
+		</where>	
+		LIMIT #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	<!-- 异常数据报表明细总数 -->
+	<select id="findExceptionDataDetailCount" parameterType="java.util.Map" resultType="Integer">
+		SELECT
+			count(1)
+		FROM
+			bf_bip_report_day_exception_detail
+		<where>
+			<if test="storeId != null and storeId != ''">
+				storeId = #{storeId}
+			</if>
+			<if test="recordTime != null and recordTime != ''">
+				<![CDATA[AND DATE_FORMAT(recordTime, '%Y-%m-%d') = #{recordTime}]]>
+			</if>
+			<if test="stackName != null and stackName != ''">
+				AND stackName = #{stackName}
+			</if>
+			<if test="userId != null and userId != ''">
+				AND userId = #{userId}
+			</if>
+		</where>	
+	</select>
+	
+	<select id="selectInsuranceCompName" parameterType="java.util.Map" resultType="java.util.Map">
+		select distinct insuranceCompName
+		from bf_bip_report_month_kpi_company a
+		<where>
+			<if test="storeId != null and storeId != ''">
+				and a.storeId = #{storeId}
+			</if>
+			<if test="time != null and time != ''">
+				and DATE_FORMAT(a.recordTime, '%Y-%m') = #{time}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectMonthKpiCompany" parameterType="java.util.Map" resultType="java.util.Map">
+		select *
+		from bf_bip_report_month_kpi_company a
+		<where>
+			<if test="storeId != null and storeId != ''">
+				and a.storeId = #{storeId}
+			</if>
+			<if test="time != null and time != ''">
+				and DATE_FORMAT(a.recordTime, '%Y-%m') = #{time}
+			</if>
+			<if test="insuranceCompName != null and insuranceCompName != ''">
+				and a.insuranceCompName = #{insuranceCompName}
+			</if>
+		</where>
+		ORDER BY a.insuranceCompName,a.type
+	</select>
+	<select id="selectMonthKpiCompanySum" parameterType="java.util.Map" resultType="java.util.Map">
+		select case when sum(a.jqxcds) is null then 0 else sum(a.jqxcds) end as jqxcds, 
+			case when sum(a.syxcds) is null then 0 else sum(a.syxcds) end as syxcds, 
+			case when sum(a.cdsSum) is null then 0 else sum(a.cdsSum) end as cdsSum, 
+			case when sum(a.jqxbf) is null then 0 else sum(a.jqxbf) end as jqxbf, 
+			case when sum(a.syxbf) is null then 0 else sum(a.syxbf) end as syxbf, 
+			case when sum(a.bfSum) is null then 0 else sum(a.bfSum) end as bfSum, 
+			'-' as jqxsxfRate,'-' as syxsxfRate, 
+			case when sum(a.jqxsxfAmount) is null then 0 else sum(a.jqxsxfAmount) end as jqxsxfAmount, 
+			case when sum(a.sxfAmountSum) is null then 0 else sum(a.sxfAmountSum) end as syxsxfAmount, 
+			case when sum(a.sxfAmountSum) is null then 0 else sum(a.sxfAmountSum) end as sxfAmountSum
+		from bf_bip_report_month_kpi_company a 
+		<where>
+			<if test="storeId != null and storeId != ''">
+				and a.storeId = #{storeId}
+			</if>
+			<if test="time != null and time != ''">
+				and DATE_FORMAT(a.recordTime, '%Y-%m') = #{time}
+			</if>
+			<if test="type != null and type != ''">
+				and a.type = #{type}
+			</if>
+			<if test="insuranceCompName != null and insuranceCompName != ''">
+				and a.insuranceCompName = #{insuranceCompName}
+			</if>
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,13 @@
+<div class="bsp-bars" ng-repeat="list in $ctrl.transmit.achieve" ng-click="$ctrl.stateChange(list)">
+  <div class="bsp-bars-title" ng-bind="list.title"></div>
+  <div class="bsp-bar">
+    <div class="bsp-bar-inner" ng-style="{width:list.percentage}"></div>
+    <div class="bsp-bar-numer" ng-style="{left:list.percentage}" ng-bind="list.count"></div>
+  </div>
+  <div style="float:right;margin-right:10px;" class="light-grey-color icon ion-ios-arrow-right"></div>
+</div>
+<div style="clear:both"></div>
+
+<div ng-if="$ctrl.listIsEmpty" style="text-align:center;margin-top:20px;">
+  无数据
+</div>

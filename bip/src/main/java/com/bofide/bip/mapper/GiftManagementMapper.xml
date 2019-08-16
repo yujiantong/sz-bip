@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.GiftManagementMapper" >
+	<resultMap id="BaseResultMap" type="com.bofide.bip.po.GiftManagement" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="storeId" property="storeId" jdbcType="INTEGER" />
+		<result column="giftCode" property="giftCode" jdbcType="VARCHAR" />
+		<result column="giftName" property="giftName" jdbcType="VARCHAR" />
+		<result column="giftModel" property="giftModel" jdbcType="VARCHAR" />
+		<result column="giftType" property="giftType" jdbcType="INTEGER" />
+		<result column="guidePrice" property="guidePrice" jdbcType="DOUBLE" />
+		<result column="salePrice" property="salePrice" jdbcType="DOUBLE" />
+		<result column="actualPrice" property="actualPrice" jdbcType="DOUBLE" />
+		<result column="packageGuidePrice" property="packageGuidePrice" jdbcType="DOUBLE" />
+		<result column="packageSalePrice" property="packageSalePrice" jdbcType="DOUBLE" />
+		<result column="packageActualPrice" property="packageActualPrice" jdbcType="DOUBLE" />
+		<result column="validLength" property="validLength" jdbcType="INTEGER" />
+		<result column="effectiveTime" property="effectiveTime" jdbcType="DATE" />
+		<result column="failureTime" property="failureTime" jdbcType="DATE" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="createTime" property="createTime" jdbcType="DATE" />
+		<result column="updateTime" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="quota" property="quota" jdbcType="INTEGER" />
+	</resultMap>
+	<!-- 添加赠品表信息 -->
+	<insert id="insertGiftManagement" parameterType="com.bofide.bip.po.GiftManagement"  useGeneratedKeys="true" keyProperty="id">
+		insert into bf_bip_gift_management (
+			storeId,giftCode,giftName,giftModel,giftType,guidePrice,salePrice,actualPrice,
+			packageGuidePrice,packageSalePrice,packageActualPrice,validLength,effectiveTime,
+			failureTime,status,remark,createTime,updateTime,quota
+		)values(
+			#{storeId},#{giftCode},#{giftName},#{giftModel},#{giftType},#{guidePrice},#{salePrice},#{actualPrice},
+			#{packageGuidePrice},#{packageSalePrice},#{packageActualPrice},#{validLength},#{effectiveTime},
+			#{failureTime},#{status},#{remark},now(),#{updateTime},#{quota}
+		)
+	</insert>
+	
+	<!-- 根据不同条件查询赠品 -->
+	<select id="findGiftByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_gift_management a
+		<where>
+			a.storeId =  #{storeId}
+			<if test="giftCode != null and giftCode != ''">
+				AND a.giftCode LIKE '%${giftCode}%'
+			</if>
+			<if test="giftName != null and giftName != ''">
+				AND a.giftName LIKE '%${giftName}%'
+			</if>
+			<if test="giftType != null and giftType != ''">
+				AND a.giftType = #{giftType}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+		</where>
+	</select>
+	<!-- 根据赠品编码查询赠品 -->
+	<select id="findGiftByCode" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_gift_management a
+		WHERE
+			a.storeId = #{storeId} and a.giftCode = #{giftCode}
+	</select>
+	<!-- 修改赠品 -->
+	<update id="updateGiftByCode" parameterType="java.util.Map" >
+		update bf_bip_gift_management
+		<set>
+			<if test="giftName != null" >giftName = #{giftName},</if>
+			<if test="giftModel != null" >giftModel = #{giftModel},</if>
+			<if test="guidePrice != null" >guidePrice = #{guidePrice},</if>
+			<if test="salePrice != null" >salePrice = #{salePrice},</if>
+			<if test="actualPrice != null" >actualPrice = #{actualPrice},</if>
+			<if test="packageGuidePrice != null" >packageGuidePrice = #{packageGuidePrice},</if>
+			<if test="packageSalePrice != null" >packageSalePrice = #{packageSalePrice},</if>
+			<if test="packageActualPrice != null" >packageActualPrice = #{packageActualPrice},</if>
+			<if test="validLength != null" >validLength = #{validLength},</if>
+			<if test="effectiveTime != null" >effectiveTime = #{effectiveTime},</if>
+			<if test="failureTime != null" >failureTime = #{failureTime},</if>
+			<if test="status != null" >status = #{status},</if>
+			<if test="remark != null" >remark = #{remark},</if>
+			<if test="quota != null" >quota = #{quota},</if>
+		</set>
+		where storeId = #{storeId} and giftCode = #{giftCode}
+	</update>
+	
+	<!-- 修改赠品 -->
+	<update id="updateGiftById" parameterType="java.util.Map" >
+		update bf_bip_gift_management
+		<set>
+			<if test="giftCode != null" >giftCode = #{giftCode},</if>
+			<if test="giftName != null" >giftName = #{giftName},</if>
+			<if test="giftModel != null" >giftModel = #{giftModel},</if>
+			<if test="guidePrice != null" >guidePrice = #{guidePrice},</if>
+			<if test="salePrice != null" >salePrice = #{salePrice},</if>
+			<if test="actualPrice != null" >actualPrice = #{actualPrice},</if>
+			<if test="packageGuidePrice != null" >packageGuidePrice = #{packageGuidePrice},</if>
+			<if test="packageSalePrice != null" >packageSalePrice = #{packageSalePrice},</if>
+			<if test="packageActualPrice != null" >packageActualPrice = #{packageActualPrice},</if>
+			<if test="validLength != null" >validLength = #{validLength},</if>
+			<if test="effectiveTime != null" >effectiveTime = #{effectiveTime},</if>
+			<if test="failureTime != null" >failureTime = #{failureTime},</if>
+			<if test="status != null" >status = #{status},</if>
+			<if test="remark != null" >remark = #{remark},</if>
+			<if test="quota != null" >quota = #{quota},</if>
+		</set>
+		where storeId = #{storeId} and id = #{id}
+	</update>
+	
+	<!-- 根据赠品编码或者名称自动联想查询赠品 -->
+	<select id="findGiftByCodeOrName" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_gift_management a
+		WHERE
+			a.storeId = #{storeId} 
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="giftType != null and giftType != ''">
+				AND a.giftType = #{giftType}
+			</if>
+			<if test="searchCondition != null and searchCondition != ''">
+				and (a.giftCode LIKE '%${searchCondition}%' or a.giftName LIKE '%${searchCondition}%')
+			</if>
+			<if test="currentTime != null and currentTime != ''">
+				<![CDATA[and a.effectiveTime <= #{currentTime,jdbcType=DATE} and a.failureTime >= #{currentTime,jdbcType=DATE} ]]> 
+			</if>
+	</select>
+</mapper>

@@ -1,0 +1,131 @@
+<div class="scmContentTitle">
+        <ul id="myTab" class="cartype nav nav-tabs" style="border-bottom: none;">
+            <!--<li class="active" href="#xinbao" data-toggle="tab"  ng-click="getSingleByCovertype(4)">
+                间转续
+            </li>-->
+            <li class="active" href="#xinbao" ng-click="getSingleByCovertype(5)" data-toggle="tab">
+                潜转续
+            </li>
+            <li  href="#chaxun"  ng-click="rightTitleTimeToolHide()" data-toggle="tab">
+                保单查询
+            </li>
+        </ul>
+        <div id="scmTitleTool" class="scmTitleTools">
+            <div id="starttime_main" class="control-group">
+                <label class="control-label">投保开始时间：</label>
+                <input type="text" style="width: 100px;" ng-change="getSingleByCovertypeTime()"  ng-blur="ResetData()" ng-model="startTime" value="{{startTime}}" class="starttime">
+            </div>
+            <div id="endtime_main" class="control-group">
+                <label class="control-label">投保结束时间：</label>
+                <input type="text" style="width: 100px;" ng-change="getSingleByCovertypeTime()"  ng-blur="ResetData()" ng-model="endTime" value="{{endTime}}" class="endtime">
+            </div>
+            <div class="control-checkbox">
+                <label class="control-label">全部：</label>
+                <input type="checkbox" ng-init="getShowAll()"  ng-click="getShowAll()" ng-model="showAll">
+            </div>
+        </div>
+    </div>
+    <div id="myTabContent" class="tab-content" style="padding: 10px 14px;">
+        <div class="tab-pane fade in active" id="xinbao" style="height:97%;padding-bottom: 3%;">
+            <div ui-grid="policyAllPage" ng-style="gridbox" class="gridbox" ui-grid-pinning  ui-grid-resize-columns ui-grid-selection ui-grid-infinite-scroll>
+            </div>
+            <div class="gridbox-footer" ng-if="loadStatus==0" ng-click="searchMore()">加载更多(<span>{{policyCount}}</span>)</div>
+            <div class="gridbox-footernone"  ng-if="loadStatus==1" >正在加载中...</div>
+            <div class="gridbox-footernone" ng-if="loadStatus==2" >全部加载完成(<span>{{policyCount}}</span>)</div>
+        </div>
+        <div class="tab-pane fade" id="chaxun" style="height:97%;padding-bottom: 3%;">
+            <div id="searchDiv" style="height: 100%">
+                <div id="searchDivTr">
+                    <label>店名：</label>
+                    <input type="text" ng-model="user.store.storeName" disabled>
+                    <label>品牌：</label>
+                    <select required="" ng-model="search.carBrand" style="width: 100px"
+                            ng-options="carBrand as carBrand.brandName for (key,carBrand) in carBrands"
+                            ng-change="searchVehicleModel()">
+                        <option value="">请选择品牌</option>
+                    </select>
+                    <label>车型:</label>
+                    <select id="clxhxz_search" ng-model="search.vehicleModel" style="width: 100px"
+                            ng-options="vehicleModel as vehicleModel.modelName for (key,vehicleModel) in search.carBrand.carModelList">
+                        <option value="">请选择型号</option>
+                    </select>
+                    <input type="text" style="width: 100px" id="clxhsr_search" ng-model="search.vehicleModelInput" >
+                    <span style="display: inline-block"><label>被保险人：</label><input ng-model="search.insured"  style="width: 65px;"></span>
+                    <span style="display: inline-block"><label>联系人：</label><input ng-model="search.contact"  style="width: 65px;"></span>
+                    <span style="display: inline-block"><label>联系电话：</label><input ng-model="search.contactWay"  style="width: 85px;"></span>
+                    <span style="display: inline-block"><label>保险公司:</label>
+                    <select required="" ng-model="search.insuranceCompName" style="height: 20px;margin: 5px;margin-left: 2px"
+                            ng-options="vlaue.insuranceCompName as vlaue.insuranceCompName for (key,vlaue) in insuranceCompNames">
+                        <option value="">请选择</option>
+                    </select></span>
+                    <span style="display: inline-block"><label>车牌号：</label><input  ng-model="search.carLicenseNumber" style="width: 65px;"></span>
+                    <span style="display: inline-block"><label>车架号：</label><input  ng-model="search.chassisNumber" style="width: 150px;"></span>
+                   <span style="display: inline-block" class="multiselectBtn">
+                        <label>投保类型:</label>
+                        <select id="example-getting-started" ng-model="search.coverType" multiple="multiple">
+                            <option value="1">新保</option>
+                            <option value="2">新转续</option>
+                            <option value="3">续转续</option>
+                            <option value="4">间转续</option>
+                            <option value="5">潜转续</option>
+                            <option value="6">首次</option>
+                        </select>
+                    </span>
+                    <span style="display: inline-block"><label>本店承保次数：</label><input type="number" min="0" ng-model="search.insurNumber"  style="width: 65px;">
+                    <label>负责人:</label>
+                    <select required="" ng-model="search.principal"
+                            ng-options="vlaue.id as vlaue.userName for (key,vlaue) in kingdsUser.principal">
+                        <option value="">请选择</option>
+                    </select></span>
+                    <span style="display: inline-block"><label>出单员:</label>
+                    <select required="" ng-model="search.insuranceWriter"
+                            ng-options="vlaue.id as vlaue.userName for (key,vlaue) in kingdsUser.outBillMan">
+                        <option value="">请选择</option>
+                    </select></span>
+                    <span class="ml5"><label>无潜客保单：</label><input type="checkbox" style="vertical-align: middle;margin-top: -2px;" ng-true-value="1" ng-false-value="0" ng-model="search.notExistCustomer"></span>
+                    <button class="ml10" type="button" id="morebtn">更多</button>
+                    <button id="submitBtn" type="button" ng-click="singleSearch()">查询</button>
+                    <button id="emptyBtn" type="button" ng-click="cleanForm()">清空</button>
+                </div>
+                <div id="searchDivTr2" style="display: none;">
+                    <span style="width: 260px;display: inline-block;">
+                        <label>投保日期：</label>
+                        <input type="text" style="width:80px;" ng-model="search.cbrqStart"  class="starttime">-
+                        <input type="text" style="width:80px;" ng-model="search.cbrqEnd" class="endtime">
+                    </span>
+                    <span style="width: 275px;display: inline-block;">
+                        <label>交强险日期：</label>
+                        <input type="text" style="width:80px;" ng-model="search.jqxrqStart"  class="starttime">-
+                        <input type="text" style="width:80px;"  ng-model="search.jqxrqEnd" class="endtime">
+                    </span>
+                    <span style="width: 275px;display: inline-block;">
+                        <label>商业险日期：</label>
+                        <input type="text" style="width:80px;" ng-model="search.syxrqStart"  class="starttime">-
+                        <input type="text" style="width:80px;" ng-model="search.syxrqEnd" class="endtime">
+                    </span>
+                    <span style="width: 275px;display: inline-block;">
+                        <label>商业险金额：</label>
+                        <input type="number" min="0" step="0.01" style="width:80px;" ng-model="search.syxjeStart">-
+                        <input type="number" min="0" step="0.01" style="width:80px;"  ng-model="search.syxjeEnd">
+                    </span>
+                    <span style="display: inline-block;"><label>保单号查询：</label><input ng-model="search.cinsuranceNumber" style="width: 85px;"></span>
+                    <span style="display: inline-block;">
+                        <label>被保险人证件号：</label>
+                        <input type="text" style="width:150px;" ng-model="search.certificateNumber">
+                    </span>
+                </div>
+                <div>
+                    <div ui-grid="policyAllSearchPage" ng-style="gridSearchbox" class="gridbox gridSearchbox"  ui-grid-selection ui-grid-pinning  ui-grid-resize-columns
+                         ui-grid-infinite-scroll ui-grid-auto-resize></div>
+                    <div class="gridbox-footer" ng-if="loadStatus2==0" ng-click="searchMore2()">加载更多(<span>{{policySearchCount}}</span>)</div>
+                    <div class="gridbox-footernone"  ng-if="loadStatus2==1" >正在加载中...</div>
+                    <div class="gridbox-footernone" ng-if="loadStatus2==2" >全部加载完成(<span>{{policySearchCount}}</span>)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<div ng-include="'./views/serviceAdvisor/trackPolicySA.html'"></div>
+<div ng-include="'./views/serviceAdvisor/policyInfoSA.html'"></div>
+

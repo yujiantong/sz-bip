@@ -1,0 +1,22 @@
+<div id="previewSMS" class="scmMaskWindow">
+    <div class="scmWindow" style="width: 320px;height: 568px; margin-left: -160px; margin-top: -284px;">
+        <div class="scmWindowTitle">
+            <span class="closeBtn closeSms glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="smsboxbgpc">
+            <div class="smstoppc">
+                <div class="smstitlepc">活动详情：</div>
+                <textarea rows="3" cols="30" class="smsdetails"  maxlength="500" readonly>{{preview.details}}</textarea>
+            </div>
+            <div class="smsbottompc">
+                <button class="contactBtnpc">感兴趣，联系我</button>
+                <p class="text-center mt20">{{storeName}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(".closeBtn").click(function(){
+        $("#previewSMS").hide();
+    });
+</script>

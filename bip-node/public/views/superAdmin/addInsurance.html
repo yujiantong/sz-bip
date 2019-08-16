@@ -1,0 +1,77 @@
+<div id="addInsurancebox" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 250px; width: 400px; margin-left: -200px; margin-top: -125px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                新加险种
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget">
+            <div>
+                <p style="margin-left: 36px;">险种：<input style="width: 286px;" type="text" ng-model="addInsurance.typeName"></p>
+                <p>
+                <ul>是否有保额：
+                    <li id="status0" style="margin-left: 2px;" class="insuStatus cursor ng-scope" ng-click="xuanze(0)">否</li><!--
+                 --><li id="status1" class="insuStatus cursor ng-scope" ng-click="xuanze(1)">是</li>
+                </ul>
+                </p>
+                <p style="margin-top: 15px;margin-left: 36px;">备注：<textarea rows="3" cols="20" class="suad_textarea"  ng-model="addInsurance.remark" maxlength="500"></textarea></p>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="fr" ng-click="addInsuSubmit()" type="button" value="确认">
+        </div>
+    </div>
+</div>
+<div id="updateInsurancebox" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 250px; width: 400px; margin-left: -200px; margin-top: -125px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                编辑险种
+            </i>
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget">
+            <div>
+                <p style="margin-left: 36px;">险种：<input style="width: 286px;" type="text" ng-model="updateInsurance.typeName"></p>
+                <p>
+                <ul>是否有保额：
+                    <li id="status2" style="margin-left: 2px;" class="insuStatus cursor ng-scope" ng-click="xuanze(2)">否</li><!--
+                 --><li id="status3" class="insuStatus cursor ng-scope" ng-click="xuanze(3)">是</li>
+                </ul>
+                </p>
+                <p style="margin-top: 15px;margin-left: 36px;">备注：<textarea rows="3" cols="20" class="suad_textarea"  ng-model="updateInsurance.remark" maxlength="500"></textarea></p>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="fr" ng-click="updateInsuSubmit()" type="button" value="确认">
+            <input class="fr closeBtn" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="pause" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 150px; width: 250px; margin-left: -125px; margin-top: -70px;">
+        <div class="scmWindowTitle">
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget tiptxt">
+            {{insuStatusName}}
+        </div>
+        <div class="scmWindowButton">
+            <input ng-click="makeSure()" type="button" value="确认">
+            <input class="fr closeBtn" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#addInsurancebox").hide();
+        $("#updateInsurancebox").hide();
+        $("#pause").hide();
+    });
+</script>

@@ -1,0 +1,56 @@
+<div id="exportGzjl" xmlns:x="http://www.w3.org/1999/xhtml">
+    <table id="targetTable" border="1">
+        <thead>
+        <!--<tr><th  colspan="10">北京博福易商科技有限公司</th></tr>-->
+        <tr align="center">
+            <th>序号</th>
+            <th>车架号</th>
+            <th>车牌号</th>
+            <th>车主</th>
+            <th>联系人</th>
+            <th>联系方式</th>
+            <th>跟踪时间</th>
+            <th>跟踪记录</th>
+            <th>投保类型</th>
+            <th>车型</th>
+            <th>是否报价</th>
+            <th>报价金额</th>
+            <th>商业险报价</th>
+            <th>交强险报价</th>
+            <th>车船税报价</th>
+            <th>预计到店日期</th>
+            <th>进店</th>
+            <th>级别</th>
+            <th>是否接通</th>
+            <th>保险到期日</th>
+            <th>下次跟踪时间</th>
+            <th>持有天数</th>
+            <th>负责人</th>
+        </tr> </thead><tbody>
+        <tr align="center" ng-repeat="exportCusGzjl in exportGzjlDataTemp track by $index">
+            <td>{{$index+1}}</td>
+            <td x:str="'{{exportCusGzjl.chassisNumber}}">{{exportCusGzjl.chassisNumber}}</td>
+            <td>{{exportCusGzjl.carLicenseNumber}}</td>
+            <td>{{exportCusGzjl.carOwner}}</td>
+            <td>{{exportCusGzjl.lxr}}</td>
+            <td x:str="'{{exportCusGzjl.lxfs|mapLXFS}}">{{exportCusGzjl.lxfs|mapLXFS}}</td>
+            <td>{{exportCusGzjl.currentTraceDate|date:'yyyy-MM-dd HH:mm'}}</td>
+            <td>{{exportCusGzjl.traceContext}}</td>
+            <td>{{exportCusGzjl.renewalType}}</td>
+            <td>{{exportCusGzjl.cx}}</td>
+            <td>{{exportCusGzjl.quote|mapSF}}</td>
+            <td>{{exportCusGzjl.quotedPrice}}</td>
+            <td>{{exportCusGzjl.syxbj}}</td>
+            <td>{{exportCusGzjl.jqxbj}}</td>
+            <td>{{exportCusGzjl.ccsbj}}</td>
+            <td>{{exportCusGzjl.inviteDate|date:'yyyy-MM-dd'}}</td>
+            <td>{{exportCusGzjl.comeStore|mapSF}}</td>
+            <td>{{exportCusGzjl.customerLevel}}</td>
+            <td>{{exportCusGzjl.sfjt|mapSF}}</td>
+            <td>{{exportCusGzjl.bxdqr|date:'yyyy-MM-dd'}}</td>
+            <td>{{exportCusGzjl.newNextTraceDate|date:'yyyy-MM-dd'}}</td>
+            <td>{{exportCusGzjl.cyts}}</td>
+            <td>{{exportCusGzjl.principal}}</td>
+        </tr></tbody>
+    </table>
+</div>

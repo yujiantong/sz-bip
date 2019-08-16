@@ -1,0 +1,74 @@
+<div id="trackCust" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 280px; width: 600px; margin-left: -250px; margin-top: -125px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                跟踪信息
+            </i>
+            <span class="trackcloseBtn glyphicon glyphicon-remove" ng-click="closeChangeBtn()"></span>
+        </div>
+        <div class="scmWindowContent ui-widget" style="height:200px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <span ng-if="lockLevel==0"><label>潜客级别</label>
+                    <select class="gzMsg"  ng-click="custLevelCheck()" ng-model="newTrace.customerLevel" ng-options="x for x in customerLevels">
+                    </select>
+                </span>
+                <span ng-if="lockLevel==1"><label>潜客级别</label><input type="text" ng-value="newTrace.customerLevel" readonly></span>
+                <span ng-if="lockLevel==2"><label>潜客级别</label>
+                     <select class="gzMsg"  ng-if="thisRowData.remainLostInsurDay>60" ng-click="custLevelCheck()" ng-model="newTrace.customerLevel" ng-options="x for x in customerLevels">
+                     </select>
+                     <select class="gzMsg"  ng-if="thisRowData.remainLostInsurDay<=60 && thisRowData.remainLostInsurDay>30" ng-click="custLevelCheck()"  ng-model="newTrace.customerLevel" ng-options="x for x in customerLevelsB">
+                         <option ng-if="newTrace.customerLevel == 'D'" value="">{{newTrace.customerLevel}}</option>
+                     </select>
+                     <select class="gzMsg"  ng-if="thisRowData.remainLostInsurDay<=30 && thisRowData.remainLostInsurDay>7" ng-click="custLevelCheck()"  ng-model="newTrace.customerLevel" ng-options="x for x in customerLevelsC">
+                         <option ng-if="newTrace.customerLevel == 'C'|| newTrace.customerLevel == 'D'" value="">{{newTrace.customerLevel}}</option>
+                     </select>
+                     <select class="gzMsg"  ng-if="thisRowData.remainLostInsurDay<=7" ng-model="newTrace.customerLevel" ng-click="custLevelCheck()" ng-options="x for x in customerLevelsD">
+                         <option ng-if="newTrace.customerLevel != 'A'" value="">{{newTrace.customerLevel}}</option>
+                     </select>
+                </span><br/>
+                <span><label>下次跟踪日期</label>
+                    <input class="coverDate" id="nextTraceDate" type="text" ng-model="newTrace.nextTraceDate" readonly></span><br/>
+                <span><label>是否接通</label>
+                    <select class="gzMsg"  ng-model="newTrace.sfjt" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span>
+                    <label>是否高意向</label>
+                    <select ng-model="newTrace.sfgyx" ng-options="vlaue.id as vlaue.vlaue for (key,vlaue) in sf">
+                        <option value="">请选择</option>
+                    </select>
+                </span>
+                <span style="width: 506px;">
+                        <label class="fl">跟踪内容<em class="emphasis">*</em></label>
+                        <textarea class="gzMsg"  rows="3" cols="30" style="width: 405px;height: 50px;margin-left: 6px;" ng-model="newTrace.traceContext"  maxlength="150"></textarea>
+                </span>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="surebtn" ng-click="addNewTrace(1)" type="button" value="确认">
+            <input ng-click="addNewTrace(2)" ng-show="pageType=='gz'||pageType=='qkcx'||
+                (pageType=='grxx' && clickFlag==1)|| (pageType=='tb' && pageStatus==1)"
+                ng-disabled="acceptStatu==1" type="button" value="跟踪完成">
+            <input class="surebtn" ng-click="addNewTrace(3)" type="button" value="保存并回退">
+            <input  ng-click="closeChangeBtn()" type="button" value="关闭">
+        </div>
+
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $('.coverDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });
+
+</script>

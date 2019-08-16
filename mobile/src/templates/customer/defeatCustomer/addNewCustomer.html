@@ -1,0 +1,84 @@
+<ion-view>
+  <ion-nav-title>
+    新增潜客
+  </ion-nav-title>
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-ios-arrow-left fcf" ui-sref="defeatDetails({userId:ctrl.userId,userName:ctrl.userName,customerId:ctrl.customerId})"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="bip-item-divider">
+      <div class="title">客户信息</div>
+    </div>
+    <div class="list">
+      <label class="item item-input">
+        <span class="input-label">车牌号：</span>
+        <input type="text" ng-model="ctrl.newqk.carLicenseNumber" maxlength="30">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">车架号：</span>
+        <input type="text" ng-model="ctrl.newqk.chassisNumber" maxlength="30">
+      </label>
+      <div class="bip-item-divider">
+        <div class="title">保险信息</div>
+      </div>
+      <div class="item item-input">
+        <span class="input-label">商业险到期日：</span>
+        <div class="inputDateTime" ion-datetime-picker ng-model="ctrl.newqk.syxrqEnd" title="ctrl.dateTrackOption.title" button-ok="ctrl.dateTrackOption.buttonOk"  button-cancel="ctrl.dateTrackOption.buttonCancel" date="'false'">
+          <span ng-bind="(ctrl.newqk.syxrqEnd | date: 'yyyy-MM-dd') || '请选择'"></span>
+        </div>
+      </div>
+      <div class="item item-input">
+        <span class="input-label">交强险到期日：</span>
+        <div class="inputDateTime" ion-datetime-picker ng-model="ctrl.newqk.jqxrqEnd" title="ctrl.dateTrackOption.title" button-ok="ctrl.dateTrackOption.buttonOk"  button-cancel="ctrl.dateTrackOption.buttonCancel" date="'false'">
+          <span ng-bind="(ctrl.newqk.jqxrqEnd | date: 'yyyy-MM-dd') || '请选择'"></span>
+        </div>
+      </div>
+      <label class="item item-input">
+        <span class="input-label">投保类型：</span>
+        <select ng-model="ctrl.newqk.renewalType">
+          <option value="">请选择</option>
+          <option value="2">新转续</option>
+          <option value="3">续转续</option>
+          <option value="4">间转续</option>
+          <option value="5">潜转续</option>
+          <option value="6">首次</option>
+        </select>
+      </label>
+      <div class="bip-item-divider">
+        <div class="title">客户信息</div>
+      </div>
+      <label class="item item-input">
+        <span class="input-label">被保险人：</span>
+        <input type="text" ng-model="ctrl.newqk.insured"  maxlength="80">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">潜客级别：</span>
+        <select ng-model="ctrl.newqk.customerLevel">
+          <option value="">请选择</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+        </select>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">联系人：</span>
+        <input type="text" ng-model="ctrl.newqk.contact"  maxlength="80">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">联系方式：</span>
+        <input type="text" ng-model="ctrl.newqk.contactWay"  maxlength="60">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">客户描述：</span>
+        <input type="text" ng-model="ctrl.newqk.customerDescription" maxlength="100">
+      </label>
+    </div>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="dark-border">
+    <div class="button-bar">
+      <button class="button button-bip" ng-click="ctrl.cancelCust()">取消</button>
+      <button class="button button-bip" ng-click="ctrl.addNewCustomer()">保存</button>
+    </div>
+  </ion-footer-bar>
+</ion-view>

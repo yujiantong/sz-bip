@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.BspUserMapper" >
+	<resultMap type="com.bofide.bip.po.BspUser" id="BaseResultMap" >
+	    <id column="bsp_userId" property="bspUserId" jdbcType="INTEGER" />
+	    <result column="bsp_userName" property="bspUserName" jdbcType="VARCHAR" />
+	    <result column="bsp_loginName" property="bspLoginName" jdbcType="VARCHAR" />
+	    <result column="bsp_userPosition" property="bspUserPosition" jdbcType="VARCHAR" />
+	    <result column="bsp_storeId" property="bspStoreId" jdbcType="INTEGER" />
+  	</resultMap>
+ 
+  	<select id="findBspUser" parameterType="java.util.Map" resultMap="BaseResultMap">
+		<![CDATA[
+		select * from (SELECT * FROM bf_bip_bspuser
+		WHERE bsp_storeId = #{bspStoreId} group by bsp_userName having count(bsp_userName) <2) as a
+		where bsp_userId not in (select bspUserId from bf_bip_user where bangStatu = 1 
+		and storeId = #{bipStoreId}) 
+		]]>
+	</select>
+	
+	<select id="findNoBindUser" parameterType="java.util.List" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_bspuser
+		WHERE bsp_storeId = #{bspStoreId} and
+			bsp_userId NOT IN
+			 (select bspUserId from bf_bip_user where bangStatu = 1 
+		and storeId = #{storeId})
+	</select>
+	
+	<select id="findBspUserById" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			bf_bip_bspuser
+		<where>
+			<if test="bspUserId != null">
+				and bsp_userId = #{bspUserId}
+			</if>
+			<if test="bspStoreId != null">
+				AND bsp_storeId = #{bspStoreId}
+			</if>
+		</where>
+	</select>
+</mapper>

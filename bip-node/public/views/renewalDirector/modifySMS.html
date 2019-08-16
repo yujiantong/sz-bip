@@ -1,0 +1,59 @@
+<div id="modifySmsbox" class="scmMaskWindow">
+    <div class="scmWindow" style="width: 420px;height: 500px; margin-left: -210px; margin-top: -250px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                编辑短信模板
+            </i>
+            <span class="closeBtn closeSms glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget">
+            <table class="smsTable">
+                <tr>
+                    <td width="90" class="text-right">模板名称：</td>
+                    <td><input type="text" style="width: 270px;" ng-model="modifysms.templateName" maxlength="50"></td>
+                </tr>
+                <tr>
+                    <td class="text-right fr">活动详情：</td>
+                    <td><textarea rows="3" cols="30" style="width: 270px;height: 230px;" maxlength="500" ng-model="modifysms.details"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="text-right">起始时间：</td>
+                    <td><input type="text" class="coverDate" ng-model="modifysms.startTime" style="width: 120px;" readonly></td>
+                </tr>
+                <tr>
+                    <td class="text-right">结束时间：</td>
+                    <td><input type="text" class="coverDate" ng-model="modifysms.endTime" style="width: 120px;" readonly></td>
+                </tr>
+                <tr>
+                    <td class="text-right">状态：</td>
+                    <td>
+                        <label><input type="radio" ng-model="modifysms.enabledState" value="1" name="enabledState">启用</label>
+                        <label class="ml20"><input type="radio" ng-model="modifysms.enabledState" value="0" name="enabledState">禁用</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="scmWindowButton">
+            <input  type="button" ng-click="moditysmsSubmit()" value="确认">
+            <input class="closeSms" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<script>
+    $(".closeSms").click(function(){
+        $("#modifySmsbox").hide();
+    });
+    $('.coverDate').datepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        forceParse:false
+    }).on('changeDate',function(ev){
+        var  startTime = ev.date.valueOf();
+    });
+
+</script>

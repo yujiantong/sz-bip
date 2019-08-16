@@ -1,0 +1,65 @@
+<ion-view view-title="{{ctrl.userName}} 将脱保" ng-init="ctrl.findJTBCustomerCollectionByUserId()" >
+  <ion-nav-buttons side="left">
+    <button ng-if="ctrl.user.role.roleId!=2&&ctrl.user.role.roleId!=6&&ctrl.user.role.roleId!=8" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('willOut')"></button>
+    <button ng-if="ctrl.user.role.roleId==2||ctrl.user.role.roleId==6||ctrl.user.role.roleId==8" class="button button-icon icon ion-ios-arrow-left fcf" ng-click="ctrl.stateChange('xbzyHomePage.xbzyMyHomePage')"></button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <button ng-if="ctrl.user.role.roleId==6||ctrl.user.role.roleId==8" class="fcf button button-icon ion-ios-search-strong" ng-click="fangdajing(3)"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doJTBRefresh()"></ion-refresher>
+    <div class="bip-item-divider">
+      <div>将脱保潜客数：{{ctrl.customerCount}}</div>
+    </div>
+    <div class="list" ng-if="ctrl.user.role.roleId!=7&&ctrl.user.role.roleId!=9">
+      <a class="item item-icon-left item-icon-right" ng-repeat="customer in items" ui-sref="willOutCustomerDetails({userId:ctrl.userId,userName:ctrl.userName,customerId:customer.customerId,delayDate:customer.delayDate,gzcxdata:ctrl.gzcxdata})">
+        <i ng-show="customer.sfgyx == 1"class="icon ion-star fcgreen"></i>
+        <p>
+          <span class="fcgreen contactName">{{customer.contact}}</span>
+          <span class="ml10 fs12">车架号：{{customer.chassisNumber|limitTo:-6}}</span>
+          <span ng-if="ctrl.user.role.roleId==2||ctrl.user.role.roleId==6||ctrl.user.role.roleId==8" class="gzTimes">已跟踪{{customer.gzCount}}次</span>
+        </p>
+        <p>
+          <span ng-if="ctrl.user.role.roleId!=2&&ctrl.user.role.roleId!=6&&ctrl.user.role.roleId!=8" class="licenseSpan fs12">{{customer.carLicenseNumber}}</span>
+          <span ng-if="ctrl.user.role.roleId==2||ctrl.user.role.roleId==6||ctrl.user.role.roleId==8" class="fs12">{{customer.contactWay}}</span>
+          <span class="ml10 fs12">保险到期日:{{customer.insuranceEndDate | date:'yy/MM/dd'}}</span>
+          <span ng-if="ctrl.user.role.roleId==2||ctrl.user.role.roleId==6||ctrl.user.role.roleId==8" class="fs12 fr">{{customer.customerLevel}}</span>
+        </p>
+        <span ng-if="ctrl.user.role.roleId!=2&&ctrl.user.role.roleId!=6&&ctrl.user.role.roleId!=8" class="badge bip-customerLv">{{customer.customerLevel}}</span>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </a>
+    </div>
+    <div class="item bip-checkboc" ng-if="ctrl.user.role.roleId==7||ctrl.user.role.roleId==9" style="padding: 16px 16px 16px 55px;border: none;">
+      <label class="checkbox">
+        <input type="checkbox" ng-model="ctrl.checkAll.checked" ng-change="ctrl.checkAllChange()">
+      </label>
+      全选
+    </div>
+    <div class="list" ng-if="ctrl.user.role.roleId==7||ctrl.user.role.roleId==9">
+      <div class="item bip-checkboc" style="padding-right: 10px;"  ng-repeat="customer in items">
+        <label class="checkbox"><input type="checkbox" ng-model="customer.checked" ng-checked="customer.checked"></label>
+        <a class="item item-icon-left item-icon-right" style="border: none;padding-right:20px;" ui-sref="willOutCustomerDetails({userId:ctrl.userId,userName:ctrl.userName,customerId:customer.customerId,delayDate:customer.delayDate,gzcxdata:ctrl.gzcxdata})">
+          <i class="icon ion-star fcgreen" style="left: 0px;" ng-show="customer.sfgyx == 1"></i>
+          <p>
+            <span class="fcgreen contactName">{{customer.contact}}</span>
+            <span class="ml10 fs12">车架号：{{customer.chassisNumber|limitTo:-6}}</span>
+            <span class="gzTimes">已跟踪{{customer.gzCount}}次</span>
+          </p>
+          <p>
+            <span class="fs12">{{customer.contactWay}}</span>
+            <span class="ml10 fs12">保险到期日:{{customer.insuranceEndDate | date:'yy/MM/dd'}}</span>
+            <span class="fs12 fr">{{customer.customerLevel}}</span>
+          </p>
+          <i class="icon ion-chevron-right icon-accessory" style="right: -8px;"></i>
+        </a>
+      </div>
+    </div>
+    <ion-infinite-scroll immediate-check="false" ng-if="!hasmore" on-infinite="ctrl.findJTBCustomerCollectionByUserId()" distance="1%">
+    </ion-infinite-scroll>
+  </ion-content>
+  <ion-footer-bar ng-show="(ctrl.user.role.roleId==7||ctrl.user.role.roleId==9)" align-title="center" class="dark-border">
+    <div class="button-bar">
+      <button class="button button-bip" ng-click="ctrl.changePriBox(4)">批量换人</button>
+    </div>
+  </ion-footer-bar>
+</ion-view>

@@ -1,0 +1,38 @@
+<div id="enabledSMS" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 150px; width: 250px; margin-left: -125px; margin-top: -70px;">
+        <div class="scmWindowTitle">
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget text-center fs14" ng-if="enabledState==1">
+            是否确认禁用该模板？
+        </div>
+        <div class="scmWindowContent ui-widget text-center fs14" ng-if="enabledState==0">
+            是否确认启用该模板？
+        </div>
+        <div class="scmWindowButton">
+            <input ng-click="makesureUpdateSMS()" type="button" value="确认">
+            <input class="fr closeBtn" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<div id="deleteSMS" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 150px; width: 250px; margin-left: -125px; margin-top: -70px;">
+        <div class="scmWindowTitle">
+            <span class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget text-center fs14">
+            是否确认删除该模板？
+        </div>
+        <div class="scmWindowButton">
+            <input ng-click="makesureDeleteSMS()" type="button" value="确认">
+            <input class="fr closeBtn" type="button" value="取消">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#enabledSMS").hide();
+        $("#deleteSMS").hide();
+    });
+</script>

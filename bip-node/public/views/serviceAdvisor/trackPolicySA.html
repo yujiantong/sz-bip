@@ -1,0 +1,26 @@
+<div id="genzjilu" class="scmMaskWindow">
+    <div class="scmWindow" style="height: 530px; width: 960px; margin-left: -480px; margin-top: -280px;">
+        <div class="scmWindowTitle">
+            <div class="scmWindowIcon">
+            </div>
+            <i>
+                保单跟踪记录
+            </i>
+            <span ng-click="cleanRecord()" class="closeBtn glyphicon glyphicon-remove"></span>
+        </div>
+        <div class="scmWindowContent ui-widget" style="height:500px;overflow-x:hidden;overflow-y: auto; outline: 0px; position: relative;">
+            <div class="carmsg">
+                <div ui-grid="recodeListPage" style="width: 900px;height: 400px;"  ui-grid-pinning  ui-grid-resize-columns ui-grid-selection></div>
+            </div>
+        </div>
+        <div class="scmWindowButton">
+            <input class="closeBtn" ng-click="cleanRecord()" type="button" value="关闭">
+        </div>
+    </div>
+</div>
+<script>
+    //关闭弹框
+    $(".closeBtn").click(function(){
+        $("#genzjilu").hide();
+    });
+</script>

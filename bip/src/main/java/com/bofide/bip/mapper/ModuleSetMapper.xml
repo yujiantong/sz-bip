@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bofide.bip.mapper.ModuleSetMapper" >
+ <resultMap type="com.bofide.bip.po.ModuleSet" id="ModuleSetMap">
+  <id column="moduleSetId" property="moduleSetId" jdbcType="INTEGER" />
+    <result column="fourSStoreId" property="fourSStoreId" jdbcType="INTEGER" />
+    <result column="moduleName" property="moduleName" jdbcType="VARCHAR" />
+    <result column="switchOn" property="switchOn" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.bofide.bip.po.ModuleSet" >
+    insert into bf_bip_module_setting 
+    	(fourSStoreId, moduleName, switchOn)
+    values 
+    	(#{fourSStoreId,jdbcType=INTEGER}, #{moduleName,jdbcType=VARCHAR}, #{switchOn,jdbcType=INTEGER})
+  </insert>
+  <!-- “update”为壁虎自动更新保险信息的，现在不需要 -->
+  <select id="selectByFoursStoreId" resultMap="ModuleSetMap" parameterType="java.lang.Integer" >
+    select 
+    	*
+	from 
+  		bf_bip_module_setting
+	where
+  		fourSStoreId = #{fourSStoreId,jdbcType=INTEGER}
+  	and moduleName !='update'	
+  	order by field(moduleName,"finance","sale","afterSale","csModule","asmModule","updateSMS","responsible_person"); 
+  </select>
+  
+  <update id="updateByFoursIdAndMoName" parameterType="com.bofide.bip.po.ModuleSet" >
+    update bf_bip_module_setting
+   	 set
+        switchOn = #{switchOn,jdbcType=INTEGER}
+    where fourSStoreId = #{fourSStoreId,jdbcType=INTEGER}
+    and moduleName = #{moduleName,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="findOpenModuleSet" resultMap="ModuleSetMap">
+  	 select 
+    	*
+	from 
+  		bf_bip_module_setting
+	where
+  		fourSStoreId = #{fourSStoreId,jdbcType=INTEGER} and switchOn = 1
+  </select>
+  
+  <select id="selectByCondition" resultMap="ModuleSetMap" parameterType="java.util.HashMap" >
+    select 
+    	*
+	from 
+  		bf_bip_module_setting
+	<where>
+		<if test="storeId!=null">
+			and fourSStoreId = #{storeId}
+		</if>
+		<if test="moduleName!=null and moduleName!=''">
+			and moduleName = #{moduleName}
+		</if>
+		<if test="switchOn!=null">
+			and switchOn = #{switchOn}
+		</if>
+	</where>
+  </select>
+</mapper>
